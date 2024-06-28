@@ -2,6 +2,9 @@
 import "../css/fonts.css"
 import "../css/main.css"
 import "../css/colors.css"
+import Nav from "../components/Nav.astro"
+import Header from "../components/Header.astro"
+import Skills from "../components/Skills.astro"
 ---
 
 <html lang="en">
@@ -13,8 +16,16 @@ import "../css/colors.css"
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<Header/>
+		<Nav></Nav>
+		<Skills/>
+		
 	</body>
 
 </html>
 
+<style>
+	body{
+		
+	}
+</style>

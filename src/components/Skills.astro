@@ -1,0 +1,98 @@
+<div class="card">
+  <div class="header">My Skills</div>
+  <div class="body">
+    <div class="skill">
+      <div class="skill-name html">HTML</div>
+      <div class="skill-level">
+        <div style="width: 90%" class="skill-percent"></div>
+      </div>
+      <div class="skill-percent-number">80%</div>
+    </div>
+    <div class="skill">
+      <div class="skill-name css">CSS</div>
+      <div class="skill-level">
+        <div style="width: 70%" class="skill-percent"></div>
+      </div>
+      <div class="skill-percent-number">70%</div>
+    </div>
+    <div class="skill">
+      <div class="skill-name js">JavaScript</div>
+      <div class="skill-level">
+        <div style="width: 75%" class="skill-percent"></div>
+      </div>
+      <div class="skill-percent-number">10%</div>
+    </div>
+    <div class="skill">
+      <div class="skill-name astro">Astro</div>
+      <div class="skill-level">
+        <div style="width: 20%" class="skill-percent"></div>
+      </div>
+      <div class="skill-percent-number">20%</div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .card {
+    width: 30vw;
+    background-color: #fff;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.384);
+    border-radius: 10px;
+    overflow: hidden;
+    
+  }
+
+  .header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+  }
+
+  .body {
+    padding: 20px;
+  }
+
+  .skill {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .skill-name {
+    width: 120px;
+    font-size: 16px;
+  }
+
+  .html:hover {
+    color: blue;
+  }
+
+  .css:hover {
+    color: purple;
+  }
+
+  .js:hover {
+    color: red;
+  }
+
+  .skill-level {
+    width: 160px;
+    height: 10px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: 20px;
+  }
+
+  .skill-percent {
+    background-color: #333;
+    height: 100%;
+  }
+
+  .skill-percent-number {
+    margin-left: 20px;
+    font-size: 16px;
+  }
+</style>
