@@ -5,6 +5,7 @@ import "../css/colors.css"
 import Nav from "../components/Nav.astro"
 import Header from "../components/Header.astro"
 import Skills from "../components/Skills.astro"
+import Wave from "../components/Wave.astro";
 ---
 
 <html lang="en">
@@ -16,16 +17,22 @@ import Skills from "../components/Skills.astro"
 		<title>Astro</title>
 	</head>
 	<body>
+		<Wave></Wave>
 		<Header/>
 		<Nav></Nav>
-		<Skills/>
+		<div class="flexcenter">
+			<Skills/>
+		</div>
+
 		
 	</body>
 
 </html>
 
 <style>
-	body{
-		
+	.flexcenter{
+		display: flex;
+		justify-content: center;
 	}
+
 </style>

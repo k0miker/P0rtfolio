@@ -1,9 +1,9 @@
 ---
-
+import "../css/fonts.css"
 ---
 
 <nav>
-    <div><a href="">Colin Blome</a></div>
+  <div><a href="">Colin Blome</a></div>
   <ul>
     <li></li>
     <li><a href="/">About</a></li>
@@ -26,6 +26,21 @@
     background-color: black;
     color: white;
     li {
+      margin-right: 10px;
+    }
+  }
+  div{
+    font-family: Marker;
+    a{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    a::before {
+        content: "";
+        display: inline-block;
+        height: 45px;
+        width: 45px;
     }
   }
 </style>
