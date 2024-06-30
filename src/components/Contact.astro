@@ -5,12 +5,12 @@ import Button from "./Button.astro";
 
 <section class="flex flex-col items-center content-center h-[80vh]">
   <form action="submit" method="post">
-    <h1 class="font-[marker]">Get in touch</h1>
+    <h1 class="font-[marker] mb-8 text-2xl">Get in touch</h1>
     <div class="input-group">
       <input
         required
         type="text"
-        name="text"
+        name="name"
         autocomplete="off"
         class="input"
       />
@@ -20,14 +20,14 @@ import Button from "./Button.astro";
       <input
         required
         type="email"
-        name="text"
+        name="email"
         autocomplete="off"
         class="input"
       />
       <label class="user-label">E-Mail</label>
     </div>
     <div class="input-group">
-      <textarea required name="text" rows="5" autocomplete="off" class="input"
+      <textarea required name="text" rows="5" autocomplete="off" class="input" 
       ></textarea>
       <label class="user-label">Message</label>
     </div>
@@ -58,7 +58,7 @@ import Button from "./Button.astro";
     margin: 15px;
   }
 
-  .input {
+  .input{
     border: solid 1.5px #9e9e9e;
     border-radius: 1rem;
     background: #2121211a;
@@ -68,10 +68,20 @@ import Button from "./Button.astro";
     color: #21212170;
     transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
   }
-
+  textarea {
+    border: solid 1.5px #9e9e9e;
+    border-radius: 1rem;
+    background: #2121211a;
+    padding: 1rem;
+    padding-left: 2rem;
+    font-size: 1rem;
+    color: #21212170;
+    transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
   .user-label {
     position: absolute;
-    left: 15px;
+    left: 85px;
+    
     color: #21212170;
     pointer-events: none;
     font-family: Marker;
@@ -80,16 +90,20 @@ import Button from "./Button.astro";
   }
 
   .input:focus,
-  input:valid {
+  .input:valid {
     outline: none;
-    border: 2px solid #1a73e8;
+    outline: 2px solid #1a73e8;
   }
 
   .input:focus ~ label,
-  input:valid ~ label {
-    transform: translateY(-85%);
+  .input:valid ~ label {
+    transform: translatey(-110%) translateX(-85px);
+    
     background-color: #21212100;
     padding: 0 0.2em;
     color: #21212170;
+  }
+  .input, textarea:invalid {
+    outline: 2px solid red;
   }
 </style>
