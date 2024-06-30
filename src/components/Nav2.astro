@@ -1,13 +1,29 @@
+---
+
+---
+
 <!-- component -->
+<style>
+  .hover-styling {
+    color: #ffd700 !important;
+    transform: scale(1.2) !important;
+  }
+
+  .scrolled-styling {
+    color: #ffd700;
+    transform: scale(1.2);
+  }
+</style>
 <script
   src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
-  defer></script>
+  defer
+></script>
 <div
   class="w-full fixed z-20 text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800"
 >
   <div
-    x-data="{ open: false }"
     class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8"
+    :class="{'bg-gray-800 text-white': scrolled}"
   >
     <div class="p-4 flex flex-row items-center justify-between">
       <a
@@ -38,15 +54,18 @@
       class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row"
     >
       <a
-        class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+        :class="scrolled ? 'scrolled-styling' : ''"
+        class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] hover:transform hover:scale-105 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
         href="#">Home</a
       >
       <a
-        class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+        :class="scrolled ? 'scrolled-styling' : ''"
+        class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] hover:transform hover:scale-105 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline duration-200"
         href="#about">About</a
       >
       <a
-        class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+        :class="scrolled ? 'scrolled-styling' : ''"
+        class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] hover:transform hover:scale-105 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
         href="#skills">Skills</a
       >
       <div @click.away="open = false" class="relative" x-data="{ open: false }">
@@ -60,11 +79,12 @@
             viewBox="0 0 20 20"
             :class="{'rotate-180': open, 'rotate-0': !open}"
             class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"
-            ><path
+          >
+            <path
               fill-rule="evenodd"
               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path></svg
-          >
+              clip-rule="evenodd"></path>
+          </svg>
         </button>
         <div
           x-show="open"
@@ -99,13 +119,10 @@
         </div>
       </div>
       <a
+        :class="scrolled ? 'scrolled-styling' : ''"
         class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
         href="#contact">Contact</a
       >
     </nav>
   </div>
 </div>
-
-<style>
-  
-</style>

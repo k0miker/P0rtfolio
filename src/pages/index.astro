@@ -46,17 +46,13 @@ import Button from "../components/Button.astro";
 		
 	</div>
 	<div class="button"></div>
-	<a class="text-center flex content-center ml-[auto] mr-[auto]" href="https://myself-p0rtfolio.netlify.app/">Looks Shitty</a>
+	<a class="button" href="https://myself-p0rtfolio.netlify.app/">Looks Shitty</a>
 	<Footer></Footer>
   </body>
 </html>
 
 <style>
-  .flexcenter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+
   .down {
     display: flex;
     justify-content: center;
@@ -86,41 +82,39 @@ import Button from "../components/Button.astro";
   body {
     background-image: url("https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg");
     background-size: cover;
-    -webkit-animation: slidein 30s;
     animation: slidein 30s;
     background-attachment: fixed;
 
-    -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
 
-    -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
 
-    -webkit-animation-direction: alternate;
     animation-direction: alternate;
   }
 
-  @-webkit-keyframes slidein {
-    from {
-      background-position: top;
-      background-size: 3000px;
-    }
-    to {
-      background-position: -100px 0px;
-      background-size: 2750px;
-    }
-  }
+
 
   @keyframes slidein {
     from {
-      background-position: top;
+      background-position: left top;
       background-size: 3000px;
     }
     to {
-      background-position: -100px 0px;
+      background-position: right bottom;
       background-size: 2750px;
     }
+  }
+  .hover-styling {
+	color: tomato !important;
+	transform: scale(1.2) !important;
+  }
+
+  .scrolled-styling {
+	color: #FFD700;
+	transform: scale(1.2);
   }
 </style>
 <script src="https://kit.fontawesome.com/f179aa90d3.js" crossorigin="anonymous"
 ></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
