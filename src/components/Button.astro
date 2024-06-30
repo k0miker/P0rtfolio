@@ -1,38 +1,39 @@
 ---
-import "../css/fonts.css"
+import "../css/fonts.css";
 ---
+
 <button type="submit" class="button">
-    submit
-    <div class="icon">
-      <svg
-        height="24"
-        width="24"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="M0 0h24v24H0z" fill="none"></path>
-        <path
-          d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
-          fill="currentColor"></path>
-      </svg>
-    </div>
-  </button>
+  Submit
+  <div class="icon">
+    <svg
+      height="24"
+      width="24"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M0 0h24v24H0z" fill="none"></path>
+      <path
+        d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+        fill="currentColor"></path>
+    </svg>
+  </div>
+</button>
 
 <style>
-      .button {
-    background: #263442c0;
+  .button {
+    background: #333;
     color: white;
-    font-family: inherit;
+    box-shadow: inset 0 0 1px 1px white ;
+    font-family: marker;
     padding: 0.35em;
     padding-left: 1.2em;
     font-size: 17px;
     font-weight: 500;
     border-radius: 0.9em;
-    border: none;
     letter-spacing: 0.05em;
     display: flex;
     align-items: center;
-    box-shadow: inset 0 0 1.6em -0.6em #263442c0;
+    box-shadow: inset 0 0 1.6em -0.6em #3f3f3fc0;
     overflow: hidden;
     position: relative;
     height: 2.8em;
@@ -41,7 +42,7 @@ import "../css/fonts.css"
   }
 
   .button .icon {
-    background: white;
+    background: #ebebeb;
     margin-left: 1em;
     position: absolute;
     display: flex;
