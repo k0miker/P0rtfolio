@@ -1,64 +1,111 @@
 ---
-
+import"../css/fonts.css"
 ---
-<div class="card">
-  <div class="header">My Skills</div>
-  <div class="body">
-    <div class="skill">
-      <div class="skill-name html">HTML</div>
-      <div class="skill-level">
-        <div style="width: 90%" class="skill-percent"></div>
+
+<div class="flex content-center items-center h-[90vh]">
+  <div class="card">
+    <div class="header font-[marker]">My Skills</div>
+    <div class="body">
+      <div class="skill">
+        <div class="skill-name html font-[marker]">HTML</div>
+        <div class="skill-level">
+          <div style="width: 85%" class="skill-percent"></div>
+        </div>
       </div>
-      <div class="skill-percent-number">80%</div>
-    </div>
-    <div class="skill">
-      <div class="skill-name css">CSS</div>
-      <div class="skill-level">
-        <div style="width: 70%" class="skill-percent"></div>
+      <div class="skill">
+        <div class="skill-name css font-[marker]">CSS</div>
+        <div class="skill-level">
+          <div style="width: 70%" class="skill-percent"></div>
+        </div>
       </div>
-      <div class="skill-percent-number">70%</div>
-    </div>
-    <div class="skill">
-      <div class="skill-name js">JavaScript</div>
-      <div class="skill-level">
-        <div style="width: 15%" class="skill-percent"></div>
+      <div class="skill">
+        <div class="skill-name js font-[marker]">JavaScript</div>
+        <div class="skill-level">
+          <div style="width: 15%" class="skill-percent"></div>
+        </div>
       </div>
-      <div class="skill-percent-number">15%</div>
-    </div>
-    <div class="skill">
-      <div class="skill-name astro">Astro</div>
-      <div class="skill-level">
-        <div style="width: 30%" class="skill-percent"></div>
+      <div class="skill">
+        <div class="skill-name astro font-[marker]">Astro</div>
+        <div class="skill-level">
+          <div style="width: 30%" class="skill-percent"></div>
+        </div>
       </div>
-      <div class="skill-percent-number">30%</div>
-    </div>
-    <div class="skill">
-      <div class="skill-name tailwind">Tailwind</div>
-      <div class="skill-level">
-        <div style="width: 40%" class="skill-percent"></div>
+      <div class="skill">
+        <div class="skill-name tailwind font-[marker]">Tailwind</div>
+        <div class="skill-level">
+          <div style="width: 40%" class="skill-percent"></div>
+        </div>
       </div>
-      <div class="skill-percent-number">40%</div>
+      <div class="skill">
+        <div class="skill-name github font-[marker]">Github</div>
+        <div class="skill-level">
+          <div style="width: 35%" class="skill-percent"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name scss font-[marker]">SCSS</div>
+        <div class="skill-level">
+          <div style="width: 25%" class="skill-percent"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name windows font-[marker]">Windows</div>
+        <div class="skill-level">
+          <div style="width: 80%" class="skill-percent"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name linux font-[marker]">Linux</div>
+        <div class="skill-level">
+          <div style="width: 60%" class="skill-percent"></div>
+        </div>
+      </div>
+      <div class="flex wrapper mt-10">
+        <i class="fa-brands text-gray-600 fa-html5 "></i>
+        <i class="fa-brands text-gray-600 fa-css3"></i>
+        <i class="fa-brands text-gray-600 fa-react"></i>
+        <i class="fa-brands text-gray-600 fa-js"></i>
+        <i class="fa-brands text-gray-600 fa-sass"></i>
+        <i class="fa-brands text-gray-600 fa-linux"></i>
+        <i class="fa-brands text-gray-600 fa-windows"></i>
+        <i class="fa-brands text-gray-600 fa-github"></i>
+        <i class="fa-brands fa-node text-gray-600"></i>
+      </div>
     </div>
   </div>
 </div>
 
 <style>
+  .wrapper {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  i {
+    font-size: 50px;
+    padding: 10px;
+  }
+  i:nth-of-type(1) {
+    animation: rollover 1s ;    
+  }
+  i:hover {
+    transform: scale(1.2);
+    transition: 0.5s;
+  }
   .card {
     display: flex;
     flex-direction: column;
-    margin-top: 150px;
     max-width: 768px;
+    height: fit-content;
     background-color: #ffffffc2;
     box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.384);
     border-radius: 10px;
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
-
   }
 
   .header {
-    background-color: #333;
+    background-color: #263442c0;
     color: #fff;
     padding: 20px;
     text-align: center;
@@ -79,6 +126,7 @@
   .skill-name {
     width: 120px;
     font-size: 16px;
+    color: #263442c0;
   }
 
   .html:hover {
@@ -89,27 +137,91 @@
     color: purple;
   }
 
-  .js:hover {
-    color: red;
+  .astro:hover {
+    color: palevioletred;
   }
-
+  .tailwind:hover {
+    color: cyan;
+  }
+  .github:hover {
+    color: grey;
+  }
+  .scss:hover {
+    color: purple;
+  }
+  .windows:hover {
+    color: rgb(0, 140, 255);
+  }
+  .linux:hover {
+    color: darkmagenta;
+  }
+  
   .skill-level {
     flex-grow: 1;
     height: 10px;
-    background-color: #eee;
+    background-color: #00000000;
     box-shadow: 0 0 5px 0px #333;
     border-radius: 10px;
     overflow: hidden;
-    margin-left: 20px;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    
   }
 
   .skill-percent {
-    background-color: #333;
+    
+    position: absolute;
+    z-index: 0;    
+    background-color: #263442c0;   
+    border-radius: 5px;
     height: 100%;
+    width: 320px;
+    background-color: #263442c0;
+    animation: move-arrows 1.5s linear infinite;
+    -webkit-animation: move-arrows 1.5s linear infinite;
+    transform-origin: left;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABDZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDkuMS1jMDAxIDc5LjE0NjI4OTk3NzcsIDIwMjMvMDYvMjUtMjM6NTc6MTQgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo3Y2M3MzIzZC0xZjc3LTQ1MmYtOGFjZS1jY2JkZWIwNTMyZWIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTUzNjQwRkU3RDNBMTFFRTk5QTg4MkQ5REZCNTY1NzAiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTUzNjQwRkQ3RDNBMTFFRTk5QTg4MkQ5REZCNTY1NzAiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDI1LjAgKE1hY2ludG9zaCkiIHhtcDpDcmVhdGVEYXRlPSIyMDIzLTExLTE3VDE2OjU0OjA4KzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMy0xMS0yMFQwNTozNDoxNyswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyMy0xMS0yMFQwNTozNDoxNyswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowRDBDQjlDMjdENEIxMUVFOTU2MkVDNUVBMTUxNTUyMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowRDBDQjlDMzdENEIxMUVFOTU2MkVDNUVBMTUxNTUyMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pj38waoAAAFKSURBVHjanJbbSwJhEMV3pYTQIOgCPogEPQQZRBf6/18zbyiGRD0YRNEFMuwmuZ2BIwTZfuebAz92H2Y8rDtzvk2zLEuoA1BNwuqCURKhwq/7HhgLPftgzWvyDc7BVOg5BkWPiWkCOkLfCjgCqcfEdAeuhN4NsOs1MV2AZ6F/B1S8JjZyTfApGNlUlj0mpg/QomGelsAJr9EmpkcwFJ6mzCdymZguwb1QV+E7cpmY2uBNqLNp2/SaTLmos0Cd7c0h9yjaxPQC+kJdkUYuk0SYtLlGXpN1hmNI1+DGY1JiKIbqH8DA8+KXuWyh1J0wJbJYk/m0rArT1/jvmAiZ7IEtYRhsj149G18D28LfOQwlQiHnrKgLBreMneioVydpLJ6if37IJumU1zx9gTN+F0SZpDy3S4GeGXPs3fMhUV+UoAtk+fUUk0U/AgwAELo+LcAxjVoAAAAASUVORK5CYII=");
+    background-size: auto 100%;
   }
 
   .skill-percent-number {
     margin-left: 20px;
     font-size: 16px;
+    color: #263442c0;
+  }
+  @keyframes fi {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes move-arrows {
+    100% {
+      background-position: 20px 0;
+    }
+  }
+  @-webkit-keyframes move-arrows {
+    100% {
+      background-position: 20px 0;
+    }
+  }
+
+  @keyframes rollover {
+    from {
+      scale: 1;
+    }
+    50%{
+      scale: 1.2;
+    }
+    to{
+      scale: 1;
+    }
   }
 </style>
+<script src="https://kit.fontawesome.com/f179aa90d3.js" crossorigin="anonymous"
+></script>
