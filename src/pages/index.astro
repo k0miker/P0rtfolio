@@ -9,6 +9,9 @@ import Iam from "../components/Iam.astro";
 import Myself from "../components/Myself.astro";
 import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import Button from "../components/Button.astro";
 ---
 
 <html lang="en">
@@ -26,7 +29,7 @@ import Skills from "../components/Skills.astro";
       <Iam />
     </div>
 
-    <a href="#about" class="down hover:animate-pulse">scroll down</a>
+    
 
     <div id="about">
 		<Myself />
@@ -35,9 +38,16 @@ import Skills from "../components/Skills.astro";
     <div id="skills">
 		<Skills></Skills>
 	</div>
-    <div id="projects" class="">
+    <div id="projects" >
 		<Projects />
     </div>
+	<Contact></Contact>
+	<div id="contact" >
+		
+	</div>
+	<div class="button"></div>
+	<a class="text-center flex content-center ml-[auto] mr-[auto]" href="https://myself-p0rtfolio.netlify.app/">Looks Shitty</a>
+	<Footer></Footer>
   </body>
 </html>
 
@@ -62,7 +72,16 @@ import Skills from "../components/Skills.astro";
   .down:hover {
   }
   #about {
-    margin-top: 150px;
+    padding-top: 50px;
+  }
+  #skills {
+	padding-top: 50px;
+  }
+  #projects {
+	padding-top: 50px;
+  }
+  #contact{
+	padding-top: -150px;
   }
   body {
     background-image: url("https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg");

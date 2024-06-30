@@ -1,0 +1,80 @@
+---
+import "../css/fonts.css";
+---
+
+<footer class="footer">
+  <ul>
+    <li>
+      <a href="https://www.facebook.com" target="_blank"
+        ><i class="fab fa-facebook-f"></i></a
+      >
+    </li>
+    <li>
+      <a href="https://www.twitter.com" target="_blank"
+        ><i class="fab fa-twitter"></i></a
+      >
+    </li>
+    <li>
+      <a href="https://www.linkedin.com" target="_blank"
+        ><i class="fab fa-linkedin-in"></i></a
+      >
+    </li>
+    <li>
+      <a href="https://www.instagram.com" target="_blank"
+        ><i class="fab fa-instagram"></i></a
+      >
+    </li>
+    <li>
+      <a href="https://www.github.com" target="_blank"
+        ><i class="fab fa-github"></i></a
+      >
+    </li>
+  </ul>
+  <p class="text-[marker]">© 2024 Colin Blome. Alle Rechte vorbehalten.</p>
+</footer>
+
+<style>
+  .footer {
+    background-color: #333;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .footer ul li {
+    display: inline-block;
+  }
+
+  .footer ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition:
+      color 0.3s,
+      transform 0.3s;
+  }
+  .footer ul li a i {
+    transition: .5s;
+    margin: 15px;
+  }
+  .footer ul li a i:hover {
+    color: #265f99e5;
+    scale: 2.5;
+    rotate: 360deg;
+   
+  }
+
+  .footer p {
+    margin-top: 1rem;
+    color: white;
+    font-size: 0.9rem;
+  }
+</style>
