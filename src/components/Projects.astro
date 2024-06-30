@@ -1,0 +1,151 @@
+---
+import p1 from "../assets/images/bonsaiworld.jpg"
+import p2 from "../assets/images/blome.jpg"
+---
+
+<section class="wrapper ">
+    <h1 class="text-center mt-6 text-2xl font-bold text-slate-700 font-[Marker]">Projects</h1>
+    <div class="container  flex-col items-center content-center sm:flex-row">
+        <div class="box flex items-center content-center flex-grow" data-modal-target="myModal1">
+          <img src={p1.src} alt="">
+        </div>
+        <div class="box flex items-center content-center" data-modal-target="myModal2">
+          <img src={p2.src} alt="">
+        </div>
+        <!-- Füge hier weitere <div> Elemente für weitere Modals hinzu -->
+      </div>
+      
+      <!-- Modals -->
+      <div id="myModal1" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h1 class="py-4">Bonsaiworld</h1>
+          <p>Ein Kleines webproject während des Orientierungskurses der DCI</p>
+          <iframe src="https://bonsaiworld.netlify.app/" frameborder="0"></iframe>
+        </div>
+      </div>
+      
+      <div id="myModal2" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>Ein Kleines webproject für Unser Familienunternehen.</p>
+          <iframe src="https://k0mikerhdf.wixsite.com/blome" frameborder="0"></iframe>
+        </div>
+      </div>
+      
+      <!-- Füge hier weitere Modals hinzu -->
+</section>
+
+<style>
+    .wrapper{
+        margin-left:auto;
+        margin-right: auto;
+        width: 100vw;
+        background-color: rgba(255, 255, 255, 0.829);
+        margin-top: 50px;
+        padding: 1px;
+        
+    }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.685);
+    transition: 5s;
+  }
+  iframe {
+    width: 100%;
+    height: 80vh;
+  }
+  .container{
+    width: 100vw;
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.527);
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 150px;
+   
+    .box{
+        /* width: 45vw; */
+        background-color: rgba(0, 0, 0, 0);
+    }
+    .box:hover{
+        scale: 1.1;
+        cursor:pointer;
+    }
+  }
+
+    img {
+        /* aspect-ratio: 1; */
+        object-fit:scale-down;
+        padding: 2rem;
+        border-radius: 15px;
+    }
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Hole alle Boxen, die ein Modal öffnen sollen
+    var modalTriggers = document.querySelectorAll(".box[data-modal-target]");
+
+    // Gehe durch jede Box und füge einen Klick-Event-Listener hinzu
+    modalTriggers.forEach(function (trigger) {
+      trigger.addEventListener("click", function () {
+        var modalId = trigger.getAttribute("data-modal-target");
+        var modal = document.getElementById(modalId);
+
+        // Öffne das entsprechende Modal
+        if (modal) {
+          modal.style.display = "block";
+        }
+      });
+    });
+
+    // Hole alle Schließen-Icons
+    var closeIcons = document.querySelectorAll(".modal .close");
+
+    // Gehe durch jedes Schließen-Icon und füge einen Klick-Event-Listener hinzu
+    closeIcons.forEach(function (icon) {
+      icon.addEventListener("click", function () {
+        var modal = icon.closest(".modal");
+        if (modal) {
+          modal.style.display = "none";
+        }
+      });
+    });
+
+    // Schließe das Modal, wenn außerhalb des Modals geklickt wird
+    window.addEventListener("click", function (event) {
+      if (event.target.classList.contains("modal")) {
+        event.target.style.display = "none";
+      }
+    });
+  });
+</script>

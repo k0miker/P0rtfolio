@@ -1,3 +1,6 @@
+---
+
+---
 <div class="card">
   <div class="header">My Skills</div>
   <div class="body">
@@ -18,34 +21,39 @@
     <div class="skill">
       <div class="skill-name js">JavaScript</div>
       <div class="skill-level">
-        <div style="width: 75%" class="skill-percent"></div>
+        <div style="width: 15%" class="skill-percent"></div>
       </div>
-      <div class="skill-percent-number">10%</div>
+      <div class="skill-percent-number">15%</div>
     </div>
     <div class="skill">
       <div class="skill-name astro">Astro</div>
       <div class="skill-level">
-        <div style="width: 20%" class="skill-percent"></div>
+        <div style="width: 30%" class="skill-percent"></div>
       </div>
-      <div class="skill-percent-number">20%</div>
+      <div class="skill-percent-number">30%</div>
     </div>
     <div class="skill">
       <div class="skill-name tailwind">Tailwind</div>
       <div class="skill-level">
-        <div style="width: 30%" class="skill-percent"></div>
+        <div style="width: 40%" class="skill-percent"></div>
       </div>
-      <div class="skill-percent-number">20%</div>
+      <div class="skill-percent-number">40%</div>
     </div>
   </div>
 </div>
 
 <style>
   .card {
-    width: 30vw;
-    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    margin-top: 150px;
+    max-width: 768px;
+    background-color: #ffffffc2;
     box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.384);
     border-radius: 10px;
     overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
 
   }
 
@@ -64,6 +72,7 @@
   .skill {
     display: flex;
     align-items: center;
+    justify-content: space-around;
     margin-bottom: 20px;
   }
 
@@ -85,9 +94,10 @@
   }
 
   .skill-level {
-    width: 160px;
+    flex-grow: 1;
     height: 10px;
     background-color: #eee;
+    box-shadow: 0 0 5px 0px #333;
     border-radius: 10px;
     overflow: hidden;
     margin-left: 20px;
