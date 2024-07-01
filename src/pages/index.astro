@@ -1,7 +1,6 @@
 ---
 import "../css/fonts.css";
-import "../css/main.css";
-import "../css/colors.css";
+
 import Nav from "../components/Nav2.astro";
 import Header from "../components/Header.astro";
 // import Noisebg from "../components/Noisebg.astro"
@@ -29,83 +28,41 @@ import Button from "../components/Button.astro";
       <Iam />
     </div>
 
-    
-
     <div id="about">
-		<Myself />
-	</div>
-    
-    <div id="skills">
-		<Skills></Skills>
-	</div>
-    <div id="projects" >
-		<Projects />
+      <Myself />
     </div>
-	<Contact></Contact>
-	<div id="contact" >
-		
-	</div>
-	
-	
-	<Footer></Footer>
+
+    <div id="skills">
+      <Skills />
+    </div>
+    <div id="projects">
+      <Projects />
+    </div>
+    <Contact />
+    <div id="contact"></div>
+
+    <Footer />
   </body>
 </html>
 
 <style>
-
-  .down {
-    display: flex;
-    justify-content: center;
-    align-items: end;
-    margin-bottom: 10vh;
-    font-size: large;
-    color: white;
-    font-family: Roboto;
-    text-transform: uppercase;
-    text-shadow: 2px 2px 3px black;
-    font-weight: 900;
+  *{
+    scroll-behavior: smooth;
   }
-  .down:hover {
-  }
+ 
   #about {
     padding-top: 50px;
   }
   #skills {
-	padding-top: 50px;
+    padding-top: 50px;
   }
   #projects {
-	padding-top: 1px;
+    padding-top: 1px;
   }
-  #contact{
-	padding-top: -150px;
+  #contact {
+    padding-top: -150px;
   }
-  body {
-    background-image: url("https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg");
-    background-size: cover;
-    animation: slidein 30s;
-    background-attachment: fixed;
-
-    animation-fill-mode: forwards;
-
-    animation-iteration-count: infinite;
-
-    animation-direction: alternate;
-  }
-
-
-
-  @keyframes slidein {
-    from {
-      background-position: left top;
-      background-size: 3000px;
-    }
-    to {
-      background-position: right bottom;
-      background-size: 2750px;
-    }
-  }
-  
+ 
 </style>
 <script src="https://kit.fontawesome.com/f179aa90d3.js" crossorigin="anonymous"
 ></script>
-

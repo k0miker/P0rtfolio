@@ -2,7 +2,7 @@
 import"../css/fonts.css"
 ---
 
-<div class="flex content-center items-center h-[90vh]">
+<div class="flex box content-center items-center h-[90vh]">
   <div class="card">
     <div class="header font-[marker]">My Skills</div>
     <div class="body">
@@ -76,6 +76,22 @@ import"../css/fonts.css"
 </div>
 
 <style>
+  .box{
+    background-image: url("https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+    -webkit-animation: slidein 30s;
+    animation: slidein 30s;
+    background-attachment: fixed;
+
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+
+    -webkit-animation-direction: alternate;
+    animation-direction: alternate;
+  }
   .wrapper {
     justify-content: space-between;
     flex-wrap: wrap;
@@ -83,9 +99,6 @@ import"../css/fonts.css"
   i {
     font-size: 50px;
     padding: 10px;
-  }
-  i:nth-of-type(1) {
-    animation: rollover 1s ;    
   }
   i:hover {
     transform: scale(1.2);
@@ -96,7 +109,7 @@ import"../css/fonts.css"
     flex-direction: column;
     max-width: 768px;
     height: fit-content;
-    background-color: #ffffffc2;
+    background-color: #ffffff;
     box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.384);
     border-radius: 10px;
     overflow: hidden;

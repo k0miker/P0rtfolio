@@ -9,24 +9,7 @@ import Skills from "../components/Skills.astro";
   <div class="flex flex-col items-center">
     <img src={myself.src} class="sm:w-[100%]" alt="foto of colin" />
     <p class="p-8 text-center text-pretty ">
-      <!-- Wer bin ich? <br>Hallo! Ich bin Colin, 38 Jahre alt und ein leidenschaftlicher
-      Webentwickler.<br> Seit meiner Jugend bin ich ein echter PC-Nerd und habe eine
-      starke Affinität zur Technologie entwickelt. <br> Als
-      Webentwickler bin ich auch ein begeisterter Gamer und liebe es, meine
-      Freizeit mit anspruchsvollen Spielen zu verbringen.<br> Darüber hinaus habe
-      ich eine besondere Leidenschaft für Bonsai-Kunst, die mir hilft, Ruhe und
-      Ausgeglichenheit in meinen Alltag zu bringen.<br> Mit meiner breit gefächerten
-      Erfahrung und meinen vielfältigen Interessen bringe ich kreative und
-      funktionale Lösungen in meine Projekte ein. Ob es um das Entwickeln einer
-      benutzerfreundlichen Website oder das Lösen komplexer technischer
-      Herausforderungen geht – ich bin stets motiviert, die besten Ergebnisse zu
-      erzielen und meinen Kunden zu helfen, ihre Ziele zu erreichen. Ich bin
-      derzeit in der Ausbildung zum Webentwickler und habe bereits mehrere
-      Projekte erfolgreich abgeschlossen. Meine Leidenschaft liegt darin,
-      kreative und funktionale Weblösungen zu entwickeln, die sowohl ästhetisch
-      ansprechend als auch benutzerfreundlich sind. <br />Hier finden Sie eine
-      Auswahl meiner bisherigen Arbeiten, mein technisches Know-how und wie ich
-      Ihnen bei Ihren Projekten helfen kann. -->
+
 
       Hello! I'm Colin, a 38-year-old passionate web developer. Since my youth,
       I've been a true PC nerd with a strong affinity for technology. <br>Besides my
@@ -41,16 +24,16 @@ import Skills from "../components/Skills.astro";
       motivated to achieve the best results and help my clients reach their
       goals.
     <div class="flex-col">
-        <h1 class="text-center text-2xl pt-8 font-[Marker] bg-gray-300 max-w-[768px] rounded-t-xl text-gray-600">Self Proclamations</h1>
-      <div class="flex flex-col  w-[100%] sm:flex-row bg-gray-300 rounded-b-xl max-w-[768px]">
-        <div class="flex flex-grow flex-col p-4  items-center">
+        <h3 class="text-center text-2xl p-4 font-[Marker] bg-gray-400 max-w-[768px] rounded-t-xl text-gray-600">Self Proclamations</h3>
+      <div class="flex flex-col p-4 w-[100%] sm:flex-row bg-gray-300 rounded-b-xl max-w-[768px] font-[Marker] text-gray-600">
+        <div class="flex flex-grow flex-col p-4  items-center hover:text-[tomato] hover:scale-125">
           <i class="fa-solid fa-keyboard text-gray-600 p-4 sm:text-[50px]"></i>Web Developer
         </div>
-        <div class="flex flex-grow flex-col p-4  items-center">
+        <div class="flex flex-grow flex-col p-4  items-center font-[Marker] hover:text-[tomato] hover:scale-125">
           <i class="fa-solid fa-user text-gray-600 p-4 text-[50px]"></i>UI/UX Enthusiast
         </div>
-        <div class="flex flex-grow flex-col p-4  items-center ">
-          <i class="fa-solid fa-leaf text-gray-600 p-4 text-[50px]" ></i>Bonsai Enthusiast
+        <div class="flex flex-grow flex-col p-4  items-center font-[Marker] hover:text-[tomato] hover:scale-125">
+          <i class="fa-solid fa-leaf text-gray-600 p-4 text-[50px] " ></i>Bonsai Enthusiast
         </div>
       </div>
     </div>
@@ -76,10 +59,14 @@ import Skills from "../components/Skills.astro";
     border-radius: 50% 50%;
     aspect-ratio: 1;
   }
+ 
   h3 {
     font-family: Marker;
     color: #263442c0;
     text-shadow: 2px 2px 3px rgba(255, 255, 255, 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   p {
     font-family: roboto;
