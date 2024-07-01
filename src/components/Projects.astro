@@ -1,6 +1,8 @@
 ---
 import p1 from "../assets/images/bonsaiworld.jpg";
 import p2 from "../assets/images/blome.jpg";
+import p3 from "../assets/images/p3.png"
+import p4 from "../assets/images/p4.png"
 ---
 
 <section class="wrapperr">
@@ -37,6 +39,32 @@ import p2 from "../assets/images/blome.jpg";
         </div>
       </figcaption>
     </div>
+    <div
+    class="box flex items-center content-center flex-grow sm:max-w-[50%]"
+    data-modal-target="myModal3"
+  >
+    <figcaption>
+      <img src={p3.src} alt="" />
+      <div class="caption flex flex-col items-center">
+        <h1 class="py-4 text-center">Frima Blome</h1>
+        <p>Ein Kleines webproject für Unser Familienunternehen.</p>
+        <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+      </div>
+    </figcaption>
+  </div>
+  <div
+  class="box flex items-center content-center flex-grow sm:max-w-[50%]"
+  data-modal-target="myModal4"
+>
+  <figcaption>
+    <img src={p4.src} alt="" />
+    <div class="caption flex flex-col items-center">
+      <h1 class="py-4 text-center">Frima Blome</h1>
+      <p>Ein Kleines webproject für Unser Familienunternehen.</p>
+      <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+    </div>
+  </figcaption>
+</div>
     <!-- Füge hier weitere <div> Elemente für weitere Modals hinzu -->
   </div>
 
@@ -56,7 +84,21 @@ import p2 from "../assets/images/blome.jpg";
     <div class="modal-content">
       <span class="close">&times;</span>
       <p>Ein Kleines webproject für Unser Familienunternehen.</p>
-      <iframe src="https://k0mikerhdf.wixsite.com/blome"></iframe>
+      <!-- <iframe src="https://k0mikerhdf.wixsite.com/blome"></iframe> -->
+    </div>
+  </div>
+  <div id="myModal3" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Ein Kleines webproject für Unser Familienunternehen.</p>
+      <!-- <iframe src="https://k0mikerhdf.wixsite.com/blome"></iframe> -->
+    </div>
+  </div>
+  <div id="myModal4" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Ein Kleines webproject für Unser Familienunternehen.</p>
+      <!-- <iframe src="https://k0mikerhdf.wixsite.com/blome"></iframe> -->
     </div>
   </div>
 
@@ -96,6 +138,9 @@ import p2 from "../assets/images/blome.jpg";
         color: tomato;
     }
 }
+figcaption {
+
+}
 figcaption h1 {
     font-family: Marker;
     font-size: x-large;
@@ -110,7 +155,7 @@ iframe {
     max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
-    height: 90vh;
+    /* height: 90vh; */
     padding: 15px;
     align-content: stretch;
     flex-wrap: wrap;
@@ -146,8 +191,9 @@ iframe {
 }
 
   img {
-    object-fit: scale-down;
-
+    object-fit:strech;
+    width: 100%;
+    aspect-ratio: 1;
     border-radius: 15px;
   }
   .modal-content {
