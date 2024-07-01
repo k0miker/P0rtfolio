@@ -23,7 +23,7 @@ import Button from "../components/Button.astro";
   </head>
   <body class="flex-col items-center content-center">
     <Nav />
-    <div>
+    <div id="home">
       <!-- <Noisebg/> -->
       <Iam />
     </div>
@@ -38,8 +38,9 @@ import Button from "../components/Button.astro";
     <div id="projects">
       <Projects />
     </div>
-    <Contact />
     <div id="contact"></div>
+    <Contact />
+    <div ></div>
 
     <Footer />
   </body>
@@ -47,14 +48,11 @@ import Button from "../components/Button.astro";
 
 <style>
   *{
-    scroll-behavior: smooth;
-  }
- 
-  #about {
-    padding-top: 50px;
-  }
+    scroll-behavior:smooth;
+  } 
+  
   #skills {
-    padding-top: 50px;
+    padding-top: 65px;
   }
   #projects {
     padding-top: 1px;
@@ -62,7 +60,64 @@ import Button from "../components/Button.astro";
   #contact {
     padding-top: -150px;
   }
+  
+
+
  
 </style>
 <script src="https://kit.fontawesome.com/f179aa90d3.js" crossorigin="anonymous"
 ></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll('div[id]');
+    const navLinks = document.querySelectorAll('nav a');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === '#' + entry.target.id) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        });
+    }, {
+        threshold: 0.1, // Trigger bei 10% Sichtbarkeit
+        rootMargin: "0px"
+    });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const boxes = document.querySelectorAll('.offscreen');
+
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: .2
+    };
+
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("in-view");
+            } else {
+                entry.target.classList.remove('in-view');
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    boxes.forEach(offscreen => {
+        observer.observe(offscreen);
+    });
+});
+</script>

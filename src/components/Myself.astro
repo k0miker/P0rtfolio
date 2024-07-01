@@ -4,11 +4,11 @@ import myself from "../assets/images/myself.jpg";
 import Skills from "../components/Skills.astro";
 ---
 
-<div class="wrap p-8 sm:flex-col rounded-lg">
-  <h3 class="py-3 font-sans text-2xl text-center">About</h3>
-  <div class="flex flex-col items-center">
-    <img src={myself.src} class="sm:w-[100%]" alt="foto of colin" />
-    <p class="p-8 text-center text-pretty ">
+<div class="wrap p-8 sm:flex-col rounded-lg offscreen">
+  <h3 class="py-5 font-sans text-4xl text-center offscreen">About</h3>
+  <div class="flex flex-col items-center offscreen">
+    <img src={myself.src} class="sm:w-[100%] offscreen" alt="foto of colin" />
+    <p class="p-8 text-center text-pretty offscreen">
 
 
       Hello! I'm Colin, a 38-year-old passionate web developer. Since my youth,
@@ -23,7 +23,7 @@ import Skills from "../components/Skills.astro";
       user-friendly website or solving complex technical challenges, I am always
       motivated to achieve the best results and help my clients reach their
       goals.
-    <div class="flex-col">
+    <div class="flex-col offscreen">
         <h3 class="text-center text-2xl p-4 font-[Marker] bg-gray-400 max-w-[768px] rounded-t-xl text-gray-600">Self Proclamations</h3>
       <div class="flex flex-col p-4 w-[100%] sm:flex-row bg-gray-300 rounded-b-xl max-w-[768px] font-[Marker] text-gray-600">
         <div class="flex flex-grow flex-col p-4  items-center hover:text-[tomato] hover:scale-125">

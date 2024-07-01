@@ -5,7 +5,7 @@ import Button from "./Button.astro";
 ---
 
 <section class="flex flex-col items-center content-center h-[80vh]">
-  <form action="submit" method="post">
+  <form action="submit" method="post" class="offscreen">
     <h1 class="font-[marker] mb-8 text-2xl">Get in touch</h1>
     <div class="input-group">
       <input
@@ -14,8 +14,9 @@ import Button from "./Button.astro";
         name="name"
         autocomplete="off"
         class="input"
+        id="name"
       />
-      <label class="user-label">First Name</label>
+      <label class="user-label" for="name">First Name</label>
     </div>
     <div class="input-group">
       <input
@@ -24,13 +25,14 @@ import Button from "./Button.astro";
         name="email"
         autocomplete="off"
         class="input"
+        id="mail"
       />
-      <label class="user-label">E-Mail</label>
+      <label class="user-label" for="mail">E-Mail</label>
     </div>
     <div class="input-group">
-      <textarea required name="text" rows="5" autocomplete="off" class="input" 
+      <textarea required name="text" rows="5" autocomplete="off" class="input" id="message"
       ></textarea>
-      <label class="user-label">Message</label>
+      <label class="user-label" for="message">Message</label>
     </div>
     <Button />
   </form>
@@ -43,7 +45,7 @@ import Button from "./Button.astro";
     background-image: url("https://images.unsplash.com/photo-1586769852044-692d6e3703f0?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
     -webkit-animation: slidein2 30s;
-    animation: slidein2 20s;
+    animation: slidein2 35s;
     background-attachment: fixed;
 
     -webkit-animation-fill-mode: forwards;
@@ -58,7 +60,7 @@ import Button from "./Button.astro";
 
   @-webkit-keyframes slidein2 {
     from {
-      background-position: bottom;
+      background-position: -800px;
       background-size: 3000px;
     }
     to {
@@ -69,17 +71,12 @@ import Button from "./Button.astro";
 
   @keyframes slidein2 {
     from {
-      background-position: right bottom ;
-      background-size: 4060px;
+      background-position: right center ;
     }
-    50% {
-      background-position:  center left;
-      
-    }
+    
 
     to{
-      background-position: -200px -800px  ;
-      background-size: 3250px;
+      background-position: bottom left  ;
     }
   
   }
@@ -144,7 +141,7 @@ import Button from "./Button.astro";
 
   .input:focus ~ label,
   .input:valid ~ label {
-    transform: translatey(-110%) translateX(-85px);
+    transform: translateY(-110%) translateX(-85px);
     
     background-color: #21212100;
     padding: 0 0.2em;

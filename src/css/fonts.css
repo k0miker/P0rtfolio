@@ -3,3 +3,18 @@
     src: url(/Fonts/PermanentMarker-Regular.ttf);
 
 }
+
+
+
+.offscreen {
+    opacity: 0;
+    transition: 1s;
+    transform: translate(-10vw);
+    /* box-shadow: 0 0 150px 30px #000; */
+}
+.in-view {
+    opacity: 1;
+    transition: 1s;
+    transform: translate(0vw) ;
+  
+  }

@@ -5,7 +5,7 @@ import p3 from "../assets/images/p3.png"
 import p4 from "../assets/images/p4.png"
 ---
 
-<section class="wrapperr">
+<section class="wrapperr offscreen">
   <h1
     class="text-center mt-6 p-8 text-3xl font-bold text-gray-600 font-[Marker]"
   >
@@ -84,7 +84,7 @@ import p4 from "../assets/images/p4.png"
     <div class="modal-content">
       <span class="close">&times;</span>
       <p>Ein Kleines webproject für Unser Familienunternehen.</p>
-      <iframe src="https://k0mikerhdf.wixsite.com/blome"></iframe>
+      <!-- <iframe src="https://k0mikerhdf.wixsite.com/blome"></iframe> -->
     </div>
   </div>
   <div id="myModal3" class="modal">
@@ -111,6 +111,7 @@ import p4 from "../assets/images/p4.png"
     margin-right: auto;
     background-color: rgba(255, 255, 255, 0.829);
     margin-top: 50px;
+    height: 100vh;
 }
 .modal {
     display: none;
@@ -151,19 +152,22 @@ iframe {
 }
 .container {
     display: flex;
+
     background-color: rgba(255, 255, 255, 0.527);
     max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
-    /* height: 90vh; */
+    
     padding: 15px;
     align-content: stretch;
+    justify-content: center;
     flex-wrap: wrap;
 
     .box {
         position: relative;
         background-color: rgba(0, 0, 0, 0);
         padding: 10px;
+        max-width: 334px;
     }
     .box:hover img {
       /* scale: 1.05; */

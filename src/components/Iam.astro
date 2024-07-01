@@ -3,14 +3,24 @@ import "../css/fonts.css"
 ---
 
 <div class="console-container font-[Marker] text-4xl ">
-  <span id="text" ></span><div class="console-underscore" id="console">
+  <span id="text" class="offscreen" ></span><div class="console-underscore" id="console">
     &#95;
   </div>
   
 </div>
-<a href="#contact" class="">Down</a>
+<a href="#contact"><div>Down </div><div><i class="fa-solid fa-arrow-down"></i></div></a>
 
 <style>
+  @keyframes slidein {
+    from {
+      background-position: left top;
+      background-size: 3000px;
+    }
+    to {
+      background-position: right bottom;
+      background-size: 2750px;
+    }
+  }
   .hidden {
     opacity: 0;
   }
@@ -41,31 +51,43 @@ import "../css/fonts.css"
     position: relative;
     height: 2.8em;
     cursor: pointer;
-  }
-  @keyframes slidein {
-    from {
-      background-position: left top;
-      background-size: 3000px;
+    transition:all 1s;
+    flex-direction: column;
+    div{
+      padding: 5px;
     }
-    to {
-      background-position: right bottom;
-      background-size: 2750px;
+    
+
+  }
+  a:hover div{
+    color: tomato;
+  }
+  a:hover div:nth-of-type(1){
+    display:none;
+    div{
+      display: block;
     }
   }
+  a div:nth-of-type(2){
+    display: none;
+  }
+  a:hover div:nth-of-type(2){
+    display:block;
+    div{
+      display: block;
+    }
+  }
+  
   .console-container {
 
     background-image: url("https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg");
     background-size: cover;
     animation: slidein 30s;
     background-attachment: fixed;
-
     animation-fill-mode: forwards;
-
     animation-iteration-count: infinite;
-
-    animation-direction: alternate;
-    
-    height: 100vh;
+    animation-direction: alternate;    
+    height: 97vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -74,6 +96,7 @@ import "../css/fonts.css"
     z-index: -1;
     left: 0;
     right: 0;
+    bottom: -30px;
     margin: auto;
   }
   .console-underscore {
