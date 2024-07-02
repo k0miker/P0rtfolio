@@ -47,10 +47,6 @@ import "../css/fonts.css";
     display: flex;
     justify-content: center;
     gap: 1rem;
-    position: fixed;
-    bottom: 0;
-    z-index: 20;
-    left:41%;
   }
 
   .footer ul li {
@@ -65,20 +61,23 @@ import "../css/fonts.css";
       color 0.3s,
       transform 0.3s;
   }
-  .footer ul li a i {
+  .footer ul li a i{
     transition: 0.5s;
     margin: 15px;
     padding: 5px;
-    outline: 2px solid white;
+    opacity: .6;
+    outline: 4px solid white;
     border-radius: 5px;
     aspect-ratio: 1;
   }
-  .footer ul li a i:hover {
+  .footer ul li:hover a i{
     color: tomato;
-    scale: 2;
-    /* rotate: 360deg; */
+    scale:1.5;
+    opacity: 1;
+    rotate: 360deg;
     outline: tomato;
     outline-style: dashed ;
+    outline-offset: 5px;
   }
 
   .footer p {

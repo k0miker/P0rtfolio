@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Willkommen auf unserer Webseite</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="header offscreen" id="home">
+        <div class="img"></div>
+        <div class="hero-content">
+            <h1>Willkommen auf unserer Webseite</h1>
+            <p>Wir machen tolle Sachen</p>
+        </div>
+    </header>
+    <div class="block">
+        <nav class="sticky-bottom-nav">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#vorteile">Vorteile</a></li>
+                <li><a href="#natur">Natur</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section class="content-section offscreen right" id="vorteile">
+
+        <div class="container">
+            <h1>Schau mal wie toll wir sind</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod tempor lorem at tincidunt.</p>
+        </div>
+        <div class="sheep"></div>
+    </section>
+
+    <section class="content-section offscreen" id="natur">
+        <div class="nature"></div>
+        <div>
+            <h1>Um die Natur kümmern wir uns selbstverständlich auch</h1>
+            <button>Jetzt kaufen</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links offscreen">
+            <div>
+                <h4> Links</h4>
+                <ul>
+                    <li><a href="=">link</a></li>
+                    <li><a href="=">link</a></li>
+                    <li><a href="=">link</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Noch Mehr Links</h4>
+                <ul>
+                    <li><a href="=">link</a></li>
+                    <li><a href="=">link</a></li>
+                    <li><a href="=">link</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Unsere Adresse</h3>
+                <address>
+                    Firma GmbH<br>
+                    Musterstraße 123<br>
+                    79098 Freiburg
+                </address>
+            </div>
+        </div>
+    </footer>
+    <!-- <script src="./observe.js"></script> -->
+</body>
+
+</html>
+<style>
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #000000;
+  color: #fff;
+  text-align: left;
+  width: 100vw;  
+}
+
+p {
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Times New Roman", Times, serif;
+  margin: 20px;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+
+
+.header {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  align-self: center;
+  
+  
+}
+
+.header .img {
+  background-image: url(https://images.unsplash.com/photo-1454391304352-2bf4678b1a7a?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  width: 60vw;
+  height: 100vh;
+  background-color: #ffffff00;
+  z-index: 5;
+  
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-size: cover;
+
+}
+
+
+.hero-content {
+  width: 40vw;
+  display: flex;
+  
+  justify-content: center;
+  flex-direction: column;
+  background-color: #000;
+
+  p {
+    margin-left: 50px;
+  }
+
+  h1 {
+    margin-left: 50px;
+  }
+}
+
+.block {
+  position: fixed;
+  bottom: 30px;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+}
+
+.sticky-bottom-nav {
+  z-index: 1000;
+  min-width: 320px;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.445);
+}
+
+.sticky-bottom-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sticky-bottom-nav ul li {
+  margin: 0 15px;
+}
+
+.sticky-bottom-nav ul li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.sticky-bottom-nav ul li a:hover {
+  text-decoration: underline;
+  color: rgb(255, 0, 255);
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.content-section {
+  display: flex;
+  text-align: left;
+
+  div {
+    display: flex;
+    flex-direction: column;    
+    justify-content: center;
+    width: 40vw;
+
+    p {
+      padding: 0 50px;
+      text-align: right;
+    }
+  }
+}
+.container h1{
+  text-align: right; 
+  padding-right: 25px;
+}
+.content-section {
+  margin-top: 5%;
+  width: 100vw;
+}
+
+.content-section .sheep {
+  background-image: url(https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  width: 60vw;
+
+  height: 100vh;
+  min-height: 400px;
+  background-attachment:fixed;
+  background-position-x: 150px;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+#natur {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 450px;
+  width: 100vw;
+  text-align: left;
+
+  div:nth-of-type(2) {
+    width: 40vw;
+  }
+}
+
+.content-section .nature {
+  height: 100vh;
+  width: 60vw;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url(https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1313&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  background-attachment: fixed;
+  background-position-x:-350px;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #fff;
+  border: none;
+  width: 30%;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  margin-left: 20px;
+
+}
+
+button:hover {
+  background-color: rgb(255, 0, 255);
+  transition: 0.2s;
+  text-shadow: 1px 1px 5px rgb(255, 255, 255);
+  box-shadow: 1px 1px 14px 1px rgb(255, 0, 255), inset 0 0 5px 1px black;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px 20px 80px 20px;
+
+}
+
+.footer {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.footer-links div {
+  width: 200px;
+  text-align: center;
+  background-color: #050505;
+  padding: 0px;
+  border-radius: 50px;
+  box-shadow: 0 0 25px 25px #030303;
+}
+
+.footer-links h3 {
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.footer-links h4 {
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.footer-links li {
+  margin-bottom: 5px;
+
+  a {
+    text-decoration: none;
+    color: #fff;
+    letter-spacing: 1px;
+    font-family: monospace;
+    text-transform: capitalize;
+    font-size: 1rem;
+  }
+}
+
+.footer-links a:hover {
+  color: rgb(255, 0, 255);
+  transition: 0.2s ease-in;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-shadow: 0px 0px 15px rgb(255, 0, 255);
+  font-weight: bold;
+}
+
+address {
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.offscreen {
+  /* opacity: 0; */
+  transition: 1s;
+  /* transform: translateX(-50vw); */
+  /* box-shadow: 0 0 150px 30px #000; */
+  background-color: #000;
+  
+
+}
+.block {
+  z-index: 1000;
+}
+
+@media (max-width: 1024px) {
+  h1 {
+    font-size: 1.2rem;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+  }
+
+  button {
+    font-size: .8rem;
+  }
+}
+
+.right {
+  transition: 1s;
+  /* transform: translateX(50vw); */
+  background-color: #000;
+  /* box-shadow: 0 0 150px 30px #000; */
+}
+
+.in-view {
+  opacity: 1;
+  transition: 1s;
+  transform: translateX(0);
+
+}
+</style>

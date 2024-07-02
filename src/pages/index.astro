@@ -1,5 +1,6 @@
 ---
 import "../css/fonts.css";
+import "../css/keyframes.css";
 
 import Nav from "../components/Nav2.astro";
 import Header from "../components/Header.astro";
@@ -49,6 +50,7 @@ import Button from "../components/Button.astro";
 <style>
   *{
     scroll-behavior:smooth;
+    font-family: mono;
   } 
   
   #skills {
@@ -85,7 +87,7 @@ import Button from "../components/Button.astro";
             }
         });
     }, {
-        threshold: 0.1, // Trigger bei 10% Sichtbarkeit
+        threshold: 0.7, // Trigger bei 70% Sichtbarkeit
         rootMargin: "0px"
     });
 

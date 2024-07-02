@@ -1,5 +1,6 @@
 ---
-import "../css/fonts.css"
+import "../css/fonts.css";
+import "../css/keyframes.css";
 ---
 
 <div class="console-container font-[Marker] text-4xl ">
@@ -11,16 +12,7 @@ import "../css/fonts.css"
 <a href="#contact"><div>Down </div><div><i class="fa-solid fa-arrow-down"></i></div></a>
 
 <style>
-  @keyframes slidein {
-    from {
-      background-position: left top;
-      background-size: 3000px;
-    }
-    to {
-      background-position: right bottom;
-      background-size: 2750px;
-    }
-  }
+
   .hidden {
     opacity: 0;
   }
@@ -32,24 +24,24 @@ import "../css/fonts.css"
   }
   a {
     bottom: 55px;
-    width: 10vw;
+    width: 12vw;
+    min-width: 75px;
     left: 45vw;
-    background: #333;
+    background: rgba(51, 51, 51, 0)fff;
     color: white;
     box-shadow: inset 0 0 1px 1px white ;
-    font-family: marker;
-    padding: 0.35em;
-    font-size: 17px;
+    font-family: mono;
+    font-size: 16px;
     font-weight: 500;
     border-radius: 0.9em;
     letter-spacing: 0.05em;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 0 1.6em -0.6em #3f3f3fc0;
+    box-shadow: inset 0 0 1.6em 0.1em #000000;
     overflow: hidden;
     position: relative;
-    height: 2.8em;
+    height: 2em;
     cursor: pointer;
     transition:all 1s;
     flex-direction: column;
@@ -79,7 +71,6 @@ import "../css/fonts.css"
   }
   
   .console-container {
-
     background-image: url("https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg");
     background-size: cover;
     animation: slidein 30s;

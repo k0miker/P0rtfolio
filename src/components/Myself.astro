@@ -8,37 +8,65 @@ import Skills from "../components/Skills.astro";
   <h3 class="py-5 font-sans text-4xl text-center offscreen">About</h3>
   <div class="flex flex-col items-center offscreen">
     <img src={myself.src} class="sm:w-[100%] offscreen" alt="foto of colin" />
-    <p class="p-8 text-center text-pretty offscreen">
-
-
-      Hello! I'm Colin, a 38-year-old passionate web developer. Since my youth,
-      I've been a true PC nerd with a strong affinity for technology. <br>Besides my
-      work as a web developer, I'm also an avid gamer and love spending my free
-      time on challenging games. Additionally, I have a special passion for
-      bonsai art, which helps me bring calm and balance to my daily life. <br
-      /><br />
+    <p class="p-8 text-center text-pretty offscreen" id="ENG">
+      Hello! <br />I'm Colin, a 38-year-old passionate web developer. Since my
+      youth, I've been a true PC nerd with a strong affinity for technology. <br
+      />Besides my work as a web developer, I'm also an avid gamer and love
+      spending my free time on challenging games. Additionally, I have a special
+      passion for bonsai art, which helps me bring calm and balance to my daily
+      life. <br /><br />
 
       With my diverse experience and wide-ranging interests, I bring creative
       and functional solutions to my projects.<br />Whether it's developing a
       user-friendly website or solving complex technical challenges, I am always
       motivated to achieve the best results and help my clients reach their
       goals.
+    </p>
+    <p id="GER" class="p-8 text-center offscreen text-pretty">
+      HALLO! ICH BIN COLIN, EIN 38-JÄHRIGER LEIDENSCHAFTLICHER WEBENTWICKLER.
+      SCHON SEIT MEINER JUGEND BIN ICH EIN ECHTER PC-NERD MIT EINER STARKEN
+      AFFINITÄT FÜR TECHNOLOGIE. NEBEN MEINER ARBEIT ALS WEBENTWICKLER BIN ICH
+      AUCH EIN BEGEISTERTER GAMER UND VERBRINGE MEINE FREIZEIT GERNE MIT
+      ANSPRUCHSVOLLEN SPIELEN. ZUSÄTZLICH HABE ICH EINE BESONDERE LEIDENSCHAFT
+      FÜR DIE BONSAI-KUNST, DIE MIR HILFT, RUHE UND AUSGLEICH IN MEINEM ALLTAG
+      ZU FINDEN. MIT MEINER VIELFÄLTIGEN ERFAHRUNG UND MEINEN BREITGEFÄCHERTEN
+      INTERESSEN BRINGE ICH KREATIVE UND FUNKTIONALE LÖSUNGEN IN MEINE PROJEKTE
+      EIN. OB ES DARUM GEHT, EINE BENUTZERFREUNDLICHE WEBSEITE ZU ENTWICKELN
+      ODER KOMPLEXE TECHNISCHE HERAUSFORDERUNGEN ZU LÖSEN, ICH BIN IMMER
+      MOTIVIERT, DIE BESTEN ERGEBNISSE ZU ERZIELEN UND MEINEN KUNDEN ZU HELFEN,
+      IHRE ZIELE ZU ERREICHEN.
+    </p>
     <div class="flex-col offscreen">
-        <h3 class="text-center text-2xl p-4 font-[Marker] bg-gray-400 max-w-[768px] rounded-t-xl text-gray-600">Self Proclamations</h3>
-      <div class="flex flex-col p-4 w-[100%] sm:flex-row bg-gray-300 rounded-b-xl max-w-[768px] font-[Marker] text-gray-600">
-        <div class="flex flex-grow flex-col p-4  items-center hover:text-[tomato] hover:scale-125">
-          <i class="fa-solid fa-keyboard text-gray-600 p-4 sm:text-[50px]"></i>Web Developer
+      <h3
+        class="text-center text-2xl p-4 font-[Marker] bg-gray-400 max-w-[768px] rounded-t-xl text-gray-600"
+      >
+        Self Proclamations
+      </h3>
+      <div
+        class="flex flex-col p-4 w-[100%] sm:flex-row bg-gray-300 rounded-b-xl max-w-[768px] font-[Marker] text-gray-600"
+      >
+        <div
+          class="flex flex-grow flex-col p-4 items-center hover:text-[tomato] hover:scale-125"
+        >
+          <i class="fa-solid fa-keyboard text-gray-600 p-4 sm:text-[50px]"
+          ></i>Web Developer
         </div>
-        <div class="flex flex-grow flex-col p-4  items-center font-[Marker] hover:text-[tomato] hover:scale-125">
-          <i class="fa-solid fa-user text-gray-600 p-4 text-[50px]"></i>UI/UX Enthusiast
+        <div
+          class="flex flex-grow flex-col p-4 items-center font-[Marker] hover:text-[tomato] hover:scale-125"
+        >
+          <i class="fa-solid fa-user text-gray-600 p-4 text-[50px]"></i>UI/UX
+          Enthusiast
         </div>
-        <div class="flex flex-grow flex-col p-4  items-center font-[Marker] hover:text-[tomato] hover:scale-125">
-          <i class="fa-solid fa-leaf text-gray-600 p-4 text-[50px] " ></i>Bonsai Enthusiast
+        <div
+          class="flex flex-grow flex-col p-4 items-center font-[Marker] hover:text-[tomato] hover:scale-125"
+        >
+          <i class="fa-solid fa-leaf text-gray-600 p-4 text-[50px]"></i>Bonsai
+          Enthusiast
         </div>
       </div>
     </div>
-      
-    </p>
+
+
   </div>
 </div>
 
@@ -59,7 +87,7 @@ import Skills from "../components/Skills.astro";
     border-radius: 50% 50%;
     aspect-ratio: 1;
   }
- 
+
   h3 {
     font-family: Marker;
     color: #263442c0;
@@ -79,6 +107,26 @@ import Skills from "../components/Skills.astro";
       0px 0px 15px black,
       1px 1px 3px black; */
   }
+  #GER {
+    display: none;
+  }
 </style>
 <script src="https://kit.fontawesome.com/f179aa90d3.js" crossorigin="anonymous"
 ></script>
+<script>
+  const button = document.getElementById("tv");
+  button.addEventListener("click",toggleVisibility)
+  function toggleVisibility() {
+    var gerElement = document.getElementById("GER");
+    var engElement = document.getElementById("ENG");
+
+    // Überprüfen der aktuellen Sichtbarkeit und Umschalten
+    if (gerElement.style.display === "none") {
+      gerElement.style.display = "block"; // Zeige den deutschen Text
+      engElement.style.display = "none"; // Verstecke den englischen Text
+    } else {
+      gerElement.style.display = "none"; // Verstecke den deutschen Text
+      engElement.style.display = "block"; // Zeige den englischen Text
+    }
+  }
+</script>
