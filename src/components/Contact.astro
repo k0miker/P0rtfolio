@@ -6,7 +6,7 @@ import Button from "./Button.astro";
 
 <section class="flex flex-col items-center content-center h-[80vh]">
   <form action="https://formspree.io/f/mvoeekgw" method="POST" class="offscreen">
-    <h1 class="font-[marker] mb-8 text-2xl">Get in touch</h1>
+    <h1 class="font-[mono] mb-8 text-2xl">Get in touch</h1>
     <div class="input-group">
       <input
         required
@@ -107,29 +107,32 @@ import Button from "./Button.astro";
   }
   .user-label {
     position: absolute;
-    left: 85px;
-    
-    color: #21212170;
+    left: 45px;
+    font-family: mono;     
+    font-size: 1rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px black;   
+    color: #fff;
     pointer-events: none;
-    font-family: Marker;
     transform: translateY(1rem);
-    transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 550ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .input:focus,
   .input:valid {
     outline: none;
-    outline: 2px solid #1a73e8;
+    outline: 2px solid #a2a2a2c4;
   }
-
+  .input:focus {
+  
+  }
   .input:focus ~ label,
   .input:valid ~ label {
-    transform: translateY(-100%) translateX(-55px);
-    
+    left: 15px;
+    transform: translateY(-110%);    
     background-color: #21212100;
     padding: 0 0.2em;
     color: tomato;
-    text-shadow: 1px 1px 4px black;
   }
 
 </style>

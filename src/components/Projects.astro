@@ -9,7 +9,7 @@ import p4 from "../assets/images/p4.png"
 
 <section class="wrapperr offscreen">
   <h1
-    class="text-center mt-6 p-8 text-3xl font-bold text-gray-600 font-[Marker]"
+    class="text-center mt-6 p-8 text-3xl font-bold text-gray-600 font-[mono]"
   >
     Projects
   </h1>
@@ -28,19 +28,7 @@ import p4 from "../assets/images/p4.png"
       </figcaption>
     </div>
 
-    <div
-      class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
-      data-modal-target="myModal2"
-    >
-      <figcaption>
-        <img src={p2.src} alt="" />
-        <div class="caption flex flex-col items-center">
-          <h1 class="py-4 text-center">Frima Blome</h1>
-          <p>Ein Kleines webproject für Unser Familienunternehen.</p>
-          <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
-        </div>
-      </figcaption>
-    </div>
+    
     <div
     class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
     data-modal-target="myModal3"
@@ -67,6 +55,19 @@ import p4 from "../assets/images/p4.png"
     </div>
   </figcaption>
 </div>
+<div
+      class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
+      data-modal-target="myModal2"
+    >
+      <figcaption>
+        <img src={p2.src} alt="" />
+        <div class="caption flex flex-col items-center">
+          <h1 class="py-4 text-center">Frima Blome</h1>
+          <p>Ein Kleines webproject für Unser Familienunternehen.</p>
+          <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+        </div>
+      </figcaption>
+    </div>
     <!-- Füge hier weitere <div> Elemente für weitere Modals hinzu -->
   </div>
 
@@ -149,7 +150,7 @@ figcaption {
 
 }
 figcaption h1 {
-    font-family: Marker;
+    font-family: mono;
     font-size: x-large;
 }
 iframe {
@@ -188,7 +189,7 @@ iframe {
         opacity: 0;
         padding: 55px;
         border-radius: 15px;
-        position: absolute;
+        position: fixed;
         top: 0px;
         left: 0px;
         right: 0px;
@@ -222,12 +223,18 @@ iframe {
   }
   .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: auto auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 90%;    
+    width: 100%; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
     h1 {
-      font-family: marker;
+      font-family: mono;
       font-size: 28px;
     }
     p{

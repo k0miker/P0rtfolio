@@ -1,5 +1,6 @@
 ---
 import "../css/fonts.css";
+import Button2 from "./Button2.astro";
 ---
 
 <footer class="footer">
@@ -30,10 +31,22 @@ import "../css/fonts.css";
       >
     </li>
   </ul>
-  <p class="text-[marker]">© 2024 Colin Blome. Alle Rechte vorbehalten.</p>
+  <p class="text-[mono]">© 2024 Colin Blome. Alle Rechte vorbehalten.</p>
+
+<div class="flex items-center place-content-center">
+
+  <Button2>
+</div>
 </footer>
 
 <style>
+  .ugly{
+    display: flex;
+    padding: 5px;
+    border-radius: 10px;
+    border:2px grey solid;
+    display: inline-block;
+  }
   .footer {
     background-color: #333;
     padding: 1rem;

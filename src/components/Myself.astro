@@ -4,8 +4,8 @@ import myself from "../assets/images/myself.jpg";
 import Skills from "../components/Skills.astro";
 ---
 
-<div class="wrap p-8 sm:flex-col rounded-lg offscreen">
-  <h3 class="py-5 font-sans text-4xl text-center offscreen">About</h3>
+<div class="wrap sm:flex-col rounded-lg offscreen">
+  <h3 class="py-5 font-sans text-4xl font-bold  text-center offscreen">About</h3>
   <div class="flex flex-col items-center offscreen">
     <img src={myself.src} class="sm:w-[100%] offscreen" alt="foto of colin" />
     <p class="p-8 text-center text-pretty offscreen" id="ENG">
@@ -36,37 +36,35 @@ import Skills from "../components/Skills.astro";
       MOTIVIERT, DIE BESTEN ERGEBNISSE ZU ERZIELEN UND MEINEN KUNDEN ZU HELFEN,
       IHRE ZIELE ZU ERREICHEN.
     </p>
-    <div class="flex-col offscreen">
+    <div class="self flex-col w-[100%] p-[5vw] offscreen">
       <h3
-        class="text-center text-2xl p-4 font-[Marker] bg-gray-400 max-w-[768px] rounded-t-xl text-gray-600"
+        class="text-center text-2xl p-4 font-[mono] bg-gray-400 max-w-[768px] rounded-t-xl text-gray-600 font-bold w-[100%]"
       >
         Self Proclamations
       </h3>
       <div
-        class="flex flex-col p-4 w-[100%] sm:flex-row bg-gray-300 rounded-b-xl max-w-[768px] font-[Marker] text-gray-600"
+        class="flex flex-col p-4 w-[100%] sm:flex-row bg-gray-300 rounded-b-xl max-w-[768px] font-[mono] text-gray-600"
       >
         <div
-          class="flex flex-grow flex-col p-4 items-center hover:text-[tomato] hover:scale-125"
+          class="flex flex-grow flex-col p-2 items-center hover:text-[tomato] hover:scale-125 font-bold"
         >
-          <i class="fa-solid fa-keyboard text-gray-600 p-4 sm:text-[50px]"
-          ></i>Web Developer
+          <i class="fa-solid fa-keyboard text-gray-600 p-4 text-[50px]"></i>Web
+          Developer
         </div>
         <div
-          class="flex flex-grow flex-col p-4 items-center font-[Marker] hover:text-[tomato] hover:scale-125"
+          class="flex flex-grow flex-col p-2 items-center font-[mono] hover:text-[tomato] hover:scale-125 font-bold"
         >
           <i class="fa-solid fa-user text-gray-600 p-4 text-[50px]"></i>UI/UX
           Enthusiast
         </div>
         <div
-          class="flex flex-grow flex-col p-4 items-center font-[Marker] hover:text-[tomato] hover:scale-125"
+          class="flex flex-grow flex-col p-2 items-center font-[mono] hover:text-[tomato] hover:scale-125 font-bold"
         >
           <i class="fa-solid fa-leaf text-gray-600 p-4 text-[50px]"></i>Bonsai
           Enthusiast
         </div>
       </div>
     </div>
-
-
   </div>
 </div>
 
@@ -77,19 +75,27 @@ import Skills from "../components/Skills.astro";
     /* max-width: 768px; */
     margin-left: auto;
     margin-right: auto;
+    padding-top: 40px;
   }
   img {
     width: 30%;
     max-width: 250px;
     opacity: 0.8;
+    outline: 1px solid #333;
     object-fit: cover;
-    box-shadow: 4px 5px 5px #333;
-    border-radius: 50% 50%;
+    
+    border-radius:20%;
     aspect-ratio: 1;
+  }
+  img:hover{
+    transform: translateX(-10px) translateY(-10px);
+    border-radius: 10%;
+    outline: 2px solid #333;
+    box-shadow: rgba(0, 0, 0, 0.783) 10px 10px 10px 0px;
   }
 
   h3 {
-    font-family: Marker;
+    font-family: mono;
     color: #263442c0;
     text-shadow: 2px 2px 3px rgba(255, 255, 255, 0);
     display: flex;
@@ -97,7 +103,7 @@ import Skills from "../components/Skills.astro";
     align-items: center;
   }
   p {
-    font-family: roboto;
+    font-family: monospace;
     max-width: 768px;
     text-transform: uppercase;
     text-align: center;
@@ -107,6 +113,11 @@ import Skills from "../components/Skills.astro";
       0px 0px 15px black,
       1px 1px 3px black; */
   }
+  .self{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   #GER {
     display: none;
   }
@@ -115,7 +126,7 @@ import Skills from "../components/Skills.astro";
 ></script>
 <script>
   const button = document.getElementById("tv");
-  button.addEventListener("click",toggleVisibility)
+  button.addEventListener("click", toggleVisibility);
   function toggleVisibility() {
     var gerElement = document.getElementById("GER");
     var engElement = document.getElementById("ENG");
