@@ -60,11 +60,11 @@
 }
 @keyframes letters {
     from {
-      letter-spacing: .2vw;
-      text-shadow: 0px 0px 4px whitesmoke;
+      letter-spacing: .5vw;
+      text-shadow: 0px 0px 14px whitesmoke;
     }
     
-    to{
+    10%{
       letter-spacing: 0;
     }
 }
