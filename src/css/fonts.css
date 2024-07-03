@@ -8,7 +8,11 @@
     src: url(/Fonts/SpaceMono-Regular.ttf);
 
 }
+@font-face {
+    font-family: "inter";
+    src: url(/Fonts/Inter-VariableFont_slnt,wght.ttf);
 
+}
 
 
 .offscreen {

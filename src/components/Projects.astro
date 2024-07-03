@@ -1,22 +1,19 @@
 ---
 import p1 from "../assets/images/bonsaiworld.jpg";
 import p2 from "../assets/images/blome.jpg";
-import p3 from "../assets/images/p3.png"
-import p4 from "../assets/images/p4.png"
-
-
+import p3 from "../assets/images/p3.png";
+import p4 from "../assets/images/p4.png";
 ---
 
 <section class="wrapperr offscreen">
-  <h1
-    class="text-center mt-6 p-8 text-3xl font-bold text-gray-600 font-[mono]"
-  >
+  <h1 class="text-center mt-6 p-8 text-3xl font-bold text-gray-600 font-[mono]">
     Projects
   </h1>
   <div class="container flex-col items-center content-center sm:flex-row">
     <div
       class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
       data-modal-target="myModal1"
+      id="projects"
     >
       <figcaption>
         <img src={p1.src} alt="" />
@@ -28,34 +25,33 @@ import p4 from "../assets/images/p4.png"
       </figcaption>
     </div>
 
-    
     <div
-    class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
-    data-modal-target="myModal3"
-  >
-    <figcaption>
-      <img src={p3.src} alt="" />
-      <div class="caption flex flex-col items-center">
-        <h1 class="py-4 text-center">Layout beispiel</h1>
-        <p>Ein Kleines layout im Rahmen des DCI Kurses.</p>
-        <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
-      </div>
-    </figcaption>
-  </div>
-  <div
-  class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
-  data-modal-target="myModal4"
->
-  <figcaption>
-    <img src={p4.src} alt="" />
-    <div class="caption flex flex-col items-center">
-      <h1 class="py-4 text-center">Layout beispiel</h1>
-      <p>Ein Kleines layout im Rahmen des DCI Kurses.</p>
-      <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+      class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
+      data-modal-target="myModal3"
+    >
+      <figcaption>
+        <img src={p3.src} alt="" />
+        <div class="caption flex flex-col items-center">
+          <h1 class="py-4 text-center">Layout beispiel</h1>
+          <p>Ein Kleines layout im Rahmen des DCI Kurses.</p>
+          <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+        </div>
+      </figcaption>
     </div>
-  </figcaption>
-</div>
-<div
+    <div
+      class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
+      data-modal-target="myModal4"
+    >
+      <figcaption>
+        <img src={p4.src} alt="" />
+        <div class="caption flex flex-col items-center">
+          <h1 class="py-4 text-center">Layout beispiel</h1>
+          <p>Ein Kleines layout im Rahmen des DCI Kurses.</p>
+          <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+        </div>
+      </figcaption>
+    </div>
+    <div
       class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
       data-modal-target="myModal2"
     >
@@ -84,7 +80,7 @@ import p4 from "../assets/images/p4.png"
   </div>
 
   <div id="myModal2" class="modal fadein">
-    <div class="modal-content ">
+    <div class="modal-content">
       <span class="close">&times;</span>
       <h1 class="py-4 text-center"></h1>
       <p>Ein Kleines webproject für Unser Familienunternehen.</p>
@@ -104,7 +100,7 @@ import p4 from "../assets/images/p4.png"
       <span class="close">&times;</span>
       <h1 class="py-4 text-center">Layout beispiel</h1>
       <p>Ein Kleines layout im Rahmen des DCI Kurses.</p>
-      <iframe src="https://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor#1"></iframe>
+      <iframe src=""></iframe>
     </div>
   </div>
 
@@ -112,14 +108,14 @@ import p4 from "../assets/images/p4.png"
 </section>
 
 <style>
-.wrapperr {
+  .wrapperr {
     margin-left: auto;
     margin-right: auto;
     background-color: rgba(255, 255, 255, 0.829);
     margin-top: 50px;
     min-height: 100vh;
-}
-.modal {
+  }
+  .modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -130,92 +126,89 @@ import p4 from "../assets/images/p4.png"
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.685);
     transition: 5s;
-}
-.caption {
+  }
+  .caption {
     justify-content: center;
     h1,
     p,
     i {
-        flex-grow: 1;
+      flex-grow: 1;
     }
     i {
-        font-size: x-large;
+      font-size: x-large;
     }
     i:hover {
-        color: tomato;
-        
+      color: tomato;
     }
-}
-figcaption {
-
-}
-figcaption h1 {
+  }
+  figcaption {
+  }
+  figcaption h1 {
     font-family: mono;
     font-size: x-large;
-}
-iframe {
+  }
+  iframe {
     width: 100%;
     height: 80vh;
-}
-.container {
+  }
+  .container {
     display: flex;
 
     background-color: rgba(255, 255, 255, 0.527);
     max-width: 1024px;
     margin-left: auto;
     margin-right: auto;
-    
+
     padding: 15px;
     align-content: stretch;
     justify-content: center;
     flex-wrap: wrap;
 
     .box {
-        position: relative;
-        background-color: rgba(0, 0, 0, 0);
-        margin: 10px;
-        max-width: 450px;
-        border-radius: 15px;
-        overflow: hidden;
-        
+      position: relative;
+      background-color: rgba(0, 0, 0, 0);
+      margin: 10px;
+      max-width: 450px;
+      border-radius: 15px;
+      overflow: hidden;
     }
     .box:hover img {
       scale: 2.505;
-        cursor: pointer;
+      cursor: pointer;
     }
 
     .box .caption {
-        transition: 0.5s;
-        opacity: 0;
-        padding: 55px;
-        border-radius: 15px;
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
+      transition: 0.5s;
+      opacity: 0;
+      padding: 55px;
+      border-radius: 15px;
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
     }
     .box:hover .caption {
-        transition: 0.5s;
-        opacity: 1;
-        color: white;
-        border-radius: 15px;
-        background-color: #000000dd;
-        h1{
-          color: tomato;
-          font-size: 26px;
-        }
-        i{
-          margin-top: 50px;
-          transition: 1s;
-          scale: 2;
-          color: tomato;
-        }
+      transition: 0.5s;
+      opacity: 1;
+      color: white;
+      border-radius: 15px;
+      background-color: #000000dd;
+      h1 {
+        color: tomato;
+        font-size: 26px;
+      }
+      i {
+        margin-top: 50px;
+        transition: 1s;
+        scale: 2;
+        color: tomato;
+      }
     }
-}
+  }
 
   img {
-    object-fit:cover;
+    object-fit: cover;
     width: 100%;
     /* aspect-ratio: 1; */
     border-radius: 15px;
@@ -226,7 +219,7 @@ iframe {
     margin: auto auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 100%; 
+    width: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -237,17 +230,10 @@ iframe {
       font-family: mono;
       font-size: 28px;
     }
-    p{
+    p {
       text-align: center;
     }
   }
-  .myModal1,
-  .myModal2,
-  .mymodal3,
-  .mymodal4 {
-  
-  }
-  
   .close {
     color: #aaa;
     float: right;
@@ -261,9 +247,30 @@ iframe {
     text-decoration: none;
     cursor: pointer;
   }
-  
 </style>
+<!-- <script>
+          // Your JavaScript code here
+          function openModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.style.display = "block";
+        }
 
+        function closeModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.style.display = "none";
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function (event) {
+            var modals = document.getElementsByClassName('modal');
+            for (var i = 0; i < modals.length; i++) {
+                var modal = modals[i];
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
+</script> -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     // Hole alle Boxen, die ein Modal öffnen sollen
@@ -289,17 +296,24 @@ iframe {
     closeIcons.forEach(function (icon) {
       icon.addEventListener("click", function () {
         var modal = icon.closest(".modal");
+        console.log("icon wird geklickt");
         if (modal) {
           modal.style.display = "none";
-          console.log(modal)
+          console.log("modal style auf none");
+          console.log(modal);
         }
       });
     });
 
     // Schließe das Modal, wenn außerhalb des Modals geklickt wird
     window.addEventListener("click", function (event) {
+
       if (event.target.classList.contains("modal")) {
+        console.log("modal ist da");
+        console.log(event.target.classList);
         event.target.style.display = "none";
+        console.log("modal style auf none");
+        console.log(event.target.style);
       }
     });
   });
