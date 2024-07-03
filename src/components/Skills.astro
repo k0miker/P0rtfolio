@@ -1,23 +1,23 @@
 ---
-import"../css/fonts.css"
-import "../css/fontawesome/css/fontawesome.css"
-import "../css/fontawesome/css/all.min.css"
+import "../css/fonts.css";
+import "../css/fontawesome/css/fontawesome.css";
+import "../css/fontawesome/css/all.min.css";
 ---
 
 <div class="flex box content-center items-center h-[100vh]">
   <div class="card offscreen">
-    <div class="header font-[mono] text-[1.5rem] font-extrabold ">My Skills</div>
+    <div class="header font-[mono] text-[1.5rem] font-extrabold">My Skills<span class="animate-ping">_</span></div>
     <div class="body">
       <div class="skill">
         <div class="skill-name html font-[mono]">HTML</div>
         <div class="skill-level">
-          <div style="width: 85%" class="skill-percent"></div>
+          <div style="width: 65%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
         <div class="skill-name css font-[mono]">CSS</div>
         <div class="skill-level">
-          <div style="width: 70%" class="skill-percent"></div>
+          <div style="width: 50%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
@@ -63,7 +63,7 @@ import "../css/fontawesome/css/all.min.css"
         </div>
       </div>
       <div class="flex wrapper mt-10">
-        <i class="fa-brands text-gray-600 fa-html5 "></i>
+        <i class="fa-brands text-gray-600 fa-html5"></i>
         <i class="fa-brands text-gray-600 fa-css3"></i>
         <i class="fa-brands text-gray-600 fa-react"></i>
         <i class="fa-brands text-gray-600 fa-js"></i>
@@ -78,8 +78,7 @@ import "../css/fontawesome/css/all.min.css"
 </div>
 
 <style>
-  .box{
-
+  .box {
     padding: 5vw;
     background-image: url("https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
@@ -99,7 +98,6 @@ import "../css/fontawesome/css/all.min.css"
   .wrapper {
     justify-content: space-between;
     flex-wrap: wrap;
-    
   }
   i {
     font-size: 50px;
@@ -145,43 +143,12 @@ import "../css/fontawesome/css/all.min.css"
     font-size: 16px;
     color: #263442c0;
     animation: rollover ease-in-out infinite 2s;
-    
   }
   .skill-name:hover {
     /* transform: translate(15px);
     scale: 1.3; */
   }
-  .html:hover {
-    color: blue;
-    animation-delay: 1s;
-  }
-  .js:hover{
-    color: tomato;
-    animation-delay: 2s;
-  }
-  .css:hover {
-    color: purple;
-    animation-delay: 3s;
-  }
-  .astro:hover {
-    color: palevioletred;
-  }
-  .tailwind:hover {
-    color: rgb(0, 159, 180);
-  }
-  .github:hover {
-    color: rgb(0, 145, 12);
-  }
-  .scss:hover {
-    color: purple;
-  }
-  .windows:hover {
-    color: rgb(0, 140, 255);
-  }
-  .linux:hover {
-    color: darkmagenta;
-  }
-  
+
   .skill-level {
     flex-grow: 1;
     height: 10px;
@@ -194,14 +161,12 @@ import "../css/fontawesome/css/all.min.css"
     display: flex;
     align-items: center;
     /* justify-content: center; */
-    
   }
 
   .skill-percent {
-    
     position: absolute;
-    z-index: 0;    
-    background-color: #263442c0;   
+    z-index: 0;
+    background-color: #263442c0;
     border-radius: 5px;
     height: 100%;
     width: 320px;
@@ -219,7 +184,134 @@ import "../css/fontawesome/css/all.min.css"
     color: #263442c0;
   }
 
+  i:hover {
+    transition: 0.5s;
+    color: tomato;
+  }
 
+  i:nth-of-type(1) {
+    animation: rollover2 10s ease-in-out infinite;
+  }
+  i:nth-of-type(2) {
+    animation: rollover2 10s ease-in-out 1 0.5s;
+  }
+  i:nth-of-type(3) {
+    animation: rollover2 10s ease-in-out 1 1s;
+  }
+  i:nth-of-type(4) {
+    animation: rollover2 10s ease-in-out 1 1.5s;
+  }
+  i:nth-of-type(5) {
+    animation: rollover2 10s ease-in-out 1 2s;
+  }
+  i:nth-of-type(6) {
+    animation: rollover2 10s ease-in-out 1 2.5s;
+  }
+  i:nth-of-type(7) {
+    animation: rollover2 10s ease-in-out 1 3s;
+  }
+  i:nth-of-type(8) {
+    animation: rollover2 10s ease-in-out 1 3.5s;
+  }
+  i:nth-of-type(9) {
+    animation: rollover2 10s ease-in-out 1 4s;
+  }
+  @keyframes rollover2 {
+    from {
+      color: #333;
+      scale: 1;
+    }
+    10% {  
+      color: tomato;
+      scale: 1.2;
+    }
+    20% {
+      color: #333;
+      scale: 1;
+    }
+  }
+  .skill:hover:nth-of-type(1) .skill-percent {
+    background-color: rgb(0, 0, 147);
+  }
+  .skill:hover:nth-of-type(1) .skill-name {
+    color: blue;
+    scale: 1.5;
+    transform: translateX(18px);
+    
+  }
+  .skill:hover:nth-of-type(2) .skill-percent {
+    background-color: purple;
+  }
+  .skill:hover:nth-of-type(2) .skill-name {
+    color: purple;
+    scale: 1.5;
+    transform: translateX(18px);
+    
+  }
+  .skill:hover:nth-of-type(3) .skill-percent {
+    background-color: tomato;
+  }
+  .skill:hover:nth-of-type(3) .skill-name {
+    color: tomato;
+    scale: 1.2;
+    transform: translateX(2px);
+    
+  }
+  .skill:hover:nth-of-type(4) .skill-percent {
+    background-color: palevioletred;
+  }
+  .skill:hover:nth-of-type(4) .skill-name {
+    color: palevioletred;
+    scale: 1.5;
+    transform: translateX(18px);
+    
+  }
+  .skill:hover:nth-of-type(5) .skill-percent {
+    background-color: rgb(0, 159, 180);
+  }
+  .skill:hover:nth-of-type(5) .skill-name {
+    color: rgb(0, 159, 180);
+    scale: 1.5;
+    transform: translateX(12px);    
+  }
 
+  .skill:hover:nth-of-type(6) .skill-percent {
+    background-color: rgb(0, 145, 12);
+  }
+  .skill:hover:nth-of-type(6) .skill-name {
+    color: rgb(0, 145, 12);
+    scale: 1.5;
+    transform: translateX(18px);
+    
+  }
+  .skill:hover:nth-of-type(7) .skill-percent {
+    background-color: purple;
+  }
+  .skill:hover:nth-of-type(7) .skill-name {
+    color: purple;
+    scale: 1.5;
+    transform: translateX(18px);
+    
+  }
+  .skill:hover:nth-of-type(8) .skill-percent {
+    background-color: rgb(0, 149, 255);
+  }
+  .skill:hover:nth-of-type(8) .skill-name {
+    color: rgb(0, 149, 255);
+    scale: 1.5;
+    transform: translateX(18px);
+    
+  }
+  .skill:hover:nth-of-type(9) .skill-percent {
+    background-color: purple;
+  }
+  .skill:hover:nth-of-type(9) .skill-name {
+    color: purple;
+    scale: 1.5;
+    transform: translateX(18px);
+    
+  }
+header {
 
+}
 </style>

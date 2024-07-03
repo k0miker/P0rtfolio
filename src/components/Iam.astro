@@ -74,11 +74,12 @@ import "../css/keyframes.css";
   .console-container {
     background-image: url("https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg");
     background-size: cover;
-    animation: slidein 45s;
+    animation: slidein linear 45s;
     background-attachment: fixed;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
     animation-direction: alternate;    
+    box-shadow: inset 0px -100px 100px 10px #333333dd;
     height: 100vh;
     display: flex;
     align-items: center;

@@ -58,3 +58,13 @@
       background-size: 2750px;
     }
 }
+@keyframes letters {
+    from {
+      letter-spacing: .2vw;
+      text-shadow: 0px 0px 4px whitesmoke;
+    }
+    
+    to{
+      letter-spacing: 0;
+    }
+}
