@@ -1,13 +1,17 @@
 ---
 import "../css/fonts.css";
 import myself from "../assets/images/Cartoonify.svg";
+import myself3 from "../assets/images/myself.jpg";
 import Skills from "../components/Skills.astro";
 ---
 
 <div class="wrap sm:flex-col rounded-lg offscreen">
-  <h3 class="py-5 font-sans text-4xl font-bold  text-center offscreen">About</h3>
+  <h3 class="py-5 font-[mon] text-4xl font-bold text-center offscreen">About</h3>
   <div class="flex flex-col items-center offscreen">
-    <img src={myself.src} class="sm:w-[100%] offscreen" alt="foto of colin" />
+    <div class="foto-swich">
+      <img src={myself.src} class="sm:w-[100%]" alt="foto of colin" />
+      <img src={myself3.src} class="sm:w-[100%]" alt="foto of colin" />
+    </div>
     <p class="p-8 text-center text-pretty offscreen" id="ENG">
       Hello! <br />I'm Colin, a 38-year-old passionate web developer. Since my
       youth, I've been a true PC nerd with a strong affinity for technology. <br
@@ -83,15 +87,11 @@ import Skills from "../components/Skills.astro";
     opacity: 0.8;
     outline: 1px solid #333;
     object-fit: cover;
-    
-    border-radius:20%;
+
+    border-radius: 20%;
     aspect-ratio: 1;
   }
-  img:hover{
-    transform: translateX(-10px) translateY(-10px);
-    border-radius: 10%;
-    outline: 2px solid #333;
-    box-shadow: rgba(0, 0, 0, 0.783) 10px 10px 10px 0px;
+  img:hover {
   }
 
   h3 {
@@ -113,12 +113,34 @@ import Skills from "../components/Skills.astro";
       0px 0px 15px black,
       1px 1px 3px black; */
   }
-  .self{
+  .self {
     display: flex;
     justify-content: center;
     align-items: center;
   }
   #GER {
+    display: none;
+  }
+  .foto-swich {
+    display: flex;
+    justify-content: center;
+    img {
+      width: 200px;
+
+      transition: 1s;
+    }
+  }
+  .foto-swich:hover img:nth-of-type(2) {
+    display: block;
+
+    transition: 1s;
+  }
+  .foto-swich:hover img:nth-of-type(1) {
+    display: none;
+
+    transition: 1s;
+  }
+  .foto-swich img:nth-of-type(2) {
     display: none;
   }
 </style>

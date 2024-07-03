@@ -3,6 +3,8 @@ import p1 from "../assets/images/bonsaiworld.jpg";
 import p2 from "../assets/images/blome.jpg";
 import p3 from "../assets/images/p3.png";
 import p4 from "../assets/images/p4.png";
+import p5 from "../assets/images/p5.png";
+import p6 from "../assets/images/p6.png";
 ---
 
 <section class="wrapperr offscreen">
@@ -45,8 +47,8 @@ import p4 from "../assets/images/p4.png";
       <figcaption>
         <img src={p4.src} alt="" />
         <div class="caption flex flex-col items-center">
-          <h1 class="py-4 text-center">Layout beispiel</h1>
-          <p>Ein Kleines layout im Rahmen des DCI Kurses.</p>
+          <h1 class="py-4 text-center">Marketing Kampagne</h1>
+      <p>Eine Beispiel für eine Marketing Kampagne zur Bonasiworl</p>
           <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
         </div>
       </figcaption>
@@ -60,6 +62,32 @@ import p4 from "../assets/images/p4.png";
         <div class="caption flex flex-col items-center">
           <h1 class="py-4 text-center">Frima Blome</h1>
           <p>Ein Kleines webproject für Unser Familienunternehen.</p>
+          <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+        </div>
+      </figcaption>
+    </div>
+    <div
+      class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
+      data-modal-target="myModal5"
+    >
+      <figcaption>
+        <img src={p5.src} alt="" />
+        <div class="caption flex flex-col items-center">
+          <h1 class="py-4 text-center">Coffee Shop</h1>
+          <p>Ein Kleines layout aus dem Kurs.</p>
+          <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+        </div>
+      </figcaption>
+    </div>
+    <div
+      class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
+      data-modal-target="myModal6"
+    >
+      <figcaption>
+        <img src={p6.src} alt="" />
+        <div class="caption flex flex-col items-center">
+          <h1 class="py-4 text-center">Donut Shop</h1>
+          <p>Ein Kleines layout aus dem Kurs.</p>
           <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
         </div>
       </figcaption>
@@ -84,9 +112,10 @@ import p4 from "../assets/images/p4.png";
       <span class="close">&times;</span>
       <h1 class="py-4 text-center"></h1>
       <p>Ein Kleines webproject für Unser Familienunternehen.</p>
-      <!-- <iframe src="https://k0mikerhdf.wixsite.com/blome"></iframe> -->
+      <iframe src="https://k0mikerhdf.wixsite.com/blome"></iframe>
     </div>
   </div>
+
   <div id="myModal3" class="modal fadein">
     <div class="modal-content">
       <span class="close">&times;</span>
@@ -95,12 +124,31 @@ import p4 from "../assets/images/p4.png";
       <iframe src="/embeded/MyComponent"></iframe>
     </div>
   </div>
+
   <div id="myModal4" class="modal fadein">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h1 class="py-4 text-center">Marketing Kampagne</h1>
+      <p>Eine Beispiel für eine Marketing Kampagne zur Bonasiworld</p>
+     
+      <a class="p-8" href="https://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor" target="_blank"> <img src={p4.src} alt=""></a>
+    </div>
+  </div>
+
+  <div id="myModal5" class="modal fadein">
     <div class="modal-content">
       <span class="close">&times;</span>
       <h1 class="py-4 text-center">Layout beispiel</h1>
       <p>Ein Kleines layout im Rahmen des DCI Kurses.</p>
-      <iframe src=""></iframe>
+      <img src={p5.src} alt="">
+    </div>
+  </div>
+  <div id="myModal6" class="modal fadein">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h1 class="py-4 text-center">Layout beispiel</h1>
+      <p>Ein Kleines layout im Rahmen des DCI Kurses.</p>
+      <img src={p6.src} alt="">
     </div>
   </div>
 
@@ -113,19 +161,25 @@ import p4 from "../assets/images/p4.png";
     margin-right: auto;
     background-color: rgba(255, 255, 255, 0.829);
     margin-top: 50px;
-    min-height: 100vh;
+    min-height: 80vh;
   }
   .modal {
     display: none;
     position: fixed;
+    
     z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
+    padding: 1vw;
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.685);
     transition: 5s;
+    
+    img{
+      width:  30%;
+    }
   }
   .caption {
     justify-content: center;
@@ -155,11 +209,12 @@ import p4 from "../assets/images/p4.png";
     display: flex;
 
     background-color: rgba(255, 255, 255, 0.527);
-    max-width: 1024px;
+    max-width: 1424px;
     margin-left: auto;
     margin-right: auto;
 
     padding: 15px;
+    padding-bottom: 50px;
     align-content: stretch;
     justify-content: center;
     flex-wrap: wrap;
@@ -168,9 +223,14 @@ import p4 from "../assets/images/p4.png";
       position: relative;
       background-color: rgba(0, 0, 0, 0);
       margin: 10px;
+      box-shadow: 2px 2px 4px 2px #888;
       max-width: 450px;
       border-radius: 15px;
       overflow: hidden;
+    }
+    img {
+      max-height: 450px;
+      aspect-ratio: 1;
     }
     .box:hover img {
       scale: 2.505;
@@ -210,7 +270,7 @@ import p4 from "../assets/images/p4.png";
   img {
     object-fit: cover;
     width: 100%;
-    /* aspect-ratio: 1; */
+    aspect-ratio: 1;
     border-radius: 15px;
     transition: 1s;
   }
@@ -224,7 +284,10 @@ import p4 from "../assets/images/p4.png";
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
+    /* bottom: 0; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     h1 {
       font-family: mono;
@@ -232,6 +295,14 @@ import p4 from "../assets/images/p4.png";
     }
     p {
       text-align: center;
+    }
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    a:hover img{
+      scale: 1.12;
     }
   }
   .close {
@@ -248,29 +319,7 @@ import p4 from "../assets/images/p4.png";
     cursor: pointer;
   }
 </style>
-<!-- <script>
-          // Your JavaScript code here
-          function openModal(modalId) {
-            var modal = document.getElementById(modalId);
-            modal.style.display = "block";
-        }
 
-        function closeModal(modalId) {
-            var modal = document.getElementById(modalId);
-            modal.style.display = "none";
-        }
-
-        // Close modal when clicking outside of it
-        window.onclick = function (event) {
-            var modals = document.getElementsByClassName('modal');
-            for (var i = 0; i < modals.length; i++) {
-                var modal = modals[i];
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-        }
-</script> -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     // Hole alle Boxen, die ein Modal öffnen sollen
@@ -296,11 +345,8 @@ import p4 from "../assets/images/p4.png";
     closeIcons.forEach(function (icon) {
       icon.addEventListener("click", function () {
         var modal = icon.closest(".modal");
-        console.log("icon wird geklickt");
         if (modal) {
           modal.style.display = "none";
-          console.log("modal style auf none");
-          console.log(modal);
         }
       });
     });
@@ -309,11 +355,7 @@ import p4 from "../assets/images/p4.png";
     window.addEventListener("click", function (event) {
 
       if (event.target.classList.contains("modal")) {
-        console.log("modal ist da");
-        console.log(event.target.classList);
         event.target.style.display = "none";
-        console.log("modal style auf none");
-        console.log(event.target.style);
       }
     });
   });
