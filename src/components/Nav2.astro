@@ -1,5 +1,6 @@
 ---
 import "../css/keyframes.css";
+import logo from "../assets/images/logo.png"
 ---
 <!-- component -->
 <script
@@ -15,8 +16,8 @@ import "../css/keyframes.css";
     <div class="p-4 flex flex-row items-center justify-between">
       <a
         href="#"
-        class="name text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"
-        >Colin Blome Webdesign</a
+        class="name text-lg font-semibold font-[marker] tracking-widest text-gray-600 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"
+        ><div></div>Colin Blome Webdesign</a
       >
       <button
         class="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
@@ -117,5 +118,18 @@ nav *{
 .active {
   background: #e6e6e6;
   color: tomato;
+}
+.name div{
+  background-image: url({logo});
+  background-size: contain;
+
+
+}
+.name:hover div {
+  display: inline-block;
+  height: 100%;
+  aspect-ratio: 1;
+  color: black;
+
 }
 </style>
