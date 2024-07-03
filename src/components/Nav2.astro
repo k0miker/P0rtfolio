@@ -7,7 +7,7 @@ import logo from "../assets/images/logo.png"
   src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
   defer></script>
 <div
-  class="head w-full fixed z-20 text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800"
+  class="head w-full fixed z-20 text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800" id="navbar"
 >
   <div
     x-data="{ open: false }"
@@ -129,6 +129,23 @@ nav *{
   height: 100%;
   aspect-ratio: 1;
   color: black;
-
+}
+.head{
+  background: #ffffff16;
+}
+.colored {
+  transition: all 1s;
+  background-color: #ffffff;
+  box-shadow: 0 0px 15px 0 #0000002b;
 }
 </style>
+<script>
+  window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > navbar.offsetTop) {
+      navbar.classList.add('colored');
+    } else {
+      navbar.classList.remove('colored');
+    }
+  });
+</script>
