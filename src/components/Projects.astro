@@ -157,18 +157,21 @@ import p6 from "../assets/images/p6.png";
 
 <style>
   .wrapperr {
-    margin-left: auto;
-    margin-right: auto;
     background-color: rgba(255, 255, 255, 0.829);
     margin-top: 50px;
     min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   .modal {
     display: none;
-    position: fixed;
-    
+    position: absolute;
+    justify-content: center;
+    align-items: center;
     z-index: 1;
-    left: 0;
+    
     top: 0;
     width: 100%;
     padding: 1vw;
@@ -176,6 +179,7 @@ import p6 from "../assets/images/p6.png";
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.685);
     transition: 5s;
+
     
     img{
       width:  30%;
@@ -269,7 +273,9 @@ import p6 from "../assets/images/p6.png";
 
   img {
     object-fit: cover;
+    @media screen and (max-width:768px) {      
     width: 100%;
+    }
     aspect-ratio: 1;
     border-radius: 15px;
     transition: 1s;
@@ -279,12 +285,7 @@ import p6 from "../assets/images/p6.png";
     margin: auto auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    max-width: 1260px;    
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -333,7 +334,7 @@ import p6 from "../assets/images/p6.png";
 
         // Öffne das entsprechende Modal
         if (modal) {
-          modal.style.display = "block";
+          modal.style.display = "flex";
         }
       });
     });

@@ -16,7 +16,7 @@ import logo from "../assets/images/logo.png"
     <div class="flex flex-row items-center justify-between">
       <a
         href="#"
-        class="name min-w-[150px] text-lg font-semibold flex duration-200 items-center font-[mono] hover:tracking-[10px] tra tracking-widest text-gray-800 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"
+        class="name min-w-[150px] text-lg font-semibold flex duration-200 items-center font-[mono] hover:tracking-[10px] tra tracking-widest  uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline"
         ><span ><img class="logo" src={logo.src} alt=""></span >Colin Blome Webdesign</a
       >
       <button
@@ -42,11 +42,11 @@ import logo from "../assets/images/logo.png"
       class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row"
     >
       <a
-        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
+        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4  hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
         href="#home" id="nav-home">//Home</a
       >
       <a
-        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4  hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
         href="#about" id="nav-about">//About</a
       >
       <a
@@ -59,7 +59,7 @@ import logo from "../assets/images/logo.png"
           @click="open = !open"
           class="px-0"
         ><a
-        class="block px-2 py-2 mt-2 md:ml-3.5 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+        class="block px-2 py-2 mt-2 md:ml-3.5 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-[tomato]  focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
         href="#projects">//Projects<svg
         fill="currentColor"
         viewBox="0 0 20 20"
@@ -89,7 +89,7 @@ import logo from "../assets/images/logo.png"
           >
             
             <a
-              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
               href="https://bonsaiworld.netlify.app/" target="_blank">/Projects/Project #1</a
             >
             <a
@@ -138,6 +138,12 @@ nav *{
   transition: all 1s;
   background-color: #ffffff;
   box-shadow: 0 0px 15px 0 #0000002b;
+  a {
+    color: #333;
+  }
+}
+.colored a:hover {
+  color: tomato;
 }
 </style>
 <script>
