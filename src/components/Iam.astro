@@ -3,26 +3,28 @@ import "../css/fonts.css";
 import "../css/keyframes.css";
 ---
 
-<div class="console-container font-[Marker] font-extrabold text-4xl ">
-  <span id="text" class="offscreen" ></span><div class="console-underscore" id="console">
+<div class="console-container font-[Marker] font-extrabold text-4xl">
+  <span id="text" class="offscreen"></span><div
+    class="console-underscore"
+    id="console"
+  >
     &#95;
   </div>
-  
 </div>
 <div class="down">
-  <a href="#about"><div>Down </div><div><i class="fa-solid fa-arrow-down"></i></div></a>
+  <a href="#about"
+    ><div>Down</div><div><i class="fa-solid fa-arrow-down"></i></div></a
+  >
 </div>
 
 <style>
-
   .hidden {
     opacity: 0;
   }
-  span{
+  span {
     min-height: 40px;
   }
   body {
-    
   }
   .down {
     display: flex;
@@ -44,33 +46,34 @@ import "../css/keyframes.css";
     overflow: hidden;
     position: relative;
     cursor: pointer;
-    transition:all 1s;
+    transition: all 1s;
     flex-direction: column;
-    div{
+    div {
       padding: 5px;
     }
-    
-
   }
-  a:hover div{
+  a:hover {
+    transform: translateY(5px);
+  }
+  a:hover div {
     color: tomato;
   }
-  a:hover div:nth-of-type(1){
-    display:none;
-    div{
+  a:hover div:nth-of-type(1) {
+    display: none;
+    div {
       display: block;
     }
   }
-  a div:nth-of-type(2){
+  a div:nth-of-type(2) {
     display: none;
   }
-  a:hover div:nth-of-type(2){
-    display:block;
-    div{
+  a:hover div:nth-of-type(2) {
+    display: block;
+    div {
       display: block;
     }
   }
-  
+
   .console-container {
     background-image: url("https://static.pexels.com/photos/414171/pexels-photo-414171.jpeg");
     background-size: cover;
@@ -78,7 +81,7 @@ import "../css/keyframes.css";
     background-attachment: fixed;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
-    animation-direction: alternate;    
+    animation-direction: alternate;
     box-shadow: inset 0px -2vh 10vw 10px #000000ba;
     height: 100vh;
     display: flex;
@@ -87,7 +90,7 @@ import "../css/keyframes.css";
     position: relative;
     color: white;
     z-index: -1;
-    top:0;
+    top: 0;
     left: 0;
     right: 0;
     bottom: -30px;
@@ -99,9 +102,9 @@ import "../css/keyframes.css";
     top: 0;
     left: 10px;
   }
-  @media screen and (max-width:768px) {
+  @media screen and (max-width: 768px) {
     .console-container {
-        font-size: 2em;
+      font-size: 2em;
     }
   }
 </style>

@@ -2,19 +2,16 @@
 import "../css/fonts.css";
 import "../css/keyframes.css";
 
-import Nav from "../components/Nav2.astro";
-import Header from "../components/Header.astro";
-// import Noisebg from "../components/Noisebg.astro"
+import Nav from "../components/Nav.astro";
 import Iam from "../components/Iam.astro";
 import Myself from "../components/Myself.astro";
 import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
-import Button2 from "../components/Button.astro";
 ---
 
-<html class="w-full"lang="en">
+<html class="w-full" lang="en">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -22,42 +19,42 @@ import Button2 from "../components/Button.astro";
     <meta name="generator" content={Astro.generator} />
     <title>Portfolio</title>
   </head>
-  <body class=" w-full flex-col items-center content-center fadein2">
+  <body class="w-full flex-col items-center content-center fadein2">
+    <div id="home"></div>
     <Nav />
-    <div id="home">
-      <!-- <Noisebg/> -->
-      <Iam />
-    </div>
-    <div id="about">
-      <Myself />
-    </div>
 
-    <div id="skills">
-      <Skills />
-    </div>
-    <div id="projects">
-      <Projects />
-    </div>
-    <div id="contact"></div>
-    <Contact />
-    <div ></div>
-
-    <Footer />
+    <Iam />
   </body>
+  <div id="about">
+    <Myself />
+  </div>
+
+  <div id="skills">
+    <Skills />
+  </div>
+  <div id="projects">
+    <Projects />
+  </div>
+  <div id="contact"></div>
+  <Contact />
+  <div></div>
+
+  <Footer />
 </html>
 
 <style>
-  *{
-    scroll-behavior:smooth;
+  * {
+    scroll-behavior: smooth;
     font-family: mono;
     padding: 0;
     margin: 0;
+    cursor: src(curser.src);
   }
- 
+
   #about {
-    padding-top:40px;
+    padding-top: 40px;
   }
-  
+
   #skills {
     padding-top: 65px;
   }
@@ -67,63 +64,65 @@ import Button2 from "../components/Button.astro";
   #contact {
     padding-top: -150px;
   }
-  
-
-
- 
 </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const sections = document.querySelectorAll('div[id]');
-    const navLinks = document.querySelectorAll('nav a');
+    const sections = document.querySelectorAll("div[id]");
+    const navLinks = document.querySelectorAll("nav a");
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === '#' + entry.target.id) {
-                        link.classList.add('active');
-                    } else {
-                        link.classList.remove('active');
-                    }
-                });
-            }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navLinks.forEach((link) => {
+              if (link.getAttribute("href") === "#" + entry.target.id) {
+                link.classList.add("active");
+              } else {
+                link.classList.remove("active");
+              }
+            });
+          }
         });
-    }, {
+      },
+      {
         threshold: 0.01, // Trigger bei 70% Sichtbarkeit
-        rootMargin: "0px"
-    });
+        rootMargin: "0px",
+      }
+    );
 
-    sections.forEach(section => {
-        observer.observe(section);
+    sections.forEach((section) => {
+      observer.observe(section);
     });
-});
+  });
 </script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const boxes = document.querySelectorAll('.offscreen');
+    const boxes = document.querySelectorAll(".offscreen");
 
     const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: .2
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.2,
     };
 
     const observerCallback = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("in-view");
-            } else {
-                entry.target.classList.remove('in-view');
-            }
-        });
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+        } else {
+          entry.target.classList.remove("in-view");
+        }
+      });
     };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions
+    );
 
-    boxes.forEach(offscreen => {
-        observer.observe(offscreen);
+    boxes.forEach((offscreen) => {
+      observer.observe(offscreen);
     });
-});
+  });
 </script>

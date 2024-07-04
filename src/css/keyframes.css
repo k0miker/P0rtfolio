@@ -48,23 +48,26 @@
     }
 
 }
+
 @keyframes slidein {
     from {
-      background-position: left top;
-      background-size: 3000px;
+        background-position: left top;
+        background-size: 3000px;
     }
+
     to {
-      background-position: right bottom;
-      background-size: 2750px;
+        background-position: right bottom;
+        background-size: 2750px;
     }
 }
+
 @keyframes letters {
     from {
-      letter-spacing: .5vw;
-      text-shadow: 0px 0px 14px whitesmoke;
+        letter-spacing: .5vw;
+        text-shadow: 0px 0px 14px whitesmoke;
     }
-    
-    10%{
-      letter-spacing: 0;
+
+    10% {
+        letter-spacing: 0;
     }
 }
