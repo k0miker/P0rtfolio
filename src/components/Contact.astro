@@ -47,6 +47,20 @@ import Button from "./Button.astro";
         id="message"></textarea>
       <label class="user-label" for="message">Message</label>
     </div>
+    <div class="mt-4">
+      <input
+        type="checkbox"
+        id="privacy"
+        name="privacy"
+        required
+        class="mr-2"
+      />
+      <label for="privacy" class="text-sm">
+        I agree to the <a href="#privacy-policy" class="underline text-blue-500"
+          >privacy policy</a
+        >.
+      </label>
+    </div>
     <Button />
   </form>
 </section>
@@ -61,13 +75,10 @@ import Button from "./Button.astro";
     -webkit-animation: slidein2 30s;
     animation: slidein2 45s;
     background-attachment: fixed;
-
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
-
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
-
     -webkit-animation-direction: alternate;
     animation-direction: alternate;
   }
