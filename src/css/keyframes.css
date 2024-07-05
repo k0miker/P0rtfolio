@@ -52,12 +52,11 @@
 @keyframes slidein {
     from {
         background-position: left top;
-        background-size: 3000px;
+        background-size: 120%;
     }
 
     to {
         background-position: right bottom;
-        background-size: 2750px;
     }
 }
 

@@ -37,12 +37,41 @@ import Button2 from "./Button2.astro";
     </li>
   </ul>
   <p class="text-[mono]">© 2024 Colin Blome. Alle Rechte vorbehalten.</p>
-
-  <div class="flex items-center place-content-center">
-    <Button2 />
+  <div class="flex items-center place-content-center pt-4">
+    <a
+      class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] text-gray-200 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+      href="#contact"
+      id="nav-contact">//looks ugly?</a
+    >
+    <div class="text-white flex items-center justify-center relative">
+      <input type="checkbox" id="modal-toggle" class="modal-toggle">
+      <label for="modal-toggle" class="px-4 py-2 font-semibold rounded-lg bg-transparent text-gray-200 hover:text-[tomato] hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline cursor-pointer">
+          //Impressum
+      </label>
+  
+      <div class="modal-overlay fixed inset-0 bg-black bg-opacity-50 hidden z-10"></div>
+      <div class="modal absolute bottom-0 bg-[#333] border border-gray-600 rounded-lg p-4 mt-2 hidden z-20 w-64">
+          <p>Colin blome</p>
+          <p>Buten Porten 4</p>
+          <p>49584 Fürstenau</p>
+          <p><a href="mailto:info@colinblome.dev" class="underline" >info<span class="font-sans">@</span>colinblome.dev</a></p>
+          <label for="modal-toggle" class="mt-4 text-blue-500 cursor-pointer underline">Close</label>
+      </div>
+  </div>
   </div>
 
   <style>
+    #modal-toggle {
+      display: none;
+    }
+    /* Show the modal when the checkbox is checked */
+    #modal-toggle:checked ~ .modal-overlay {
+      display: block;
+    }
+    #modal-toggle:checked ~ .modal {
+      display: block;
+    }
+
     .ugly {
       display: flex;
       padding: 5px;
@@ -131,9 +160,7 @@ import Button2 from "./Button2.astro";
         }
       }
     }
-    a:hover {
-      transform: translateY(-5px);
-    }
+
     a:hover div {
       color: tomato;
     }
