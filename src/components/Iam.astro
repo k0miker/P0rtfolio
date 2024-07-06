@@ -105,7 +105,7 @@ import "../css/keyframes.css";
   }
   @media screen and (max-width: 768px) {
     .console-container {
-      font-size: 2em;
+      font-size: 1.5em;
     }
   }
  
@@ -114,8 +114,8 @@ import "../css/keyframes.css";
   // function([string1, string2],target id,[color1,color2])
   consoleText(
     [
-      "Hello there.",
-      "I am Colin.",
+      "Hey there.",
+      "I'm Colin.",
       "Web Developer.",
       "Gamer.",
       "Bonsai Enthusiast.",
@@ -146,19 +146,19 @@ import "../css/keyframes.css";
           target.setAttribute("style", "color:" + colors[0]);
           letterCount += x;
           waiting = false;
-        }, 1000);
+        }, 300);
       } else if (letterCount === words[0].length + 1 && waiting === false) {
         waiting = true;
         window.setTimeout(function () {
           x = -1;
           letterCount += x;
           waiting = false;
-        }, 1000);
+        }, 500);
       } else if (waiting === false) {
         target.innerHTML = words[0].substring(0, letterCount);
         letterCount += x;
       }
-    }, 100);
+    }, 80);
     
   }
 </script>

@@ -39,18 +39,20 @@ import Button2 from "./Button2.astro";
   <p class="text-[mono]">© 2024 Colin Blome. Alle Rechte vorbehalten.</p>
   <div class="flex items-center place-content-center pt-4">
     <a
-      class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] text-gray-200 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+      class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] text-gray-600 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
       href="https://myself-p0rtfolio.netlify.app/"
       id="nav-contact">//looks ugly?</a
     >
     <div class="text-white flex items-center justify-center relative">
       <input type="checkbox" id="modal-toggle" class="modal-toggle">
-      <label for="modal-toggle" class="px-4 py-2 font-semibold rounded-lg bg-transparent text-gray-200 hover:text-[tomato] hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline cursor-pointer">
+      <label for="modal-toggle" class="px-4 py-2 font-semibold rounded-lg bg-transparent text-gray-600 hover:text-[tomato] hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline cursor-pointer">
           //Impressum
       </label>
   
-      <div class="modal-overlay fixed inset-0 bg-black bg-opacity-50 hidden z-10"></div>
+      <div class="modal-overlay fixed inset-0 bg-black bg-opacity-40
+      0 hidden z-10"></div>
       <div class="modal absolute bottom-0 bg-[#333] border border-gray-600 rounded-lg p-4 mt-2 hidden z-20 w-64">
+          <strong><h2>//Impressum</h2></strong>
           <p><strong>Name:</strong>Colin blome</p>
           <p><strong>Address:</strong>Buten Porten 4, 49584 Fürstenau</p>
           <p><strong>Email:</strong><a href="mailto:info@colinblome.dev" class="underline" >info<span class="font-sans">@</span>colinblome.dev</a></p>
@@ -79,7 +81,7 @@ import Button2 from "./Button2.astro";
       display: inline-block;
     }
     .footer {
-      background-color: #333;
+      background-color: #f4f4f4;
       padding: 1rem;
       height: 200px;
       text-align: center;
@@ -99,7 +101,7 @@ import Button2 from "./Button2.astro";
     }
 
     .footer ul li a {
-      color: white;
+      color: #333;
       text-decoration: none;
       font-size: 1.5rem;
       transition:
@@ -108,23 +110,22 @@ import Button2 from "./Button2.astro";
     }
     .footer ul li a i {
       transition: 0.3s;
-      margin: 15px;
+      margin-left: 2vw;
+      margin-right: 2vw;
       padding: 5px;
-      opacity: 0.6;
       border-radius: 5px;
       aspect-ratio: 1;
+      color: #434343;
     }
     .footer ul li:hover a i {
-      color: tomato;
-      opacity: 1;
-      background-color: #434343;
+      color: #434343 ;
+      background-color: #ebebeb;
       transform: translateY(-4px) translatex(4px);
-      box-shadow: -4px 4px tomato;
+      box-shadow: -4px 4px rgb(255, 99, 71);
     }
 
     .footer p {
       margin-top: 1rem;
-      color: white;
       font-size: 0.9rem;
     }
     .up {
@@ -149,13 +150,11 @@ import Button2 from "./Button2.astro";
           display: flex;
           align-items: center;
           justify-content: center;
-
           cursor: pointer;
           transition: all 1s;
           flex-direction: column;
-
           width: 75px;
-          height: 50px;
+          height: 30px;
         }
       }
     }

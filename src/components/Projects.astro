@@ -8,10 +8,10 @@ import p6 from "../assets/images/p6.png";
 ---
 
 <section class="wrapperr offscreen">
-  <h1 class="text-center mt-6 p-8 text-3xl font-bold text-gray-600 font-[mono] offscreen">
+  <h1 class="text-center mt-4 p-8 text-3xl font-bold text-gray-600 font-[mono] offscreen">
     Projects<span class="animate-ping">_</span>
   </h1>
-  <div class="container flex-col items-center content-center sm:flex-row">
+  <div class="container md:gap-4 flex items-center content-center ">
     <div
       class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
       data-modal-target="myModal1"
@@ -163,8 +163,8 @@ import p6 from "../assets/images/p6.png";
 <style>
   .wrapperr {
     background-color: rgba(255, 255, 255, 0.829);
-    margin-top: 50px;
-    min-height: 80vh;
+    margin-top: 10px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -172,12 +172,12 @@ import p6 from "../assets/images/p6.png";
   }
   .modal {
     display: none;
-    position: absolute;
+    position: fixed;
     justify-content: center;
     align-items: center;
     z-index: 1;
     top: 0;
-    width: 100%;
+    width: 90%;
     padding: 1vw;
     height: 100%;
     overflow: auto;
@@ -229,6 +229,7 @@ import p6 from "../assets/images/p6.png";
       position: relative;
       background-color: rgba(0, 0, 0, 0);
       margin: 10px;
+      width: 30%;
       box-shadow: 2px 2px 4px 2px #888;
       max-width: 380px;
       border-radius: 15px;
@@ -276,19 +277,19 @@ import p6 from "../assets/images/p6.png";
 
   img {
     object-fit: cover;
-    @media screen and (max-width: 768px) {
-      width: 100%;
-    }
     aspect-ratio: 1;
     border-radius: 15px;
     transition: 1s;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
   }
   .modal-content {
     background-color: #fefefe;
     margin: auto auto;
     padding: 20px;
     border: 1px solid #888;
-    max-width: 1260px;
+    max-width: 1460px;
     width: 95%;
     display: flex;
     flex-direction: column;
