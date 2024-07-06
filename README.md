@@ -1,7 +1,3 @@
-Sure! Here's a nicely formatted README for your project, `colinblome.dev`:
-
----
-
 # Colin Blome - Personal Portfolio Website
 
 Welcome to the repository for my personal portfolio website, [colinblome.dev](https://colinblome.dev).
@@ -25,8 +21,6 @@ Welcome to the repository for my personal portfolio website, [colinblome.dev](ht
 - **Responsive Design**: Optimized for viewing on devices of all sizes.
 - **Projects Showcase**: A detailed view of my projects with descriptions, technologies used, and links to live demos or repositories.
 - **Contact Form**: Easy way to get in touch with me directly through the website.
-- **Blog Section** (Optional): A place where I share my thoughts on various topics related to my field.
-- **Dark Mode**: An aesthetically pleasing dark mode to reduce eye strain.
 
 ## Technologies Used
 
@@ -42,7 +36,7 @@ Welcome to the repository for my personal portfolio website, [colinblome.dev](ht
 - **Other Tools**:
   - Git & GitHub for version control
   - Unsplash for background images
-  - [Vercel](https://vercel.com) for deployment
+  - [Netlify](netlify.app) for deployment
 
 ## Getting Started
 
