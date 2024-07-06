@@ -99,7 +99,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Colin Blome - [your.email@example.com](mailto:your.email@example.com)
+Colin Blome - [info@colinblome.dev](info@colinblome.dev)
 
 Project Link: [https://colinblome.dev](https://colinblome.dev)
 
