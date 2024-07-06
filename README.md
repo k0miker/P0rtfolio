@@ -99,4 +99,3 @@ Project Link: [https://colinblome.dev](https://colinblome.dev)
 
 ---
 
-Feel free to customize this README to better fit your project and personal preferences!
