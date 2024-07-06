@@ -15,10 +15,10 @@ import logo from "../assets/images/logo.png";
     x-data="{ open: false }"
     class="flex flex-col h-full max-w-screen-2xl items-center mx-auto md:justify-between md:flex-row md:px-6 mg:px-2"
   >
-    <div class="flex flex-row items-center justify-between">
+    <div class="flex flex-row items-center w-full justify-between">
       <a
         href="#"
-        class="name min-w-[320px] lg:text-lg font-semibold flex duration-200 items-center font-[mono] hover:tracking-[10px] tra tracking-widest uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-none focus:shadow-outline"
+        class="name min-w-[300px] lg:text-lg font-semibold flex duration-200 items-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px]  uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-none focus:shadow-outline"
         ><img class="logo" src={logo.src} alt="" />Colin Blome Webdesign</a
       >
       <button
@@ -41,7 +41,7 @@ import logo from "../assets/images/logo.png";
     </div>
     <nav
       :class="{'flex': open, 'hidden': !open}"
-      class="flex-col flex-grow pb-4 max-w-200px md:pb-0 hidden md:flex md:justify-end md:flex-row bg-white md:bg-transparent md:text-gray-200 text-gray-600"
+      class="flex-col flex-grow pb-4 max-w-200px md:pb-0 hidden md:flex md:justify-end md:flex-row bg-white md:bg-transparent md:text-gray-200 text-gray-600 w-full"
     >
       <a
         class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
