@@ -8,7 +8,7 @@ import logo from "../assets/images/logo.png";
   src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
   defer></script>
 <div
-  class="head w-full fixed z-20 text-gray-200   sm:bg-transparent dark-mode:text-gray-200 dark-mode:bg-gray-800"
+  class="head w-full fixed z-20 text-gray-200 colred  sm:bg-transparent dark-mode:text-gray-200 dark-mode:bg-gray-800"
   id="navbar"
 >
   <div
@@ -41,7 +41,7 @@ import logo from "../assets/images/logo.png";
     </div>
     <nav
       :class="{'flex': open, 'hidden': !open}"
-      class="flex-col flex-grow pb-4 max-w-200px w-[100%] md:pb-0 hidden md:flex md:justify-end md:flex-row bg-white sm:bg-transparent md:text-gray-200 text-gray-600 "
+      class="flex-col flex-grow pb-4 max-w-200px md:pb-0 hidden md:flex md:justify-end md:flex-row bg-white md:bg-transparent md:text-gray-200 text-gray-600 "
     >
       <a
         class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
@@ -59,9 +59,9 @@ import logo from "../assets/images/logo.png";
         id="nav-skills">//Skills</a
       >
       <div @click.away="open = false" class="relative" x-data="{ open: false }">
-        <button id="nav-projects" @click="open = !open" class="px-0 w-[100%] text-left"
+        <button id="nav-projects" @click="open = !open" class="px-0 w-[100%] text-left "
           ><a
-            class="block px-2 py-2 mt-2  md:ml-3.5 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+            class="block px-2 py-2 mt-2  md:ml-3.5 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-[tomato] focus:text-gray-600 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
             href="#projects"
             >//Projects<svg
               fill="currentColor"
@@ -145,6 +145,10 @@ import logo from "../assets/images/logo.png";
     a {
       color: #616161;
     }
+    button {
+      color: #616161;
+    }
+
   }
   .colored :hover {
     color: tomato;
