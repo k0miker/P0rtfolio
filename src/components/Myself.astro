@@ -48,7 +48,7 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
         zu helfen, ihre Ziele zu erreichen.
       </p>
     </div>
-    <a href={CV} target="_blank" class="p-2 cv rounded-lg bg-gray-200 hover:text-[tomato]" >Download CV</a>
+    <a href={CV} target="_blank" class="p-2 cv rounded-lg bg-gray-400 text-gray-600 font-bold hover:text-[white] offscreen" >//Download CV</a>
     <div class="self flex-col w-[100%] mt-4 px-[2vw] offscreen">
       <h3
         class="text-center text-2xl p-4 font-[mono] bg-gray-400 max-w-[768px] rounded-t-xl text-gray-600 font-bold w-[100%]"
@@ -114,20 +114,24 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
     text-align: center;
     font-family: 100;
     color: #263442c0;
+    transition: .5s;
   }
   .ger {
     opacity: 0;
     position: absolute;
-    top: 25%;
-    filter: blur(2px)
+    top: 23.5%;
+    scale: .9;
+    filter: blur(1px)
   }
   .me:hover .ger {
     opacity: 1;
-    filter: blur(0px)
+    filter: blur(0px);
+    scale: 1;
   }
   .me:hover .en {
     opacity: 0;
-    filter: blur(2px);
+    filter: blur(1px);
+    scale: .9;
   }
   .self {
     display: flex;
