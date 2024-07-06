@@ -10,37 +10,43 @@ import myself3 from "../assets/images/myself.jpg";
   </h3>
   <div class="flex flex-col items-center offscreen">
     <div class="foto-swich">
-      <img src={myself.src} class="sm:w-[100%]" alt="foto of colin" />
-      <img src={myself3.src} class="sm:w-[100%]" alt="foto of colin" />
+      <img src={myself.src} class="sm:w-[100%] opacity-100" alt="foto of colin" />
+      <img src={myself3.src} class="sm:w-[100%] " alt="foto of colin" />
     </div>
-    <p class="p-8 text-center text-pretty offscreen" id="ENG">
-      Hello! <br />I'm Colin, a 38-year-old passionate web developer. Since my
-      youth, I've been a true PC nerd with a strong affinity for technology. <br
-      />Besides my work as a web developer, I'm also an avid gamer and love
-      spending my free time on challenging games. Additionally, I have a special
-      passion for bonsai art, which helps me bring calm and balance to my daily
-      life. <br /><br />
+    <div class="me flex flex-col justify-between">
+      <p class="p-8 text-center text-pretty offscreen en">
+        <span class="text-[tomato] text-sm">hover for GERMAN</span><br>
+        Hello! <br />I'm Colin, a 38-year-old passionate web developer. Since my
+        youth, I've been a true PC nerd with a strong affinity for technology. <br
+        />Besides my work as a web developer, I'm also an avid gamer and love
+        spending my free time on challenging games. Additionally, I have a
+        special passion for bonsai art, which helps me bring calm and balance to
+        my daily life. <br /><br />
 
-      With my diverse experience and wide-ranging interests, I bring creative
-      and functional solutions to my projects.<br />Whether it's developing a
-      user-friendly website or solving complex technical challenges, I am always
-      motivated to achieve the best results and help my clients reach their
-      goals.
-    </p>
-    <p id="GER" class="p-8 text-center offscreen text-pretty">
-      Hallo! Ich bin Colin, ein 38-jähriger leidenschaftlicher Webentwickler.
-      Schon seit meiner Jugend bin ich ein echter PC-Nerd mit einer starken
-      Affinität für Technologie. Neben meiner Arbeit als Webentwickler bin ich
-      auch ein begeisterter Gamer und verbringe meine Freizeit gerne mit
-      anspruchsvollen Spielen. Zusätzlich habe ich eine besondere Leidenschaft
-      für die Bonsai-Kunst, die mir hilft, Ruhe und Ausgleich in meinem Alltag
-      zu finden. Mit meiner vielfältigen Erfahrung und meinen breitgefächerten
-      Interessen bringe ich kreative und funktionale Lösungen in meine Projekte
-      ein. Ob es darum geht, eine benutzerfreundliche Webseite zu entwickeln
-      oder komplexe technische Herausforderungen zu lösen, ich bin immer
-      motiviert, die besten Ergebnisse zu erzielen und meinen Kunden zu helfen,
-      ihre Ziele zu erreichen.
-    </p>
+        With my diverse experience and wide-ranging interests, I bring creative
+        and functional solutions to my projects.<br />Whether it's developing a
+        user-friendly website or solving complex technical challenges, I am
+        always motivated to achieve the best results and help my clients reach
+        their goals. 
+        
+      </p>
+
+      <p class="p-8 text-center offscreen ger text-pretty">
+        <br>
+        Hallo! <br />
+        Ich bin Colin, ein 38-jähriger leidenschaftlicher Webentwickler. Schon seit
+        meiner Jugend bin ich ein echter PC-Nerd mit einer starken Affinität für
+        Technologie. Neben meiner Arbeit als Webentwickler bin ich auch ein begeisterter
+        Gamer und verbringe meine Freizeit gerne mit anspruchsvollen Spielen. Zusätzlich
+        habe ich eine besondere Leidenschaft für die Bonsai-Kunst, die mir hilft,
+        Ruhe und Ausgleich in meinem Alltag zu finden. Mit meiner vielfältigen Erfahrung
+        und meinen breitgefächerten Interessen bringe ich kreative und funktionale
+        Lösungen in meine Projekte ein. Ob es darum geht, eine benutzerfreundliche
+        Webseite zu entwickeln oder komplexe technische Herausforderungen zu lösen,
+        ich bin immer motiviert, die besten Ergebnisse zu erzielen und meinen Kunden
+        zu helfen, ihre Ziele zu erreichen.
+      </p>
+    </div>
     <div class="self flex-col w-[100%] px-[2vw] offscreen">
       <h3
         class="text-center text-2xl p-4 font-[mono] bg-gray-400 max-w-[768px] rounded-t-xl text-gray-600 font-bold w-[100%]"
@@ -108,17 +114,31 @@ import myself3 from "../assets/images/myself.jpg";
     font-family: 100;
     color: #263442c0;
   }
+  .ger {
+    opacity: 0;
+    position: absolute;
+    top: 25%;
+    filter: blur(2px)
+  }
+  .me:hover .ger {
+    opacity: 1;
+    filter: blur(0px)
+  }
+  .me:hover .en {
+    opacity: 0;
+    filter: blur(2px);
+  }
   .self {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  #GER {
-    display: none;
-  }
+  
   .foto-swich {
     display: flex;
     justify-content: center;
+    width: 200px;
+    border-radius:15px ;
     img {
       width: 200px;
 
@@ -126,17 +146,21 @@ import myself3 from "../assets/images/myself.jpg";
     }
   }
   .foto-swich:hover img:nth-of-type(2) {
-    display: block;
+    opacity: 1;
 
     transition: 1s;
   }
   .foto-swich:hover img:nth-of-type(1) {
-    display: none;
+    opacity: 1;
 
     transition: 1s;
   }
   .foto-swich img:nth-of-type(2) {
-    display: none;
+    transform: translateX(-50%);
+    opacity: 0;
+  }
+  .foto-swich img:nth-of-type(1) {
+    transform: translateX(50%);
   }
   @keyframes ping {
     75%,
