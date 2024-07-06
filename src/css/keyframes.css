@@ -59,13 +59,3 @@
     }
 }
 
-@keyframes letters {
-    from {
-        letter-spacing: .5vw;
-        text-shadow: 0px 0px 14px whitesmoke;
-    }
-
-    10% {
-        letter-spacing: 0;
-    }
-}
