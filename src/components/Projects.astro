@@ -7,7 +7,7 @@ import p5 from "../assets/images/p5.png";
 import p6 from "../assets/images/p6.png";
 ---
 
-<section class="wrapperr offscreen">
+<section class="wrapperr h-[auto] md:h-[90hv] offscreen">
   <h1 class="text-center mt-4 p-8 text-3xl font-bold text-gray-600 font-[mono] offscreen hover:tracking-[1vw]">
     Projects<span class="animate-ping">_</span>
   </h1>
@@ -166,19 +166,28 @@ import p6 from "../assets/images/p6.png";
   .wrapperr {
     background-color: rgba(255, 255, 255, 0.829);
     margin-top: 10px;
-    min-height: 100vh;    
+       
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
+  #myModal3{
+    width: 100%;
+    max-width: 1260px;
+    .modal-content {
+      width: 100%;
+
+    }
+  }
   .modal {
     display: none;
-    position: fixed;
+    position: absolute;
     justify-content: center;
     align-items: center;
     z-index: 1;
-    top: 20vh;
+    top: 10vh;
+    min-width: 60vw;
     padding: 1vw;    
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.685);
