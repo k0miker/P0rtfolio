@@ -1,4 +1,4 @@
-# Colin Blome - Personal Portfolio Website
+ # Colin Blome - Personal Portfolio Website
 
 Welcome to the repository for my personal portfolio website, [colinblome.dev](https://colinblome.dev).
 
@@ -54,13 +54,13 @@ Make sure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/colinblome.dev.git
+   git clone https://github.com/k0miker/UIB-Final
    ```
 
 2. Navigate to the project directory:
 
    ```bash
-   cd colinblome.dev
+   cd UIB-Final
    ```
 
 3. Install the dependencies:
