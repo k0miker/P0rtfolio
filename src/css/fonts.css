@@ -14,12 +14,11 @@
 
 }
 
-
+/* für fadein animation */
 .offscreen {
     opacity: 0;
     transition: 1.5s;
     transform: translate(-1vw);
-    /* box-shadow: 0 0 150px 30px #000; */
 }
 .in-view {
     opacity: 1;

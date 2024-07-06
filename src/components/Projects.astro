@@ -11,7 +11,7 @@ import p6 from "../assets/images/p6.png";
   <h1 class="text-center mt-4 p-8 text-3xl font-bold text-gray-600 font-[mono] offscreen hover:tracking-[1vw]">
     Projects<span class="animate-ping">_</span>
   </h1>
-  <div class="container md:gap-4 flex items-center content-center ">
+  <div class="container lg:gap-12 md:gap-8 gap-4 flex items-center content-center ">
     <div
       class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
       data-modal-target="myModal1"
@@ -20,7 +20,7 @@ import p6 from "../assets/images/p6.png";
       <figcaption>
         <img src={p1.src} alt="" />
         <div class="caption flex flex-col items-center">
-          <h1 class="py-4 text-center">Bonsaiworld</h1>
+          <h1 class="py-0 text-center">Bonsaiworld</h1>
           <p>
             a Small layout example within the orientational DCI corse, where i was able to express my love for the bonsai art. 
           </p>
@@ -75,7 +75,7 @@ import p6 from "../assets/images/p6.png";
       <figcaption>
         <img src={p5.src} alt="" />
         <div class="caption flex flex-col items-center">
-          <h1 class="py-4 text-center">Coffee Shop</h1>
+          <h1 class="py-4 text-center">Hugs For Bugs</h1>
           <p>A small layout example within the DCI corse.</p>
           <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
         </div>
@@ -100,7 +100,7 @@ import p6 from "../assets/images/p6.png";
   <!-- Modals -->
   <div id="myModal1" class="modal fadein">
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close"><i class="fa-regular fa-circle-xmark text-gray-600"></i></span>
       <h1 class="py-4 text-center">Bonsaiworld</h1>
       <p class="py-4 text-center">
         A small web project the orientational DCI corse, where i was able to express my love for the bonsai art. 
@@ -110,18 +110,18 @@ import p6 from "../assets/images/p6.png";
   </div>
   <div id="myModal2" class="modal fadein">
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <h1 class="py-4 text-center"></h1>
+      <span class="close"><i class="fa-regular fa-circle-xmark text-gray-600"></i></span>
+      <h1 class="py-4 text-center">Firma Blome</h1>
       <p>A small web project for our family business at the time, created with WIX without significant prior knowledge.</p>
-      <a href="https://k0mikerhdf.wixsite.com/blome"></a><img
+      <a href="https://k0mikerhdf.wixsite.com/blome"><img
         src={p2.src}
         alt=""
-      />
+      /></a>
     </div>
   </div>
   <div id="myModal3" class="modal fadein">
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close"><i class="fa-regular fa-circle-xmark text-gray-600"></i></span>
       <h1 class="py-4 text-center">Layout beispiel</h1>
       <p>A small layout example within the DCI corse.</p>
       <iframe src="/embeded/MyComponent"></iframe>
@@ -129,7 +129,7 @@ import p6 from "../assets/images/p6.png";
   </div>
   <div id="myModal4" class="modal fadein">
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close"><i class="fa-regular fa-circle-xmark text-gray-600"></i></span>
       <h1 class="py-4 text-center">Marketing Kampagne</h1>
       <p>A small layout example for a marketing campagne refered to the Bonasiworld</p>
 
@@ -144,7 +144,7 @@ import p6 from "../assets/images/p6.png";
   </div>
   <div id="myModal5" class="modal fadein">
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close"><i class="fa-regular fa-circle-xmark text-gray-600"></i></span>
       <h1 class="py-4 text-center">Layout beispiel</h1>
       <p>a Small layout example within the DCI corse.</p>
       <img src={p5.src} alt="" />
@@ -152,7 +152,7 @@ import p6 from "../assets/images/p6.png";
   </div>
   <div id="myModal6" class="modal fadein">
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close"><i class="fa-regular fa-circle-xmark text-gray-600"></i></span>
       <h1 class="py-4 text-center">Layout beispiel</h1>
       <p>a Small layout example within the DCI corse.</p>
       <img src={p6.src} alt="" />
@@ -179,17 +179,19 @@ import p6 from "../assets/images/p6.png";
     align-items: center;
     z-index: 1;
     top: 0;
-    padding: 1vw;
-    
+    padding: 1vw;    
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.685);
     transition: 5s;
     img {
-      width: 30%;
+      margin-top: 1vh;
+      width: 60%;
+      object-fit: cover;
     }
   }
   .caption {
     justify-content: center;
+    cursor: pointer;
     h1,
     p,
     i {
@@ -203,6 +205,7 @@ import p6 from "../assets/images/p6.png";
     }
   }
   figcaption {
+    cursor: pointer;
   }
   figcaption h1 {
     font-family: mono;
@@ -214,27 +217,26 @@ import p6 from "../assets/images/p6.png";
   }
   .container {
     display: flex;
-
-    background-color: rgba(255, 255, 255, 0.527);
-
-    margin-left: auto;
-    margin-right: auto;
-
-    padding: 15px;
-    padding-bottom: 50px;
     align-content: stretch;
     justify-content: center;
     flex-wrap: wrap;
+    background-color: rgba(255, 255, 255, 0.527);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;    
+    padding-bottom: 50px;    
+    cursor: pointer;
 
     .box {
       position: relative;
       background-color: rgba(0, 0, 0, 0);
-      margin: 10px;
-      width: 30%;
+      
+      width: 50%;
       box-shadow: 2px 2px 4px 2px #888;
       max-width: 380px;
       border-radius: 15px;
       overflow: hidden;
+      flex-grow: 1;
     }
     img {
       max-height: 400px;
@@ -258,7 +260,7 @@ import p6 from "../assets/images/p6.png";
     }
     .box:hover .caption {
       transition: 0.5s;
-      cursor: url(https://www.svgrepo.com/show/527678/cursor.svg), auto;
+      cursor: pointer;
       opacity: 1;
       color: white;
       border-radius: 15px;
@@ -268,9 +270,9 @@ import p6 from "../assets/images/p6.png";
         font-size: 26px;
       }
       i {
-        margin-top: 50px;
+        margin-top: 10px;
         transition: 1s;
-        scale: 2;
+        scale: 1.2;
         color: tomato;
       }
     }
