@@ -8,10 +8,14 @@ import p6 from "../assets/images/p6.png";
 ---
 
 <section class="wrapperr h-[auto] md:h-[90hv] offscreen">
-  <h1 class="text-center mt-4 p-8 text-3xl font-bold text-gray-600 font-[mono] offscreen hover:tracking-[1vw]">
+  <h1
+    class="text-center mt-4 p-8 text-3xl font-bold text-gray-600 font-[mono] offscreen hover:tracking-[1vw]"
+  >
     Projects<span class="animate-ping">_</span>
   </h1>
-  <div class="container lg:gap-12 md:gap-8 gap-4 flex items-center content-center ">
+  <div
+    class="container lg:gap-12 md:gap-8 gap-4 flex items-center content-center"
+  >
     <div
       class="box flex items-center content-center flex-grow sm:max-w-[50%] offscreen"
       data-modal-target="myModal1"
@@ -21,8 +25,9 @@ import p6 from "../assets/images/p6.png";
         <img src={p1.src} alt="" />
         <div class="caption flex flex-col items-center text-sm md:text-base">
           <h1 class="py-0 text-center">Bonsaiworld</h1>
-          <p >
-            a Small layout example within the orientational DCI corse, where i was able to express my love for the bonsai art. 
+          <p>
+            a Small layout example within the orientational DCI corse, where i
+            was able to express my love for the bonsai art.
           </p>
           <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
         </div>
@@ -50,7 +55,10 @@ import p6 from "../assets/images/p6.png";
         <img src={p4.src} alt="" />
         <div class="caption flex flex-col items-center text-sm md:text-base">
           <h1 class="py-0 text-center">Marketing Campagne</h1>
-          <p>A small layout example for a marketing campagne refered to the Bonasiworld</p>
+          <p>
+            A small layout example for a marketing campagne refered to the
+            Bonasiworld
+          </p>
           <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
         </div>
       </figcaption>
@@ -63,7 +71,10 @@ import p6 from "../assets/images/p6.png";
         <img src={p2.src} alt="" />
         <div class="caption flex flex-col items-center text-sm md:text-base">
           <h1 class="py-0 text-center">Firma Blome</h1>
-          <p>A small web project for our family business at the time, created with WIX without significant prior knowledge.</p>
+          <p>
+            A small web project for our family business at the time, created
+            with WIX without significant prior knowledge.
+          </p>
           <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
         </div>
       </figcaption>
@@ -100,28 +111,37 @@ import p6 from "../assets/images/p6.png";
   <!-- Modals -->
   <div id="myModal1" class="modal fadein">
     <div class="modal-content">
-      <span class="close"><i class="fa-regular fa-circle-xmark text-gray-600"></i></span>
+      <span class="close"
+        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+      >
       <h1 class="py-4 text-center">Bonsaiworld</h1>
       <p class="py-0 text-center">
-        A small web project the orientational DCI corse, where i was able to express my love for the bonsai art. 
+        A small web project the orientational DCI corse, where i was able to
+        express my love for the bonsai art.
       </p>
       <iframe src="https://bonsaiworld.netlify.app/"></iframe>
     </div>
   </div>
   <div id="myModal2" class="modal fadein">
     <div class="modal-content">
-      <span class="close"><i class="fa-regular fa-circle-xmark text-gray-600"></i></span>
+      <span class="close"
+        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+      >
       <h1 class="py-4 text-center">Firma Blome</h1>
-      <p>A small web project for our family business at the time, created with WIX without significant prior knowledge.</p>
-      <a href="https://k0mikerhdf.wixsite.com/blome"><img
-        src={p2.src}
-        alt=""
-      /></a>
+      <p>
+        A small web project for our family business at the time, created with
+        WIX without significant prior knowledge.
+      </p>
+      <a href="https://k0mikerhdf.wixsite.com/blome"
+        ><img src={p2.src} alt="" /></a
+      >
     </div>
   </div>
   <div id="myModal3" class="modal fadein">
     <div class="modal-content">
-      <span class="close"><i class="fa-regular fa-circle-xmark text-gray-600"></i></span>
+      <span class="close"
+        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+      >
       <h1 class="py-4 text-center">Layout example</h1>
       <p>A small layout example within the DCI corse.</p>
       <iframe src="/embeded/MyComponent"></iframe>
@@ -129,9 +149,14 @@ import p6 from "../assets/images/p6.png";
   </div>
   <div id="myModal4" class="modal fadein">
     <div class="modal-content">
-      <span class="close"><i class="fa-regular fa-circle-xmark text-gray-600"></i></span>
+      <span class="close"
+        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+      >
       <h1 class="py-4 text-center">Marketing Kampagne</h1>
-      <p>A small layout example for a marketing campagne refered to the Bonasiworld</p>
+      <p>
+        A small layout example for a marketing campagne refered to the
+        Bonasiworld
+      </p>
 
       <a
         class="p-8"
@@ -144,15 +169,19 @@ import p6 from "../assets/images/p6.png";
   </div>
   <div id="myModal5" class="modal fadein">
     <div class="modal-content">
-      <span class="close"><i class="fa-regular fa-circle-xmark text-gray-600"></i></span>
+      <span class="close"
+        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+      >
       <h1 class="py-4 text-center">Layout example</h1>
-      <p >a Small layout example within the DCI corse.</p>
+      <p>a Small layout example within the DCI corse.</p>
       <img src={p5.src} alt="" />
     </div>
   </div>
   <div id="myModal6" class="modal fadein">
     <div class="modal-content">
-      <span class="close"><i class="fa-regular fa-circle-xmark text-gray-600"></i></span>
+      <span class="close"
+        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+      >
       <h1 class="py-4 text-center">Layout example</h1>
       <p>a Small layout example within the DCI corse.</p>
       <img src={p6.src} alt="" />
@@ -166,18 +195,17 @@ import p6 from "../assets/images/p6.png";
   .wrapperr {
     background-color: rgba(255, 255, 255, 0.829);
     margin-top: 10px;
-       
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-  #myModal3{
+  #myModal3 {
     width: 100%;
     max-width: 1260px;
     .modal-content {
       width: 100%;
-
     }
   }
   .modal {
@@ -188,7 +216,7 @@ import p6 from "../assets/images/p6.png";
     z-index: 1;
     top: 10vh;
     min-width: 60vw;
-    padding: 1vw;    
+    padding: 1vw;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.685);
     transition: 5s;
@@ -216,11 +244,13 @@ import p6 from "../assets/images/p6.png";
   }
   figcaption {
     cursor: pointer;
+
+    h1 {
+      font-family: mono;
+      font-size: x-large;
+    }
   }
-  figcaption h1 {
-    font-family: mono;
-    font-size: x-large;
-  }
+
   iframe {
     width: 100%;
     height: 70vh;
@@ -233,22 +263,25 @@ import p6 from "../assets/images/p6.png";
     background-color: rgba(255, 255, 255, 0.527);
     margin-left: auto;
     margin-right: auto;
-    padding: 15px;    
-    padding-bottom: 50px;    
+    padding: 15px;
+    padding-bottom: 50px;
     cursor: pointer;
 
     .box {
       position: relative;
-      background-color: rgba(0, 0, 0, 0);      
+      background-color: rgba(0, 0, 0, 0);
       width: 34%;
       box-shadow: 2px 2px 4px 2px #888;
       max-width: 380px;
       border-radius: 15px;
       overflow: hidden;
       flex-grow: 1;
+      img {
+        object-fit: contain;
+      }
     }
   }
-    .modal-content {
+  .modal-content {
     background-color: #fefefe;
     margin: auto auto;
     padding: 20px;
@@ -289,55 +322,52 @@ import p6 from "../assets/images/p6.png";
     text-decoration: none;
     cursor: pointer;
   }
-    img {
-      max-height: 400px;
-      aspect-ratio: 1.3;
-    }
-    .box:hover img {
-      scale: 2.505;
-      cursor: pointer;
-    }
-
-    .box .caption {
-      transition: 0.5s;
-      opacity: 0;
-      padding: 10%;
-      border-radius: 15px;
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      right: 0px;
-      bottom: 0px;
-    }
-    .box:hover .caption {
-      transition: 0.5s;
-      cursor: pointer;
-      opacity: 1;
-      color: white;
-      border-radius: 15px;
-      background-color: #000000dd;
-      h1 {
-        color: #ff6347;
-        font-size: 26px;
-      }
-      i {
-        margin-top: 10px;
-        transition: 1s;
-        scale: 1.2;
-        color: tomato;
-      }
-    }
-  
-
-  img {
+  img {   
+    max-height: 400px;
+    scale: 1.2;
+    aspect-ratio: 1.3;
     object-fit: cover;
-    aspect-ratio: 1;
     border-radius: 15px;
     transition: 1s;
     @media screen and (max-width: 768px) {
       width: 100%;
     }
   }
+  .box:hover img {
+    scale: 2.505;
+    cursor: pointer;
+  }
+
+  .box .caption {
+    transition: 0.5s;
+    opacity: 0;
+    padding: 10%;
+    border-radius: 15px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+  }
+  .box:hover .caption {
+    transition: 0.5s;
+    cursor: pointer;
+    opacity: 1;
+    color: white;
+    border-radius: 15px;
+    background-color: #000000dd;
+    h1 {
+      color: #ff6347;
+      font-size: 26px;
+    }
+    i {
+      margin-top: 10px;
+      transition: 1s;
+      scale: 1.2;
+      color: tomato;
+    }
+  }
+
   
 </style>
 
