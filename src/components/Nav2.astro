@@ -8,12 +8,12 @@ import logo from "../assets/images/logo.png";
   src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
   defer></script>
   <div
-  class="head w-full fixed z-20 text-gray-200 colred sm:bg-transparent dark-mode:text-gray-200 dark-mode:bg-gray-800"
+  class="head w-full justify-center items-center fixed z-20 text-gray-200 sm:bg-transparent dark-mode:text-gray-200 dark-mode:bg-gray-800"
   id="navbar"
 >
   <div
       x-data="{ open: false }"
-      class="flex flex-col h-full max-w-screen-2xl items-center mx-auto md:justify-between md:flex-row md:px-6 mg:px-2"
+      class="flex flex-col h-full max-w-screen-2xl items-center justify-center mx-auto md:justify-between md:flex-row md:px-6 mg:px-2"
       @click.away="open = false"
   >
       <div class="flex flex-row items-center w-full justify-between">
@@ -42,7 +42,7 @@ import logo from "../assets/images/logo.png";
       </div>
       <nav
           :class="{'flex': open, 'hidden': !open}"
-          class="flex-col flex-grow pb-4 max-w-200px w-full md:pb-0 hidden md:flex md:justify-end md:flex-row bg-white md:bg-transparent md:text-gray-200 text-gray-600"
+          class="flex-col flex-grow pb-4 max-w-200px w-full md:pb-0 hidden md:flex md:justify-end md:flex-row md:bg-white md:bg-transparent md:text-gray-200 text-gray-600 bg-white"
       >
           <a
               class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
@@ -156,6 +156,9 @@ import logo from "../assets/images/logo.png";
     transition: all 1s;
     background: #fff;
     box-shadow: 0 0px 15px 2px #0000002b;
+    #navbar {
+      padding: 0;
+    }
     a {
       color: #616161;
       img {
