@@ -2,6 +2,7 @@
 import "../css/fonts.css";
 import "../css/fontawesome/css/fontawesome.css";
 import "../css/fontawesome/css/all.min.css";
+import "../css/fontawesome/css/keyframes.css";
 import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
 ---
 
@@ -89,13 +90,10 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
     -webkit-animation: slidein 30s;
     animation: slidein 50s;
     background-attachment: fixed;
-
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
-
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
-
     -webkit-animation-direction: alternate;
     animation-direction: alternate;
   }
@@ -216,20 +214,7 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
   .card:hover i:nth-of-type(9) {
     animation: rollover2 5s ease-in-out 1 4s;
   }
-  @keyframes rollover2 {
-    from {
-      color: #333;
-      scale: 1;
-    }
-    10% {
-      color: tomato;
-      scale: 1.2;
-    }
-    20% {
-      color: #333;
-      scale: 1;
-    }
-  }
+ 
   .skill:hover:nth-of-type(1) .skill-percent {
     background-color: rgb(0, 0, 147);
   }

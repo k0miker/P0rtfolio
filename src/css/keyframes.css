@@ -58,4 +58,18 @@
         background-position: right bottom;
     }
 }
+@keyframes rollover2 {
+    from {
+      color: #333;
+      scale: 1;
+    }
+    10% {
+      color: tomato;
+      scale: 1.2;
+    }
+    20% {
+      color: #333;
+      scale: 1;
+    }
+  }
 
