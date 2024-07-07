@@ -1,3 +1,15 @@
+:root {
+    --gray1: #1c1c1c;
+    --gray2: #383838;
+    --gray3: #545454;
+    --gray4: #707070;
+    --gray5: #8c8c8c;
+    --gray6: #a8a8a8;
+    --gray7: #c4c4c4;
+    --gray8: #e0e0e0;
+    --gray9: #ebebeb;
+    --gray10: #efefef;
+}
 @font-face {
     font-family: "marker";
     src: url(/Fonts/PermanentMarker-Regular.ttf);

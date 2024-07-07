@@ -20,7 +20,7 @@ import logo from "../assets/images/logo.png";
           <a
               href="#"
               class="name lg:text-lg font-semibold flex duration-200 items-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-none focus:shadow-outline"
-              ><img class="logo" src={logo.src} alt="" />Colin Blome Webdesign</a
+              ><img class="logo" src={logo.src} alt=""/>Colin Blome Webdesign</a
           >
           <button
               class="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
@@ -147,12 +147,18 @@ import logo from "../assets/images/logo.png";
     translate: 0 10px;
     transition: 1s;
   }
-  .name:hover span img {
-    rotate: 360deg;
+  .name:hover .logo {
+    transform:translateX(-.3vw);
+    
+    
   }
   .name{
       letter-spacing: 5px;
     }
+  .name:hover{
+    letter-spacing: 10px;
+    transform: skew(5deg);
+  }
   .colored {
     height:7vh;
     transition: all 1s;

@@ -1,5 +1,6 @@
 ---
 import "../css/keyframes.css";
+import "../css/fonts.css";
 import logo from "../assets/images/logo.png";
 ---
 
@@ -41,7 +42,7 @@ import logo from "../assets/images/logo.png";
     </div>
     <nav
       :class="{'flex': open, 'hidden': !open}"
-      class="flex-col flex-grow pb-4 max-w-200px md:pb-0 hidden md:flex md:justify-end md:flex-row bg-white md:bg-transparent md:text-gray-200 text-gray-600 "
+      class="flex-col flex-grow pb-4 max-w-200px md:pb-0 hidden md:flex md:justify-end md:flex-row bg-white md:bg-transparent md:text-gray-200 text-gray-600"
     >
       <a
         class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
@@ -115,7 +116,6 @@ import logo from "../assets/images/logo.png";
         id="nav-contact">//Contact</a
       >
     </nav>
-    
   </div>
 </div>
 
@@ -126,8 +126,13 @@ import logo from "../assets/images/logo.png";
   .head {
     transition: all 1s;
     height: 10vh;
-    background-color: rgb(0,0,0);
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.417) 0%, rgba(0, 0, 0, 0.342) 55%, rgba(0, 0, 0, 0.24) 100%);
+    background-color: rgb(0, 0, 0);
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.417) 0%,
+      rgba(0, 0, 0, 0.342) 55%,
+      rgba(0, 0, 0, 0.24) 100%
+    );
     box-shadow: 0 0 50px 10px #0000004c;
   }
   .flex .active {
@@ -140,12 +145,8 @@ import logo from "../assets/images/logo.png";
     translate: 0 10px;
     transition: 1s;
   }
-  .name:hover span img {
-    rotate: 360deg;
-  }
-
   .colored {
-    height:7vh;
+    height: 7vh;
     transition: all 1s;
     background: #fff;
     box-shadow: 0 0px 15px 2px #0000002b;
