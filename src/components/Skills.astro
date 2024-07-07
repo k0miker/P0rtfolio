@@ -2,9 +2,10 @@
 import "../css/fonts.css";
 import "../css/fontawesome/css/fontawesome.css";
 import "../css/fontawesome/css/all.min.css";
+import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
 ---
 
-<div class="flex box content-center items-center min-h-[85vh]">
+<div class="flex flex-col box content-center items-center min-h-[100vh]">
   <div class="card offscreen">
     <div class="header font-[mono] text-[1.5rem] font-extrabold hover:tracking-[.5vw] duration-500">
       My Skills<span class="animate-ping">_</span>
@@ -19,7 +20,7 @@ import "../css/fontawesome/css/all.min.css";
       <div class="skill">
         <div class="skill-name css font-[mono]">CSS</div>
         <div class="skill-level">
-          <div style="width: 50%" class="skill-percent"></div>
+          <div style="width: 45%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
@@ -31,7 +32,7 @@ import "../css/fontawesome/css/all.min.css";
       <div class="skill">
         <div class="skill-name astro font-[mono]">Astro</div>
         <div class="skill-level">
-          <div style="width: 30%" class="skill-percent"></div>
+          <div style="width: 27%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
@@ -73,10 +74,11 @@ import "../css/fontawesome/css/all.min.css";
         <i class="fa-brands text-gray-600 fa-linux"></i>
         <i class="fa-brands text-gray-600 fa-windows"></i>
         <i class="fa-brands text-gray-600 fa-github"></i>
-        <i class="fa-brands fa-node text-gray-600"></i>
+        <i class="fa-brands text-gray-600 fa-node"></i>
       </div>
     </div>
   </div>
+  <a href={CV} target="_blank" class="mt-[10vh] p-2 cv rounded-lg bg-gray-200 text-gray-600 font-bold hover:text-[tomato] offscreen" >//Download CV</a>
 </div>
 
 <style>
@@ -113,6 +115,7 @@ import "../css/fontawesome/css/all.min.css";
     display: flex;
     flex-direction: column;
     max-width: 768px;
+    width: 90%;
     height: fit-content;
     background-color: #ffffff;
     box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.384);

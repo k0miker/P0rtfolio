@@ -5,8 +5,10 @@ import Button2 from "./Button2.astro";
 
 <footer class="footer">
   <div class="up">
-    <a href="#home"
-      ><div>up</div><div><i class="fa-solid fa-arrow-up"></i></div></a
+    <a href="#home" class="p-2"
+      ><div class="font-extrabold">//up</div><div>
+        <i class="fa-solid fa-arrow-up mt-[-10px]"></i>
+      </div></a
     >
   </div>
   <ul>
@@ -39,26 +41,42 @@ import Button2 from "./Button2.astro";
   <p class="text-[mono]">© 2024 Colin Blome. Alle Rechte vorbehalten.</p>
   <div class="flex items-center place-content-center pt-4">
     <a
-      class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] text-gray-600 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+      class="px-2 py-2 mt-2 font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] text-gray-600 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
       href="https://myself-p0rtfolio.netlify.app/"
       id="nav-contact">//looks ugly?</a
     >
     <div class="text-white flex items-center justify-center relative">
-      <input type="checkbox" id="modal-toggle" class="modal-toggle">
-      <label for="modal-toggle" class="px-4 py-2 font-semibold rounded-lg bg-transparent text-gray-600 hover:text-[tomato] hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline cursor-pointer">
-          //Impressum
+      <input type="checkbox" id="modal-toggle" class="modal-toggle" />
+      <label
+        for="modal-toggle"
+        class="px-4 py-2 font-semibold rounded-lg bg-transparent text-gray-600 hover:text-[tomato] hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline cursor-pointer"
+      >
+        //Impressum
       </label>
-  
-      <div class="modal-overlay fixed inset-0 bg-black bg-opacity-40
-      0 hidden z-10"></div>
-      <div class="modal absolute bottom-0 bg-[#333] border border-gray-600 rounded-lg p-4 mt-2 hidden z-20 w-64 text-left">
-          <strong><h2>//Impressum</h2></strong>
-          <p><strong>Name:</strong>Colin blome</p>
-          <p><strong>Address:</strong>Buten Porten 4, 49584 Fürstenau</p>
-          <p><strong>Email:</strong><a href="mailto:info@colinblome.dev" class="underline" >info<span class="font-sans">@</span>colinblome.dev</a></p>
-          <label for="modal-toggle" class="mt-4 text-blue-500 cursor-pointer underline">Close</label>
+
+      <div
+        class="modal-overlay fixed inset-0 bg-black bg-opacity-40
+      0 hidden z-10"
+      >
       </div>
-  </div>
+      <div
+        class="modal absolute bottom-0 bg-[#333] border border-gray-600 rounded-lg p-4 mt-2 hidden z-20 w-64 text-left"
+      >
+        <strong><h2>//Impressum</h2></strong>
+        <p><strong>Name:</strong>Colin blome</p>
+        <p><strong>Address:</strong>Buten Porten 4, 49584 Fürstenau</p>
+        <p>
+          <strong>Email:</strong><a
+            href="mailto:info@colinblome.dev"
+            class="underline"
+            >info<span class="font-sans">@</span>colinblome.dev</a>
+        </p>
+        <label
+          for="modal-toggle"
+          class="mt-4 text-blue-500 cursor-pointer underline">Close</label
+        >
+      </div>
+    </div>
   </div>
 
   <style>
@@ -117,7 +135,7 @@ import Button2 from "./Button2.astro";
       color: #434343;
     }
     .footer ul li:hover a i {
-      color: #434343 ;
+      color: #434343;
       background-color: #ebebeb;
       transform: translateY(-4px) translatex(4px);
       box-shadow: -4px 4px rgb(255, 99, 71);
@@ -137,14 +155,12 @@ import Button2 from "./Button2.astro";
         height: 0px;
         position: relative;
         div {
-          padding: 5px;
+          padding: 10px;
           background: #eaeaea;
-          color:#333;
-          font-family: inter;
+          color: #333;
+          font-family: mono;
           font-size: 16px;
-          font-weight: 800;
           border-radius: 0.5em;
-          letter-spacing: 0.05em;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -152,7 +168,7 @@ import Button2 from "./Button2.astro";
           transition: all 1s;
           flex-direction: column;
           width: 75px;
-          height: 30px;
+          height: 35px;
         }
       }
     }
@@ -169,6 +185,10 @@ import Button2 from "./Button2.astro";
     }
     a div:nth-of-type(2) {
       display: none;
+
+      i {
+        translate: 0px -5px;
+      }
     }
     a:hover div:nth-of-type(2) {
       display: block;
