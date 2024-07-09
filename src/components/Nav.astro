@@ -1,6 +1,5 @@
 ---
 import "../css/keyframes.css";
-import "../css/fonts.css";
 import logo from "../assets/images/logo.png";
 ---
 
@@ -9,18 +8,22 @@ import logo from "../assets/images/logo.png";
   src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
   defer></script>
 <div
-  class="head w-full fixed z-20 text-gray-200 colred sm:bg-transparent dark-mode:text-gray-200 dark-mode:bg-gray-800"
+  class="head w-full justify-center items-center fixed z-20 text-gray-200 sm:bg-transparent dark-mode:text-gray-200 dark-mode:bg-gray-800"
   id="navbar"
 >
   <div
     x-data="{ open: false }"
-    class="flex flex-col h-full max-w-screen-2xl items-center mx-auto md:justify-between md:flex-row md:px-6 mg:px-2"
+    class="flex flex-col h-full max-w-screen-2xl items-center md:justify-center mx-auto md:flex-row md:px-6 mg:px-2"
+    @click.away="open = false"
   >
     <div class="flex flex-row items-center w-full justify-between">
       <a
         href="#"
         class="name lg:text-lg font-semibold flex duration-200 items-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-none focus:shadow-outline"
-        ><img class="logo" src={logo.src} alt="" />Colin Blome Webdesign</a
+        ><img class="logo" src={logo.src} alt="" />C<span>olin</span>
+        <i>B</i><span>lome </span><span class="dev"> Webdev</span><span
+          >elopment</span
+        ></a
       >
       <button
         class="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
@@ -42,22 +45,25 @@ import logo from "../assets/images/logo.png";
     </div>
     <nav
       :class="{'flex': open, 'hidden': !open}"
-      class="flex-col flex-grow pb-4 max-w-200px md:pb-0 hidden md:flex md:justify-end md:flex-row bg-white md:bg-transparent md:text-gray-200 text-gray-600"
+      class="flex-col flex-grow pb-4 max-w-200px w-full md:pb-0 hidden md:flex md:justify-end md:flex-row md:bg-transparent md:text-gray-200 text-gray-600 bg-white"
     >
       <a
-        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
+        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
         href="#home"
-        id="nav-home">//Home</a
+        id="nav-home"
+        @click="open = false">//Home</a
       >
       <a
-        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
         href="#about"
-        id="nav-about">//About</a
+        id="nav-about"
+        @click="open = false">//About</a
       >
       <a
-        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
         href="#skills"
-        id="nav-skills">//Skills</a
+        id="nav-skills"
+        @click="open = false">//Skills</a
       >
       <div @click.away="open = false" class="relative" x-data="{ open: false }">
         <button
@@ -65,7 +71,7 @@ import logo from "../assets/images/logo.png";
           @click="open = !open"
           class="px-0 w-[100%] text-left"
           ><a
-            class="px-2 py-2 mt-2 md:ml-3.5 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-[tomato] focus:text-gray-600 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline min-w-16 flex"
+            class="px-2 py-2 mt-2 md:ml-3.5 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-600 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline min-w-16 flex"
             href="#projects"
             >//Projects<svg
               fill="currentColor"
@@ -93,27 +99,31 @@ import logo from "../assets/images/logo.png";
             class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800"
           >
             <a
-              class="block px-4 py-2 mt-2 text-sm font-semibold rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+              class="block px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
               href="https://bonsaiworld.netlify.app/"
-              target="_blank">/Projects/Project #1</a
+              target="_blank"
+              @click="open = false">/Projects/Project #1</a
             >
             <a
-              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
               href="https://myself-p0rtfolio.netlify.app/"
-              target="_blank">/Projects/Project #2</a
+              target="_blank"
+              @click="open = false">/Projects/Project #2</a
             >
             <a
-              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
               href="https://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor"
-              target="_blank">/Projects/Project #3</a
+              target="_blank"
+              @click="open = false">/Projects/Project #3</a
             >
           </div>
         </div>
       </div>
       <a
-        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
         href="#contact"
-        id="nav-contact">//Contact</a
+        id="nav-contact"
+        @click="open = false">//Contact</a
       >
     </nav>
   </div>
@@ -145,11 +155,53 @@ import logo from "../assets/images/logo.png";
     translate: 0 10px;
     transition: 1s;
   }
+  .name:hover .logo {
+    transform: translateX(-0.3vw) scale(1.15);
+  }
+  .name {
+    letter-spacing: -1px;
+    color: tomato;
+    font-size: 24px;
+    .dev {
+      font-size: 16px;
+      translate: 0 2px;
+      color: #ffffff;
+      filter: blur(0);
+    }
+    span {
+      transition: 3s;
+      font-size: 0;
+      filter: blur(1px);
+    }
+    i{
+      transition: .5s;
+      font-style: normal;
+      translate: -5px 10px;
+    }
+  }
   .colored {
     height: 7vh;
     transition: all 1s;
     background: #fff;
     box-shadow: 0 0px 15px 2px #0000002b;
+    .name {
+      letter-spacing: normal;
+      color: tomato;
+      i{
+        translate: 0 0;
+      }
+      .dev {
+        font-size: 24px;
+        color: tomato;
+        translate: 0 0px;
+      }
+      span {
+        color: #616161;
+        font-size: 16px;
+        translate: -1px 3px;
+        filter: blur(0);
+      }
+    }
     a {
       color: #616161;
       img {
@@ -161,8 +213,26 @@ import logo from "../assets/images/logo.png";
       color: #616161;
     }
   }
-  .colored :hover {
+  .name:hover {
     color: tomato;
+    font-size: 24px;
+    span {
+      transition: 1s;
+      color: #dcdcdc;
+      font-size: 16px;
+      filter: blur(0);
+    }
+    .dev{
+      translate: 0 0;
+      font-size: 24px;
+      color: #dcdcdc;
+    }
+    i{
+      translate: 0 0;
+    }
+  }
+  .colored :hover {
+    color: #616161;
   }
 </style>
 <script>
