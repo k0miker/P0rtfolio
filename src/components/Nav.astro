@@ -169,14 +169,15 @@ import logo from "../assets/images/logo.png";
       filter: blur(0);
     }
     span {
-      transition: 3s;
+      transition: 1s;
       font-size: 0;
       filter: blur(1px);
     }
-    i{
-      transition: .5s;
+    i {
+      transition: 0.5s;
       font-style: normal;
-      translate: -5px 10px;
+      translate: -5px 13px;
+      scale: 1.2
     }
   }
   .colored {
@@ -187,8 +188,10 @@ import logo from "../assets/images/logo.png";
     .name {
       letter-spacing: normal;
       color: tomato;
-      i{
+      i {
         translate: 0 0;
+        rotate: 360deg;
+        scale: 1;        
       }
       .dev {
         font-size: 24px;
@@ -213,26 +216,42 @@ import logo from "../assets/images/logo.png";
       color: #616161;
     }
   }
+
   .name:hover {
     color: tomato;
     font-size: 24px;
     span {
       transition: 1s;
-      color: #dcdcdc;
+      color: #ffffff;
       font-size: 16px;
       filter: blur(0);
     }
-    .dev{
+    .dev {
       translate: 0 0;
       font-size: 24px;
-      color: #dcdcdc;
+      color: tomato;
     }
-    i{
+    i {
       translate: 0 0;
+      rotate: 360deg;
+      scale: 1;      
     }
   }
-  .colored :hover {
-    color: #616161;
+  .colored:hover {
+    .dev {
+      color: #616161;
+      font-size: 16px;
+    }
+    span {
+      font-size: 0;
+    }
+    i {
+      transition: 0.5s;
+      font-style: normal;
+      transform: rotate(360deg);
+      translate: -5px 13px;
+      scale: 1.2;
+    }
   }
 </style>
 <script>
