@@ -161,12 +161,14 @@ import logo from "../assets/images/logo.png";
   .name {
     letter-spacing: -1px;
     color: tomato;
+    font-family: monospace;
     font-size: 24px;
     .dev {
       font-size: 16px;
       translate: 0 2px;
       color: #ffffff;
       filter: blur(0);
+      font-family: monospace;
     }
     span {
       transition: 1s;
@@ -176,8 +178,28 @@ import logo from "../assets/images/logo.png";
     i {
       transition: 0.5s;
       font-style: normal;
-      translate: -5px 13px;
-      scale: 1.2
+      translate: -3px 11px;
+      scale: 1.4;
+    }
+  }
+  .name:hover {
+    color: tomato;
+    font-size: 24px;
+    span {
+      transition: 1s;
+      color: #ffffff;
+      font-size: 16px;
+      filter: blur(0);
+    }
+    .dev {
+      translate: 0 0;
+      font-size: 24px;
+      color: tomato;
+    }
+    i {
+      translate: 0 0;
+      rotate: 360deg;
+      scale: 1;      
     }
   }
   .colored {
@@ -217,26 +239,7 @@ import logo from "../assets/images/logo.png";
     }
   }
 
-  .name:hover {
-    color: tomato;
-    font-size: 24px;
-    span {
-      transition: 1s;
-      color: #ffffff;
-      font-size: 16px;
-      filter: blur(0);
-    }
-    .dev {
-      translate: 0 0;
-      font-size: 24px;
-      color: tomato;
-    }
-    i {
-      translate: 0 0;
-      rotate: 360deg;
-      scale: 1;      
-    }
-  }
+
   .colored:hover {
     .dev {
       color: #616161;
@@ -246,11 +249,11 @@ import logo from "../assets/images/logo.png";
       font-size: 0;
     }
     i {
-      transition: 0.5s;
+      transition: .5s;
       font-style: normal;
       transform: rotate(360deg);
-      translate: -5px 13px;
-      scale: 1.2;
+      translate: -3px 10px;
+      scale: 1.5;
     }
   }
 </style>
