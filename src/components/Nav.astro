@@ -16,7 +16,7 @@ import logo from "../assets/images/logo.png";
     class="flex flex-col h-full max-w-screen-2xl items-center md:justify-center mx-auto md:flex-row md:px-6 mg:px-2"
     @click.away="open = false"
   >
-    <div class="flex flex-row items-center w-full justify-between">
+    <div class=" name flex flex-row items-center w-full justify-between">
       <a
         href="#"
         class="name lg:text-lg font-semibold flex duration-200 items-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-none focus:shadow-outline"
@@ -194,6 +194,9 @@ import logo from "../assets/images/logo.png";
       font-size: 16px;
       filter: blur(0);
     }
+    .dash {
+      font-size: 0;
+    }
     .dev {
       translate: 0 0;
       font-size: 24px;
@@ -256,6 +259,15 @@ import logo from "../assets/images/logo.png";
     }
     span {
       font-size: 0;
+    }
+    .dash {
+      font-size: 16px;
+    }
+    i:nth-of-type(1) {
+      transition: .5s;
+      font-style: normal;
+      transform: rotate(-360deg);
+      scale: 1;
     }
     i:nth-of-type(2) {
       transition: .5s;
