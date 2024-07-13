@@ -51,19 +51,19 @@ import logo from "../assets/images/logo.png";
         class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
         href="#home"
         id="nav-home"
-        @click="open = false">//Home</a
+        @click="open = false">/Home</a
       >
       <a
         class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
         href="#about"
         id="nav-about"
-        @click="open = false">//About</a
+        @click="open = false">/About</a
       >
       <a
         class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
         href="#skills"
         id="nav-skills"
-        @click="open = false">//Skills</a
+        @click="open = false">/Skills</a
       >
       <div @click.away="open = false" class="relative" x-data="{ open: false }">
         <button
@@ -73,7 +73,7 @@ import logo from "../assets/images/logo.png";
           ><a
             class="px-2 py-2 mt-2 md:ml-3.5 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-600 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline min-w-16 flex"
             href="#projects"
-            >//Projects<svg
+            >/Projects<svg
               fill="currentColor"
               viewBox="0 0 20 20"
               :class="{'rotate-180': open, 'rotate-0': !open}"
