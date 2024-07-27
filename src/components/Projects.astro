@@ -5,6 +5,9 @@ import p3 from "../assets/images/p3.png";
 import p4 from "../assets/images/p4.png";
 import p5 from "../assets/images/p5.png";
 import p6 from "../assets/images/p6.png";
+import p7 from "../assets/images/p7.gif";
+import p8 from "../assets/images/p8.png";
+
 ---
 
 <section class="wrapperr h-[auto] md:h-[90hv] offscreen">
@@ -105,9 +108,49 @@ import p6 from "../assets/images/p6.png";
         </div>
       </figcaption>
     </div>
-    <!-- Füge hier weitere <div> Elemente für weitere Modals hinzu -->
+    <div
+      class="box flex items-center content-center sm:max-w-[50%] offscreen"
+      data-modal-target="myModal7"
+    >
+      <figcaption>
+        <img src={p7.src} alt="" />
+        <div class="caption flex flex-col items-center text-sm md:text-base">
+          <h1 class="py-0 text-center">Starfield canvas</h1>
+          <p>A small canvas excurse witch let to this</p>
+          <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+        </div>
+      </figcaption>
+    </div>
+    <div
+    class="box flex items-center content-center sm:max-w-[50%] offscreen"
+    data-modal-target="myModal8"
+  >
+    <figcaption>
+      <img src={p8.src} alt="" />
+      <div class="caption flex flex-col items-center text-sm md:text-base">
+        <h1 class="py-0 text-center">Starfieldclash</h1>
+        <p>A small canvas excurse witch let to this Game</p>
+        <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+      </div>
+    </figcaption>
   </div>
 
+
+
+
+    <!-- Füge hier weitere <div> Elemente für weitere Modals hinzu -->
+  </div>
+<!-- 
+  
+
+
+
+
+
+
+
+
+-->
   <!-- Modals -->
   <div id="myModal1" class="modal fadein">
     <div class="modal-content">
@@ -185,6 +228,29 @@ import p6 from "../assets/images/p6.png";
       <h1 class="py-4 text-center">Layout example</h1>
       <p>a Small layout example within the DCI corse.</p>
       <img src={p6.src} alt="" />
+    </div>
+  </div>
+  <div id="myModal7" class="modal fadein">
+    <div class="modal-content">
+      <span class="close"
+        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+      >
+      <h1 class="py-4 text-center">Starfield canvas</h1>
+      <p>A small canvas excurse witch let to this</p>
+      <a href="https://starfield-cb.netlify.app/" target="_blank"><img src={p7.src} alt=""></a>
+      <a href="https://codepen.io/k0miker/pen/wvLoevE" target="_blank">Codepen.io</a>
+
+    </div>
+  </div>
+  <div id="myModal8" class="modal fadein">
+    <div class="modal-content">
+      <span class="close"
+        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+      >
+      <h1 class="py-4 text-center">Starfieldclash Game</h1>
+      <p>A small canvas excurse witch let to this game :)</p>
+      <a href="https://k0miker.github.io/starfieldclash/" target="_blank"><img src={p8.src} alt=""></a>
+
     </div>
   </div>
 
