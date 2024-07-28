@@ -236,7 +236,9 @@ import p8 from "../assets/images/p8.png";
         ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
       >
       <h1 class="py-4 text-center">Starfield canvas</h1>
-      <p>A small canvas excurse witch let to this</p>
+      <p>A small canvas excurse witch let to this hypnotizing animation,
+        use Key W, and S to accelerate and decelerate. and press num+ to increase the number of stars.
+      </p>
       <a href="https://starfield-cb.netlify.app/" target="_blank"><img src={p7.src} alt=""></a>
       <a href="https://codepen.io/k0miker/pen/wvLoevE" target="_blank">Codepen.io</a>
 
@@ -275,12 +277,14 @@ import p8 from "../assets/images/p8.png";
     }
   }
   .modal {
-    display: none;
-    position: absolute;
     justify-content: center;
     align-items: center;
-    z-index: 1;
-    top: 10vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; 
+    display: none; 
     min-width: 60vw;
     padding: 1vw;
     overflow: auto;
@@ -357,6 +361,7 @@ import p8 from "../assets/images/p8.png";
     width: 100%;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
     h1 {
       font-family: mono;
