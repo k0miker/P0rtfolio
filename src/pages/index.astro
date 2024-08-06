@@ -15,7 +15,7 @@ import Footer from "../components/Footer.astro";
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />   
+    <meta name="generator" content={Astro.generator} />
     <title>Portfolio</title>
   </head>
   <body class="w-full flex-col items-center content-center fadein2">
@@ -23,22 +23,24 @@ import Footer from "../components/Footer.astro";
     <Nav />
 
     <Iam />
+
+    <div id="about">
+      <Myself />
+    </div>
+
+    <div id="skills">
+      
+      <Skills />
+    </div>
+    <div id="projects">
+      <Projects />
+    </div>
+    <div id="contact"></div>
+    <Contact />
+    <div></div>
+
+    <Footer />
   </body>
-  <div id="about">
-    <Myself />
-  </div>
-
-  <div id="skills">
-    <Skills />
-  </div>
-  <div id="projects">
-    <Projects />
-  </div>
-  <div id="contact"></div>
-  <Contact />
-  <div></div>
-
-  <Footer />
 </html>
 
 <style>
