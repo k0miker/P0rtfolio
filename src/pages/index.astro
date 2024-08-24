@@ -25,18 +25,18 @@ import Footer from "../components/Footer.astro";
     <Iam />
 
     <div id="about">
-      <Myself />
+      <Myself client:visible/>
     </div>
 
     <div id="skills">
       
-      <Skills />
+      <Skills client:visible />
     </div>
     <div id="projects">
-      <Projects />
+      <Projects client:visible />
     </div>
     <div id="contact"></div>
-    <Contact />
+    <Contact client:visible />
     <div></div>
 
     <Footer />
@@ -45,7 +45,7 @@ import Footer from "../components/Footer.astro";
 
 <style>
   * {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     font-family: mono;
     padding: 0;
     margin: 0;
