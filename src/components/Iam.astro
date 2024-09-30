@@ -162,14 +162,19 @@ import "../css/keyframes.css";
 <script>
   function smoothScroll(target, duration) {
     let targetElement = document.querySelector(target);
-    let targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-    let startPosition = window.pageYOffset;
+    if (!targetElement) {
+      console.error(`Element not found: ${target}`);
+      return;
+    }
+    let targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+    let startPosition = window.scrollY;
+    let distance = targetPosition - startPosition;
     let startTime = null;
 
     function animation(currentTime) {
       if (startTime === null) startTime = currentTime;
       let timeElapsed = currentTime - startTime;
-      let run = ease(timeElapsed, startPosition, targetPosition, duration);
+      let run = ease(timeElapsed, startPosition, distance, duration);
       window.scrollTo(0, run);
       if (timeElapsed < duration) requestAnimationFrame(animation);
     }
@@ -190,7 +195,7 @@ import "../css/keyframes.css";
     navLinks.forEach((link) => {
       link.addEventListener("click", function (e) {
         e.preventDefault();
-        const targetId = this.getAttribute("#contact");
+        const targetId = this.getAttribute("href");
         smoothScroll(targetId, 3000);
       });
     });
