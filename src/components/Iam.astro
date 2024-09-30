@@ -12,7 +12,7 @@ import "../css/keyframes.css";
   </div>
 </div>
 <div class="down">
-  <a href="#contact" class="scroll bg-gray-200 text-gray-600"
+  <a href="#about" class="bg-gray-200 text-gray-600"
     ><div>/down</div><div><i class=" fa-solid fa-arrow-down"></i></div></a
   >
 </div>
@@ -158,41 +158,4 @@ import "../css/keyframes.css";
     }, 80);
     
   }
-</script>
-<script>
-  function smoothScroll(target, duration) {
-    let targetElement = document.querySelector(target);
-    let targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-    let startPosition = window.pageYOffset;
-    let startTime = null;
-
-    function animation(currentTime) {
-      if (startTime === null) startTime = currentTime;
-      let timeElapsed = currentTime - startTime;
-      let run = ease(timeElapsed, startPosition, targetPosition, duration);
-      window.scrollTo(0, run);
-      if (timeElapsed < duration) requestAnimationFrame(animation);
-    }
-
-    function ease(t, b, c, d) {
-      t /= d / 2;
-      if (t < 1) return c / 2 * t * t + b;
-      t--;
-      return -c / 2 * (t * (t - 2) - 1) + b;
-    }
-
-    requestAnimationFrame(animation);
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const navLinks = document.querySelectorAll(".scroll");
-
-    navLinks.forEach((link) => {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute("#contact");
-        smoothScroll(targetId, 3000);
-      });
-    });
-  });
 </script>

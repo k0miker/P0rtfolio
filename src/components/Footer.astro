@@ -5,7 +5,7 @@ import Button2 from "./Button2.astro";
 
 <footer class="footer">
   <div class="up">
-    <a href="#home" class="p-2 scroll"
+    <a href="#home" class="p-2"
       ><div class="font-extrabold">/up</div><div>
         <i class="fa-solid fa-arrow-up"></i>
       </div></a
@@ -205,40 +205,3 @@ import Button2 from "./Button2.astro";
     }
   }
 </style>
-<!-- <script>
-  function smoothScroll(target, duration) {
-    let targetElement = document.querySelector(target);
-    let targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-    let startPosition = window.pageYOffset;
-    let startTime = null;
-
-    function animation(currentTime) {
-      if (startTime === null) startTime = currentTime;
-      let timeElapsed = currentTime - startTime;
-      let run = ease(timeElapsed, startPosition, targetPosition, duration);
-      window.scrollTo(0, run);
-      if (timeElapsed < duration) requestAnimationFrame(animation);
-    }
-
-    function ease(t, b, c, d) {
-      t /= d / 2;
-      if (t < 1) return c / 2 * t * t + b;
-      t--;
-      return -c / 2 * (t * (t - 2) - 1) + b;
-    }
-
-    requestAnimationFrame(animation);
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const navLinks = document.querySelectorAll(".scroll");
-
-    navLinks.forEach((link) => {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute("#");
-        smoothScroll(targetId, 3000);
-      });
-    });
-  });
-</script> -->
