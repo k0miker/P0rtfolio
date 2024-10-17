@@ -135,18 +135,18 @@ import p9 from "../assets/images/p9.png";
       </figcaption>
     </div>
     <div
-    class="box flex items-center content-center sm:max-w-[50%] offscreen"
-    data-modal-target="myModal9"
-  >
-    <figcaption>
-      <img src={p9.src} alt="" />
-      <div class="caption flex flex-col items-center text-sm md:text-base">
-        <h1 class="py-0 text-center">Zombiland</h1>
-        <p>A canvas Game to become more comfortable with JavaScript</p>
-        <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
-      </div>
-    </figcaption>
-  </div>
+      class="box flex items-center content-center sm:max-w-[50%] offscreen"
+      data-modal-target="myModal9"
+    >
+      <figcaption>
+        <img src={p9.src} alt="" />
+        <div class="caption flex flex-col items-center text-sm md:text-base">
+          <h1 class="py-0 text-center">Zombiland</h1>
+          <p>A canvas Game to become more comfortable with JavaScript</p>
+          <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+        </div>
+      </figcaption>
+    </div>
 
     <!-- Füge weitere Modals hinzu -->
   </div>
@@ -216,8 +216,8 @@ import p9 from "../assets/images/p9.png";
         href="https://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor"
         target="_blank"
       >
-        <img src={p4.src} alt="" /></a
-      >
+        <img src={p4.src} alt="" />
+      </a>
     </div>
   </div>
   <div id="myModal5" class="modal fadein">
@@ -226,8 +226,13 @@ import p9 from "../assets/images/p9.png";
         ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
       >
       <h1 class="py-4 text-center">Freelancing</h1>
-      <p>I translated a website from Typo3 to Astro and am now responsible for its ongoing maintenance.</p>
-      <img src={p5.src} alt="" />
+      <p>
+        I translated a website from Typo3 to Astro and am now responsible for
+        its ongoing maintenance.
+      </p>
+      <a href="https://www.industriebodenplanung.com/" target="_blank">
+        <img src={p5.src} alt="" />
+      </a>
     </div>
   </div>
   <div id="myModal6" class="modal fadein">
@@ -404,7 +409,8 @@ import p9 from "../assets/images/p9.png";
       align-items: center;
     }
     a img:hover {
-      scale: 1.1;
+      scale: 1.05;
+      transform: translateY(10px);
     }
   }
   .close {
@@ -475,7 +481,7 @@ import p9 from "../assets/images/p9.png";
       trigger.addEventListener("click", function () {
         let modalId = trigger.getAttribute("data-modal-target");
         let modal = document.getElementById(modalId) as HTMLElement;
-        
+
         // Öffne das entsprechende Modal
         if (modal) {
           modal.style.display = "flex";
@@ -515,7 +521,7 @@ import p9 from "../assets/images/p9.png";
       trigger.addEventListener("click", function () {
         let modalId = trigger.getAttribute("data-modal-target");
         let modal = document.getElementById(modalId) as HTMLElement;
-        
+
         // Öffne das entsprechende Modal
         if (modal) {
           modal.style.display = "flex";
