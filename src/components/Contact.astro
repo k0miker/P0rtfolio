@@ -6,9 +6,9 @@ import Button from "./Button.astro";
 
 <section class="flex flex-col items-center content-center min-h-[80vh]">
   <form
-    action="https://formspree.io/f/mvoeekgw"
-    method="POST"
+    name="contact"
     class="offscreen"
+    netlify
   >
     <h1 class="font-[mono] md:mb-8 text-2xl hover:tracking-[0.5vw] duration-500">
       Get in touch<span class="animate-ping">_</span><span
@@ -20,7 +20,6 @@ import Button from "./Button.astro";
         required
         type="text"
         name="name"
-        autocomplete="off"
         class="input"
         id="name"
       />
@@ -31,7 +30,6 @@ import Button from "./Button.astro";
         required
         type="email"
         name="email"
-        autocomplete="off"
         class="input"
         id="mail"
       />
@@ -53,7 +51,7 @@ import Button from "./Button.astro";
         <label for="toggle" class="toggle-label"></label>
       </div>
       I agree to the <a
-        href="https://formspree.io/legal/privacy-policy/"
+        href="https://www.netlify.com/privacy/"
         target="_blank"
         class="underline text-blue-300 text-base">privacy policy.</a
       >
