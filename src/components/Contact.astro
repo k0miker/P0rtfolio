@@ -9,7 +9,10 @@ import Button from "./Button.astro";
     name="contact"
     class="offscreen"
     data-netlify="true"
+    data-netlify-honeypot="bot-field"
+    method="POST"    
   >
+  <input type="hidden" name="bot-field" />
     <h1 class="font-[mono] md:mb-8 text-2xl hover:tracking-[0.5vw] duration-500">
       Get in touch<span class="animate-ping">_</span><span
         class="animate-ping font-sans text-2xl">!</span
