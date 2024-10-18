@@ -12,7 +12,7 @@ import Button from "./Button.astro";
     data-netlify-honeypot="bot-field"
     method="POST"    
   >
-  <input type="hidden" name="bot-field" />
+    <input type="hidden" name="bot-field" />
     <h1 class="font-[mono] md:mb-8 text-2xl hover:tracking-[0.5vw] duration-500">
       Get in touch<span class="animate-ping">_</span><span
         class="animate-ping font-sans text-2xl">!</span
@@ -50,7 +50,7 @@ import Button from "./Button.astro";
     </div>
     <div class="mt-4 text-gray-200">
       <div class="toggle-switch">
-        <input type="checkbox" id="toggle" class="toggle-input" />
+        <input type="checkbox" required id="toggle" class="toggle-input checkbox" />
         <label for="toggle" class="toggle-label"></label>
       </div>
       I agree to the <a
@@ -59,7 +59,7 @@ import Button from "./Button.astro";
         class="underline text-blue-300 text-base">privacy policy.</a
       >
     </div>
-    <Button />
+    <Button class="button" disabled />
   </form>
 </section>
 <style>
@@ -208,3 +208,17 @@ import Button from "./Button.astro";
   transform: translateX(16px);
 }
 </style>
+<script>
+  const input = document.querySelector(".checkbox") as HTMLInputElement;
+  const btn = document.querySelector(".button") as HTMLButtonElement;
+  const toggle = document.querySelector(".toggle-switch") as HTMLInputElement;
+
+ btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (input.checked) {
+      document.querySelector("form").submit();
+    } else {
+      toggle.style.backgroundColor = "red";
+    }
+  });
+</script>
