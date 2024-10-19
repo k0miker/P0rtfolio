@@ -219,6 +219,13 @@ import Button from "./Button.astro";
       document.querySelector("form").submit();
     } else {
       toggle.style.backgroundColor = "red";
+      toggle.style.borderRadius = "5px";
+      toggle.style.padding = "5px";
+      
+      setTimeout(() => {
+        toggle.style.backgroundColor = "rgba(0, 0, 0, 0)";
+        
+      }, 1000);
     }
   });
 </script>
