@@ -56,7 +56,7 @@ import Button from "./Button.astro";
       I agree to the <a
         href="https://www.netlify.com/privacy/"
         target="_blank"
-        class="underline text-blue-300 text-base">privacy policy.</a
+        class="underline text-blue-300 text-base toggle-switch-label">privacy policy.</a
       >
     </div>
     <Button class="button" disabled />
@@ -175,7 +175,12 @@ import Button from "./Button.astro";
 .toggle-switch .toggle-input {
   display: none;
 }
+.toggle-switch-label {
+  padding-bottom: 15px;
+}
+  
 .toggle-switch .toggle-label {
+
   position: absolute;
   top: 0;
   left: 0;
@@ -207,25 +212,37 @@ import Button from "./Button.astro";
 .toggle-switch .toggle-input:checked + .toggle-label::before {
   transform: translateX(16px);
 }
+.highlight {
+  animation: highlight 0.5s;
+}
+@keyframes highlight {
+  0% {
+    scale: 1;
+  }
+  50{
+    scale: 1.1;
+  }
+  100% {
+    background-color: #33333391;
+  }
+}
+
 </style>
 <script>
+  const form = document.querySelector("form");
   const input = document.querySelector(".checkbox") as HTMLInputElement;
-  const btn = document.querySelector(".button") as HTMLButtonElement;
-  const toggle = document.querySelector(".toggle-switch") as HTMLInputElement;
+  const toggle = document.querySelector(".toggle-switch");
+  const toggleLabel = document.querySelector(".toggle-label");
 
- btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (input.checked) {
-      document.querySelector("form").submit();
-    } else {
-      toggle.style.backgroundColor = "red";
-      toggle.style.borderRadius = "5px";
-      toggle.style.padding = "5px";
-      
+  form.addEventListener("submit", (event) => {
+    if (!input.checked) {
+      event.preventDefault();
+      toggle.classList.add("highlight");
+      toggleLabel.classList.add("highlight");
       setTimeout(() => {
-        toggle.style.backgroundColor = "rgba(0, 0, 0, 0)";
-        
-      }, 1000);
+        toggle.classList.remove("highlight");
+        toggleLabel.classList.remove("highlight");
+      }, 500);
     }
   });
 </script>

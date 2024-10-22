@@ -8,7 +8,9 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
 
 <div class="flex flex-col box justify-center items-center min-h-[100vh]">
   <div class="card offscreen">
-    <div class="header font-[mono] text-[1.5rem] hover:tracking-[.5vw] duration-500">
+    <div
+      class="header font-[mono] text-[1.5rem] hover:tracking-[.5vw] duration-500"
+    >
       My Skills<span class="animate-ping">_</span>
     </div>
     <div class="body">
@@ -27,13 +29,19 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
       <div class="skill">
         <div class="skill-name js font-[mono]">JavaScript</div>
         <div class="skill-level">
-          <div style="width: 35%" class="skill-percent"></div>
+          <div style="width: 41%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
         <div class="skill-name astro font-[mono]">Astro</div>
         <div class="skill-level">
-          <div style="width: 27%" class="skill-percent"></div>
+          <div style="width: 37%" class="skill-percent"></div>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="skill-name React font-[mono]">React</div>
+        <div class="skill-level">
+          <div style="width: 33%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
@@ -79,7 +87,12 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
       </div>
     </div>
   </div>
-  <a href={CV} target="_blank" class="mt-[10vh] p-2 cv rounded-lg bg-gray-200 text-gray-600 font-bold hover:text-[tomato] offscreen" >/Download CV</a>
+  <a
+    href={CV}
+    target="_blank"
+    class="mt-[10vh] p-2 cv rounded-lg bg-gray-200 text-gray-600 font-bold hover:text-[tomato] offscreen"
+    >/Download CV</a
+  >
 </div>
 
 <style>
@@ -124,7 +137,7 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
   }
 
   .header {
-    background-color: #4B5563;
+    background-color: #4b5563;
     color: #fff;
     padding: 20px;
     text-align: center;
@@ -143,7 +156,7 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
 
   .skill-name {
     width: 120px;
-    transition: .5s;
+    transition: 0.5s;
     font-size: 16px;
     color: #263442c0;
   }
@@ -163,7 +176,7 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
   .skill-percent {
     position: absolute;
     z-index: 0;
-    transition: .3s;
+    transition: 0.3s;
     background-color: #263442c0;
     border-radius: 5px;
     height: 100%;
@@ -214,7 +227,7 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
   .card:hover i:nth-of-type(9) {
     animation: rollover2 5s ease-in-out 1 4s;
   }
- 
+
   .skill:hover:nth-of-type(1) .skill-percent {
     background-color: rgb(0, 0, 147);
   }
@@ -233,8 +246,6 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
   }
   .skill:hover:nth-of-type(3) .skill-percent {
     background-color: tomato;
-
-    
   }
   .skill:hover:nth-of-type(3) .skill-name {
     color: tomato;
@@ -249,6 +260,7 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
     scale: 1.5;
     transform: translateX(18px);
   }
+
   .skill:hover:nth-of-type(5) .skill-percent {
     background-color: rgb(0, 159, 180);
   }
@@ -257,38 +269,45 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
     scale: 1.5;
     transform: translateX(12px);
   }
-
   .skill:hover:nth-of-type(6) .skill-percent {
-    background-color: rgb(0, 145, 12);
+    background-color: rgb(0, 159, 180);
   }
   .skill:hover:nth-of-type(6) .skill-name {
+    color: rgb(0, 159, 180);
+    scale: 1.5;
+    transform: translateX(12px);
+  }
+
+  .skill:hover:nth-of-type(7) .skill-percent {
+    background-color: rgb(0, 145, 12);
+  }
+  .skill:hover:nth-of-type(7) .skill-name {
     color: rgb(0, 145, 12);
     scale: 1.5;
     transform: translateX(18px);
   }
-  .skill:hover:nth-of-type(7) .skill-percent {
+  .skill:hover:nth-of-type(8) .skill-percent {
     background-color: purple;
   }
-  .skill:hover:nth-of-type(7) .skill-name {
-    color: purple;
-    scale: 1.5;
-    transform: translateX(18px);
-  }
-  .skill:hover:nth-of-type(8) .skill-percent {
-    background-color: rgb(0, 149, 255);
-  }
   .skill:hover:nth-of-type(8) .skill-name {
-    color: rgb(0, 149, 255);
+    color: purple;
     scale: 1.5;
     transform: translateX(18px);
   }
   .skill:hover:nth-of-type(9) .skill-percent {
-    background-color: purple;
+    background-color: rgb(0, 149, 255);
   }
   .skill:hover:nth-of-type(9) .skill-name {
+    color: rgb(0, 149, 255);
+    scale: 1.5;
+    transform: translateX(18px);
+  }
+  .skill:hover:nth-of-type(10) .skill-percent {
+    background-color: purple;
+  }
+  .skill:hover:nth-of-type(10) .skill-name {
     color: purple;
     scale: 1.5;
     transform: translateX(18px);
   }
-  
 </style>
