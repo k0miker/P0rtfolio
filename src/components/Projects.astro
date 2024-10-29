@@ -10,7 +10,7 @@ import p8 from "../assets/images/p8.png";
 import p9 from "../assets/images/p9.png";
 ---
 
-<section class="wrapperr h-[auto] md:h-[90hv] offscreen">
+<section class="wrapperr h-[auto] md:h-[90hv] ">
   <h1
     class="text-center mt-4 p-8 text-3xl text-gray-600 font-[mono] offscreen hover:tracking-[1vw]"
   >
@@ -469,6 +469,22 @@ import p9 from "../assets/images/p9.png";
       color: tomato;
     }
   }
+  @media screen and (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      .box {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+    .modal-content {
+      width: 100%;
+    }
+    .modal{
+      width: 100%;
+    }
+    
+  }
 </style>
 
 <script>
@@ -532,11 +548,7 @@ import p9 from "../assets/images/p9.png";
         }
       });
     });
-
-    // Hole alle Schließen-Icons
     let closeIcons = document.querySelectorAll(".modal .close");
-
-    // Gehe durch jedes Schließen-Icon und füge einen Klick-Event-Listener hinzu
     closeIcons.forEach(function (icon) {
       icon.addEventListener("click", function () {
         let modal = icon.closest(".modal");
@@ -546,7 +558,6 @@ import p9 from "../assets/images/p9.png";
       });
     });
 
-    // Schließe das Modal, wenn außerhalb des Modals geklickt wird
     window.addEventListener("click", function (event) {
       const targetElement = event.target as Element;
       if (targetElement.classList.contains("modal")) {

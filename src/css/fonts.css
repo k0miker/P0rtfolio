@@ -29,12 +29,12 @@
 /* für fadein animation */
 .offscreen {
     opacity: 0;
-    transition: 1.5s;
-    transform: translate(-1vw);
+    transition: 1s;
+    transform: scale(0.95);
 }
 .in-view {
     opacity: 1;
-    transition: 1.5s;
-    transform: translate(0vw) ;
+    transition: 1s;
+    transform: scale(1) ;
   
 }
