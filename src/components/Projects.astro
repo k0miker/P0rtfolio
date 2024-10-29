@@ -418,14 +418,15 @@ import p9 from "../assets/images/p9.png";
     float: right;
     font-size: 28px;
     font-weight: bold;
+    &:hover,
+    &:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
   }
 
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
+
   img {
     max-height: 400px;
     object-fit: cover;
