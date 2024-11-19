@@ -73,20 +73,24 @@ import "../css/keyframes.css";
 
   .console-container {
     background-image: url("https://images.unsplash.com/photo-1554068085-3b86efacc9d4?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    /* background: black; */
     background-size: cover;
     background-repeat: no-repeat;
-    animation: slidein linear 55s;
     background-attachment: fixed;
+    animation: slidein linear 55s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
-    animation-direction: alternate;
+    animation-direction: alternate;    
+   
+    color: white;
     box-shadow: inset 0px -2vh 5vw 10px #0000006f;
     height: 100vh;
+
     display: flex;
     align-items: center;
     justify-content: center;
+    
     position: relative;
-    color: white;
     z-index: -1;
     top: 0;
     left: 0;
@@ -94,17 +98,39 @@ import "../css/keyframes.css";
     bottom: -30px;
     margin: auto;
   }
+  
   .console-underscore {
     display: inline-block;
     position: relative;
     top: 0;
     left: 10px;
   }
+  .console-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;  
+    background: rgba(0, 0, 0, 0.168);
+    animation: fadein 1s;
+    background-size: cover;
+    background-attachment: fixed;
+    mask-image: url("https://i.imghippo.com/files/wula7758fc.png") ;
+    mask-size: 80%;
+    mask-position: center;
+    -webkit-mask-position-x: 60% ;
+    -webkit-mask-position-y: 48% ;
+    mask-repeat: no-repeat;
+    backdrop-filter: blur(3px) ;
+  }
   @media screen and (max-width: 768px) {
     .console-container {
       font-size: 1.5em;
     }
   }
+
 
 </style>
 <script>

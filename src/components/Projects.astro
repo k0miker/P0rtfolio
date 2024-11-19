@@ -489,26 +489,19 @@ import p9 from "../assets/images/p9.png";
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // Hole alle Boxen, die ein Modal öffnen sollen
     let modalTriggers = document.querySelectorAll(".box[data-modal-target]");
 
-    // Gehe durch jede Box und füge einen Klick-Event-Listener hinzu
     modalTriggers.forEach(function (trigger) {
       trigger.addEventListener("click", function () {
         let modalId = trigger.getAttribute("data-modal-target");
         let modal = document.getElementById(modalId) as HTMLElement;
-
-        // Öffne das entsprechende Modal
         if (modal) {
           modal.style.display = "flex";
         }
       });
     });
-
-    // Hole alle Schließen-Icons
     let closeIcons = document.querySelectorAll(".modal .close");
 
-    // Gehe durch jedes Schließen-Icon und füge einen Klick-Event-Listener hinzu
     closeIcons.forEach(function (icon) {
       icon.addEventListener("click", function () {
         let modal = icon.closest(".modal");
@@ -518,7 +511,6 @@ import p9 from "../assets/images/p9.png";
       });
     });
 
-    // Schließe das Modal, wenn außerhalb des Modals geklickt wird
     window.addEventListener("click", function (event) {
       const targetElement = event.target as Element;
       if (targetElement.classList.contains("modal")) {
@@ -529,19 +521,16 @@ import p9 from "../assets/images/p9.png";
 </script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // Hole alle Boxen, die ein Modal öffnen sollen
+   
     let modalTriggers = document.querySelectorAll(".box[data-modal-target]");
 
-    // Gehe durch jede Box und füge einen Klick-Event-Listener hinzu
     modalTriggers.forEach(function (trigger) {
       trigger.addEventListener("click", function () {
         let modalId = trigger.getAttribute("data-modal-target");
         let modal = document.getElementById(modalId) as HTMLElement;
 
-        // Öffne das entsprechende Modal
         if (modal) {
           modal.style.display = "flex";
-          // Warte einen Moment, damit das Modal sichtbar wird, bevor gescrollt wird
           setTimeout(() => {
             modal.scrollIntoView({ behavior: "smooth", block: "center" });
           }, 100);
