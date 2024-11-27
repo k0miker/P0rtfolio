@@ -8,6 +8,7 @@ import p6 from "../assets/images/p6.png";
 import p7 from "../assets/images/p7.gif";
 import p8 from "../assets/images/p8.png";
 import p9 from "../assets/images/p9.png";
+import p10 from "../assets/images/p10.png";
 ---
 
 <section class="wrapperr h-[auto] md:h-[90hv] ">
@@ -17,7 +18,7 @@ import p9 from "../assets/images/p9.png";
     Projects<span class="animate-ping">_</span>
   </h1>
   <div
-    class="container lg:gap-12 md:gap-8 gap-4 flex items-center content-center"
+    class="container lg:gap-12 md:gap-4 gap-4 flex items-center content-center"
   >
     <div
       class="box flex items-center content-center sm:max-w-[50%] offscreen"
@@ -148,13 +149,22 @@ import p9 from "../assets/images/p9.png";
       </figcaption>
     </div>
 
+    <div
+      class="box flex items-center content-center 🌟 sm:max-w-[50%] offscreen"
+      data-modal-target="myModal10"
+    >
+      <figcaption>
+        <img src={p10.src} alt="" />
+        <div class="caption flex flex-col items-center text-sm md:text-base">
+          <h1 class="py-0 text-center">DataGlobe</h1>
+          <p>My first React Project also trying three.js and big Data-Visualization</p>
+          <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+        </div>
+      </figcaption>
+
     <!-- Füge weitere Modals hinzu -->
   </div>
   <!-- 
-  
-
-
-
 
 
 
@@ -287,7 +297,22 @@ import p9 from "../assets/images/p9.png";
       >
     </div>
   </div>
-
+  <div id="myModal10" class="modal fadein">
+    <div class="modal-content overflow-hidden">
+      <span class="close"
+        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+      >
+      
+      <a class="w-full flex flex-col" target="blank"href="https://dataglobe.netlify.app/">
+        <h1 class="py-4 text-center">Dataglobe</h1>
+      <p>My first React project also trying three.jd and Data-Visualization</p></p>
+        <iframe src="https://dataglobe.netlify.app/" frameborder="0">
+        </iframe>
+      </a>
+     
+      
+    </div>
+  </div>
   <!-- weitere Modals -->
 </section>
 
@@ -379,8 +404,13 @@ import p9 from "../assets/images/p9.png";
       flex-grow: 1;
       img {
         object-fit: contain;
-      }
+      }      
     }
+    .🌟{
+      width: 50%;
+      max-width: 600px;
+    }
+    
   }
   .modal-content {
     background-color: #fefefe;
@@ -388,7 +418,7 @@ import p9 from "../assets/images/p9.png";
     padding: 20px;
     border: 1px solid #888;
     max-width: 1460px;
-    max-height: 600px;
+    max-height: 100vh;
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -411,6 +441,7 @@ import p9 from "../assets/images/p9.png";
       scale: 1.05;
       transform: translateY(10px);
     }
+
   }
   .close {
     color: #aaa;

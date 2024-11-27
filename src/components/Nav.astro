@@ -128,6 +128,12 @@ import logo from "../assets/images/logo.png";
               target="_blank"
               @click="open = false">Zombi-island</a
             >
+            <a
+              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+              href="https://dataglobe.netlify.app/"
+              target="_blank"
+              @click="open = false">dataglobe</a
+            >
       
           </div>
         </div>
@@ -271,21 +277,24 @@ import logo from "../assets/images/logo.png";
 
   .colored:hover {
     .logo {
-    transform: translateX(10px) translateY(6px) scale(1.5);
+    transform: translateX(10px) translateY(3px) scale(1.5);
   }
     .dev {
       color: #616161;
-      font-size: 16px;
+      font-size: 24px;
+      translate: 3px -2px;
     }
     span {
-      font-size: 0;
+      font-size: 0;      
     }
     .dash {
-      font-size: 16px;
+      font-size: 20px;
     }
     i:nth-of-type(1) {
       transition: .5s;
-      font-style: normal;
+      font-size: 32px;
+      font-style: normal;      
+      translate: 0px -5px;
       scale: 1;
     }
     i:nth-of-type(2) {
