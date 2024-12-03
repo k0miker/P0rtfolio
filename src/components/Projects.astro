@@ -8,20 +8,20 @@ import p6 from "../assets/images/p6.png";
 import p7 from "../assets/images/p7.gif";
 import p8 from "../assets/images/p8.png";
 import p9 from "../assets/images/p9.png";
+import "../css/keyframes.css";
 // import p10 from "../assets/images/globe30-collon-480.mov";
 ---
 
-<section class="wrapperr h-[auto] md:h-[90hv] ">
+<section class="wrapperr min-h-full ">
   <h1
     class="text-center mt-4 p-8 text-3xl text-gray-600 font-[mono] offscreen hover:tracking-[1vw]"
   >
     Projects<span class="animate-ping">_</span>
   </h1>
-  <div
-    class="container lg:gap-12 md:gap-4 gap-4 flex items-center content-center"
-  >
+
+  <div class="container ">
     <div
-      class="box flex items-center content-center sm:max-w-[50%] offscreen"
+      class="box m-auto flex items-center content-center object-fill offscreen"
       data-modal-target="myModal1"
       id="projects"
     >
@@ -39,7 +39,7 @@ import p9 from "../assets/images/p9.png";
     </div>
 
     <!-- <div
-      class="box flex items-center content-center sm:max-w-[50%] offscreen"
+      class="box flex items-center content-center object-fill offscreen"
       data-modal-target="myModal3"
     >
       <figcaption>
@@ -52,7 +52,7 @@ import p9 from "../assets/images/p9.png";
       </figcaption>
     </div> -->
     <div
-      class="box flex items-center content-center sm:max-w-[50%] offscreen"
+      class="box m-auto flex items-center content-center offscreen"
       data-modal-target="myModal4"
     >
       <figcaption>
@@ -68,7 +68,7 @@ import p9 from "../assets/images/p9.png";
       </figcaption>
     </div>
     <div
-      class="box flex items-center content-center sm:max-w-[50%] offscreen"
+      class="box m-auto flex items-center content-center object-fill offscreen"
       data-modal-target="myModal2"
     >
       <figcaption>
@@ -84,7 +84,7 @@ import p9 from "../assets/images/p9.png";
       </figcaption>
     </div>
     <div
-      class="box flex items-center content-center sm:max-w-[50%] offscreen"
+      class="box m-auto flex items-center content-center object-fill offscreen"
       data-modal-target="myModal5"
     >
       <figcaption>
@@ -97,7 +97,7 @@ import p9 from "../assets/images/p9.png";
       </figcaption>
     </div>
     <!-- <div
-      class="box flex items-center content-center sm:max-w-[50%] offscreen"
+      class="box flex items-center content-center object-fill offscreen"
       data-modal-target="myModal6"
     >
       <figcaption>
@@ -110,7 +110,7 @@ import p9 from "../assets/images/p9.png";
       </figcaption>
     </div> -->
     <div
-      class="box flex items-center content-center sm:max-w-[50%] offscreen"
+      class="box m-auto flex items-center content-center object-fill offscreen"
       data-modal-target="myModal7"
     >
       <figcaption>
@@ -123,7 +123,7 @@ import p9 from "../assets/images/p9.png";
       </figcaption>
     </div>
     <div
-      class="box flex items-center content-center sm:max-w-[50%] offscreen"
+      class="box m-auto flex items-center content-center object-fill offscreen"
       data-modal-target="myModal8"
     >
       <figcaption>
@@ -136,7 +136,7 @@ import p9 from "../assets/images/p9.png";
       </figcaption>
     </div>
     <div
-      class="box flex items-center content-center sm:max-w-[50%] offscreen"
+      class="box m-auto flex items-center content-center object-fill offscreen"
       data-modal-target="myModal9"
     >
       <figcaption>
@@ -150,58 +150,61 @@ import p9 from "../assets/images/p9.png";
     </div>
 
     <div
-      class="box flex items-center content-center  sm:max-w-[50%] offscreen"
+      class="box m-auto flex items-center content-center object-fill offscreen spacing-2"
       data-modal-target="myModal10"
     >
       <figcaption>
         <!-- <img src={p10.src} alt="" /> -->
-         <video autoplay loop muted src="/globe30-collon-480.mov"></video>
-        <div class="caption flex flex-col items-center text-sm md:text-base">
+        <video autoplay loop muted src="/globe30-collon-480.mov"></video>
+        <div class="caption flex flex-col items-center text-sm md:text-base ">
           <h1 class="py-0 text-center">DataGlobe</h1>
-          <p>My first React Project also trying three.js and big Data-Visualization</p>
+          <p>
+            My first React Project also trying three.js and big
+            Data-Visualization
+          </p>
           <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
         </div>
       </figcaption>
 
-    <!-- Füge weitere Modals hinzu -->
-  </div>
-  <!-- 
+      <!-- Füge weitere Modals hinzu -->
+    </div>
+    <!-- 
 
 
 
 
 
 -->
-  <!-- Modals -->
-  <div id="myModal1" class="modal fadein">
-    <div class="modal-content">
-      <span class="close"
-        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
-      >
-      <h1 class="py-4 text-center">Bonsaiworld</h1>
-      <p class="py-0 text-center">
-        A small web project the orientational DCI corse, where i was able to
-        express my love for the bonsai art.
-      </p>
-      <iframe src="https://bonsaiworld.netlify.app/"></iframe>
+    <!-- Modals -->
+    <div id="myModal1" class="modal fadein">
+      <div class="modal-content">
+        <span class="close"
+          ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+        >
+        <h1 class="py-4 text-center">Bonsaiworld</h1>
+        <p class="py-0 text-center">
+          A small web project the orientational DCI corse, where i was able to
+          express my love for the bonsai art.
+        </p>
+        <iframe src="https://bonsaiworld.netlify.app/"></iframe>
+      </div>
     </div>
-  </div>
-  <div id="myModal2" class="modal fadein">
-    <div class="modal-content">
-      <span class="close"
-        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
-      >
-      <h1 class="py-4 text-center">Firma Blome</h1>
-      <p>
-        A small web project for our family business at the time, created with
-        WIX without significant prior knowledge.
-      </p>
-      <a href="https://k0mikerhdf.wixsite.com/blome"
-        ><img src={p2.src} alt="" /></a
-      >
+    <div id="myModal2" class="modal fadein">
+      <div class="modal-content">
+        <span class="close"
+          ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+        >
+        <h1 class="py-4 text-center">Firma Blome</h1>
+        <p>
+          A small web project for our family business at the time, created with
+          WIX without significant prior knowledge.
+        </p>
+        <a href="https://k0mikerhdf.wixsite.com/blome"
+          ><img src={p2.src} alt="" /></a
+        >
+      </div>
     </div>
-  </div>
-  <!-- <div id="myModal3" class="modal fadein">
+    <!-- <div id="myModal3" class="modal fadein">
     <div class="modal-content">
       <span class="close"
         ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
@@ -210,108 +213,112 @@ import p9 from "../assets/images/p9.png";
       <p>A small layout example within the DCI corse.</p>
     </div>
   </div> -->
-  <div id="myModal4" class="modal fadein">
-    <div class="modal-content">
-      <span class="close"
-        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
-      >
-      <h1 class="py-4 text-center">Marketing Kampagne</h1>
-      <p>
-        A small layout example for a marketing campagne refered to the
-        Bonasiworld
-      </p>
+    <div id="myModal4" class="modal fadein">
+      <div class="modal-content">
+        <span class="close"
+          ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+        >
+        <h1 class="py-4 text-center">Marketing Kampagne</h1>
+        <p>
+          A small layout example for a marketing campagne refered to the
+          Bonasiworld
+        </p>
 
-      <a
-        class="p-8"
-        href="https://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor"
-        target="_blank"
-      >
-        <img src={p4.src} alt="" />
-      </a>
+        <a
+          class="p-8"
+          href="https://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor"
+          target="_blank"
+        >
+          <img src={p4.src} alt="" />
+        </a>
+      </div>
     </div>
-  </div>
-  <div id="myModal5" class="modal fadein">
-    <div class="modal-content">
-      <span class="close"
-        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
-      >
-      <h1 class="py-4 text-center">Freelancing</h1>
-      <p>
-        I translated a website from Typo3 to Astro and am now responsible for
-        its ongoing maintenance.
-      </p>
-      <a href="https://www.industriebodenplanung.com/" target="_blank">
-        <img src={p5.src} alt="" />
-      </a>
+    <div id="myModal5" class="modal fadein">
+      <div class="modal-content">
+        <span class="close"
+          ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+        >
+        <h1 class="py-4 text-center">Freelancing</h1>
+        <p>
+          I translated a website from Typo3 to Astro and am now responsible for
+          its ongoing maintenance.
+        </p>
+        <a href="https://www.industriebodenplanung.com/" target="_blank">
+          <img src={p5.src} alt="" />
+        </a>
+      </div>
     </div>
-  </div>
-  <div id="myModal6" class="modal fadein">
-    <div class="modal-content">
-      <span class="close"
-        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
-      >
-      <h1 class="py-4 text-center">Layout example</h1>
-      <p>a Small layout example within the DCI corse.</p>
-      <img src={p6.src} alt="" />
+    <div id="myModal6" class="modal fadein">
+      <div class="modal-content">
+        <span class="close"
+          ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+        >
+        <h1 class="py-4 text-center">Layout example</h1>
+        <p>a Small layout example within the DCI corse.</p>
+        <img src={p6.src} alt="" />
+      </div>
     </div>
-  </div>
-  <div id="myModal7" class="modal fadein">
-    <div class="modal-content">
-      <span class="close"
-        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
-      >
-      <h1 class="py-4 text-center">Starfield canvas</h1>
-      <p>
-        A small canvas excurse witch let to this hypnotizing animation, use Key
-        W, and S to accelerate and decelerate. and press num+ to increase the
-        number of stars.
-      </p>
-      <a href="https://starfield-cb.netlify.app/" target="_blank"
-        ><img src={p7.src} alt="" /></a
-      >
-      <a href="https://codepen.io/k0miker/pen/wvLoevE" target="_blank"
-        >Codepen.io</a
-      >
+    <div id="myModal7" class="modal fadein">
+      <div class="modal-content">
+        <span class="close"
+          ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+        >
+        <h1 class="py-4 text-center">Starfield canvas</h1>
+        <p>
+          A small canvas excurse witch let to this hypnotizing animation, use
+          Key W, and S to accelerate and decelerate. and press num+ to increase
+          the number of stars.
+        </p>
+        <a href="https://starfield-cb.netlify.app/" target="_blank"
+          ><img src={p7.src} alt="" /></a
+        >
+        <a href="https://codepen.io/k0miker/pen/wvLoevE" target="_blank"
+          >Codepen.io</a
+        >
+      </div>
     </div>
-  </div>
-  <div id="myModal8" class="modal fadein">
-    <div class="modal-content">
-      <span class="close"
-        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
-      >
-      <h1 class="py-4 text-center">Starfieldclash Game</h1>
-      <p>A small canvas excurse witch let to this game :)</p>
-      <a href="https://k0miker.github.io/starfieldclash/" target="_blank"
-        ><img src={p8.src} alt="" /></a
-      >
+    <div id="myModal8" class="modal fadein">
+      <div class="modal-content">
+        <span class="close"
+          ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+        >
+        <h1 class="py-4 text-center">Starfieldclash Game</h1>
+        <p>A small canvas excurse witch let to this game :)</p>
+        <a href="https://k0miker.github.io/starfieldclash/" target="_blank"
+          ><img src={p8.src} alt="" /></a
+        >
+      </div>
     </div>
-  </div>
-  <div id="myModal9" class="modal fadein">
-    <div class="modal-content">
-      <span class="close"
-        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
-      >
-      <h1 class="py-4 text-center">Zombi-Island</h1>
-      <p>A canvas game to further improve JS-Skills</p>
-      <a href="https://zombi-island.netlify.app/" target="_blank"
-        ><img src={p9.src} alt="" /></a
-      >
+    <div id="myModal9" class="modal fadein">
+      <div class="modal-content">
+        <span class="close"
+          ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+        >
+        <h1 class="py-4 text-center">Zombi-Island</h1>
+        <p>A canvas game to further improve JS-Skills</p>
+        <a href="https://zombi-island.netlify.app/" target="_blank"
+          ><img src={p9.src} alt="" /></a
+        >
+      </div>
     </div>
-  </div>
-  <div id="myModal10" class="modal fadein">
-    <div class="modal-content overflow-hidden">
-      <span class="close"
-        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
-      >
-      
-      <a class="w-full flex flex-col" target="blank"href="https://dataglobe.netlify.app/">
-        <h1 class="py-4 text-center">Dataglobe</h1>
-      <p>My first React project also trying three.jd and Data-Visualization</p></p>
-        <iframe src="https://dataglobe.netlify.app/" frameborder="0">
-        </iframe>
-      </a>
-     
-      
+    <div id="myModal10" class="modal fadein">
+      <div class="modal-content overflow-hidden">
+        <span class="close"
+          ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+        >
+
+        <a
+          class="w-full flex-col hidden"
+          target="blank"
+          href="https://dataglobe.netlify.app/"
+        >
+          <h1 class="py-4 text-center">Dataglobe</h1>
+          <p>
+            My first React project also trying three.jd and Data-Visualization
+          </p></a
+        >
+        <iframe src="https://dataglobe.netlify.app/" frameborder="0"> </iframe>
+      </div>
     </div>
   </div>
   <!-- weitere Modals -->
@@ -319,14 +326,14 @@ import p9 from "../assets/images/p9.png";
 
 <style>
   .wrapperr {
-    background-color: rgba(255, 255, 255, 0.829);
-    margin-top: 10px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* height: 100%; */
+    padding: 80px 0;
+    transition: 1s;
+    margin: auto 2vw;
+    margin-left: auto;
+    margin-right: auto;
   }
+
   #myModal3 {
     width: 100%;
     max-width: 1260px;
@@ -343,7 +350,7 @@ import p9 from "../assets/images/p9.png";
     transform: translate(-50%, -50%);
     z-index: 1000;
     display: none;
-    min-width: 60vw;
+    min-width: 0vw;
     padding: 1vw;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.685);
@@ -384,35 +391,48 @@ import p9 from "../assets/images/p9.png";
     height: 70vh;
   }
   .container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    background-color: rgba(255, 255, 255, 0.527);
+    /* display: grid; */
+    /* grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); */
+    columns: 300px;
+    transition: 1s;
+    /* background-color: rgba(120, 31, 31, 0.87); */
     margin-left: auto;
     margin-right: auto;
-    padding: 15px;
-    padding-bottom: 80px;
+    width: 95vw;
+    padding: 80px;
+    max-width: 1524px;
+    gap: 1vw;
+    rotate: view(1vw);
+    
+    backdrop-filter: blur(5px);
 
     .box {
-      position: relative;
-      background-color: rgba(0, 0, 0, 0);
-      width: 34%;
-      box-shadow: 2px 2px 4px 2px #888;
-      max-width: 380px;
-      max-height: 250px;      
-      border-radius: 15px;
+      outline: #353535 1px solid;
+      max-width: fit-content;
+      margin: 25px 10px;
+      box-shadow: 5px 5px 2px 0px #49494972;
+      border-radius: 20px;
       overflow: hidden;
-      flex-grow: 1;
-      img {
-        object-fit: cover;
-      }      
+      animation: rotare;
+      animation-timeline: view();
+      &:hover {
+        position: relative;
+        scale: 1.15;
+        z-index: 1000;
+      }
+      img,
+      video {
+        /* width: minmax( 100%, 380px); */
+        /* max-width: minmax(280px, 100%); */
+        scale: 1.01;
+      }
     }
-    .🌟{
-      width: fit-content;
-      max-width: 500px;
-    }
-    
+    .spacing-2 {
+    width: 380px;
   }
+  }
+  
+
   .modal-content {
     background-color: #fefefe;
     margin: auto auto;
@@ -442,7 +462,6 @@ import p9 from "../assets/images/p9.png";
       scale: 1.05;
       transform: translateY(10px);
     }
-
   }
   .close {
     color: #aaa;
@@ -457,19 +476,25 @@ import p9 from "../assets/images/p9.png";
     }
   }
 
-
   img {
     max-height: 400px;
     object-fit: cover;
     border-radius: 15px;
-    transition: 1s;
+
     @media screen and (max-width: 768px) {
       width: 100%;
     }
   }
-  .box:hover img {
-    scale: 2.505;
-    cursor: pointer;
+  .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 5px 10px 2px 0px #49494980;
+    transition: 1s;
+    img,
+    video {
+      transition: 1s;
+      scale: 1.505;
+      cursor: pointer;
+    }
   }
 
   .box .caption {
@@ -482,6 +507,18 @@ import p9 from "../assets/images/p9.png";
     left: 0px;
     right: 0px;
     bottom: 0px;
+    h1 {
+      color: #ff6347;
+      font-size: 16px;
+    }
+    p{
+      font-size: 0.7rem;
+    }
+    i {
+      margin-top: 10px;
+      transition: 1s;   
+      color: tomato;
+    }
   }
   .box:hover .caption {
     transition: 0.5s;
@@ -489,17 +526,12 @@ import p9 from "../assets/images/p9.png";
     opacity: 1;
     color: white;
     border-radius: 15px;
-    background-color: #000000dd;
-    h1 {
-      color: #ff6347;
-      font-size: 26px;
-    }
-    i {
-      margin-top: 10px;
-      transition: 1s;
+    background-color: #00000050;
+    backdrop-filter: blur(3px);
+    i{
       scale: 1.2;
-      color: tomato;
     }
+    
   }
   @media screen and (max-width: 768px) {
     .container {
@@ -512,69 +544,43 @@ import p9 from "../assets/images/p9.png";
     .modal-content {
       width: 100%;
     }
-    .modal{
+    .modal {
       width: 100%;
     }
-    
   }
 </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     let modalTriggers = document.querySelectorAll(".box[data-modal-target]");
-
-    modalTriggers.forEach(function (trigger) {
-      trigger.addEventListener("click", function () {
-        let modalId = trigger.getAttribute("data-modal-target");
-        let modal = document.getElementById(modalId) as HTMLElement;
-        if (modal) {
-          modal.style.display = "flex";
-        }
-      });
-    });
-    let closeIcons = document.querySelectorAll(".modal .close");
-
-    closeIcons.forEach(function (icon) {
-      icon.addEventListener("click", function () {
-        let modal = icon.closest(".modal");
-        if (modal) {
-          (modal as HTMLElement).style.display = "none";
-        }
-      });
-    });
-
-    window.addEventListener("click", function (event) {
-      const targetElement = event.target as Element;
-      if (targetElement.classList.contains("modal")) {
-        (targetElement as HTMLElement).style.display = "none";
-      }
-    });
-  });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-   
-    let modalTriggers = document.querySelectorAll(".box[data-modal-target]");
+    let openModal = null;
 
     modalTriggers.forEach(function (trigger) {
       trigger.addEventListener("click", function () {
         let modalId = trigger.getAttribute("data-modal-target");
         let modal = document.getElementById(modalId) as HTMLElement;
 
+        if (openModal && openModal !== modal) {
+          openModal.style.display = "none";
+        }
+
         if (modal) {
           modal.style.display = "flex";
+          openModal = modal;
           setTimeout(() => {
             modal.scrollIntoView({ behavior: "smooth", block: "center" });
           }, 100);
         }
       });
     });
+
     let closeIcons = document.querySelectorAll(".modal .close");
     closeIcons.forEach(function (icon) {
       icon.addEventListener("click", function () {
         let modal = icon.closest(".modal");
         if (modal) {
           (modal as HTMLElement).style.display = "none";
+          openModal = null;
         }
       });
     });
@@ -583,6 +589,7 @@ import p9 from "../assets/images/p9.png";
       const targetElement = event.target as Element;
       if (targetElement.classList.contains("modal")) {
         (targetElement as HTMLElement).style.display = "none";
+        openModal = null;
       }
     });
   });
