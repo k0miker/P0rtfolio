@@ -73,13 +73,39 @@
     }
   }
 
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
+@keyframes polygon {
+    0% {
+        scale: 1;
+        transform: skew(0deg);
+    }
+    5%{
+        scale: 1.005;
+        
+        transform: skew(-10deg);
+    }
+    10% {
+        transform: skew(0deg);
+        scale: .995;
+    }
+    15% {
+        transform: skew(0deg);
+        scale: 1.005;
+    }
+    20% {
+        transform: skew(-10deg);
+        scale: .995;
+    }
+    25% {
+        transform: skew(0deg);
+      scale: 1; 
+    }
+    50% {
+    }
+    75% {
+    }   
+    to {     
+        
     }
 
-    to {
-        transform: rotate(360deg);
-    }
 }
 

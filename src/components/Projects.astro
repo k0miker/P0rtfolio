@@ -150,7 +150,7 @@ import "../css/keyframes.css";
     </div>
 
     <div
-      class="box m-auto flex items-center content-center object-fill offscreen spacing-2"
+      class="box m-auto flex items-center content-center object-fill offscreen"
       data-modal-target="myModal10"
     >
       <figcaption>
@@ -393,32 +393,32 @@ import "../css/keyframes.css";
   .container {
     /* display: grid; */
     /* grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); */
-    columns: 300px;
+    columns: 350px;
+    border-radius: 15px;
     transition: 1s;
     /* background-color: rgba(120, 31, 31, 0.87); */
     margin-left: auto;
     margin-right: auto;
     width: 95vw;
-    padding: 80px;
+    padding: 2vw;
     max-width: 1524px;
     gap: 1vw;
-    rotate: view(1vw);
-    
+    rotate: view(1vw);    
     backdrop-filter: blur(5px);
-
+    box-shadow: 10px 10px 10px 10px #3535354a;
     .box {
       outline: #353535 1px solid;
-      max-width: fit-content;
       margin: 25px 10px;
       box-shadow: 5px 5px 2px 0px #49494972;
       border-radius: 20px;
-      overflow: hidden;
-      animation: rotare;
-      animation-timeline: view();
+      overflow: hidden;      
+      /* animation: polygon 30s infinite ease-in-out; */
+      scale: 1;
       &:hover {
         position: relative;
         scale: 1.15;
         z-index: 1000;
+        clip-path: none;
       }
       img,
       video {
@@ -431,8 +431,6 @@ import "../css/keyframes.css";
     width: 380px;
   }
   }
-  
-
   .modal-content {
     background-color: #fefefe;
     margin: auto auto;
@@ -489,6 +487,7 @@ import "../css/keyframes.css";
     transform: translateY(-5px);
     box-shadow: 5px 10px 2px 0px #49494980;
     transition: 1s;
+    animation: none;
     img,
     video {
       transition: 1s;
@@ -507,6 +506,7 @@ import "../css/keyframes.css";
     left: 0px;
     right: 0px;
     bottom: 0px;
+    
     h1 {
       color: #ff6347;
       font-size: 16px;
@@ -528,6 +528,7 @@ import "../css/keyframes.css";
     border-radius: 15px;
     background-color: #00000050;
     backdrop-filter: blur(3px);
+    clip-path: none;
     i{
       scale: 1.2;
     }

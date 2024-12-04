@@ -62,7 +62,7 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
     margin-top: -16px;
     padding: 0px 0;
     margin-top: -16px;
-    background-size: 400%;
+    background-size: 300%;
     background-repeat: no-repeat; 
     background-attachment: fixed; 
     background-position: center;
@@ -102,25 +102,7 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
 
     sections.forEach((section) => {
       observer.observe(section);
-    });
-
-    const projectBoxes = document.querySelectorAll(".box");
-
-    projectBoxes.forEach((box) => {
-      box.addEventListener("mouseenter", () => {
-        projectBoxes.forEach((otherBox) => {
-          if (otherBox !== box) {
-            otherBox.classList.add("blurred");
-          }
-        });
-      });
-
-      box.addEventListener("mouseleave", () => {
-        projectBoxes.forEach((otherBox) => {
-          otherBox.classList.remove("blurred");
-        });
-      });
-    });
+    }); 
   });
 </script>
 <script>
