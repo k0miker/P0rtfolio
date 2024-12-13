@@ -90,12 +90,12 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
                 link.classList.remove("active");
               }
             });
-            entry.target.scrollIntoView({ behavior: "smooth", block: "center" });
+
           }
         });
       },
       {
-        threshold: 0.1, // Trigger bei 50% Sichtbarkeit
+        threshold: 0.5, 
         rootMargin: "0px",
       }
     );

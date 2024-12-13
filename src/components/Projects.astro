@@ -12,14 +12,14 @@ import "../css/keyframes.css";
 // import p10 from "../assets/images/globe30-collon-480.mov";
 ---
 
-<section class="wrapperr min-h-full ">
+<section class="wrapperr min-h-full">
   <h1
     class="text-center mt-4 p-8 text-3xl text-gray-600 font-[mono] offscreen hover:tracking-[1vw]"
   >
     Projects<span class="animate-ping">_</span>
   </h1>
 
-  <div class="container ">
+  <div class="container">
     <div
       class="box m-auto flex items-center content-center object-fill offscreen"
       data-modal-target="myModal1"
@@ -156,7 +156,7 @@ import "../css/keyframes.css";
       <figcaption>
         <!-- <img src={p10.src} alt="" /> -->
         <video autoplay loop muted src="/globe30-collon-480.mov"></video>
-        <div class="caption flex flex-col items-center text-sm md:text-base ">
+        <div class="caption flex flex-col items-center text-sm md:text-base">
           <h1 class="py-0 text-center">DataGlobe</h1>
           <p>
             My first React Project also trying three.js and big
@@ -181,7 +181,10 @@ import "../css/keyframes.css";
         <span class="close"
           ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
         >
-        <h1 class="py-4 text-center">Bonsaiworld</h1> <a href="https://bonsaiworld.netlify.app/"><i class="fa-solid fa-link"></i></a>
+        <h1 class="py-4 text-center">Bonsaiworld</h1>
+        <a href="https://bonsaiworld.netlify.app/"
+          ><i class="fa-solid fa-link"></i></a
+        >
         <p class="py-0 text-center">
           A small web project the orientational DCI corse, where i was able to
           express my love for the bonsai art.
@@ -218,7 +221,10 @@ import "../css/keyframes.css";
         <span class="close"
           ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
         >
-        <h1 class="py-4 text-center">Marketing Kampagne</h1><a href="ttps://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor"><i class="fa-solid fa-link"></i></a>
+        <h1 class="py-4 text-center">Marketing Kampagne</h1><a
+          href="ttps://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor"
+          ><i class="fa-solid fa-link"></i></a
+        >
         <p>
           A small layout example for a marketing campagne refered to the
           Bonasiworld
@@ -238,7 +244,10 @@ import "../css/keyframes.css";
         <span class="close"
           ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
         >
-        <h1 class="py-4 text-center">Freelancing</h1><a href="https://www.industriebodenplanung.com/"><i class="fa-solid fa-link"></i></a>
+        <h1 class="py-4 text-center">Freelancing</h1><a
+          href="https://www.industriebodenplanung.com/"
+          ><i class="fa-solid fa-link"></i></a
+        >
         <p>
           I translated a website from Typo3 to Astro and am now responsible for
           its ongoing maintenance.
@@ -273,8 +282,8 @@ import "../css/keyframes.css";
           ><i class="fa-solid fa-link"></i>Codepen.io</a
         >
         <a href="https://starfield-cb.netlify.app/" target="_blank"
-        ><img src={p7.src} alt="" /></a
-        >       
+          ><img src={p7.src} alt="" /></a
+        >
       </div>
     </div>
     <div id="myModal8" class="modal fadein">
@@ -297,8 +306,8 @@ import "../css/keyframes.css";
         <h1 class="py-4 text-center">Zombi-Island</h1>
         <p>A canvas game to further improve JS-Skills</p>
         <a href="https://zombi-island.netlify.app/" target="_blank"
-        ><i class="fa-solid fa-link"></i></a
-      >
+          ><i class="fa-solid fa-link"></i></a
+        >
         <a href="https://zombi-island.netlify.app/" target="_blank"
           ><img src={p9.src} alt="" /></a
         >
@@ -315,13 +324,14 @@ import "../css/keyframes.css";
           target="blank"
           href="https://dataglobe.netlify.app/"
         >
-          <h1 class="py-4 text-center">Dataglobe</h1><a href="https://dataglobe.netlify.app/" target="_blank"
-          ><i class="fa-solid fa-link"></i></a
-        ></a
+          <h1 class="py-4 text-center">Dataglobe</h1><a
+            href="https://dataglobe.netlify.app/"
+            target="_blank"><i class="fa-solid fa-link"></i></a
+          ></a
         >
-          <p>
-            My first React project also trying three.jd and Data-Visualization
-          </p>
+        <p>
+          My first React project also trying three.jd and Data-Visualization
+        </p>
         <iframe src="https://dataglobe.netlify.app/" frameborder="0"> </iframe>
       </div>
     </div>
@@ -396,10 +406,8 @@ import "../css/keyframes.css";
     height: 70vh;
   }
   .container {
-    /* display: grid; */
-    /* grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); */
-    columns: 350px;
-    
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     border-radius: 15px;
     transition: 1s;
     /* background-color: rgba(120, 31, 31, 0.87); */
@@ -407,35 +415,48 @@ import "../css/keyframes.css";
     margin-right: auto;
     width: 95vw;
     padding: 2vw 8vw;
-    max-width: 1524px;
-    gap: 1vw;
+    max-width: 1924px;
+    gap: 2vw;
     backdrop-filter: blur(5px);
     box-shadow: 10px 10px 10px 10px #3535351f;
     .box {
       width: 100%;
+      max-height: fit-content;
+      max-width: fit-content;
       outline: #353535 1px solid;
       margin: 25px 10px;
       box-shadow: 5px 5px 2px 0px #49494972;
       border-radius: 20px;
-      overflow: hidden;      
+      overflow: hidden;
       /* animation: polygon 30s infinite ease-in-out; */
       scale: 1;
       &:hover {
         position: relative;
-        scale: 1.15;
+        scale: 2.5;
         z-index: 1000;
         clip-path: none;
+        transform: translateY(-5px);
+        box-shadow: 5px 10px 2px 0px #49494980;
+        transition: 1s;
+        animation: none;
+        img,
+        video {
+          transition: 1s;
+          scale: 1.505;
+          cursor: pointer;
+        }
       }
       img,
       video {
-        /* width: minmax( 100%, 380px); */
-        /* max-width: minmax(280px, 100%); */
-        scale: 1.01;
+        max-width: 100%;
+
+        scale: 1;
+        object-fit:;
       }
     }
     .spacing-2 {
-    width: 380px;
-  }
+      width: 380px;
+    }
   }
   .modal-content {
     background-color: #fefefe;
@@ -490,16 +511,6 @@ import "../css/keyframes.css";
     }
   }
   .box:hover {
-    transform: translateY(-5px);
-    box-shadow: 5px 10px 2px 0px #49494980;
-    transition: 1s;
-    animation: none;
-    img,
-    video {
-      transition: 1s;
-      scale: 1.505;
-      cursor: pointer;
-    }
   }
 
   .box .caption {
@@ -512,17 +523,17 @@ import "../css/keyframes.css";
     left: 0px;
     right: 0px;
     bottom: 0px;
-    
+
     h1 {
       color: #ff6347;
       font-size: 16px;
     }
-    p{
+    p {
       font-size: 0.7rem;
     }
     i {
       margin-top: 10px;
-      transition: 1s;   
+      transition: 1s;
       color: tomato;
     }
   }
@@ -533,12 +544,11 @@ import "../css/keyframes.css";
     color: white;
     border-radius: 15px;
     background-color: #00000050;
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(1px);
     clip-path: none;
-    i{
+    i {
       scale: 1.2;
     }
-    
   }
   @media screen and (max-width: 768px) {
     .container {
