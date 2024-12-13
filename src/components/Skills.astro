@@ -80,6 +80,12 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
           <div style="width: 60%" class="skill-percent"></div>
         </div>
       </div>
+      <div class="skill">
+        <div class="skill-name tailwind font-[mono]">Express</div>
+        <div class="skill-level">
+          <div style="width: 30%" class="skill-percent"></div>
+        </div>
+      </div>
       <div class="flex wrapper mt-10">
         <i class="fa-brands text-gray-600 fa-html5"></i>
         <i class="fa-brands text-gray-600 fa-css3"></i>
@@ -325,6 +331,15 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
     scale: 1.5;
     transform: translateX(18px);
   }
+  .skill:hover:nth-of-type(12) .skill-percent {
+    background-color: rgb(201, 201, 0);
+  }
+  .skill:hover:nth-of-type(12) .skill-name {
+    color: rgb(211, 211, 0);
+    scale: 1.5;
+    transform: translateX(18px);
+  }
+  
   @media screen and (max-width: 768px) {
     .card {
       width: 100%;

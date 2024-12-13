@@ -38,7 +38,6 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
     </div>
     <div id="contact"></div>
     <Contact />
-    <div></div>
 
     <Footer />
   </body>
@@ -57,15 +56,15 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
   }
   #skills {
     padding-top: 35px;
+    height: 100vh;
   }
   #projects {
-    margin-top: -16px;
     padding: 0px 0;
-    margin-top: -16px;
-    background-size: 300%;
+    background-size: 500%;
     background-repeat: no-repeat; 
     background-attachment: fixed; 
     background-position: center;
+    animation: slidein2 linear 1055s;
   }
   #contact {
     padding-top: -150px;
@@ -91,18 +90,19 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
                 link.classList.remove("active");
               }
             });
+            entry.target.scrollIntoView({ behavior: "smooth", block: "center" });
           }
         });
       },
       {
-        threshold: 0.5, // Trigger bei 70% Sichtbarkeit
+        threshold: 0.1, // Trigger bei 50% Sichtbarkeit
         rootMargin: "0px",
       }
     );
 
     sections.forEach((section) => {
       observer.observe(section);
-    }); 
+    });
   });
 </script>
 <script>
