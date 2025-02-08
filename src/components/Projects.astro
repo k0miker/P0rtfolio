@@ -21,7 +21,7 @@ import "../css/keyframes.css";
 
   <div class="container">
     <div
-      class="box m-auto flex items-center content-center object-fill offscreen"
+      class="box m-auto flex items-center w-full offscreen"
       data-modal-target="myModal1"
       id="projects"
     >
@@ -39,7 +39,7 @@ import "../css/keyframes.css";
     </div>
 
     <!-- <div
-      class="box flex items-center content-center object-fill offscreen"
+      class="box flex items-center w-full offscreen"
       data-modal-target="myModal3"
     >
       <figcaption>
@@ -52,7 +52,7 @@ import "../css/keyframes.css";
       </figcaption>
     </div> -->
     <div
-      class="box m-auto flex items-center content-center offscreen"
+      class="box m-auto flex items-center offscreen"
       data-modal-target="myModal4"
     >
       <figcaption>
@@ -68,7 +68,7 @@ import "../css/keyframes.css";
       </figcaption>
     </div>
     <div
-      class="box m-auto flex items-center content-center object-fill offscreen"
+      class="box m-auto flex items-center w-full offscreen"
       data-modal-target="myModal2"
     >
       <figcaption>
@@ -84,7 +84,7 @@ import "../css/keyframes.css";
       </figcaption>
     </div>
     <div
-      class="box m-auto flex items-center content-center object-fill offscreen"
+      class="box m-auto flex items-center w-full offscreen"
       data-modal-target="myModal5"
     >
       <figcaption>
@@ -97,7 +97,7 @@ import "../css/keyframes.css";
       </figcaption>
     </div>
     <!-- <div
-      class="box flex items-center content-center object-fill offscreen"
+      class="box flex items-center w-full offscreen"
       data-modal-target="myModal6"
     >
       <figcaption>
@@ -110,7 +110,7 @@ import "../css/keyframes.css";
       </figcaption>
     </div> -->
     <div
-      class="box m-auto flex items-center content-center object-fill offscreen"
+      class="box m-auto flex items-center w-full offscreen"
       data-modal-target="myModal7"
     >
       <figcaption>
@@ -123,7 +123,7 @@ import "../css/keyframes.css";
       </figcaption>
     </div>
     <div
-      class="box m-auto flex items-center content-center object-fill offscreen"
+      class="box m-auto flex items-center w-full offscreen"
       data-modal-target="myModal8"
     >
       <figcaption>
@@ -136,7 +136,7 @@ import "../css/keyframes.css";
       </figcaption>
     </div>
     <div
-      class="box m-auto flex items-center content-center object-fill offscreen"
+      class="box m-auto flex items-center w-full offscreen"
       data-modal-target="myModal9"
     >
       <figcaption>
@@ -150,7 +150,7 @@ import "../css/keyframes.css";
     </div>
 
     <div
-      class="box m-auto flex items-center content-center object-fill offscreen"
+      class="box m-auto flex items-center w-full offscreen"
       data-modal-target="myModal10"
     >
       <figcaption>
@@ -294,8 +294,9 @@ import "../css/keyframes.css";
         <h1 class="py-4 text-center">Starfieldclash Game</h1>
         <p>A small canvas excurse witch let to this game :)</p>
         <a href="https://k0miker.github.io/starfieldclash/" target="_blank"
-          ><i class="fa-solid fa-link"></i><img src={p8.src} alt="" /></a
+          ><i class="fa-solid fa-link"></i>github</a
         >
+        <a href="https://k0miker.github.io/starfieldclash/"><img src={p8.src} alt="" /></a>
       </div>
     </div>
     <div id="myModal9" class="modal fadein">
@@ -398,6 +399,7 @@ import "../css/keyframes.css";
     h1 {
       font-family: mono;
       font-size: x-large;
+      text-shadow: 1px 1px 2px #353535;
     }
   }
 
@@ -425,11 +427,12 @@ import "../css/keyframes.css";
       box-shadow: 5px 5px 2px 0px #49494972;
       border-radius: 20px;
       overflow: hidden;
+      place-self: center;
       /* animation: polygon 30s infinite ease-in-out; */
       scale: 1;
       &:hover {
         position: relative;
-        scale: 1.25;
+        scale: 1.15;
         z-index: 1000;
         clip-path: none;
         transform: translateY(-5px);
@@ -439,12 +442,13 @@ import "../css/keyframes.css";
         img,
         video {
           transition: 1s;
-          scale: 1.2505;
+          scale: 1.25;
           cursor: pointer;
         }
       }
       img,
       video {
+        width: 100%;
         max-width: 100%;
         scale: 1;
         object-fit:;
@@ -497,13 +501,15 @@ import "../css/keyframes.css";
     }
   }
 
-  img {
+  img,video {
     max-height: 400px;
     object-fit: cover;
     border-radius: 15px;
 
     @media screen and (max-width: 768px) {
       width: 100%;
+      max-height: 200px;
+    object-fit: cover;
     }
   }
   .box:hover {

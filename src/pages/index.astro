@@ -8,7 +8,6 @@ import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
-import background from "../assets/images/white-geometrical-shapes-background.jpg";
 ---
 
 <html class="w-full" lang="en">
@@ -19,7 +18,7 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
     <meta name="generator" content={Astro.generator} />
     <title>Portfolio</title>
   </head>
-  <body class="w-full flex-col items-center content-center fadein2">
+  <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
     <div id="home"></div>
     <Nav />
 
@@ -58,20 +57,25 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
     padding-top: 35px;
     height: 100vh;
   }
-  #projects {
-    padding: 0px 0;
-    /* background-size: 500%;
-    background-repeat: no-repeat; 
-    background-attachment: fixed; 
-    background-position: center;
-    animation: slidein2 linear 1055s; */
-  }
+
   #contact {
     padding-top: -150px;
   }
   .blurred {
     filter: blur(5px);
   }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: tomato;
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #00000000;
+    border-radius: 5px;
+  }
+  
 </style>
 
 <script>
