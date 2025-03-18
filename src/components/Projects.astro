@@ -166,6 +166,23 @@ import "../css/keyframes.css";
         </div>
       </figcaption>
 
+      <div
+      class="box m-auto flex items-center w-full offscreen"
+      data-modal-target="myModal11"
+    >
+      <figcaption>
+        <!-- <img src={p10.src} alt="" /> -->
+        <video autoplay loop muted src="/globe30-collon-480.mov"></video>
+        <div class="caption flex flex-col items-center text-sm md:text-base">
+          <h1 class="py-0 text-center">BrokeChain</h1>
+          <p>
+            My first React Native Project, a small demo trading app for Cryo Currencies.
+
+          </p>
+          <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+        </div>
+      </figcaption>
+
       <!-- Füge weitere Modals hinzu -->
     </div>
     <!-- 
@@ -337,6 +354,29 @@ import "../css/keyframes.css";
       </div>
     </div>
   </div>
+  <div id="myModal10" class="modal fadein">
+    <div class="modal-content overflow-hidden">
+      <span class="close"
+        ><i class="fa-regular fa-circle-xmark text-gray-600"></i></span
+      >
+
+      <a
+        class="w-full flex-col hidden"
+        target="blank"
+        href="https://Broke.dev-space.vip"
+      >
+        <h1 class="py-4 text-center">Dataglobe</h1><a
+          href="https://Broke.dev-space.vip"
+          target="_blank"><i class="fa-solid fa-link"></i></a
+        ></a
+      >
+      <p>     
+         My first React Native Project, a small demo trading app for Cryo Currencies.
+      </p>
+      <iframe src="https://Broke.dev-space.vip" frameborder="0"> </iframe>
+    </div>
+  </div>
+</div>
   <!-- weitere Modals -->
 </section>
 
@@ -373,7 +413,6 @@ import "../css/keyframes.css";
     transition: 5s;
     img {
       margin-top: 1vh;
-      /*width: 60%;*/
       max-width: 480px;
       object-fit: cover;
     }
@@ -411,10 +450,10 @@ import "../css/keyframes.css";
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     border-radius: 15px;
-    transition: 1s;
+    transition: 1s;    
     margin-left: auto;
     margin-right: auto;
-    width: 95vw;
+    width: 100vw;
     padding: 2vw 8vw;
     max-width: 1924px;
     gap: 2vw;
@@ -422,23 +461,25 @@ import "../css/keyframes.css";
       width: 100%;
       max-height: fit-content;
       max-width: fit-content;
-      outline: #353535 1px solid;
+      outline: #353535b1 2px solid;
+      outline-offset: -1px;
       margin: 25px 10px;
-      box-shadow: 5px 5px 2px 0px #49494972;
+      box-shadow: 5px 5px 5px 5px #4949497c;
       border-radius: 20px;
       overflow: hidden;
       place-self: center;
-      /* animation: polygon 30s infinite ease-in-out; */
+      padding: -1px;
       scale: 1;
       &:hover {
         position: relative;
-        scale: 1.15;
-        z-index: 1000;
+        scale: 1.1;
+        z-index: 10;
         clip-path: none;
         transform: translateY(-5px);
-        box-shadow: 5px 10px 2px 0px #49494941;
+        box-shadow: 5px 5px 10px 10px #49494961;
         transition: 1s;
         animation: none;
+        outline: tomato 5px solid;
         img,
         video {
           transition: 1s;
@@ -555,9 +596,12 @@ import "../css/keyframes.css";
   @media screen and (max-width: 768px) {
     .container {
       flex-direction: column;
+      padding: 0;
+      
       .box {
         width: 100%;
         margin-bottom: 20px;
+        
    
       }
     }

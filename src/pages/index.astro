@@ -8,6 +8,7 @@ import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
+import background from "../assets/images/white-geometrical-shapes-background.jpg";
 ---
 
 <html class="w-full" lang="en">
@@ -57,7 +58,14 @@ import Footer from "../components/Footer.astro";
     padding-top: 35px;
     height: 100vh;
   }
-
+  #projects {
+    padding: 0px 0;
+    background-size: 500%;
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+    background-position: center;
+    animation: slidein2 linear 1055s;
+  }
   #contact {
     padding-top: -150px;
   }

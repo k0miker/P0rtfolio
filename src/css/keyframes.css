@@ -2,6 +2,10 @@
     animation: fadein .5s ease-in-out;
 }
 
+.hightlight {
+    animation: rollover2 1s ;
+}
+
 @keyframes fadein {
     from {
         opacity: 0;
@@ -108,4 +112,5 @@
     }
 
 }
+
 
