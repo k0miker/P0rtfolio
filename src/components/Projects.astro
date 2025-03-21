@@ -530,7 +530,7 @@ import "../css/keyframes.css";
       outline: #353535b1 2px solid;
       outline-offset: -1px;
       margin: 25px 10px;
-      box-shadow: 5px 5px 10px 5px #3232327c;
+      box-shadow: 10px 10px 10px 0px #3232327c;
       border-radius: 20px;
       overflow: hidden;
       place-self: center;
@@ -541,17 +541,17 @@ import "../css/keyframes.css";
         z-index: 10;
         clip-path: none;
         transform: translateY(-5px);
-        box-shadow: 
+        /* box-shadow: 
         0px 0px 10px 5px rgb(255, 99, 71),    
-        0px 0px 25px 10px rgba(0, 0, 0, 0.72);
-        scale: 1.15;
+        0px 0px 25px 10px rgba(0, 0, 0, 0.72); */        
         transition: .5s;
+        animation: pulseShadow 2s infinite 2s, scaleIn 2s forwards;
         
         outline: tomato 3px solid;
         img,
         video {
-          transition: 1s;
-          scale: 1.5;
+          transition: .5s;
+          scale: 1.1;
         }
       }
       img,
@@ -686,7 +686,45 @@ import "../css/keyframes.css";
     }
   }
 
- 
+  @keyframes scaleIn{
+    0%{
+      transform: scale3d(1, 1, 1);
+    }
+    25%{
+      transform: scale3d(1.15, 1, 1);
+    }
+    50%{
+      transform: scale3d(1.15, 1.15, 1);
+    }
+    75%{
+      transform: scale3d(1.15, 1.15, 1.15);
+    }
+    100%{
+      transform: scale3d(1.2, 1.2, 1.2);
+    }   
+  }
+
+  @keyframes pulseShadow {
+
+    0% {
+      box-shadow: 
+        0px 0px 0px 0px rgb(255, 99, 71, 0.5),    
+        10px 10px 10px 0px #3232327c;
+        outline: rgba(75, 33, 26, 0.284) 4px solid;
+      }
+      50% {
+      box-shadow: 
+        5px 5px 10px 2px rgb(255, 99, 71),
+        10px 10px 10px 0px #3232327c;
+        outline: tomato 4px solid;
+    }
+      100% {
+        box-shadow: 
+        0px 0px 0px 0px rgb(255, 99, 71, 0.5),    
+        10px 10px 10px 0px #3232327c;
+        outline: rgba(75, 33, 26, 0.284) 4px solid;
+    }
+  }
 </style>
 
 <script>
@@ -708,7 +746,7 @@ import "../css/keyframes.css";
           openModal = modal;
           setTimeout(() => {
             modal.scrollIntoView({ behavior: "smooth", block: "center" });
-          }, 100);
+          }, 300);
         }
       });
     });

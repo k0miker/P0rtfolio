@@ -1,0 +1,21 @@
+---
+const { project } = Astro.props;
+---
+
+<div
+  class="box m-auto flex items-center w-full offscreen"
+  data-modal-target={project.id}
+>
+  <figcaption>
+    {project.video ? (
+      <video autoplay loop muted src={project.video}></video>
+    ) : (
+      <img src={project.image.src} alt={project.title} />
+    )}
+    <div class="caption flex flex-col items-center text-sm md:text-base">
+      <h1 class="py-0 text-center">{project.title}</h1>
+      <p>{project.description}</p>
+      <i class="fa-solid fa-magnifying-glass-plus animate-pulse"></i>
+    </div>
+  </figcaption>
+</div>
