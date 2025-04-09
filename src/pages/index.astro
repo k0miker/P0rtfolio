@@ -8,6 +8,7 @@ import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
+import background from "../assets/images/white-geometrical-shapes-background.jpg";
 ---
 
 <html class="w-full" lang="en">
@@ -18,7 +19,7 @@ import Footer from "../components/Footer.astro";
     <meta name="generator" content={Astro.generator} />
     <title>Portfolio</title>
   </head>
-  <body class="w-full flex-col items-center content-center fadein2">
+  <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
     <div id="home"></div>
     <Nav />
 
@@ -32,12 +33,11 @@ import Footer from "../components/Footer.astro";
       
       <Skills />
     </div>
-    <div id="projects">
+    <div id="projects" >
       <Projects />
     </div>
     <div id="contact"></div>
     <Contact />
-    <div></div>
 
     <Footer />
   </body>
@@ -50,19 +50,43 @@ import Footer from "../components/Footer.astro";
     padding: 0;
     margin: 0;
   }
+  body{
+    overflow-x: hidden;
+  }
 
   #about {
     padding-top: 45px;
   }
   #skills {
     padding-top: 35px;
+    height: 100vh;
   }
   #projects {
-    padding: 80px 0;
+    padding: 0px 0;
+    background-size: 500%;
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+    background-position: center;
+    animation: slidein2 linear 1055s;
   }
   #contact {
     padding-top: -150px;
   }
+  .blurred {
+    filter: blur(5px);
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: tomato;
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: #00000094;
+    border-radius: 5px;
+  }
+  
 </style>
 
 <script>
@@ -81,11 +105,12 @@ import Footer from "../components/Footer.astro";
                 link.classList.remove("active");
               }
             });
+
           }
         });
       },
       {
-        threshold: 0.5, // Trigger bei 70% Sichtbarkeit
+        threshold: 0.5, 
         rootMargin: "0px",
       }
     );

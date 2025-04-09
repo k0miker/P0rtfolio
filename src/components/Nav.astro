@@ -8,7 +8,7 @@ import logo from "../assets/images/logo.png";
   src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
   defer></script>
 <div
-  class="head w-full justify-center items-center fixed z-20 text-gray-200 sm:bg-transparent dark-mode:text-gray-200 dark-mode:bg-gray-800"
+  class="head w-full justify-center items-center fixed z-50 text-gray-200 sm:bg-transparent dark-mode:text-gray-200 dark-mode:bg-gray-800"
   id="navbar"
 >
   <div
@@ -102,20 +102,45 @@ import logo from "../assets/images/logo.png";
               class="block px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
               href="https://bonsaiworld.netlify.app/"
               target="_blank"
-              @click="open = false">/Project #1</a
+              @click="open = false">bonsaiworld</a
             >
-            <a
-              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-              href="https://myself-p0rtfolio.netlify.app/"
-              target="_blank"
-              @click="open = false">/Project #2</a
-            >
+           
             <a
               class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
               href="https://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor"
               target="_blank"
-              @click="open = false">/Project #3</a
+              @click="open = false">marketing-campagne</a
+            > <a
+              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+              href="https://www.industriebodenplanung.com/"
+              target="_blank"
+              @click="open = false">Industrieboden Dr. Meyer</a
             >
+            <a
+              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+              href="https://k0miker.github.io/starfieldclash/"
+              target="_blank"
+              @click="open = false">starfield-game</a
+            >
+            <a
+              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+              href="https://zombi-island.netlify.app"
+              target="_blank"
+              @click="open = false">Zombi-island</a
+            >
+            <a
+              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+              href="https://dataglobe.netlify.app/"
+              target="_blank"
+              @click="open = false">dataglobe</a
+            >
+            <a
+            class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+            href="https://broke.dev-space.vip/"
+            target="_blank"
+            @click="open = false">BrokeChain</a
+          >
+      
           </div>
         </div>
       </div>
@@ -152,8 +177,7 @@ import logo from "../assets/images/logo.png";
   }
   .logo {
     width: 45px;
-    scale: 2.5;
-    translate: 0 10px;
+    translate: 0 5px;
     transition: 1s;
   }
   
@@ -201,6 +225,7 @@ import logo from "../assets/images/logo.png";
     }
     .logo {
     transform: translateX(3px) translateY(2px);
+    
     }
     .dev {
       translate: 0 2px;
@@ -246,8 +271,8 @@ import logo from "../assets/images/logo.png";
     a {
       color: #616161;
       img {
-        scale: 1.5;
-        translate: 0 5px;
+        scale: .8;
+        translate: 2px 2px;
       }
     }
     button {
@@ -258,21 +283,25 @@ import logo from "../assets/images/logo.png";
 
   .colored:hover {
     .logo {
-    transform: translateX(10px) translateY(6px) scale(1.5);
+    transform: translateX(10px) translateY(3px);
+    scale: .7;
   }
     .dev {
       color: #616161;
-      font-size: 16px;
+      font-size: 24px;
+      translate: 3px -2px;
     }
     span {
-      font-size: 0;
+      font-size: 0;      
     }
     .dash {
-      font-size: 16px;
+      font-size: 20px;
     }
     i:nth-of-type(1) {
       transition: .5s;
-      font-style: normal;
+      font-size: 32px;
+      font-style: normal;      
+      translate: 0px -5px;
       scale: 1;
     }
     i:nth-of-type(2) {

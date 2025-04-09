@@ -2,6 +2,10 @@
     animation: fadein .5s ease-in-out;
 }
 
+.hightlight {
+    animation: rollover2 1s ;
+}
+
 @keyframes fadein {
     from {
         opacity: 0;
@@ -72,4 +76,41 @@
       scale: 1;
     }
   }
+
+@keyframes polygon {
+    0% {
+        scale: 1;
+        transform: skew(0deg);
+    }
+    5%{
+        scale: 1.005;
+        
+        transform: skew(-10deg);
+    }
+    10% {
+        transform: skew(0deg);
+        scale: .995;
+    }
+    15% {
+        transform: skew(0deg);
+        scale: 1.005;
+    }
+    20% {
+        transform: skew(-10deg);
+        scale: .995;
+    }
+    25% {
+        transform: skew(0deg);
+      scale: 1; 
+    }
+    50% {
+    }
+    75% {
+    }   
+    to {     
+        
+    }
+
+}
+
 
