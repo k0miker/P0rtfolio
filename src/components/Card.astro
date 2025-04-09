@@ -37,11 +37,11 @@ const { project, image } = Astro.props;
       position: relative;
       z-index: 10;
       clip-path: none;
-      transform: translateY(-10px);
       transition: .5s;
       animation: pulseShadow 3s infinite 0.5s;           
       outline: var(--card-outline-hover);
       box-shadow: var(--card-shadow-hover);
+        transform: scale(1.05);
       
       img,
       video {
@@ -163,7 +163,6 @@ const { project, image } = Astro.props;
       box-shadow: 
         0px 0px 30px 10px var(--pulse-shadow-mid),
         var(--card-shadow-hover);
-      transform: translateY(-12px);
     }
     100% {
       box-shadow: 
