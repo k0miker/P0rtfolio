@@ -1,0 +1,320 @@
+---
+import "../css/darkmode.css";
+const { project, image } = Astro.props;
+---
+
+<div id={project.id} class="modal fadein">
+  <div class={`modal-content ${project.iframe ? "overflow-hidden" : ""}`}>
+    <span class="close"><i class="fa-regular fa-circle-xmark"></i></span>
+    <div style="display: flex;">
+      <h1 class="py-4 text-center">{project.title}</h1>
+      {project.website && (
+        <a href={project.website} target="_blank">
+          <i class="fa-solid fa-arrow-up-right-from-square m-2"></i>
+        </a>
+      )}
+      {project.github && (
+        <a href={project.github} target="_blank">
+          <i class="fa-brands fa-github m-2"></i>
+        </a>
+      )}
+      {project.codepen && (
+        <a href={project.codepen} target="_blank">
+          <i class="fa-brands fa-codepen m-2"></i>
+        </a>
+      )}
+    </div>
+    
+    <!-- Sprachumschalter -->
+    <div class="language-switch">
+      <button class="lang-btn" data-lang="de">DE</button>
+      <button class="lang-btn active" data-lang="en">EN</button>
+    </div>
+    
+    <!-- Beschreibungen -->
+    <div class="description-container">
+      <p class="project-description de hidden">
+        {project.modalDescription?.de || project.modalDescriptionDe || "Deutsche Beschreibung nicht verfügbar."}
+      </p>
+      <p class="project-description en">
+        {project.modalDescription?.en || project.modalDescriptionEn || "English description not available."}
+      </p>
+    </div>
+
+    {project.iframe ? (
+      project.responsiveIframe ? (
+        <div id={`responsive-content-${project.id}`} class="responsive-content">
+          <noscript>
+            <img src={image.src} alt={project.title} />
+          </noscript>
+        </div>
+      ) : (
+        <iframe src={project.iframeUrl}></iframe>
+      )
+    ) : (
+      project.isVideo ? (
+        <a href={project.website} target="_blank">
+          <video autoplay loop muted src={project.videoSrc}></video>
+        </a>
+      ) : (
+        <a href={project.website || "#"} target="_blank">
+          <img src={image.src} alt={project.title} />
+        </a>
+      )
+    )}
+  </div>
+</div>
+
+<style>
+  .modal {
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    display: none;
+    background-color: var(--modal-overlay);
+  }
+
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--modal-bg);
+    padding: 20px;
+    border: 1px solid var(--modal-border);
+    max-width: 1460px;
+    max-height: 90vh;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow-hover);
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
+
+  h1 {
+    font-family: mono;
+    font-size: 28px;
+    color: var(--text-primary);
+  }
+  
+  p {
+    text-align: center;
+    color: var(--text-secondary);
+  }
+  
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  a img:hover {
+    scale: 1.01;
+    outline: var(--accent) solid 2px;
+    
+  }
+  
+  i {
+    font-size: 1.5rem;
+    color: var(--text-secondary);
+    &:hover {
+      color: var(--accent);
+    }
+  }
+
+  .close {
+    color: var(--modal-close);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    &:hover,
+    &:focus {
+      color: var(--text-primary);
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+
+  iframe {
+    width: 100%;
+    height: 70vh;
+    border: none;
+  }
+
+  img, video {
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      max-height: 150px;
+      object-fit: cover;
+    }
+  }
+
+  .fa-github {
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: var(--accent); /* Ändert die Farbe beim Hovern zu Tomato/accent */
+    }
+  }
+  
+  .fa-codepen {
+    color: var(--accent);
+    &:hover {
+      color: var(--text-primary);
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .modal-content {
+      width: 100%;
+    }
+    .modal {
+      width: 100%;
+    }
+  }
+
+  .responsive-content {
+    width: 100%;
+    max-width: 560px;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .responsive-content img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+  
+  .language-switch {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  
+  .lang-btn {
+    padding: 5px 15px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-secondary);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  .lang-btn:hover {
+    background-color: var(--input-border);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  }
+  
+  .lang-btn.active {
+    background-color: var(--accent);
+    color: white;
+    border-color: var(--accent);
+    box-shadow: 0 1px 3px 0 rgba(255, 99, 71, 0.3);
+  }
+  
+  .description-container {
+    width: 100%;
+    margin: 10px 0 20px;
+    text-align: center;
+  }
+  
+  .project-description {
+    margin: 0;
+    padding: 0 15px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Spracheinstellungen
+    const langButtons = document.querySelectorAll('.lang-btn');
+    
+    langButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const lang = this.getAttribute('data-lang');
+        const modal = this.closest('.modal');
+        
+        // Aktiven Button markieren
+        modal.querySelectorAll('.lang-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        this.classList.add('active');
+        
+        // Beschreibungen ein-/ausblenden
+        modal.querySelectorAll('.project-description').forEach(desc => {
+          if (desc.classList.contains(lang)) {
+            desc.classList.remove('hidden');
+            // Kurze Fade-Animation
+            desc.style.opacity = 0;
+            setTimeout(() => {
+              desc.style.opacity = 1;
+            }, 10);
+          } else {
+            desc.classList.add('hidden');
+          }
+        });
+      });
+    });
+    
+    // Responsives iFrame-Handling
+    document.querySelectorAll('.responsive-content').forEach(container => {
+      const updateContent = () => {
+        const modal = container.closest('.modal');
+        const modalId = modal.id;
+        const project = findProjectById(modalId);
+        
+        if (project && project.responsiveIframe) {
+          if (window.innerWidth < 1024) {
+            container.innerHTML = `<img src="${findImageSrc(project.image)}" alt="${project.title}" />`;
+          } else {
+            container.innerHTML = `<iframe src="${project.iframeUrl}" style="border:none; width:100%; height:70vh;"></iframe>`;
+          }
+        }
+      };
+      
+      // Initial setzen und bei Größenänderung aktualisieren
+      updateContent();
+      window.addEventListener('resize', updateContent);
+    });
+    
+    // Hilfsfunktionen
+    function findProjectById(id) {
+      // Diese Funktion müsste implementiert werden, um das Projekt zu finden
+      // Da wir keinen direkten Zugriff auf die projects-Variable haben,
+      // müsste dies je nach Implementierungsdetails angepasst werden
+      return null;
+    }
+    
+    function findImageSrc(imageName) {
+      // Diese Funktion müsste implementiert werden
+      return "";
+    }
+  });
+</script>

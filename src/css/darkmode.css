@@ -1,0 +1,145 @@
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #4B5563;
+  --bg-card: #ffffff;  
+  --text-titel: #ffffff;
+  --text-primary: #1e1e1e;
+  --text-secondary: #a1a1a1;
+  --text-muted: #9e9e9e;
+  --accent: tomato;
+  --border: #e0e0e0;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow-strong: #000000ba;
+  --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 
+                       0 10px 10px -5px rgba(0, 0, 0, 0.1),
+                       0 0 0 1px rgba(255, 99, 71, 0.2);
+  --card-border: rgba(0, 0, 0, 0.1);
+  --card-outline: 1px solid rgba(0, 0, 0, 0.05);
+  --card-outline-hover: 1px solid rgba(255, 99, 71, 0.7);
+  --nav-bg: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.417) 0%,
+    rgba(0, 0, 0, 0.342) 55%,
+    rgba(0, 0, 0, 0.24) 100%
+  );
+  --nav-bg-solid: #ffffff;
+  --nav-shadow: 0 0 50px 10px #0000004b;
+  --nav-shadow-solid: 0 0px 15px 2px #0000004d;
+  --modal-overlay: rgba(0, 0, 0, 0.685);
+  --modal-bg: #fefefe;
+  --modal-border: #888;
+  --modal-text: #333;
+  --modal-close: #aaa;
+  --form-bg: #33333391;
+  --form-text: #eeeeeef3;
+  --input-bg: #eeeeeef3;
+  --input-text: #333;
+  --input-border: #9e9e9e;
+  --input-focus: #a2a2a2c4;
+  --label-text: #3e3e3e;
+  --toggle-off-bg: rgb(147, 0, 0);
+  --toggle-on-bg: #4caf50;
+  --pulse-shadow-start: rgba(255, 99, 71, 0.05);
+  --pulse-shadow-mid: rgba(255, 99, 71, 0.3);
+  
+  /* Verbesserte Karten-Variablen für Light Mode */
+  --card-bg: #ffffff;
+  --card-highlight: linear-gradient(145deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%);
+  --card-border-glow: none;
+  --card-hover-transform: translateY(-10px);
+}
+
+.dark-mode {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2c2c2c;
+  --bg-card: #252525;
+  --text-titel: #ffffff;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --text-muted: #808080;
+  --accent: tomato;
+  --border: #404040;
+  --shadow: rgba(0, 0, 0, 0.4);
+  --shadow-strong: #000000;
+  --card-shadow: 0 10px 15px rgba(0, 0, 0, 0.4), 0 4px 6px rgba(0, 0, 0, 0.3);
+  --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 
+                       0 10px 10px -5px rgba(0, 0, 0, 0.3),
+                       0 0 0 1px rgba(255, 99, 71, 0.3);
+  --card-border: rgba(80, 80, 80, 0.2);
+  --card-outline: 2px solid rgba(80, 80, 80, 0.3);
+  --card-outline-hover: 2px solid rgba(255, 99, 71, 0.7);
+  --nav-bg: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.8) 0%,
+    rgba(0, 0, 0, 0.7) 55%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  --nav-bg-solid: #121212;
+  --nav-shadow: 0 0 50px 10px #000000;
+  --nav-shadow-solid: 0 0px 15px 2px #000000;
+  --modal-overlay: rgba(0, 0, 0, 0.8);
+  --modal-bg: #252525;
+  --modal-border: #404040;
+  --modal-text: #e0e0e0;
+  --modal-close: #b0b0b0;
+  --form-bg: rgba(25, 25, 25, 0.9);
+  --form-text: #e0e0e0;
+  --input-bg: #333333;
+  --input-text: #e0e0e0;
+  --input-border: #555555;
+  --input-focus: #777777;
+  --label-text: #b0b0b0;
+  --toggle-off-bg: rgb(100, 0, 0);
+  --toggle-on-bg: #377a39;
+  --pulse-shadow-start: rgba(255, 99, 71, 0.1);
+  --pulse-shadow-mid: rgba(255, 99, 71, 0.3);
+  
+  /* Verbesserte Karten-Variablen für Dark Mode */
+  --card-bg: #252525;
+  --card-highlight: linear-gradient(145deg, rgba(45,45,45,1) 0%, rgba(32,32,32,1) 100%);
+  --card-border-glow: 0 0 2px 1px rgba(255, 99, 71, 0.2);
+  --card-outline-hover: 2px solid rgba(255, 99, 71, 0.7);
+  --card-hover-transform: translateY(-10px) scale(1.02);
+  
+  /* Verstärkte Pulse-Animation für Dark Mode */
+  --pulse-shadow-start: rgba(255, 99, 71, 0.1);
+  --pulse-shadow-mid: rgba(255, 99, 71, 0.4);
+}
+
+/* Dark Mode-Anpassungen für spezifische Komponenten */
+.dark-mode .card {
+  background-color: var(--bg-card);
+  box-shadow: var(--card-shadow);
+}
+
+.dark-mode .skill-name {
+  color: var(--text-secondary);
+}
+
+.dark-mode .skill-level {
+  box-shadow: 0 0 5px 0px #111;
+}
+
+.dark-mode .icon-wrapper i {
+  color: var(--text-secondary);
+}
+
+.dark-mode .modal-content {
+  background-color: var(--bg-card);
+  border-color: var(--border);
+}
+
+.dark-mode .footer {
+  background-color: var(--bg-secondary);
+}
+
+.dark-mode form {
+  background-color: rgba(18, 18, 18, 0.85);
+}
+
+.dark-mode .input {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border);
+}

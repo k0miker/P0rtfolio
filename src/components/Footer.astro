@@ -1,5 +1,6 @@
 ---
 import "../css/fonts.css";
+import "../css/darkmode.css";
 import Button2 from "./Button2.astro";
 ---
 
@@ -54,7 +55,7 @@ import Button2 from "./Button2.astro";
       <input type="checkbox" id="modal-toggle" class="modal-toggle" />
       <label
         for="modal-toggle"
-        class="px-4 py-2 font-semibold rounded-lg bg-transparent text-gray-600 hover:text-[tomato] hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline cursor-pointer"
+        class="px-4 py-2 font-semibold rounded-lg bg-transparent link hover:text-[tomato] hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline cursor-pointer"
       >
         /Impressum
       </label>
@@ -105,7 +106,8 @@ import Button2 from "./Button2.astro";
     display: inline-block;
   }
   .footer {
-    background-color: #fafafa;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     padding: 1rem;
     text-align: center;
   }
@@ -133,28 +135,45 @@ import Button2 from "./Button2.astro";
     padding: 5px;
     border-radius: 5px;
     aspect-ratio: 1;
-    color: #434343;
+    color: var(--text-primary);
   }
   .footer ul li:hover a i {
-    color: #363636;
-    background-color: #ebebeb;
+    color: var(--text-titel);
+    background-color: var(--bg-secondary);
     transform: translateY(-10px) translatex(4px) rotate(-15deg) skew(10deg);
     box-shadow: -4px 4px rgb(255, 99, 71);
   }
   .footer p {
     margin-top: 1rem;
     font-size: 0.9rem;
+    color: var(--text-primary);
+  }
+  .link {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+  }
+  .link:hover {
+    color: var(--accent);
+    background-color: var(--bg-secondary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   .up {
     display: flex;
     justify-content: center;
 
+
     a {
       margin-top: -20px;
       div {
         padding: 10px;
-        background: #fafafa;
-        color: #333;
+        background: var(--bg-primary);
+        color: var(--text-primary);
         font-family: mono;
         font-size: 16px;
         border-radius: 0.5em;
@@ -175,7 +194,7 @@ import Button2 from "./Button2.astro";
   }
   a:hover div {
     color: tomato;
-    background-color: #f5f5f5;
+    background-color: var(--bg-secondary);
   }
   a:hover div:nth-of-type(1) {
     display: none;

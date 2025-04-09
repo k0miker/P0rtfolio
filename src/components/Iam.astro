@@ -12,8 +12,8 @@ import "../css/keyframes.css";
   </div>
 </div>
 <div class="down">
-  <a href="#about" class="bg-gray-200 text-gray-600"
-    ><div>/down</div><div><i class=" fa-solid fa-arrow-down"></i></div></a
+  <a href="#about" 
+    ><div class="down">/down</div><div><i class=" fa-solid fa-arrow-down"></i></div></a
   >
 </div>
 </div>
@@ -28,8 +28,14 @@ import "../css/keyframes.css";
   .down {
     display: flex;
     justify-content: center;
+    z-index: 1000;
+    position: relative;
+ 
+
   }
   a {
+    color: var(--text-secondary);
+    background-color: var(--bg-primary);
     bottom: 20px;
     width: 75px;
     font-family: inter;
@@ -51,6 +57,7 @@ import "../css/keyframes.css";
   }
   a:hover {
     transform: translateY(5px);
+    background-color: transparent;
   }
   a:hover div {
     color: tomato;
@@ -114,7 +121,7 @@ import "../css/keyframes.css";
     right: 0;
     bottom: 0;
     z-index: 0;  
-    background: rgba(0, 0, 0, 0.643);
+    background: rgba(0, 0, 0, 0.492);
     animation: fadein 4s;
     background-size: cover;
     background-attachment: fixed;

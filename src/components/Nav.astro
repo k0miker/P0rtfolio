@@ -1,5 +1,6 @@
 ---
 import "../css/keyframes.css";
+import "../css/darkmode.css";
 import logo from "../assets/images/logo.png";
 ---
 
@@ -16,7 +17,7 @@ import logo from "../assets/images/logo.png";
     class="flex flex-col h-full max-w-screen-2xl items-center md:justify-center mx-auto md:flex-row md:px-6 mg:px-2"
     @click.away="open = false"
   >
-    <div class=" name flex flex-row items-center w-full justify-between">
+    <div class="name flex flex-row items-center w-full justify-between">
       <a
         href="#"
         class="name lg:text-lg font-semibold duration-200 flex items-center justify-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-none focus:shadow-outline"
@@ -25,23 +26,34 @@ import logo from "../assets/images/logo.png";
           >elopment</span
         ><span class="animate-ping">_</span></a
       >
-      <button
-        class="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
-        @click="open = !open"
-      >
-        <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
-          <path
-            x-show="!open"
-            fill-rule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
-            clip-rule="evenodd"></path>
-          <path
-            x-show="open"
-            fill-rule="evenodd"
-            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </button>
+      <div class="flex items-center">
+        <!-- Dark Mode Toggle rechts in der Navbar -->
+        <button
+          id="darkModeToggle"
+          class="p-2 rounded-lg focus:outline-none focus:shadow-outline mr-2 md:ml-4"
+          aria-label="Dark Mode umschalten"
+        >
+          <!-- Anfangs leer, wird durch JS gefüllt -->
+        </button>
+        <!-- Hamburger Menu -->
+        <button
+          class="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
+          @click="open = !open"
+        >
+          <svg fill="currentColor" viewBox="0 0 20 20" class="w-16 h-12">
+            <path
+              x-show="!open"
+              fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
+              clip-rule="evenodd"></path>
+            <path
+              x-show="open"
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
     </div>
     <nav
       :class="{'flex': open, 'hidden': !open}"
@@ -163,13 +175,8 @@ import logo from "../assets/images/logo.png";
     transition: all 1s;
     height: 10vh;
     background-color: rgb(0, 0, 0);
-    background: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.417) 0%,
-      rgba(0, 0, 0, 0.342) 55%,
-      rgba(0, 0, 0, 0.24) 100%
-    );
-    box-shadow: 0 0 50px 10px #0000004c;
+    background: var(--nav-bg);
+    box-shadow: var(--nav-shadow);
   }
   .flex .active {
     background: #e6e6e6;
@@ -242,8 +249,8 @@ import logo from "../assets/images/logo.png";
   .colored {
     height: 7vh;
     transition: all 1s;
-    background: #fff;
-    box-shadow: 0 0px 15px 2px #0000002b;
+    background: var(--nav-bg-solid);
+    box-shadow: var(--nav-shadow-solid);
     .name {
       letter-spacing: normal;
       color: tomato;
@@ -259,7 +266,7 @@ import logo from "../assets/images/logo.png";
         }
       }
       span {
-        color: #616161;
+        color: #ababab;
         font-size: 16px;
         translate: -1px 3px;
         filter: blur(0);
@@ -276,7 +283,7 @@ import logo from "../assets/images/logo.png";
       }
     }
     button {
-      color: #616161;
+      color: tomato;
     }
   }
 
@@ -309,6 +316,79 @@ import logo from "../assets/images/logo.png";
       font-style: normal;
       translate: -3px 10px;
       scale: 1.5;
+    }
+  }
+
+  #darkModeToggle {
+    transition: all 0.3s ease;
+  }
+  
+  #darkModeToggle:hover {
+    transform: rotate(15deg);
+  }
+  
+  .dark-mode #darkModeToggle .dark-icon {
+    display: none;
+  }
+  
+  .dark-mode #darkModeToggle .light-icon {
+    display: inline-block;
+  }
+
+  /* Korrigiere Farben für Dark Mode */
+  .dark-mode .colored a, .dark-mode .colored button {
+    color: var(--text-primary);
+  }
+  
+  .dark-mode .name span {
+    color: var(--text-primary);
+  }
+  
+  .dark-mode .name:hover span {
+    color: var(--text-primary);
+  }
+  
+  .dark-mode nav.bg-white {
+    background-color: var(--bg-card);
+  }
+
+  /* Dark Mode Toggle Styling */
+  #darkModeToggle {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  #darkModeToggle:hover {
+    transform: translateY(-50%) scale(1.2);
+  }
+  
+  #darkModeToggle i {
+    font-size: 1.2rem;
+  }
+  
+  /* Im Light Mode (Mond anzeigen) */
+  #darkModeToggle .fa-moon {
+    color: #5e81ac;
+  }
+  
+  /* Im Dark Mode (Sonne anzeigen) */
+  .dark-mode #darkModeToggle .fa-sun {
+    color: #ebcb8b;
+  }
+  
+  @media (max-width: 768px) {
+    #darkModeToggle {
+      position: static;
+      transform: none;
+      margin-right: 10px;
+    }
+    
+    #darkModeToggle:hover {
+      transform: scale(1.2);
     }
   }
 </style>

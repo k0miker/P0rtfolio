@@ -1,6 +1,7 @@
 ---
 import "../css/fonts.css";
 import "../css/keyframes.css";
+import "../css/darkmode.css";
 import Nav from "../components/Nav.astro";
 import Iam from "../components/Iam.astro";
 import Myself from "../components/Myself.astro";
@@ -50,8 +51,11 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
     padding: 0;
     margin: 0;
   }
-  body{
+  body {
     overflow-x: hidden;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   #about {
@@ -90,6 +94,46 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
 </style>
 
 <script>
+  // Dark Mode Logic
+  document.addEventListener("DOMContentLoaded", () => {
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+    
+    // Check for saved theme preference or use the system preference
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark" || (!savedTheme && prefersDarkScheme.matches)) {
+      document.body.classList.add("dark-mode");
+      updateIcon(true);
+    } else {
+      document.body.classList.remove("dark-mode");
+      updateIcon(false);
+    }
+    
+    // Toggle dark mode on click
+    darkModeToggle.addEventListener("click", () => {
+      const isDarkMode = document.body.classList.toggle("dark-mode");
+      localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+      updateIcon(isDarkMode);
+    });
+    
+    // Update the icon
+    function updateIcon(isDarkMode) {
+      // Altes Icon entfernen
+      darkModeToggle.innerHTML = '';
+      
+      // Neues Icon basierend auf Modus hinzufügen
+      const icon = document.createElement('i');
+      if (isDarkMode) {
+        icon.className = 'fa-solid fa-sun';
+        icon.setAttribute('title', 'Light Mode aktivieren');
+      } else {
+        icon.className = 'fa-solid fa-moon';
+        icon.setAttribute('title', 'Dark Mode aktivieren');
+      }
+      darkModeToggle.appendChild(icon);
+    }
+  });
+  
   document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll("div[id]");
     const navLinks = document.querySelectorAll("nav a");
