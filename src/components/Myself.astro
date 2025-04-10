@@ -7,7 +7,7 @@ import Background from "./Background.astro";
 ---
 
 <div class="wrap sm:flex-col rounded-lg offscreen relative">
-  <Background id="myself-background" opacity="0.3" />
+  <Background id="myself-background" opacity=".5" />
   <h3 class="py-5 font-[mono] text-4xl text-center offscreen hover:tracking-[.51vw]  hover:text-[tomato] text-[var(--text-primary)]">
     About<span class="animate-ping">_</span>
   </h3>
@@ -33,7 +33,7 @@ import Background from "./Background.astro";
         
       </p>
 
-      <p class="p-8 text-center offscreen ger text-pretty">
+      <p class="p-8 text-center offscreen ger text-pretty ">
         <br>
         Hallo! <br>
         Ich bin Colin, ein leidenschaftlicher Webentwickler. Seit
@@ -82,14 +82,14 @@ import Background from "./Background.astro";
     padding-top: 40px;
     position: relative;
     overflow: hidden;
-    min-height: 80vh; /* Garantiert ausreichende Höhe */
+    min-height: 80vh; 
   }
   
   img {
     width: 30%;
     max-width: 250px;
     opacity: 0.8;
-    outline: 1px solid var(--text-secondary);
+    outline: 1px solid var(--border);
     object-fit: cover;
     border-radius: 15px;
     aspect-ratio: 1;
@@ -120,17 +120,34 @@ import Background from "./Background.astro";
     scale: .9;
     filter: blur(1px)
   }
+  .ger:hover .en {
+    transform: translateY(10px);
+  }
   
   .me:hover .ger {
     opacity: 1;
     filter: blur(0px);
     scale: 1;
+    transform: translateY(1rem);
   }
   
   .me:hover .en {
     opacity: 0;
     filter: blur(1px);
     scale: .9;
+  }
+  .en,.ger {
+    margin-top: 25px;
+    font-family: monospace;
+    max-width: 768px;
+    text-align: center;
+    color: var(--text-primary);
+    transition: .5s;
+    font-size: 1rem;
+    backdrop-filter: blur(5px);
+    border-radius: 12px;
+    outline: 1px groove var(--border);
+
   }
   
   .self {

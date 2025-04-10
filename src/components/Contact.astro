@@ -2,10 +2,14 @@
 import "../css/fonts.css";
 import "../css/darkmode.css";
 import Button from "./Button.astro";
-// import bg1 from "../assets/images/"
+import contactBg from "../assets/images/contact.jpg";
 ---
 
-<section class="flex flex-col items-center content-center min-h-[80vh] p-4" id="contact-section">
+<section 
+  class="flex flex-col items-center content-center min-h-[80vh] p-4" 
+  id="contact-section"
+  style={`background-image: url(${contactBg.src})`}
+>
   <form
     name="contact"
     class="offscreen"
@@ -63,17 +67,16 @@ import Button from "./Button.astro";
     <Button class="button" disabled />
   </form>
 </section>
+
 <style>
   section {
     align-items: center;
     justify-content: center;
     max-height: 90vh;
-    background-image: url("https://images.unsplash.com/photo-1653289755854-a41949e96282?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
     box-shadow: inset 0px -2vh 10vw 10px var(--shadow-strong);
     background-attachment: fixed;
     transition: animation-play-state 0.3s;
-    
   }
   
   section.animate {
@@ -129,7 +132,6 @@ import Button from "./Button.astro";
   .textarea {
     border: solid 1.5px var(--input-border);
     border-radius: 1rem;
-    /* padding: 1rem; */
     font-size: 1rem;
     color: var(--input-text);
     transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);

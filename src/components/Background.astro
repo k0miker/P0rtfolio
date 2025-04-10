@@ -1,5 +1,5 @@
 ---
-const { id = "background-canvas", opacity = "0.0", color = "var(--accent)" } = Astro.props;
+const { id = "background-canvas", opacity = "0.9", color = "var(--accent)" } = Astro.props;
 ---
 
 <div class="background-container">
@@ -47,10 +47,52 @@ const { id = "background-canvas", opacity = "0.0", color = "var(--accent)" } = A
         return;
       }
       
-      // Globale Mauskoordinaten - direkt ohne window-Objekt
+      // CSS-Variablen auslesen für korrekte Farben
+      const computedStyle = getComputedStyle(document.documentElement);
+      const accentColor = computedStyle.getPropertyValue('--accent').trim() || "#ff5500";
+      
+      // Alle Partikel verwenden die Akzentfarbe
+      const particleColor = accentColor;
+      
+      // Theme-Änderung überwachen und Farben aktualisieren
+      const themeObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.attributeName === 'class') {
+            // Kurze Verzögerung einfügen, damit die CSS-Variablen Zeit haben vollständig zu aktualisieren
+            setTimeout(() => {
+              // Farben neu laden wenn sich das Theme ändert
+              const updatedStyle = getComputedStyle(document.documentElement);
+              const newAccentColor = updatedStyle.getPropertyValue('--accent').trim() || "#ff5500";
+              
+              // Aktualisiere alle Partikel mit der neuen Akzentfarbe
+              particles.forEach(particle => {
+                particle.color = newAccentColor;
+              });
+            }, 100); // 100ms Verzögerung für die Aktualisierung
+          }
+        });
+      });
+      
+      // Theme-Änderungen am HTML-Element beobachten (wo die .dark-mode Klasse hinzugefügt wird)
+      themeObserver.observe(document.documentElement, { attributes: true });
+      
       let mouseX = 0;
       let mouseY = 0;
       let mouseActive = false;
+      
+      // Partikel-Konfiguration
+      let particles = [];
+      let particleCount = 0;
+      
+      // Funktion zur Berechnung der Partikelanzahl basierend auf der Canvas-Höhe
+      function calculateParticleCount() {
+        // Basiswert pro 100 Pixel Höhe
+        const baseCountPer100Px = 8;
+        // Berechnung basierend auf der Canvas-Höhe
+        const calculatedCount = Math.floor((canvas.height / 100) * baseCountPer100Px);
+        // Minimum und Maximum Begrenzung
+        return Math.max(40, Math.min(200, calculatedCount));
+      }
       
       // Canvas-Größe anpassen
       function resizeCanvas() {
@@ -65,38 +107,69 @@ const { id = "background-canvas", opacity = "0.0", color = "var(--accent)" } = A
         canvas.width = width > 0 ? width : window.innerWidth;
         canvas.height = height > 0 ? height : window.innerHeight;
         
+        // Partikelanzahl neu berechnen basierend auf der neuen Canvas-Höhe
+        particleCount = calculateParticleCount();
+        
         // Partikel bei Resize neu initialisieren
-        if (particles.length === 0) {
-          initParticles();
-        }
+        initParticles();
       }
       
-      // Partikel-Konfiguration
-      let particles = [];
-      const particleCount = 50;
-      const colors = ["var(--accent)", "var(--text-secondary)", "tomato"];
-      
-      // Partikel initialisieren
+      // Partikel initialisieren mit gleichmäßigerer Verteilung
       function initParticles() {
         particles = [];
-        for (let i = 0; i < particleCount; i++) {
+        
+        // Grid-basiertes Verteilungssystem für gleichmäßige Verteilung
+        const gridSize = Math.sqrt(particleCount);
+        const cellWidth = canvas.width / gridSize;
+        const cellHeight = canvas.height / gridSize;
+        
+        // Sicherstellen, dass wir nicht mehr Partikel erstellen als berechnet
+        let count = 0;
+        
+        // Raster durchlaufen
+        for (let i = 0; i < gridSize && count < particleCount; i++) {
+          for (let j = 0; j < gridSize && count < particleCount; j++) {
+            // Position innerhalb der Zelle mit etwas Zufallsvarianz
+            const x = (i * cellWidth) + (Math.random() * 0.8 + 0.1) * cellWidth;
+            const y = (j * cellHeight) + (Math.random() * 0.8 + 0.1) * cellHeight;
+            
+            particles.push({
+              x: x,
+              y: y,
+              radius: 3,           
+              color: particleColor,
+              vx: Math.random() * 0.1 - .025,
+              vy: Math.random() * 0.1 - .025,
+              life: Math.random(),
+              lifeSpeed: 0.0000001 + Math.random() * 0.0000003,
+              baseRadius: 3,
+              opacity: 1,
+            });
+            
+            count++;
+          }
+        }
+        
+        // Falls durch Rundungsfehler zu wenige Partikel erstellt wurden,
+        // den Rest zufällig verteilen
+        while (count < particleCount) {
           particles.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            radius: Math.random() * 5 + 0.1,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            vx: Math.random() * 0.5 - .25,
-            vy: Math.random() * 0.5 - .25,
+            radius: 3,
+            color: particleColor,
+            vx: Math.random() * 0.1 - .025,
+            vy: Math.random() * 0.1 - .025,
             life: Math.random(),
-            lifeSpeed: 0.001 + Math.random() * .03,
-            baseRadius: Math.random() * 2 + 1,
-            opacity: 0
+            lifeSpeed: 0.0000001 + Math.random() * 0.0000003,
+            baseRadius: 3,
+            opacity: 1,
           });
+          count++;
         }
-        console.log(`${particles.length} Partikel erstellt`);
       }
       
-      // Animation-Loop
+      // Animation-Loop - auch beim Respawn gleichmäßige Verteilung
       function animate() {
         requestAnimationFrame(animate);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -106,35 +179,58 @@ const { id = "background-canvas", opacity = "0.0", color = "var(--accent)" } = A
           particle.life += particle.lifeSpeed;
           
           if (particle.life > 1) {
+            // Gleichmäßig verteilte Position für neue Partikel finden
+            // Position am Rand des Canvas für einen netten "Einflug"-Effekt
+            const side = Math.floor(Math.random() * 4); // 0: oben, 1: rechts, 2: unten, 3: links
+            let x, y;
+            
+            switch(side) {
+              case 0: // oben
+                x = Math.random() * canvas.width;
+                y = -10;
+                break;
+              case 1: // rechts
+                x = canvas.width + 10;
+                y = Math.random() * canvas.height;
+                break;
+              case 2: // unten
+                x = Math.random() * canvas.width;
+                y = canvas.height + 10;
+                break;
+              case 3: // links
+                x = -10;
+                y = Math.random() * canvas.height;
+                break;
+            }
+            
             particles[index] = {
-              x: Math.random() * canvas.width,
-              y: Math.random() * canvas.height,
-              radius: Math.random() * 8 + 0.5,
-              color: colors[Math.floor(Math.random() * colors.length)],
-              vx: Math.random() * 0.5 - .025,
-              vy: Math.random() * 0.5 - .025,
+              x: x,
+              y: y,
+              radius: 2,
+              color: particleColor,
+              vx: Math.random() * 0.1 - .025,
+              vy: Math.random() * 0.1 - .025,
               life: 0,
-              lifeSpeed: 0.001 + Math.random() * 0.003,
-              baseRadius: Math.random() * 2 + 1,
-              opacity: 0
+              lifeSpeed: 0.000001 + Math.random() * 0.000003,
+              baseRadius: 2,
+              opacity: 1
             };
             return;
           }
           
-          particle.opacity = Math.sin(particle.life * Math.PI) * 0.9;
-          const sizeMultiplier = Math.sin(particle.life * Math.PI);
-          particle.radius = particle.baseRadius * (10 + sizeMultiplier);
+          particle.radius = particle.baseRadius;
           
           ctx.beginPath();
           ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-          ctx.fillStyle = particle.color;
-          ctx.globalAlpha = particle.opacity;
+          ctx.fillStyle = particle.color;          
+            ctx.globalAlpha = particle.opacity * (1 - particle.life);
+            ctx.fillStyle = particle.color;
+            ctx.globalAlpha = particle.opacity * (1 - particle.life);
           ctx.fill();
           
           particle.x += particle.vx;
           particle.y += particle.vy;
           
-          // Mausinteraktion verbessert
           if (mouseActive) {
             const canvasRect = canvas.getBoundingClientRect();
             const relMouseX = mouseX - canvasRect.left;
@@ -144,11 +240,11 @@ const { id = "background-canvas", opacity = "0.0", color = "var(--accent)" } = A
             const dy = relMouseY - particle.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             
-            if (distance < 150) {
-              particle.x += dx * 0.03;
-              particle.y += dy * 0.03;
+            if (distance < 170) {
+              particle.x += dx * 0.005;
+              particle.y += dy * 0.005;
               particle.life = Math.max(0, particle.life - 0.02);
-              particle.opacity = Math.min(0.9, particle.opacity + 0.1);
+              particle.opacity = 1;
             }
           }
           
@@ -164,22 +260,25 @@ const { id = "background-canvas", opacity = "0.0", color = "var(--accent)" } = A
       }
       
       function drawConnections() {
+        const connectionDistance = 250;
+        
         for (let i = 0; i < particles.length; i++) {
-          if (particles[i].opacity < 0.2) continue;
           
           for (let j = i + 1; j < particles.length; j++) {
-            if (particles[j].opacity < 0.2) continue;
             
             const dx = particles[i].x - particles[j].x;
             const dy = particles[i].y - particles[j].y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             
-            if (distance < 100) {
+            if (distance < connectionDistance) {
               ctx.beginPath();
-              ctx.strokeStyle = particles[i].color;
-              ctx.globalAlpha = 0.2 * (1 - distance / 100) * 
-                               (particles[i].opacity * particles[j].opacity);
-              ctx.lineWidth = 0.5;
+              // Volle Opazität für Verbindungslinien, nur abstandsabhängig
+              ctx.globalAlpha = Math.max(.1, 1 - (distance / connectionDistance));
+              ctx.strokeStyle = accentColor; // Verbindungslinienfarbe
+              
+              
+              ctx.lineWidth = 1;
+              
               ctx.moveTo(particles[i].x, particles[i].y);
               ctx.lineTo(particles[j].x, particles[j].y);
               ctx.stroke();
@@ -192,12 +291,6 @@ const { id = "background-canvas", opacity = "0.0", color = "var(--accent)" } = A
         mouseX = e.clientX;
         mouseY = e.clientY;
         mouseActive = true;
-        
-        if (Math.random() < 0.01) {
-          console.log(`Mausposition: ${mouseX}, ${mouseY}`);
-          const canvasRect = canvas.getBoundingClientRect();
-          console.log(`Canvas-Position: ${canvasRect.left}, ${canvasRect.top}, Größe: ${canvasRect.width}x${canvasRect.height}`);
-        }
       });
       
       document.addEventListener('mouseleave', () => {
@@ -208,7 +301,6 @@ const { id = "background-canvas", opacity = "0.0", color = "var(--accent)" } = A
         if (canvas && ctx) {
           resizeCanvas();
           animate();
-          console.log(`Animation für '${canvasId}' gestartet`);
         }
       }, 500);
       

@@ -41,7 +41,6 @@ const category = project.category || 'Other';
 
 <style>
   .card-wrapper {
-    /* Wichtig: Position muss relativ sein mit niedrigerem z-index als die Filter */
     position: relative;
     z-index: 5;
     perspective: 1000px;
@@ -154,7 +153,7 @@ const category = project.category || 'Other';
   }
 
   .box:hover .card-description {
-    max-height: 200px; /* Genug Platz für die volle Beschreibung */
+    max-height: 200px; 
   }
 
   .box:hover .card-badges {
@@ -175,7 +174,6 @@ const category = project.category || 'Other';
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // 3D Tilt-Effekt für Karten
     const cards = document.querySelectorAll(".card-3d");
     
     cards.forEach(card => {

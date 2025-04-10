@@ -1,8 +1,9 @@
 ---
 import "../css/fonts.css";
 import "../css/keyframes.css";
+import homeBg from "../assets/images/home.jpg";
 ---
-<div class="bg-container" id="home-section">
+<div class="bg-container" id="home-section" style={`background-image: url(${homeBg.src})`}>
 <div class="console-container font-[Marker] font-extrabold text-4xl">
   <span id="text" class="offscreen"></span><div
     class="console-underscore text-[tomato] animate-ping"
@@ -79,7 +80,6 @@ import "../css/keyframes.css";
   }
 
   .bg-container{
-    background-image: url("https://images.unsplash.com/photo-1554068085-3b86efacc9d4?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
