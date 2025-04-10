@@ -122,6 +122,26 @@
       padding: 15vh 0; /* Mehr Padding für mobile Geräte */
     }
   }
+  
+  /* Ausblenden der Texte unter 500px Bildschirmbreite */
+  @media (max-width: 500px) {
+    .section-indicators-container {
+      display: none; /* Komplette Indikatoren ausblenden */
+    }
+    
+    /* Fortschrittsbalken bleibt sichtbar */
+    .scroll-progress {
+      height: 100vh; /* Volle Höhe nutzen */
+      width: 3px; /* Etwas schmaler für kleine Bildschirme */
+      top: 0; /* Von ganz oben beginnen */
+    }
+    
+    /* Progress-Bar anpassen */
+    .progress-bar {
+      bottom: 0;
+      height: 0%; /* Höhe wird durch JS gesetzt */
+    }
+  }
 </style>
 
 <script>
