@@ -3,6 +3,7 @@ import "../css/fonts.css";
 import "../css/darkmode.css";
 import myself from "../assets/images/Cartoonify.svg";
 import myself3 from "../assets/images/myself.jpg";
+import HypnoticBackground from "./HypnoticBackground.astro";
 ---
 
 <div class="wrap sm:flex-col rounded-lg offscreen">
@@ -68,6 +69,16 @@ import myself3 from "../assets/images/myself.jpg";
       </div>
     </div>
   </div>
+  
+  <!-- Neuer hypnotischer Hintergrund mit Theme-sensitiven Farben -->
+  <HypnoticBackground 
+    intensity="low" 
+    speed="slow"
+    lightModePrimary="#84cc16" /* Limegreen im Light Mode */
+    lightModeSecondary="#bef264" /* Helles Lime */
+    darkModePrimary="#4d7c0f" /* Dunkleres Grün im Dark Mode */
+    darkModeSecondary="#65a30d" /* Mitteldunkles Grün */
+  />
 </div>
 
 <style>
@@ -76,6 +87,8 @@ import myself3 from "../assets/images/myself.jpg";
     margin-left: auto;
     margin-right: auto;
     padding-top: 40px;
+    position: relative;
+    overflow: hidden;
   }
   
   img {

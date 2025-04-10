@@ -1,0 +1,34 @@
+---
+const { title, description, image } = Astro.props;
+---
+
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO Meta Tags -->
+    <title>{title || 'Colin Blome - Web Developer Portfolio'}</title>
+    <meta name="description" content={description || 'Portfolio von Colin Blome, Web Developer aus Deutschland. Spezialisiert auf moderne Web-Entwicklung mit Fokus auf Benutzerfreundlichkeit und Responsive Design.'} />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title || 'Colin Blome - Web Developer Portfolio'} />
+    <meta property="og:description" content={description || 'Portfolio von Colin Blome, Web Developer aus Deutschland.'} />
+    <meta property="og:image" content={image || 'https://i.imgur.com/ELVyRRc.jpeg'} />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content={new URL(Astro.url).hostname} />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta name="twitter:title" content={title || 'Colin Blome - Web Developer Portfolio'} />
+    <meta name="twitter:description" content={description || 'Portfolio von Colin Blome, Web Developer aus Deutschland.'} />
+    <meta name="twitter:image" content={image || 'https://i.imgur.com/ELVyRRc.jpeg'} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

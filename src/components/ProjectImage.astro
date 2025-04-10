@@ -1,0 +1,13 @@
+---
+import { Picture } from 'astro:assets';
+const { project, image } = Astro.props;
+---
+
+<Picture
+  src={image}
+  widths={[400, 800, 1200]}
+  sizes="(max-width: 768px) 100vw, 50vw"
+  formats={['avif', 'webp', 'jpg']}
+  alt={project.title}
+  class="project-image"
+/>

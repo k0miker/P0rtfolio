@@ -28,7 +28,7 @@ import "../css/keyframes.css";
   .down {
     display: flex;
     justify-content: center;
-    z-index: 1000;
+    z-index: 10;
     position: relative;
  
 
@@ -126,10 +126,20 @@ import "../css/keyframes.css";
     background-size: cover;
     background-attachment: fixed;
     mask-image: url("https://i.imghippo.com/files/wula7758fc.png") ;
+
+    mask-size: 750px;
+    mask-position: center;  
+    mask-position: 52%;
+    @media screen and (max-width: 768px) {
     mask-size: 450px;
-    mask-position: center;
-    -webkit-mask-position-x: 52% ;
-    -webkit-mask-position-y: 48% ;
+    mask-position: center;  
+    mask-position: 0%;
+      
+    }
+ 
+    mask-origin: center;
+    mask-mode: alpha;
+    mask-clip: content-box;
     mask-repeat: no-repeat;
     backdrop-filter: blur(3px) ;
     

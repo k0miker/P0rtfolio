@@ -1,0 +1,47 @@
+---
+// Wiederverwendbare UI-Komponente
+const { variant = 'primary', size = 'md', type = 'button', class: className, ...props } = Astro.props;
+---
+
+<button
+  type={type}
+  class:list={[
+    'btn', 
+    `btn-${variant}`, 
+    `btn-${size}`, 
+    className
+  ]}
+  {...props}
+>
+  <slot />
+</button>
+
+<style>
+  .btn {
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    font-family: mono;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .btn-primary {
+    background-color: var(--accent);
+    color: white;
+  }
+  
+  .btn-secondary {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+  }
+
+  /* Größenvarianten */
+  .btn-sm { padding: 0.5rem 1rem; font-size: var(--font-size-sm); }
+  .btn-md { padding: 0.75rem 1.5rem; font-size: var(--font-size-md); }
+  .btn-lg { padding: 1rem 2rem; font-size: var(--font-size-lg); }
+  
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+</style>

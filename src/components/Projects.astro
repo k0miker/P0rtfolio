@@ -3,6 +3,7 @@ import Card from "./Card.astro";
 import Modal from "./Modal.astro";
 import { projects } from "../data/projectData.js";
 import "../css/keyframes.css";
+import HypnoticBackground from "./HypnoticBackground.astro";
 
 import p1 from "../assets/images/bonsaiworld.jpg";
 import p2 from "../assets/images/blome.jpg";
@@ -11,7 +12,8 @@ import p4 from "../assets/images/p4.png";
 import p7 from "../assets/images/p7.gif";
 import p8 from "../assets/images/p8.png";
 import p9 from "../assets/images/p9.png";
-import p10 from "../assets/images/p11.gif";
+import p10 from "../assets/images/p10.gif";
+import p11 from "../assets/images/p11.gif";
 
 // Map der Bildimporte zu Projekten
 const imageMap = {
@@ -22,11 +24,11 @@ const imageMap = {
   p7,
   p8,
   p9,
-  p10
+  p10,
+  p11,
 };
 
-// Debug-Ausgabe um zu sehen, welche Projekte vorhanden sind
-console.log("Projekte vor Filterung:", projects.length);
+
 
 // Verbesserung der Filterlogik mit zusätzlicher Prüfung
 const filteredProjects = projects.filter(project => {
@@ -37,22 +39,33 @@ const filteredProjects = projects.filter(project => {
   return hasImage;
 });
 
-// Debug-Ausgabe um zu sehen, wie viele Projekte nach Filterung übrig sind
-console.log("Projekte nach Filterung:", filteredProjects.length);
+
+
+// Extrahiere alle einzigartigen Kategorien
+const categories = ['All', ...new Set(filteredProjects.map(project => project.category || 'Other'))];
 ---
 
-<section class="wrapperr min-h-full mt-9">
+<section class="projects-wrapper min-h-full mt-9">
   <h1
-    class="text-center mt-4 p-8 text-4xl font-[mono] offscreen hover:tracking-[1vw]  hover:text-[tomato] text-[var(--text-primary)]"
+    class="text-center mt-4 p-8 text-4xl font-[mono] offscreen hover:tracking-[1vw] hover:text-[tomato] text-[var(--text-primary)]"
   >
     Projects<span class="animate-ping">_</span>
   </h1>
+
+  <!-- Filter Navigation -->
+  <div class="filter-container">
+    <div class="filter-buttons">
+      {categories.map((category) => (
+        <button class="filter-btn" data-category={category}>{category}</button>
+      ))}
+    </div>
+  </div>
 
   {filteredProjects.length === 0 && (
     <p class="text-center text-red-500">Keine Projekte gefunden. Bitte überprüfe die Bildnamen in projectData.js!</p>
   )}
 
-  <div class="container">
+  <div class="projects-container">
     {filteredProjects.map((project) => (
       <Card project={project} image={imageMap[project.image]} />
     ))}
@@ -61,43 +74,215 @@ console.log("Projekte nach Filterung:", filteredProjects.length);
   {filteredProjects.map((project) => (
     <Modal project={project} image={imageMap[project.image]} />
   ))}
+  
+  <!-- Neuer hypnotischer Hintergrund mit Theme-sensitiven Farben -->
+  <HypnoticBackground 
+    intensity="medium" 
+    speed="medium"
+    lightModePrimary="#fb923c" /* Orange im Light Mode */
+    lightModeSecondary="#fdba74" /* Helles Orange */
+    darkModePrimary="#c2410c" /* Dunkleres Orange im Dark Mode */
+    darkModeSecondary="#ea580c" /* Mitteldunkles Orange */
+  />
 </section>
 
 <style>
-  .wrapperr {
+  .projects-wrapper {
     padding: 80px 0;
     transition: 1s;
     margin: auto 2vw;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    overflow: hidden;
     @media screen and (max-width: 768px) {
       margin-top: 100px;
     }
   }
 
-  .container {
+  /* Filter Styles */
+  .filter-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+    perspective: 1000px;
+    position: relative;
+    z-index: 10; /* Erhöhter z-index für bessere Klickbarkeit */
+  }
+  
+  .filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    transform-style: preserve-3d;
+    transform: rotateX(5deg);
+    position: relative;
+    z-index: 11; /* Erhöhter z-index für die Buttons */
+  }
+  
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--accent);
+    border-radius: 25px;
+    background-color: var(--bg-secondary);
+    color: var(--text-titel);
+    font-family: mono;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 12; /* Jeder Button bekommt einen noch höheren z-index */
+    white-space: nowrap; /* Verhindert Umbrüche innerhalb des Button-Textes */
+  }
+  
+  .filter-btn:hover {
+    background-color: var(--accent);
+    color: var(--bg-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  
+  .filter-btn.active {
+    background-color: var(--accent);
+    color: var(--bg-primary);
+    font-weight: bold;
+  }
+
+  .projects-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-    border-radius: 15px;
-    transition: 1s;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100vw;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
     padding: 2vw 8vw;
-    max-width: 1924px;
-    gap: 2vw;
+    max-width: 1624px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Masonry Layout mit unterschiedlichen Kartengrößen */
+  .projects-container > :global(.card-wrapper:nth-child(3n)) {
+    grid-row: span 1.2;
+  }
+  
+  .projects-container > :global(.card-wrapper:nth-child(4n)) {
+    grid-row: span 0.8;
+  }
+
+  /* Animation für Karten beim Erscheinen */
+  .projects-container > :global(.card-wrapper) {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s forwards;
+    animation-delay: calc(var(--order) * 0.1s);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Animation für das Einblenden */
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Klasse für animierte Karten */
+  :global(.fadeInUp) {
+    animation: fadeInUp 0.6s forwards;
   }
 
   @media screen and (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      padding: 0;
+    .projects-container {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
+    
+    .filter-container {
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding: 0 0.5rem;
+    }
+    
+    /* Verbesserte mobile Ansicht für Filter-Buttons */
+    .filter-buttons {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 1rem 0.5rem;
+      transform: rotateX(0);
+      position: relative;
+      gap: 0.75rem;
+      -webkit-overflow-scrolling: touch; /* Für besseres Scrollen auf iOS */
+      scrollbar-width: none; /* Firefox */
+      mask-image: linear-gradient(to right, transparent, black 10px, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10px, black 90%, transparent);
+    }
+    
+    /* Verstecke Scrollbar bei Webkit-Browsern */
+    .filter-buttons::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .filter-btn {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      min-width: auto;
+      flex: 0 0 auto;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .filter-btn.active {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    /* Visuelle Hinweise zum Scrollen */
+    .filter-container::after {
+      content: "";
+      position: absolute;
+      right: 0.5rem;
+      top: 0;
+      height: 100%;
+      width: 30px;
+      background: linear-gradient(to right, transparent, var(--bg-primary) 80%);
+      pointer-events: none;
+      z-index: 13;
+    }
+    
+    .filter-container::before {
+      content: "";
+      position: absolute;
+      left: 0.5rem;
+      top: 0;
+      height: 100%;
+      width: 30px;
+      background: linear-gradient(to left, transparent, var(--bg-primary) 80%);
+      pointer-events: none;
+      z-index: 13;
+    }
+  }
+  
+  /* Noch kleinere Bildschirme */
+  @media screen and (max-width: 480px) {
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+    
+    .projects-wrapper {
+      padding: 60px 0 40px;
+    }
+    
+    /* Zentrierte Anordnung der Filter-Buttons bei sehr kleinen Bildschirmen */
+    .filter-buttons {
+      justify-content: flex-start;
+      padding-left: 1rem;
+      padding-right: 1rem;
     }
   }
 </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    // Existierende Modal-Logik
     let modalTriggers = document.querySelectorAll(".box[data-modal-target]");
     let openModal = null;
 
@@ -107,15 +292,19 @@ console.log("Projekte nach Filterung:", filteredProjects.length);
         let modal = document.getElementById(modalId) as HTMLElement;
 
         if (openModal && openModal !== modal) {
-          openModal.style.display = "none";
+          openModal.classList.remove('modal-open');
+          setTimeout(() => {
+            openModal.style.display = "none";
+          }, 300);
         }
 
         if (modal) {
           modal.style.display = "flex";
-          openModal = modal;
+          // Kleine Verzögerung für die Animation
           setTimeout(() => {
-            modal.scrollIntoView({ behavior: "smooth", block: "center" });
-          }, 300);
+            modal.classList.add('modal-open');
+          }, 10);
+          openModal = modal;
         }
       });
     });
@@ -123,9 +312,12 @@ console.log("Projekte nach Filterung:", filteredProjects.length);
     let closeIcons = document.querySelectorAll(".modal .close");
     closeIcons.forEach(function (icon) {
       icon.addEventListener("click", function () {
-        let modal = icon.closest(".modal");
+        let modal = icon.closest(".modal") as HTMLElement;
         if (modal) {
-          (modal as HTMLElement).style.display = "none";
+          modal.classList.remove('modal-open');
+          setTimeout(() => {
+            modal.style.display = "none";
+          }, 300);
           openModal = null;
         }
       });
@@ -134,9 +326,148 @@ console.log("Projekte nach Filterung:", filteredProjects.length);
     window.addEventListener("click", function (event) {
       const targetElement = event.target as Element;
       if (targetElement.classList.contains("modal")) {
-        (targetElement as HTMLElement).style.display = "none";
+        const modal = targetElement as HTMLElement;
+        modal.classList.remove('modal-open');
+        setTimeout(() => {
+          modal.style.display = "none";
+        }, 300);
         openModal = null;
       }
     });
+
+    // Neue Filter Funktionalität
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card-wrapper');
+    
+    // Setze Animation-Order für jede Karte
+    cards.forEach((card, index) => {
+      card.setAttribute('style', `--order: ${index}`);
+    });
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Aktiven Button markieren
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const category = btn.getAttribute('data-category');
+        
+        // Filter-Animation für die Karten
+        cards.forEach((card) => {
+          // Entferne bestehende Animation
+          card.classList.remove('fadeInUp');
+          
+          setTimeout(() => {
+            if (category === 'All' || card.getAttribute('data-category') === category) {
+              (card as HTMLElement).style.display = 'block';
+              (card as HTMLElement).style.opacity = '0';
+              
+              // Kurze Verzögerung für Animation
+              setTimeout(() => {
+                card.classList.add('fadeInUp');
+                (card as HTMLElement).style.opacity = '1';
+              }, 50);
+            } else {
+              (card as HTMLElement).style.opacity = '0';
+              setTimeout(() => {
+                (card as HTMLElement).style.display = 'none';
+              }, 300);
+            }
+          }, 100);
+        });
+        
+        // Zum geklickten Filter scrollen
+        setTimeout(scrollToActiveFilter, 200);
+      });
+    });
+
+    // Initial den 'All' Button aktivieren
+    document.querySelector('.filter-btn[data-category="All"]')?.classList.add('active');
+    
+    // Initial Scroll zum aktiven Filter
+    setTimeout(scrollToActiveFilter, 800);
+    
+    // Horizontales Scrollen der Filter-Buttons zum aktiven Element
+    function scrollToActiveFilter() {
+      const activeFilter = document.querySelector('.filter-btn.active');
+      if (activeFilter) {
+        const container = document.querySelector('.filter-buttons') as HTMLElement;
+        if (container) {
+          // Scroll zum aktiven Filter mit etwas Abstand links
+          const scrollPos = (activeFilter as HTMLElement).offsetLeft - container.offsetWidth / 4;
+          container.scrollTo({
+            left: scrollPos,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+ 
+    // Verbesserte Filter Funktionalität
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card-wrapper');
+  
+    
+    // Hilfs-Handler für Button-Klicks
+    function handleFilterClick(event) {
+      const btn = event.currentTarget;
+      
+      // Aktiven Button markieren
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      const category = btn.getAttribute('data-category');
+      
+      // Filter-Animation für die Karten
+      cards.forEach((card) => {
+        const cardCategory = card.getAttribute('data-category');
+      
+        
+        // Entferne bestehende Animation
+        card.classList.remove('fadeInUp');
+        
+        setTimeout(() => {
+          if (category === 'All' || card.getAttribute('data-category') === category) {
+            (card as HTMLElement).style.display = 'block';
+            // Neue Animation hinzufügen
+            setTimeout(() => {
+              card.classList.add('fadeInUp');
+            }, 10);
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        }, 100);
+      });
+    }
+    
+    // Event-Listener direkt inline anwenden
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', handleFilterClick);
+      
+      // Zusätzliche direkte Inline-Funktion für redundante Sicherheit
+      (btn as HTMLElement).onclick = function() {
+        handleFilterClick({ currentTarget: btn } as unknown as Event);
+        return false; // Verhindere Standardverhalten
+      };
+    });
+
+    // Initial den 'All' Button aktivieren
+    const allButton = document.querySelector('.filter-btn[data-category="All"]');
+    if (allButton) {
+      allButton.classList.add('active');
+      
+      // Manuell den Klick auslösen
+      setTimeout(() => {
+        (allButton as HTMLElement).click();
+      }, 500);
+    } else {
+      console.error("All-Button nicht gefunden!");
+    }
   });
 </script>

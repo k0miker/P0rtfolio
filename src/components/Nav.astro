@@ -4,7 +4,7 @@ import "../css/darkmode.css";
 import logo from "../assets/images/logo.png";
 ---
 
-<!-- component -->
+<!-- Hauptnavigationskomponente -->
 <script
   src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
   defer></script>
@@ -17,7 +17,9 @@ import logo from "../assets/images/logo.png";
     class="flex flex-col h-full max-w-screen-2xl items-center md:justify-center mx-auto md:flex-row md:px-6 mg:px-2"
     @click.away="open = false"
   >
+    <!-- HEADER: Logo und Hamburger-Menü -->
     <div class="name flex flex-row items-center w-full justify-between">
+      <!-- Logo / Brand -->
       <a
         href="#"
         class="name lg:text-lg font-semibold duration-200 flex items-center justify-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-none focus:shadow-outline"
@@ -26,16 +28,9 @@ import logo from "../assets/images/logo.png";
           >elopment</span
         ><span class="animate-ping">_</span></a
       >
+      
+      <!-- Hamburger-Menü für Mobile -->
       <div class="flex items-center">
-        <!-- Dark Mode Toggle rechts in der Navbar -->
-        <button
-          id="darkModeToggle"
-          class="p-2 rounded-lg focus:outline-none focus:shadow-outline mr-2 md:ml-4"
-          aria-label="Dark Mode umschalten"
-        >
-          <!-- Anfangs leer, wird durch JS gefüllt -->
-        </button>
-        <!-- Hamburger Menu -->
         <button
           class="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
           @click="open = !open"
@@ -55,122 +50,138 @@ import logo from "../assets/images/logo.png";
         </button>
       </div>
     </div>
+    
+    <!-- NAVIGATION: Links mit responsivem Verhalten -->
     <nav
       :class="{'flex': open, 'hidden': !open}"
-      class="flex-col flex-grow pb-4 max-w-200px w-full md:pb-0 hidden md:flex md:justify-end md:flex-row md:bg-transparent md:text-gray-200 text-gray-600 bg-white"
+      class="flex-col flex-grow pb-4 max-w-200px w-full md:pb-0 hidden md:flex md:justify-end md:flex-row md:bg-transparent md:text-gray-200 text-gray-600"
     >
-      <a
-        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
-        href="#home"
-        id="nav-home"
-        @click="open = false">/Home</a
-      >
-      <a
-        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-        href="#about"
-        id="nav-about"
-        @click="open = false">/About</a
-      >
-      <a
-        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-        href="#skills"
-        id="nav-skills"
-        @click="open = false">/Skills</a
-      >
-      <div @click.away="open = false" class="relative" x-data="{ open: false }">
-        <button
-          id="nav-projects"
-          @click="open = !open"
-          class="px-0 w-[100%] text-left"
-          ><a
-            class="px-2 py-2 mt-2 md:ml-3.5 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-600 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline min-w-16 flex"
-            href="#projects"
-            >/Projects<svg
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              :class="{'rotate-180': open, 'rotate-0': !open}"
-              class="w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform"
-              ><path
-                fill-rule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clip-rule="evenodd"></path></svg
-            ></a
-          >
-        </button>
-        <div
-          x-show="open"
-          x-transition:enter="transition ease-out duration-100"
-          x-transition:enter-start="transform opacity-0 scale-95"
-          x-transition:enter-end="transform opacity-100 scale-100"
-          x-transition:leave="transition ease-in duration-75"
-          x-transition:leave-start="transform opacity-100 scale-100"
-          x-transition:leave-end="transform opacity-0 scale-95"
-          class="absolute right-0 mt-2 origin-top-right rounded-md shadow-lg w-48"
+      <!-- Standard Navigation Links -->
+      <div class="nav-links flex flex-col md:flex-row">
+        <a
+          class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
+          href="#home"
+          id="nav-home"
+          @click="open = false">/Home</a
         >
-          <div
-            class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800"
-          >
-            <a
-              class="block px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-              href="https://bonsaiworld.netlify.app/"
-              target="_blank"
-              @click="open = false">bonsaiworld</a
-            >
-           
-            <a
-              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-              href="https://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor"
-              target="_blank"
-              @click="open = false">marketing-campagne</a
-            > <a
-              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-              href="https://www.industriebodenplanung.com/"
-              target="_blank"
-              @click="open = false">Industrieboden Dr. Meyer</a
-            >
-            <a
-              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-              href="https://k0miker.github.io/starfieldclash/"
-              target="_blank"
-              @click="open = false">starfield-game</a
-            >
-            <a
-              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-              href="https://zombi-island.netlify.app"
-              target="_blank"
-              @click="open = false">Zombi-island</a
-            >
-            <a
-              class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-              href="https://dataglobe.netlify.app/"
-              target="_blank"
-              @click="open = false">dataglobe</a
-            >
-            <a
-            class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-            href="https://broke.dev-space.vip/"
-            target="_blank"
-            @click="open = false">BrokeChain</a
-          >
+        <a
+          class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          href="#about"
+          id="nav-about"
+          @click="open = false">/About</a
+        >
+        <a
+          class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          href="#skills"
+          id="nav-skills"
+          @click="open = false">/Skills</a
+        >
       
+        <!-- PROJEKT DROPDOWN: Eigener Bereich mit Dropdown-Funktionalität -->
+        <div @click.away="open = false" class="relative" x-data="{ open: false }">
+          <button
+            id="nav-projects"
+            @click="open = !open"
+            class="px-0 w-[100%] text-left project-dropdown"
+            ><a
+              class="px-2 py-2 mt-4 md:ml-3.5 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-600 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline min-w-16 flex"
+              href="#projects"
+              >/Projects<svg
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                :class="{'rotate-180': open, 'rotate-0': !open}"
+                class="w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform"
+                ><path
+                  fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path></svg
+              ></a
+            >
+          </button>
+          
+          <!-- Projekt-Modal Dropdown -->
+          <div
+            x-show="open"
+            x-transition:enter="transition ease-out duration-100"
+            x-transition:enter-start="transform opacity-0 scale-95"
+            x-transition:enter-end="transform opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-75"
+            x-transition:leave-start="transform opacity-100 scale-100"
+            x-transition:leave-end="transform opacity-0 scale-95"
+            class="absolute right-0 mt-2 origin-top-right rounded-md shadow-lg w-48 project-modal"
+          >
+            <div
+              class="px-2 py-2 rounded-md shadow dark-mode:bg-gray-800 project-list"
+            >
+              <!-- Projekt-Links -->
+              <a
+                class="block px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                href="https://bonsaiworld.netlify.app/"
+                target="_blank"
+                @click="open = false">bonsaiworld</a
+              >
+             
+              <a
+                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                href="https://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor"
+                target="_blank"
+                @click="open = false">marketing-campagne</a
+              > 
+              
+              <a
+                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                href="https://www.industriebodenplanung.com/"
+                target="_blank"
+                @click="open = false">Industrieboden Dr. Meyer</a
+              >
+              <a
+                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                href="https://k0miker.github.io/starfieldclash/"
+                target="_blank"
+                @click="open = false">starfield-game</a
+              >
+              <a
+                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                href="https://zombi-island.netlify.app"
+                target="_blank"
+                @click="open = false">Zombi-island</a
+              >
+              <a
+                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                href="https://dataglobe.netlify.app/"
+                target="_blank"
+                @click="open = false">dataglobe</a
+              >
+              <a
+                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                href="https://broke.dev-space.vip/"
+                target="_blank"
+                @click="open = false">BrokeChain</a
+              >
+            </div>
           </div>
         </div>
+        
+        <!-- Kontakt-Link -->
+        <a
+          class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          href="#contact"
+          id="nav-contact"
+          @click="open = false">/Contact</a
+        >
       </div>
-      <a
-        class="px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-        href="#contact"
-        id="nav-contact"
-        @click="open = false">/Contact</a
-      >
     </nav>
   </div>
 </div>
 
 <style>
+  /* Grundlegende Navigationsstile */
   nav * {
     font-family: mono;
     text-transform: uppercase;
   }
+  
+  /* Kopfzeile/Navbar Styling */
   .head {
     transition: all 1s;
     height: 10vh;
@@ -178,14 +189,63 @@ import logo from "../assets/images/logo.png";
     background: var(--nav-bg);
     box-shadow: var(--nav-shadow);
   }
+  
+  /* Aktiver Link Styling */
   .flex .active {
     background: #e6e6e6;
     color: tomato;
   }
+  
+  /* Logo Styling */
   .logo {
     width: 45px;
     translate: 0 5px;
     transition: 1s;
+  }
+  
+  /* Projekt-Modal spezifische Stile */
+  .project-modal {
+    z-index: 100;
+    position: absolute;
+    top:6vh;
+  }
+  
+  .project-list {
+    a{
+      color: var(--text-secondary);
+      background-color: var(--bg-primary);
+      margin-bottom: 2px;
+      &:hover {
+        color: tomato;
+        background-color: var(--bg-secondary);
+      }
+    }
+  }
+  
+  .dark-mode .project-list {
+    background-color: var(--bg-card);
+    border-color: var(--border);
+  }
+  
+  /* Mobile Navigation Styling */
+  @media (max-width: 768px) {
+    nav {
+      background-color: var(--nav-bg-solid) !important;  
+      }
+    
+    .dark-mode nav {
+      background-color: var(--bg-card) !important;
+    }
+    
+    .project-modal {
+      position: static ;
+      width: 90% !important;
+    }
+    
+    .project-list {
+      width: 100%;
+      margin-left: 20px;
+    }
   }
   
   .name {
@@ -251,6 +311,7 @@ import logo from "../assets/images/logo.png";
     transition: all 1s;
     background: var(--nav-bg-solid);
     box-shadow: var(--nav-shadow-solid);
+    
     .name {
       letter-spacing: normal;
       color: tomato;
@@ -276,7 +337,7 @@ import logo from "../assets/images/logo.png";
       }
     }
     a {
-      color: #616161;
+      color: var(--text-secondary);
       img {
         scale: .8;
         translate: 2px 2px;
@@ -285,6 +346,7 @@ import logo from "../assets/images/logo.png";
     button {
       color: tomato;
     }
+   
   }
 
 
@@ -319,22 +381,6 @@ import logo from "../assets/images/logo.png";
     }
   }
 
-  #darkModeToggle {
-    transition: all 0.3s ease;
-  }
-  
-  #darkModeToggle:hover {
-    transform: rotate(25deg);
-  }
-  
-  .dark-mode #darkModeToggle .dark-icon {
-    display: none;
-  }
-  
-  .dark-mode #darkModeToggle .light-icon {
-    display: inline-block;
-  }
-
   /* Korrigiere Farben für Dark Mode */
   .dark-mode .colored a, .dark-mode .colored button {
     color: var(--text-primary);
@@ -349,42 +395,7 @@ import logo from "../assets/images/logo.png";
   }
   
   .dark-mode nav.bg-white {
-    background-color: var(--bg-card);
-  }
-
-  /* Dark Mode Toggle Styling */
-  #darkModeToggle {
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    position: absolute;
-    right: 15px;
-  }
-  
-  
-  #darkModeToggle i {
-    font-size: 1.2rem;
-  }
-  
-  /* Im Light Mode (Mond anzeigen) */
-  #darkModeToggle .fa-moon {
-    color: #5e81ac;
-  }
-  
-  /* Im Dark Mode (Sonne anzeigen) */
-  .dark-mode #darkModeToggle .fa-sun {
-    color: #ebcb8b;
-  }
-  
-  @media (max-width: 768px) {
-    #darkModeToggle {
-      position: static;
-      transform: none;
-      margin-right: 10px;
-    }
-    
-    #darkModeToggle:hover {
-      transform: scale(1.2);
-    }
+    background-color: var(--bg-secondary) !important;
   }
 </style>
 <script>

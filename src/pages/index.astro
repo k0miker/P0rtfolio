@@ -9,7 +9,7 @@ import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
-import background from "../assets/images/white-geometrical-shapes-background.jpg";
+import ScrollProgress from "../components/ScrollProgress.astro";
 ---
 
 <html class="w-full" lang="en">
@@ -23,6 +23,7 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
   <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
     <div id="home"></div>
     <Nav />
+    <ScrollProgress /> <!-- Position nach der Nav für korrektes Rendering -->
 
     <Iam />
 
@@ -37,10 +38,20 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
     <div id="projects" >
       <Projects />
     </div>
-    <div id="contact"></div>
-    <Contact />
+    <div id="contact">
+      <Contact />
+    </div>
 
     <Footer />
+    
+    <!-- Fixierter Theme Toggle Button -->
+    <button
+      id="darkModeToggle"
+      class="theme-toggle fixed z-50 p-3 rounded-full shadow-lg focus:outline-none"
+      aria-label="Theme wechseln"
+    >
+      <!-- Icon wird per JavaScript eingefügt -->
+    </button>
   </body>
 </html>
 
@@ -59,11 +70,10 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
   }
 
   #about {
-    padding-top: 45px;
+    height: 100vh;
   }
   #skills {
-    padding-top: 35px;
-    height: 100vh;
+    
   }
   #projects {
     padding: 0px 0;
@@ -91,6 +101,43 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
     border-radius: 5px;
   }
   
+  /* Theme Toggle Button Styling */
+  .theme-toggle {
+    bottom: 20px;
+    right: 20px;
+    padding: .9rem;
+    width: 55px;
+    background-color: var(--bg-secondary);
+    border: 1px currentColor var(--border);
+    color: var(--accent);
+    transition: all 0.3s ease;
+  }
+  
+  .theme-toggle:hover {
+    box-shadow: 0 0 10px 2px var(--pulse-shadow-mid);    
+    color: var(--accent);
+    background-color: var(--bg-secondary);
+    i{
+      transform: scale(1.5);
+      transition: .5s;
+    }
+  }
+  
+  .theme-toggle i {
+    font-size: 1.5rem;
+  }  
+ 
+  @media (max-width: 768px) {
+    .theme-toggle {
+      bottom: 15px;
+      right: 15px;
+      padding: 0.75rem;
+    }
+    
+    .theme-toggle i {
+      font-size: 1.2rem;
+    }
+  }
 </style>
 
 <script>
@@ -102,16 +149,16 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
     // Check for saved theme preference or use the system preference
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark" || (!savedTheme && prefersDarkScheme.matches)) {
-      document.body.classList.add("dark-mode");
+      document.documentElement.classList.add("dark-mode"); // Änderung: auf documentElement anwenden
       updateIcon(true);
     } else {
-      document.body.classList.remove("dark-mode");
+      document.documentElement.classList.remove("dark-mode"); // Änderung: auf documentElement anwenden
       updateIcon(false);
     }
     
     // Toggle dark mode on click
     darkModeToggle.addEventListener("click", () => {
-      const isDarkMode = document.body.classList.toggle("dark-mode");
+      const isDarkMode = document.documentElement.classList.toggle("dark-mode"); // Änderung: auf documentElement anwenden
       localStorage.setItem("theme", isDarkMode ? "dark" : "light");
       updateIcon(isDarkMode);
     });
@@ -149,13 +196,12 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
                 link.classList.remove("active");
               }
             });
-
           }
         });
       },
       {
-        threshold: 0.5, 
-        rootMargin: "0px",
+        threshold: 0.1, // Niedrigerer Threshold für bessere Erkennung
+        rootMargin: "0px 0px -60% 0px", // Negative Margin unten, damit früher erkannt wird
       }
     );
 
