@@ -3,7 +3,7 @@ import Card from "./Card.astro";
 import Modal from "./Modal.astro";
 import { projects } from "../data/projectData.js";
 import "../css/keyframes.css";
-import HypnoticBackground from "./HypnoticBackground.astro";
+import Background from "./Background.astro";
 
 import p1 from "../assets/images/bonsaiworld.jpg";
 import p2 from "../assets/images/blome.jpg";
@@ -28,8 +28,6 @@ const imageMap = {
   p11,
 };
 
-
-
 // Verbesserung der Filterlogik mit zusätzlicher Prüfung
 const filteredProjects = projects.filter(project => {
   const hasImage = !!imageMap[project.image];
@@ -39,13 +37,12 @@ const filteredProjects = projects.filter(project => {
   return hasImage;
 });
 
-
-
 // Extrahiere alle einzigartigen Kategorien
 const categories = ['All', ...new Set(filteredProjects.map(project => project.category || 'Other'))];
 ---
 
-<section class="projects-wrapper min-h-full mt-9">
+<section class="projects-wrapper min-h-full mt-9 relative">
+  <Background id="projects-background" opacity="0.25" color="var(--text-secondary)" />
   <h1
     class="text-center mt-4 p-8 text-4xl font-[mono] offscreen hover:tracking-[1vw] hover:text-[tomato] text-[var(--text-primary)]"
   >
@@ -74,16 +71,6 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
   {filteredProjects.map((project) => (
     <Modal project={project} image={imageMap[project.image]} />
   ))}
-  
-  <!-- Neuer hypnotischer Hintergrund mit Theme-sensitiven Farben -->
-  <HypnoticBackground 
-    intensity="medium" 
-    speed="medium"
-    lightModePrimary="#fb923c" /* Orange im Light Mode */
-    lightModeSecondary="#fdba74" /* Helles Orange */
-    darkModePrimary="#c2410c" /* Dunkleres Orange im Dark Mode */
-    darkModeSecondary="#ea580c" /* Mitteldunkles Orange */
-  />
 </section>
 
 <style>
@@ -95,6 +82,7 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
     margin-right: auto;
     position: relative;
     overflow: hidden;
+    min-height: 90vh; /* Garantiert ausreichende Höhe */
     @media screen and (max-width: 768px) {
       margin-top: 100px;
     }
@@ -408,12 +396,10 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
 <script>
   document.addEventListener("DOMContentLoaded", function () {
 
- 
     // Verbesserte Filter Funktionalität
     const filterBtns = document.querySelectorAll('.filter-btn');
     const cards = document.querySelectorAll('.card-wrapper');
   
-    
     // Hilfs-Handler für Button-Klicks
     function handleFilterClick(event) {
       const btn = event.currentTarget;
@@ -427,7 +413,6 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
       // Filter-Animation für die Karten
       cards.forEach((card) => {
         const cardCategory = card.getAttribute('data-category');
-      
         
         // Entferne bestehende Animation
         card.classList.remove('fadeInUp');

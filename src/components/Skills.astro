@@ -7,7 +7,7 @@ import "../css/darkmode.css";
 import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
 ---
 
-<div class="flex flex-col box justify-center items-center min-h-[100vh]">
+<div class="flex flex-col box justify-center items-center min-h-[100vh]" id="skills">
   <div class="card offscreen">
     <div
       class="header font-[mono] text-[1.5rem] hover:tracking-[1vw]  hover:text-[tomato] text-[var(--text-primary)] duration-500 "
@@ -152,7 +152,7 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
   <a
     href={CV}
     target="_blank"
-    class="mt-[10vh] p-2 cv rounded-lg font-bold offscreen"
+    class="mt-[10vh] p-3 cv rounded-lg font-bold offscreen animate-cv text-lg"
     >/Download CV</a
   >
 </div>
@@ -162,16 +162,14 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
     padding: 5vw;
     background-image: url("https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
-    -webkit-animation: slidein 30s;
-    animation: slidein 50s;
     background-attachment: fixed;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-    -webkit-animation-direction: alternate;
-    animation-direction: alternate;
+    transition: animation-play-state 0.3s;
   }
+  
+  .box.animate {
+    animation: slidein 50s alternate infinite;
+  }
+
   .wrapper {
     justify-content: space-between;
     flex-wrap: wrap;
@@ -406,14 +404,48 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
 
   .cv {
     box-shadow: var(--card-shadow);
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
     background-color: var(--bg-primary);
     color: var(--text-primary);
+    position: relative;
+    border: 2px solid transparent;
+    animation: pulse-shadow 2s infinite;
+    padding: 0.75rem 1.5rem;
   }
   
   .cv:hover {
-    box-shadow: var(--card-shadow-hover);
+    box-shadow: 0 0 15px var(--accent), 0 0 20px rgba(255,99,71,0.5);
     color: var(--accent);
+    transform: scale(1.05);
+    border-color: var(--accent);
+  }
+
+  @keyframes pulse-shadow {
+    0% {
+      box-shadow: 0 0 5px var(--card-shadow);
+    }
+    50% {
+      box-shadow: 0 0 15px var(--accent), 0 0 10px rgba(255,99,71,0.3);
+    }
+    100% {
+      box-shadow: 0 0 5px var(--card-shadow);
+    }
+  }
+
+  @keyframes border-glow {
+    0% {
+      border-color: transparent;
+    }
+    50% {
+      border-color: var(--accent);
+    }
+    100% {
+      border-color: transparent;
+    }
+  }
+
+  .animate-cv {
+    animation: border-glow 3s infinite;
   }
 
   @media screen and (max-width: 768px) {
@@ -432,3 +464,24 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
     
   }
 </style>
+
+<script>
+  // Animation nur starten, wenn Sektion im Viewport ist
+  document.addEventListener("DOMContentLoaded", () => {
+    const skillsSection = document.getElementById("skills");
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate");
+        } else {
+          entry.target.classList.remove("animate");
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    if (skillsSection) {
+      observer.observe(skillsSection);
+    }
+  });
+</script>

@@ -2,7 +2,7 @@
 import "../css/fonts.css";
 import "../css/keyframes.css";
 ---
-<div class="bg-container">
+<div class="bg-container" id="home-section">
 <div class="console-container font-[Marker] font-extrabold text-4xl">
   <span id="text" class="offscreen"></span><div
     class="console-underscore text-[tomato] animate-ping"
@@ -80,15 +80,16 @@ import "../css/keyframes.css";
 
   .bg-container{
     background-image: url("https://images.unsplash.com/photo-1554068085-3b86efacc9d4?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-    /* background: black; */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    animation: slidein linear 55s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;  
+    transition: animation-play-state 0.3s;
   }
+  
+  .bg-container.animate {
+    animation: slidein linear 55s infinite alternate;
+  }
+
   .console-container {
     color: white;
     box-shadow: inset 0px -2vh 5vw 10px #0000006f;
@@ -204,4 +205,23 @@ import "../css/keyframes.css";
     }, 80);
     
   }
+
+  // Animation nur starten, wenn Sektion im Viewport ist
+  document.addEventListener("DOMContentLoaded", () => {
+    const homeSection = document.getElementById("home-section");
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate");
+        } else {
+          entry.target.classList.remove("animate");
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    if (homeSection) {
+      observer.observe(homeSection);
+    }
+  });
 </script>

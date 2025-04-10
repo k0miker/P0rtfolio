@@ -97,11 +97,15 @@ const hasMultiLanguage = englishDesc !== germanDesc;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
+    z-index: 9999; /* Extrem hoher z-index, um über allem zu liegen */
     justify-content: center;
     align-items: center;
     opacity: 0;
     transition: opacity 0.4s ease;
+    /* Diese Eigenschaften stellen sicher, dass das Modal immer oben bleibt */
+    isolation: isolate; /* Erstellt einen neuen Stacking-Kontext */
+    will-change: opacity; /* Optimiert die Renderingperformance */
+    pointer-events: auto; /* Garantiert, dass Klicks erkannt werden */
   }
   
   .modal.modal-open {
@@ -319,7 +323,7 @@ const hasMultiLanguage = englishDesc !== germanDesc;
     color: var(--text-titel);
     cursor: pointer;
     transition: all 0.3s ease;
-    z-index: 10;
+    z-index: 10000; /* Noch höherer z-index für den Schließen-Button */
     width: 40px;
     height: 40px;
     display: flex;
@@ -563,6 +567,11 @@ const hasMultiLanguage = englishDesc !== germanDesc;
       
       // Bei Fenstergröße-Änderung die Höhe neu anpassen
       window.addEventListener("resize", updateDescriptionHeight);
+
+      // Optionale Überprüfung: Wenn das Modal nicht direkt unter body ist, verschieben
+      if (modal.parentElement !== document.body) {
+        document.body.appendChild(modal);
+      }
     });
     
     // Stoppe Propagation von Klicks im Modal-Content,
@@ -575,5 +584,24 @@ const hasMultiLanguage = englishDesc !== germanDesc;
         return;
       }
     }, true); // Capture-Phase, um vor anderen Event-Handlern zu greifen
+
+    // Hilfe für Debugging von Z-Index-Problemen
+    function checkZIndexConflicts() {
+      const highZElements = Array.from(document.querySelectorAll('*')).filter(el => {
+        const style = window.getComputedStyle(el);
+        const zIndex = parseInt(style.zIndex);
+        return !isNaN(zIndex) && zIndex > 1000 && !el.classList.contains('modal') && !el.closest('.modal');
+      });
+      
+      if (highZElements.length > 0) {
+        console.warn('Elemente mit hohem z-index gefunden, die Modals überlagern könnten:', highZElements);
+      }
+    }
+    
+    // Rufe die Prüfung auf, wenn Modals geöffnet werden
+    const modalTriggers = document.querySelectorAll('[data-modal-target]');
+    modalTriggers.forEach(trigger => {
+      trigger.addEventListener('click', checkZIndexConflicts);
+    });
   });
 </script>

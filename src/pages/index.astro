@@ -30,11 +30,9 @@ import ScrollProgress from "../components/ScrollProgress.astro";
     <div id="about">
       <Myself />
     </div>
-
-    <div id="skills">
-      
-      <Skills />
-    </div>
+    
+    <Skills />
+    
     <div id="projects" >
       <Projects />
     </div>
@@ -70,18 +68,22 @@ import ScrollProgress from "../components/ScrollProgress.astro";
   }
 
   #about {
+    position: relative;
     min-height: 100vh;
+    z-index: 0; /* Stellt sicher, dass der Hintergrund hinter dem Inhalt liegt */
   }
   #skills {
-    
+    min-height: 100vh;
   }
   #projects {
+    position: relative;
     padding: 0px 0;
     background-size: 500%;
     background-repeat: no-repeat; 
     background-attachment: fixed; 
     background-position: center;
     animation: slidein2 linear 1055s;
+    z-index: 0; /* Stellt sicher, dass der Hintergrund hinter dem Inhalt liegt */
   }
   #contact {
     padding-top: -150px;
@@ -237,6 +239,38 @@ import ScrollProgress from "../components/ScrollProgress.astro";
 
     boxes.forEach((offscreen) => {
       observer.observe(offscreen);
+    });
+  });
+</script>
+<script>
+  // Zentrale Performance-Optimierung für Hintergrundbilder
+  document.addEventListener("DOMContentLoaded", () => {
+    // Liste aller Sektionen mit animierten Hintergründen
+    const animatedSections = [
+      document.getElementById("home-section"),
+      document.getElementById("skills"),
+      document.getElementById("contact-section"),
+      document.getElementById("projects")
+    ].filter(section => section !== null);
+    
+    // Intersection Observer für alle Sektionen
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // Klasse hinzufügen/entfernen je nachdem, ob Element sichtbar ist
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate");
+        } else {
+          entry.target.classList.remove("animate");
+        }
+      });
+    }, { 
+      threshold: 0.1,  // Animation startet, wenn 10% der Sektion sichtbar sind
+      rootMargin: "100px" // Etwas früher starten für flüssigeren Übergang
+    });
+    
+    // Alle animierten Sektionen beobachten
+    animatedSections.forEach(section => {
+      if (section) observer.observe(section);
     });
   });
 </script>
