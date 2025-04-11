@@ -1,11 +1,14 @@
 ---
 import "../css/fonts.css";
+import "../css/darkmode.css";
 import myself from "../assets/images/Cartoonify.svg";
 import myself3 from "../assets/images/myself.jpg";
+import Background from "./Background.astro";
 ---
 
-<div class="wrap sm:flex-col rounded-lg offscreen">
-  <h3 class="py-5 font-[mono] text-4xl  text-center offscreen text-gray-600">
+<div class="wrap sm:flex-col rounded-lg offscreen relative">
+  <Background id="myself-background" opacity=".5" />
+  <h3 class="py-5 font-[mono] text-4xl text-center offscreen hover:tracking-[.51vw]  hover:text-[tomato] text-[var(--text-primary)]">
     About<span class="animate-ping">_</span>
   </h3>
   <div class="flex flex-col items-center offscreen">
@@ -30,7 +33,7 @@ import myself3 from "../assets/images/myself.jpg";
         
       </p>
 
-      <p class="p-8 text-center offscreen ger text-pretty">
+      <p class="p-8 text-center offscreen ger text-pretty ">
         <br>
         Hallo! <br>
         Ich bin Colin, ein leidenschaftlicher Webentwickler. Seit
@@ -48,35 +51,27 @@ import myself3 from "../assets/images/myself.jpg";
     </div>
     
     <div class="self flex-col w-full mt-8 px-[5vw] offscreen">
-      <h3
-        class="text-center text-xl md:text-2xl p-4 font-[mono] bg-gray-600 max-w-[768px] rounded-t-xl text-white w-full"
-      >
+      <h3 class="title text-center text-xl md:text-2xl p-4 font-[mono] rounded-t-xl w-full hover:tracking-[.51vw]  hover:text-[var(--accent)] duration-500 text-gray-200">
         Self Proclamations<span class="animate-ping">_</span>
       </h3>
-      <div
-        class="flex p-4 w-[100%] bg-gray-200 rounded-b-xl max-w-[768px] font-[mono] text-gray-600 text-center"
-      >
-        <div
-          class="flex flex-grow flex-col p-2 items-center hover:text-[tomato] hover:scale-125 text-[12px] md:text-[16px]"
-        >
-          <i class="fa-solid fa-keyboard text-gray-600 p-4 text-[20px] md:text-[50px]"></i>Web
+      <div class="skills-container flex p-4 w-[100%] rounded-b-xl max-w-[768px] font-[mono] text-center">
+        <div class="skill-item flex flex-grow flex-col p-2 items-center hover:text-[tomato] hover:scale-125 text-[12px] md:text-[16px]">
+          <i class="fa-solid fa-keyboard p-4 text-[20px] md:text-[50px]"></i>Web
           Developer
         </div>
-        <div
-          class="flex flex-grow flex-col p-2 items-center font-[mono] hover:text-[tomato] hover:scale-125 text-[12px] md:text-[16px]"
-        >
-          <i class="fa-solid fa-user text-gray-600 p-4 text-[20px] md:text-[50px] "></i>UI/UX
+        <div class="skill-item flex flex-grow flex-col p-2 items-center font-[mono] hover:text-[tomato] hover:scale-125 text-[12px] md:text-[16px]">
+          <i class="fa-solid fa-user p-4 text-[20px] md:text-[50px] "></i>UI/UX
           Enthusiast
         </div>
-        <div
-          class="flex flex-grow flex-col p-2 items-center font-[mono] hover:text-[tomato] hover:scale-125 md:text-[16px] text-[12px] "
-        >
-          <i class="fa-solid fa-leaf text-gray-600 p-4 text-[20px] md:text-[50px]"></i>Bonsai
+        <div class="skill-item flex flex-grow flex-col p-2 items-center font-[mono] hover:text-[tomato] hover:scale-125 md:text-[16px] text-[12px]">
+          <i class="fa-solid fa-leaf p-4 text-[20px] md:text-[50px]"></i>Bonsai
           Enthusiast
         </div>
       </div>
     </div>
   </div>
+  
+
 </div>
 
 <style>
@@ -85,16 +80,20 @@ import myself3 from "../assets/images/myself.jpg";
     margin-left: auto;
     margin-right: auto;
     padding-top: 40px;
+    position: relative;
+    overflow: hidden;
+    min-height: 80vh; 
   }
+  
   img {
     width: 30%;
     max-width: 250px;
     opacity: 0.8;
-    outline: 1px solid #333;
+    outline: 1px solid var(--border);
     object-fit: cover;
-
     border-radius: 15px;
     aspect-ratio: 1;
+    transition: outline-color 0.3s ease;
   }
 
   h3 {
@@ -103,14 +102,17 @@ import myself3 from "../assets/images/myself.jpg";
     display: flex;
     justify-content: center;
     align-items: center;
+    color: var(--text-primary);
   }
+  
   p {
     font-family: inter;
     max-width: 768px;
     text-align: center;
-    color: #263442c0;
+    color: var(--text-primary);
     transition: .5s;
   }
+  
   .ger {
     opacity: 0;
     position: fixed;
@@ -118,16 +120,36 @@ import myself3 from "../assets/images/myself.jpg";
     scale: .9;
     filter: blur(1px)
   }
+  .ger:hover .en {
+    transform: translateY(10px);
+  }
+  
   .me:hover .ger {
     opacity: 1;
     filter: blur(0px);
     scale: 1;
+    transform: translateY(1rem);
   }
+  
   .me:hover .en {
     opacity: 0;
     filter: blur(1px);
     scale: .9;
   }
+  .en,.ger {
+    margin-top: 25px;
+    font-family: monospace;
+    max-width: 768px;
+    text-align: center;
+    color: var(--text-primary);
+    transition: .5s;
+    font-size: 1rem;
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    outline: 1px groove var(--border);
+
+  }
+  
   .self {
     display: flex;
     justify-content: center;
@@ -135,11 +157,31 @@ import myself3 from "../assets/images/myself.jpg";
     margin-bottom: 5vh;
   }
   
+  .title {
+    background-color: var(--bg-secondary);    
+    border: 1px solid var(--border);
+    border-bottom: none;
+    max-width: 768px;
+    color: #E8E8E8;
+
+  }
+  
+  .skills-container {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-top: none;
+  }
+  
+  .skill-item i {
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+  }
+  
   .foto-swich {
     display: flex;
     justify-content: center;
     width: 200px;
-    border-radius:0px ;
+    border-radius: 0px;
     img {
       width: 200px;
       transition: .5s;
@@ -149,24 +191,28 @@ import myself3 from "../assets/images/myself.jpg";
   .foto-swich:hover img:nth-of-type(2) {
     opacity: 1;
   }
+  
   .foto-swich:hover img:nth-of-type(1) {
     opacity: 0;
   }
+  
   .foto-swich img:nth-of-type(2) {
     transform: translateX(-50%);
     opacity: 0;    
   }
+  
   .foto-swich img:nth-of-type(1) {
     transform: translateX(50%);
   }
+  
   @keyframes ping {
     75%,
     100% {
       opacity: 0;
     }
   }
+  
   .animate-ping {
     animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
-  
 </style>

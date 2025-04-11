@@ -1,0 +1,16 @@
+/* Nutze die will-change Eigenschaft für smoother animations */
+@keyframes pulseShadow {
+  0%, 100% {
+    box-shadow: 0px 0px 0px 0px var(--pulse-shadow-start), var(--card-shadow);
+    will-change: box-shadow, transform;
+  }
+  50% {
+    box-shadow: 0px 0px 15px 5px var(--pulse-shadow-mid), var(--card-shadow-hover);
+  }       
+}
+
+/* Reduziere animierte Eigenschaften auf transform und opacity */
+.item-transition {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  /* Statt: transition: all 0.3s ease; */
+}

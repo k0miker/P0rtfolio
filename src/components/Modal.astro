@@ -1,0 +1,609 @@
+---
+const { project, image } = Astro.props;
+
+// Hole die Modal-Beschreibungen mit Fallback-Optionen
+const englishDesc = project.modalDescriptionEn || 
+                    project.modalDescription?.en || 
+                    project.description?.en || 
+                    project.description || 
+                    "No detailed description available";
+
+const germanDesc = project.modalDescriptionDe || 
+                   project.modalDescription?.de || 
+                   project.description?.de || 
+                   project.cardDescriptionDE || 
+                   "Keine detaillierte Beschreibung verfügbar";
+
+// Prüfe, ob es tatsächlich unterschiedliche Inhalte sind
+const hasMultiLanguage = englishDesc !== germanDesc;
+---
+
+<div id={`modal-${project.id}`} class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    
+    <div class="modal-grid">
+      <div class="modal-image-container">
+        <img src={image.src} alt={project.title} class="modal-image" />
+      </div>
+      
+      <div class="modal-info">
+        <h2 class="modal-title">{project.title}</h2>
+        
+        <div class="tech-stack">
+          <h3>Technologies</h3>
+          <div class="tech-tags">
+            {project.technologies ? project.technologies.map((tech) => (
+              <span class="tech-tag">{tech}</span>
+            )) : <span class="tech-tag">No technologies specified</span>}
+          </div>
+        </div>
+        
+        <div class="modal-description" data-active="en">
+          <div class="description-header">
+            <h3>About this project</h3>
+            {hasMultiLanguage && (
+              <div class="language-toggle" data-active="en">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <span class="toggle-slider"></span>
+                <button class="lang-btn" data-lang="de">DE</button>
+              </div>
+            )}
+          </div>
+          
+          <div class="description-container">
+            <div class="description-text active" data-lang="en">
+              <p>{englishDesc}</p>
+            </div>
+            
+            {hasMultiLanguage && (
+              <div class="description-text" data-lang="de">
+                <p>{germanDesc}</p>
+              </div>
+            )}
+          </div>
+        </div>
+        
+        <div class="modal-links">
+          {project.website && (
+            <a href={project.website} target="_blank" rel="noopener noreferrer" class="modal-link demo-link">
+              <i class="fa-solid fa-eye"></i> Live Demo
+            </a>
+          )}
+          
+          {project.github && (
+            <a href={project.github} target="_blank" rel="noopener noreferrer" class="modal-link github-link">
+              <i class="fa-brands fa-github"></i> Source Code
+            </a>
+          )}
+          
+          {project.codepen && (
+            <a href={project.codepen} target="_blank" rel="noopener noreferrer" class="modal-link codepen-link">
+              <i class="fa-brands fa-codepen"></i> CodePen
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999; /* Extrem hoher z-index, um über allem zu liegen */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    /* Diese Eigenschaften stellen sicher, dass das Modal immer oben bleibt */
+    isolation: isolate; /* Erstellt einen neuen Stacking-Kontext */
+    will-change: opacity; /* Optimiert die Renderingperformance */
+    pointer-events: auto; /* Garantiert, dass Klicks erkannt werden */
+  }
+  
+  .modal.modal-open {
+    opacity: 1;
+  }
+
+  .modal-content {
+    position: relative;
+    background-color: var(--bg-card);
+    border-radius: 15px;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto; /* Ermöglicht vertikales Scrollen */
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    /* Entferne overflow: hidden, das das Scrollen verhindert */
+  }
+  
+  .modal.modal-open .modal-content {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .modal-image-container {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    height: fit-content;
+    margin: auto 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .modal-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .modal-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .tech-stack h3, .modal-description h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-tag {
+    padding: 0.3rem 0.8rem;
+    background-color: var(--bg-secondary);
+    color: var(--text-titel);
+    border-radius: 999px;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+  }
+
+  .tech-tag:hover {
+    background-color: var(--accent);
+    color: white;
+    transform: translateY(-2px);
+  }
+
+  .description-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+  }
+
+  /* Language Toggle Styling */
+  .language-toggle {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-secondary);
+    border-radius: 30px;
+    padding: 0.25rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .toggle-slider {
+    position: absolute;
+    height: calc(100% - 6px);
+    width: calc(50% - 6px);
+    background-color: var(--accent);
+    border-radius: 20px;
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 1;
+    top: 3px;
+    left: 3px;
+  }
+
+  .language-toggle[data-active="de"] .toggle-slider {
+    transform: translateX(calc(100% + 4px));
+  }
+
+  .lang-btn {
+    padding: 0.35rem 0.8rem;
+    border: none;
+    background: transparent;
+    color: var(--text-titel);
+    cursor: pointer;
+    font-weight: bold;
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+    font-size: 0.9rem;
+    font-family: mono;
+    border-radius: 20px;
+  }
+
+  .lang-btn.active {
+    color: white;
+  }
+
+  .description-container {
+    position: relative;
+    min-height: 100px;
+    transition: height 0.3s ease;
+    /* Entferne feste Höhe, um natürliches Scrollen zu ermöglichen */
+    height: auto !important; /* Überschreibt die inline-Höhe aus JavaScript */
+    overflow: visible; /* Ermöglicht, dass der Inhalt vollständig sichtbar ist */
+  }
+
+  .description-text {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    position: relative; /* Statt absolut, um natürliches Fließen zu ermöglichen */
+    display: none; /* Standardmäßig ausgeblendet */
+  }
+
+  .description-text.active {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative;
+    display: block; /* Anzeigen, wenn aktiv */
+  }
+
+  .modal-links {
+    display: flex;
+    flex-wrap: wrap; /* Erlaubt Umbrüche auf kleinen Bildschirmen */
+    gap: 1rem;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 5;  /* Erhöhter z-index für bessere Klickbarkeit */
+  }
+
+  .modal-link {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    pointer-events: auto;  /* Explizite Aktivierung von Pointer-Events */
+    cursor: pointer;
+  }
+
+  .demo-link {
+    background-color: var(--accent);
+    color: white;
+  }
+
+  .github-link {
+    background-color: var(--bg-secondary);
+    color: var(--text-titel);
+  }
+
+  .codepen-link {
+    background-color: #131417;
+    color: white;
+  }
+
+  .demo-link:hover, .github-link:hover, .codepen-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    color: var(--text-titel);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10000; /* Noch höherer z-index für den Schließen-Button */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--bg-secondary);
+    opacity: 0.8;
+  }
+
+  .close:hover {
+    color: var(--accent);
+    transform: rotate(90deg);
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .modal-grid {
+      grid-template-columns: 1fr;
+      padding: 1.5rem;
+      gap: 1.5rem;
+    }
+
+    .modal-title {
+      font-size: 1.5rem; /* Kleinere Überschrift auf Mobilgeräten */
+    }
+
+    .modal-image-container {
+      height: 180px; /* Etwas kleinere Höhe für Mobilgeräte */
+      margin-bottom: 1rem;
+    }
+    
+    .modal-image {
+      height: 100%;
+      object-position: center;
+    }
+
+    .modal-content {
+      width: 95%;
+      max-height: 85vh;
+      padding-bottom: 1rem; /* Etwas Abstand am unteren Rand */
+      -webkit-overflow-scrolling: touch; /* Für besseres Scrollen auf iOS */
+    }
+
+    .tech-stack h3, .modal-description h3 {
+      font-size: 1.1rem; /* Kleinere Überschriften */
+    }
+
+    .description-container {
+      margin-bottom: 1.5rem; /* Mehr Abstand nach dem Text */
+    }
+
+    .modal-links {
+      justify-content: center; /* Links zentrieren auf mobil */
+      margin-top: 1.5rem;
+    }
+    
+    .modal-link {
+      padding: 0.6rem 1.2rem; /* Etwas kleinere Buttons */
+      flex: 1 1 auto; /* Flexible Breite */
+      justify-content: center; /* Text zentrieren */
+      min-width: 120px; /* Minimale Breite */
+      max-width: 100%; /* Maximale Breite */
+    }
+
+    /* Sorge dafür, dass maximal 2 Buttons pro Zeile angezeigt werden */
+    @media (max-width: 400px) {
+      .modal-link {
+        flex-basis: 100%; /* Auf sehr kleinen Bildschirmen volle Breite */
+      }
+    }
+
+    .close {
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 36px;
+      height: 36px;
+      font-size: 1.5rem;
+    }
+  }
+
+  /* Extra kleine Bildschirme */
+  @media (max-width: 480px) {
+    .modal-grid {
+      padding: 1rem;
+      gap: 1rem;
+    }
+
+    .tech-tags {
+      margin-bottom: 1rem;
+    }
+    
+    .tech-tag {
+      padding: 0.25rem 0.6rem;
+      font-size: 0.8rem;
+    }
+
+    .description-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .language-toggle {
+      margin-top: 0.5rem;
+      align-self: flex-end;
+      transform: scale(0.9);
+      transform-origin: right;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const modals = document.querySelectorAll(".modal");
+    
+    
+    // Finde alle Elemente, die auf das Öffnen eines Modals klicken
+    const projectCards = document.querySelectorAll('[data-modal]');
+    
+    // Füge Klick-Handler für Projektcards hinzu
+    projectCards.forEach(card => {
+      card.addEventListener('click', function() {
+        // Beim Öffnen eines Modals die Höhe der Beschreibung nach kurzer Verzögerung aktualisieren
+        setTimeout(function() {
+          const modalId = card.getAttribute('data-modal');
+          const modal = document.getElementById(modalId);
+          if (modal) {
+            const container = modal.querySelector(".description-container");
+            const activeText = modal.querySelector(".description-text.active");
+            
+            if (container instanceof HTMLElement && activeText instanceof HTMLElement) {
+              container.style.height = `${activeText.offsetHeight}px`;
+         
+            }
+          }
+        }, 100);
+      });
+    });
+    
+    modals.forEach(modal => {
+      const modalId = modal.id;
+      const langButtons = modal.querySelectorAll(".lang-btn");
+      const descriptionContainer = modal.querySelector(".modal-description");
+      const langToggle = modal.querySelector(".language-toggle");
+      const descriptionTexts = modal.querySelectorAll(".description-text");
+   ;
+      
+      // Anpassen der Beschreibungshöhe - nur für Animation, nicht für Scrolling
+      function updateDescriptionHeight() {
+        const container = modal.querySelector(".description-container");
+        const activeText = modal.querySelector(".description-text.active");
+        
+        if (container instanceof HTMLElement && activeText instanceof HTMLElement) {
+          // Wir setzen keine feste Höhe mehr, sondern lassen den Text natürlich fließen
+          // container.style.height = `${activeText.offsetHeight}px`;
+          
+          // Stattdessen stellen wir sicher, dass der aktive Text angezeigt wird
+          // und inaktive Texte ausgeblendet sind
+          modal.querySelectorAll(".description-text").forEach(text => {
+            if (text instanceof HTMLElement) {
+              if (text.classList.contains('active')) {
+                text.style.display = 'block';
+              } else {
+                text.style.display = 'none';
+              }
+            }
+          });
+          
+          // Nach dem Umschalten ein wenig nach oben scrollen, um den Text anzuzeigen
+          if (modal.classList.contains('modal-open')) {
+            const descriptionHeader = modal.querySelector(".description-header");
+            if (descriptionHeader) {
+              setTimeout(() => {
+                descriptionHeader.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }, 100);
+            }
+          }
+        }
+      }
+      
+      // Initial die Höhe anpassen - mit mehreren Versuchen
+      setTimeout(updateDescriptionHeight, 50);
+      setTimeout(updateDescriptionHeight, 150);
+      setTimeout(updateDescriptionHeight, 300);
+      
+      // Wenn das Modal sichtbar wird (durch CSS-Transition), Höhe erneut anpassen
+      modal.addEventListener('transitionend', function(e) {
+        if (e instanceof TransitionEvent && e.propertyName === 'opacity' && modal.classList.contains('modal-open')) {
+          updateDescriptionHeight();
+        }
+      });
+      
+      // Sprachtoggle Funktionalität
+      langButtons.forEach(button => {
+        button.addEventListener("click", function() {
+          const lang = this.getAttribute("data-lang");
+          
+          // Aktiven Button markieren
+          langButtons.forEach(btn => btn.classList.remove("active"));
+          this.classList.add("active");
+          
+          // Toggle-Position aktualisieren
+          if (langToggle) {
+            langToggle.setAttribute("data-active", lang);
+          }
+          
+          // Beschreibungs-Status aktualisieren
+          if (descriptionContainer) {
+            descriptionContainer.setAttribute("data-active", lang);
+          }
+          
+          // Beschreibungstexte umschalten mit Animation
+          descriptionTexts.forEach(text => {
+            const textLang = text.getAttribute("data-lang");
+            if (textLang === lang) {
+              text.classList.add("active");
+            } else {
+              text.classList.remove("active");
+            }
+          });
+          
+          // Nach Animation die Höhe anpassen
+          setTimeout(updateDescriptionHeight, 50);
+        });
+      });
+      
+      // Sicherstellen, dass Links im Modal klickbar sind
+      const modalLinks = modal.querySelectorAll('.modal-link');
+      modalLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          // Stoppt die Ereignisweiterleitung nicht
+          // Aber fügt Debug-Info hinzu
+        });
+      });
+      
+      // Verhindern, dass Klicks auf den Modal-Inhalt das Modal schließen
+      const modalContent = modal.querySelector('.modal-content');
+      if (modalContent) { // Null-Check hinzufügen
+        modalContent.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      }
+      
+      // Bei Fenstergröße-Änderung die Höhe neu anpassen
+      window.addEventListener("resize", updateDescriptionHeight);
+
+      // Optionale Überprüfung: Wenn das Modal nicht direkt unter body ist, verschieben
+      if (modal.parentElement !== document.body) {
+        document.body.appendChild(modal);
+      }
+    });
+    
+    // Stoppe Propagation von Klicks im Modal-Content,
+    // aber erlaube Klicks auf Links
+    document.addEventListener('click', function(e) {
+      const target = e.target;
+      // Prüfe, ob das Ziel ein Link oder ein Element innerhalb eines Links ist
+      if (target && target instanceof HTMLElement && (target.tagName === 'A' || target.closest('a'))) {
+        // Erlaube den Klick auf Links
+        return;
+      }
+    }, true); // Capture-Phase, um vor anderen Event-Handlern zu greifen
+
+    // Hilfe für Debugging von Z-Index-Problemen
+    function checkZIndexConflicts() {
+      const highZElements = Array.from(document.querySelectorAll('*')).filter(el => {
+        const style = window.getComputedStyle(el);
+        const zIndex = parseInt(style.zIndex);
+        return !isNaN(zIndex) && zIndex > 1000 && !el.classList.contains('modal') && !el.closest('.modal');
+      });
+      
+      if (highZElements.length > 0) {
+        console.warn('Elemente mit hohem z-index gefunden, die Modals überlagern könnten:', highZElements);
+      }
+    }
+    
+    // Rufe die Prüfung auf, wenn Modals geöffnet werden
+    const modalTriggers = document.querySelectorAll('[data-modal-target]');
+    modalTriggers.forEach(trigger => {
+      trigger.addEventListener('click', checkZIndexConflicts);
+    });
+  });
+</script>

@@ -3,13 +3,15 @@ import "../css/fonts.css";
 import "../css/fontawesome/css/fontawesome.css";
 import "../css/fontawesome/css/all.min.css";
 import "../css/keyframes.css";
+import "../css/darkmode.css";
 import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
+import skillsBg from "../assets/images/skills.jpg";
 ---
 
-<div class="flex flex-col box justify-center items-center min-h-[100vh]">
+<div class="flex flex-col box justify-center items-center min-h-[100vh]" id="skills">
   <div class="card offscreen">
     <div
-      class="header font-[mono] text-[1.5rem] hover:tracking-[.5vw] duration-500"
+      class="header font-[mono] text-[1.5rem] hover:tracking-[1vw]  hover:text-[tomato] text-[var(--text-primary)] duration-500 "
     >
       My Skills<span class="animate-ping">_</span>
     </div>
@@ -151,26 +153,24 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
   <a
     href={CV}
     target="_blank"
-    class="mt-[10vh] p-2 cv rounded-lg bg-gray-200 text-gray-600 font-bold hover:text-[tomato] offscreen"
+    class="mt-[10vh] p-3 cv rounded-lg font-bold offscreen animate-cv text-lg"
     >/Download CV</a
   >
 </div>
 
-<style>
+<style define:vars={{ skillsBgUrl: `url(${skillsBg.src})` }}>
   .box {
     padding: 5vw;
-    background-image: url("https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-image: var(--skillsBgUrl);
     background-size: cover;
-    -webkit-animation: slidein 30s;
-    animation: slidein 50s;
     background-attachment: fixed;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-    -webkit-animation-direction: alternate;
-    animation-direction: alternate;
+    transition: animation-play-state 0.3s;
   }
+  
+  .box.animate {
+    animation: slidein 50s alternate infinite;
+  }
+
   .wrapper {
     justify-content: space-between;
     flex-wrap: wrap;
@@ -189,16 +189,25 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
     max-width: 768px;
     width: 90%;
     height: fit-content;
-    background-color: #ffffff;
-    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.384);
+    background: var(--card-highlight);
+    box-shadow: var(--card-shadow), var(--card-border-glow);
     border-radius: 10px;
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+    will-change: transform, box-shadow;
+  }
+  
+  .card:hover {
+    transform:  scale(1.01);
+    box-shadow: var(--card-shadow), 0 15px 30px rgba(0, 0, 0, 0.2), var(--card-border-glow);
+    transition: box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   .header {
-    background-color: #4b5563;
+    background-color: var(--bg-secondary);
     color: #fff;
     padding: 20px;
     text-align: center;
@@ -206,6 +215,7 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
 
   .body {
     padding: 20px;
+    background-color: var(--bg-card);
   }
 
   .skill {
@@ -213,20 +223,29 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
     align-items: center;
     justify-content: center;
     margin-bottom: 5px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .skill:hover {
+    background-color: var(--bg-tertiary);
+    transform: translateX(5px);
+    box-shadow: -3px 0 0px var(--accent);
   }
 
   .skill-name {
     width: 120px;
-    transition: 0.5s;
+    transition: 0.3s;
     font-size: 16px;
-    color: #263442c0;
+    color: var(--text-primary);
   }
 
   .skill-level {
     flex-grow: 1;
     height: 10px;
-    background-color: #00000000;
-    box-shadow: 0 0 5px 0px #333;
+    background-color: var(--bg-tertiary);
+    box-shadow: 0 0 1px 1px var(--shadow);
     border-radius: 10px;
     overflow: hidden;
     position: relative;
@@ -237,137 +256,374 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
   .skill-percent {
     position: absolute;
     z-index: 0;
-    transition: 0.3s;
-    background-color: #263442c0;
     border-radius: 5px;
     height: 100%;
-    width: 320px;
-    background-color: #263442c0;
-    animation: move-arrows 2.5s linear infinite;
-    -webkit-animation: move-arrows 2.5s linear infinite;
-    transform-origin: left;
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABDZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDkuMS1jMDAxIDc5LjE0NjI4OTk3NzcsIDIwMjMvMDYvMjUtMjM6NTc6MTQgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo3Y2M3MzIzZC0xZjc3LTQ1MmYtOGFjZS1jY2JkZWIwNTMyZWIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTUzNjQwRkU3RDNBMTFFRTk5QTg4MkQ5REZCNTY1NzAiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTUzNjQwRkQ3RDNBMTFFRTk5QTg4MkQ5REZCNTY1NzAiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDI1LjAgKE1hY2ludG9zaCkiIHhtcDpDcmVhdGVEYXRlPSIyMDIzLTExLTE3VDE2OjU0OjA4KzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMy0xMS0yMFQwNTozNDoxNyswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyMy0xMS0yMFQwNTozNDoxNyswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowRDBDQjlDMjdENEIxMUVFOTU2MkVDNUVBMTUxNTUyMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowRDBDQjlDMzdENEIxMUVFOTU2MkVDNUVBMTUxNTUyMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pj38waoAAAFKSURBVHjanJbbSwJhEMV3pYTQIOgCPogEPQQZRBf6/18zbyiGRD0YRNEFMuwmuZ2BIwTZfuebAz92H2Y8rDtzvk2zLEuoA1BNwuqCURKhwq/7HhgLPftgzWvyDc7BVOg5BkWPiWkCOkLfCjgCqcfEdAeuhN4NsOs1MV2AZ6F/B1S8JjZyTfApGNlUlj0mpg/QomGelsAJr9EmpkcwFJ6mzCdymZguwb1QV+E7cpmY2uBNqLNp2/SaTLmos0Cd7c0h9yjaxPQC+kJdkUYuk0SYtLlGXpN1hmNI1+DGY1JiKIbqH8DA8+KXuWyh1J0wJbJYk/m0rArT1/jvmAiZ7IEtYRhsj149G18D28LfOQwlQiHnrKgLBreMneioVydpLJ6if37IJumU1zx9gTN+F0SZpDy3S4GeGXPs3fMhUV+UoAtk+fUUk0U/AgwAELo+LcAxjVoAAAAASUVORK5CYII=");
-    background-size: auto 100%;
+    background-color: var(--bg-secondary);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.55) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.55) 50%,
+      rgba(255, 255, 255, 0.55) 65%,
+      transparent 65%,
+      transparent
+    );
+    background-size: 20px 20px;
+  }
+
+  .animate .skill-percent {
+    opacity: 1;
+    animation: skill-stripe 2s linear infinite;
+    transform: translateZ(0); /* GPU acceleration */
+  }
+
+  @keyframes skill-stripe {
+    0% { background-position: 0 0; }
+    100% { background-position: 20px 0; }
+  }
+
+  .animate .skill:nth-of-type(1) .skill-percent {
+    animation: skill-stripe 2s linear infinite, html-color 14s infinite alternate;
+  }
+  .animate .skill:nth-of-type(2) .skill-percent {
+    animation: skill-stripe 2s linear infinite, css-color 14s infinite alternate;
+    animation-delay: .1s;
+  }
+  .animate .skill:nth-of-type(3) .skill-percent {
+    animation: skill-stripe 2s linear infinite, js-color 14s infinite alternate;
+    animation-delay: .2s;
+  }
+  .animate .skill:nth-of-type(4) .skill-percent {
+    animation: skill-stripe 2s linear infinite, ts-color 14s infinite alternate;
+    animation-delay: .3s;
+  }
+  .animate .skill:nth-of-type(5) .skill-percent {
+    animation: skill-stripe 2s linear infinite, astro-color 14s infinite alternate;
+    animation-delay: .4s;
+  }
+  .animate .skill:nth-of-type(6) .skill-percent {
+    animation: skill-stripe 2s linear infinite, react-color 14s infinite alternate;
+    animation-delay: .5s;
+  }
+  .animate .skill:nth-of-type(7) .skill-percent {
+    animation: skill-stripe 2s linear infinite, tailwind-color 14s infinite alternate;
+    animation-delay: .7s;
+  }
+  .animate .skill:nth-of-type(8) .skill-percent {
+    animation: skill-stripe 2s linear infinite, github-color 14s infinite alternate;
+    animation-delay: .8s;
+  }
+  .animate .skill:nth-of-type(9) .skill-percent {
+    animation: skill-stripe 2s linear infinite, scss-color 14s infinite alternate;
+    animation-delay: .9s;
+  }
+  .animate .skill:nth-of-type(10) .skill-percent {
+    animation: skill-stripe 2s linear infinite, windows-color 14s infinite alternate;
+    animation-delay: 1.0s;
+  }
+  .animate .skill:nth-of-type(11) .skill-percent {
+    animation: skill-stripe 2s linear infinite, linux-color 14s infinite alternate;
+    animation-delay: 1.1s;
+  }
+  .animate .skill:nth-of-type(12) .skill-percent {
+    animation: skill-stripe 2s linear infinite, express-color 14s infinite alternate;
+    animation-delay: 1.2s;
+  }
+  .animate .skill:nth-of-type(13) .skill-percent {
+    animation: skill-stripe 2s linear infinite, nosql-color 14s infinite alternate;
+    animation-delay: 1.3s;
+  }
+
+  @keyframes html-color {
+    0% { background-color: var(--bg-secondary); }
+    10% { background-color: rgb(0, 0, 147); }
+    20% { background-color: var(--bg-secondary); }
+  }
+  
+  @keyframes css-color {
+    0% { background-color: var(--bg-secondary); }
+    10% { background-color: rgba(128, 0, 128, 0.976); }
+    20% { background-color: var(--bg-secondary); }
+  }
+  
+  @keyframes js-color {
+    0% { background-color: var(--bg-secondary); }
+    10% { background-color: rgba(255, 99, 71, 0.97); }
+    20% { background-color: var(--bg-secondary); }
+  }
+  
+  @keyframes ts-color {
+    0% { background-color: var(--bg-secondary); }
+    10% { background-color: rgba(94, 171, 230, 0.936); }
+    20% { background-color: var(--bg-secondary); }
+  }
+  
+  @keyframes astro-color {
+   0% { background-color: var(--bg-secondary); }
+    10% { background-color: rgba(217, 96, 136, 0.908); }
+    20% { background-color: var(--bg-secondary); }
+  }
+  
+  @keyframes react-color {
+    0% { background-color: var(--bg-secondary); }
+    10% { background-color: #58C4DC; }
+    20% { background-color: var(--bg-secondary); }
+  }
+  
+  @keyframes tailwind-color {
+    0% { background-color: var(--bg-secondary); }
+    10% { background-color: #36B7F0; }
+    20% { background-color: var(--bg-secondary); }
+  }
+  
+  @keyframes github-color {
+    0% { background-color: var(--bg-secondary); }
+    10% { background-color: rgba(0, 145, 12, 0.93); }
+    20% { background-color: var(--bg-secondary); }
+  }
+  
+  @keyframes scss-color {
+    0% { background-color: var(--bg-secondary); }
+    10% { background-color: rgba(128, 0, 128, 0.904); }
+    20% { background-color: var(--bg-secondary); }
+  }
+  
+  @keyframes windows-color {
+    0% { background-color: var(--bg-secondary); }
+    10% { background-color: rgba(0, 149, 255, 0.922); }
+    20% { background-color: var(--bg-secondary); }
+  }
+  
+  @keyframes linux-color {
+    0% { background-color: var(--bg-secondary); }
+    10% { background-color: rgba(128, 0, 128, 0.932); }
+    20% { background-color: var(--bg-secondary); }
+  }
+  
+  @keyframes express-color {
+    0% { background-color: var(--bg-secondary); }
+    10% { background-color: rgba(201, 201, 0, 0.921); }
+    20% { background-color: var(--bg-secondary); }
+  }
+  
+  @keyframes nosql-color {
+    0% { background-color: var(--bg-secondary); }
+    10% { background-color: rgba(0, 161, 201, 0.964); }
+    20% { background-color: var(--bg-secondary); }
+  }
+
+  .skill:hover .skill-percent {
+    animation-duration: 0.8s, 2s !important;
+    background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.3) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0.3) 75%,
+      transparent 75%,
+      transparent
+    );
+    animation-delay: 0s, 0s !important;
+    animation-fill-mode: forwards !important;
+    animation-play-state: running !important;
+  }
+
+  /* Spezifische Hover-Effekte für jeden Skill */
+  .skill:nth-of-type(1):hover {
+    box-shadow: -3px 0 0px rgba(0, 0, 147, 0.982);
+    background-color: rgba(0, 0, 147, 0.1);
+  }
+  .skill:nth-of-type(1):hover .skill-name {
+    color: rgba(65, 65, 255, 0.982);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 0, 147, 0.3);
+  }
+  .skill:nth-of-type(1):hover .skill-percent {
+    background-color: rgb(0, 0, 147) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(2):hover {
+    box-shadow: -3px 0 0px rgba(128, 0, 128, 0.976);
+    background-color: rgba(128, 0, 128, 0.337);
+  }
+  .skill:nth-of-type(2):hover .skill-name {
+    color: rgba(128, 0, 128, 0.976);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(128, 0, 128, 0.3);
+  }
+  .skill:nth-of-type(2):hover .skill-percent {
+    background-color: rgba(128, 0, 128, 0.976) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(3):hover {
+    box-shadow: -3px 0 0px tomato;
+    background-color: rgba(255, 99, 71, 0.1);
+  }
+  .skill:nth-of-type(3):hover .skill-name {
+    color: tomato;
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(255, 99, 71, 0.3);
+  }
+  .skill:nth-of-type(3):hover .skill-percent {
+    background-color: tomato !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(4):hover {
+    box-shadow: -3px 0 0px rgb(94, 171, 230);
+    background-color: rgba(94, 171, 230, 0.1);
+  }
+  .skill:nth-of-type(4):hover .skill-name {
+    color: rgb(94, 171, 230);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(94, 171, 230, 0.3);
+  }
+  .skill:nth-of-type(4):hover .skill-percent {
+    background-color: rgb(94, 171, 230) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(5):hover {
+    box-shadow: -3px 0 0px palevioletred;
+    background-color: rgba(216, 112, 147, 0.1);
+  }
+  .skill:nth-of-type(5):hover .skill-name {
+    color: palevioletred;
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(216, 112, 147, 0.3);
+  }
+  .skill:nth-of-type(5):hover .skill-percent {
+    background-color: palevioletred !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(6):hover {
+    box-shadow: -3px 0 0px rgb(0, 159, 180);
+    background-color: rgba(0, 159, 180, 0.1);
+  }
+  .skill:nth-of-type(6):hover .skill-name {
+    color: rgb(0, 159, 180);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 159, 180, 0.3);
+  }
+  .skill:nth-of-type(6):hover .skill-percent {
+    background-color: rgb(0, 159, 180) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(7):hover {
+    box-shadow: -3px 0 0px rgb(0, 159, 180);
+    background-color: rgba(0, 159, 180, 0.1);
+  }
+  .skill:nth-of-type(7):hover .skill-name {
+    color: rgb(0, 159, 180);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 159, 180, 0.3);
+  }
+  .skill:nth-of-type(7):hover .skill-percent {
+    background-color: rgb(0, 159, 180) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(8):hover {
+    box-shadow: -3px 0 0px rgb(0, 145, 12);
+    background-color: rgba(0, 145, 12, 0.1);
+  }
+  .skill:nth-of-type(8):hover .skill-name {
+    color: rgb(0, 145, 12);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 145, 12, 0.3);
+  }
+  .skill:nth-of-type(8):hover .skill-percent {
+    background-color: rgb(0, 145, 12) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(9):hover {
+    box-shadow: -3px 0 0px purple;
+    background-color: rgba(128, 0, 128, 0.1);
+  }
+  .skill:nth-of-type(9):hover .skill-name {
+    color: purple;
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(128, 0, 128, 0.3);
+  }
+  .skill:nth-of-type(9):hover .skill-percent {
+    background-color: purple !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(10):hover {
+    box-shadow: -3px 0 0px rgb(0, 149, 255);
+    background-color: rgba(0, 149, 255, 0.1);
+  }
+  .skill:nth-of-type(10):hover .skill-name {
+    color: rgb(0, 149, 255);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 149, 255, 0.3);
+  }
+  .skill:nth-of-type(10):hover .skill-percent {
+    background-color: rgb(0, 149, 255) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(11):hover {
+    box-shadow: -3px 0 0px purple;
+    background-color: rgba(128, 0, 128, 0.1);
+  }
+  .skill:nth-of-type(11):hover .skill-name {
+    color: purple;
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(128, 0, 128, 0.3);
+  }
+  .skill:nth-of-type(11):hover .skill-percent {
+    background-color: purple !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(12):hover {
+    box-shadow: -3px 0 0px rgb(211, 211, 0);
+    background-color: rgba(211, 211, 0, 0.1);
+  }
+  .skill:nth-of-type(12):hover .skill-name {
+    color: rgb(211, 211, 0);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(211, 211, 0, 0.3);
+  }
+  .skill:nth-of-type(12):hover .skill-percent {
+    background-color: rgb(211, 211, 0) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(13):hover {
+    box-shadow: -3px 0 0px rgb(0, 161, 201);
+    background-color: rgba(0, 161, 201, 0.1);
+  }
+  .skill:nth-of-type(13):hover .skill-name {
+    color: rgb(0, 161, 201);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 161, 201, 0.3);
+  }
+  .skill:nth-of-type(13):hover .skill-percent {
+    background-color: rgb(0, 161, 201) !important;
+    opacity: 1;
   }
 
   .skill-percent-number {
     margin-left: 20px;
     font-size: 16px;
-    color: #263442c0;
+    color: var(--text-primary);
   }
 
   i:hover {
     transition: 0.5s;
     color: tomato;
-  }
-
- 
-
-  .skill:hover:nth-of-type(1) .skill-percent {
-    background-color: rgb(0, 0, 147);
-  }
-  .skill:hover:nth-of-type(1) .skill-name {
-    color: blue;
-    scale: 1.5;
-    transform: translateX(18px);
-  }
-  .skill:hover:nth-of-type(2) .skill-percent {
-    background-color: purple;
-  }
-  .skill:hover:nth-of-type(2) .skill-name {
-    color: purple;
-    scale: 1.5;
-    transform: translateX(18px);
-  }
-  .skill:hover:nth-of-type(3) .skill-percent {
-    background-color: tomato;
-  }
-  .skill:hover:nth-of-type(3) .skill-name {
-    color: tomato;
-    scale: 1.2;
-    transform: translateX(2px);
-  }
-  .skill:hover:nth-of-type(4) .skill-percent {
-    background-color: rgb(94, 171, 230);
-  }
-  .skill:hover:nth-of-type(4) .skill-name {
-    color: rgb(94, 171, 230);
-    scale: 1.2;
-    transform: translateX(2px);
-    text-shadow: 0 0 5px rgb(94, 171, 230);
-  }
-  .skill:hover:nth-of-type(5) .skill-percent {
-    background-color: palevioletred;
-  }
-  .skill:hover:nth-of-type(5) .skill-name {
-    color: palevioletred;
-    scale: 1.5;
-    transform: translateX(18px);
-  }
-
-  .skill:hover:nth-of-type(6) .skill-percent {
-    background-color: rgb(0, 159, 180);
-  }
-  .skill:hover:nth-of-type(6) .skill-name {
-    color: rgb(0, 159, 180);
-    scale: 1.2;
-  }
-  .skill:hover:nth-of-type(7) .skill-percent {
-    background-color: rgb(0, 159, 180);
-  }
-  .skill:hover:nth-of-type(7) .skill-name {
-    color: rgb(0, 159, 180);
-    scale: 1.5;
-    transform: translateX(12px);
-  }
-
-  .skill:hover:nth-of-type(8) .skill-percent {
-    background-color: rgb(0, 145, 12);
-  }
-  .skill:hover:nth-of-type(8) .skill-name {
-    color: rgb(0, 145, 12);
-    scale: 1.5;
-    transform: translateX(18px);
-  }
-  .skill:hover:nth-of-type(9) .skill-percent {
-    background-color: purple;
-  }
-  .skill:hover:nth-of-type(9) .skill-name {
-    color: purple;
-    scale: 1.5;
-    transform: translateX(18px);
-  }
-  .skill:hover:nth-of-type(10) .skill-percent {
-    background-color: rgb(0, 149, 255);
-  }
-  .skill:hover:nth-of-type(10) .skill-name {
-    color: rgb(0, 149, 255);
-    scale: 1.5;
-    transform: translateX(18px);
-  }
-  .skill:hover:nth-of-type(11) .skill-percent {
-    background-color: purple;
-  }
-  .skill:hover:nth-of-type(11) .skill-name {
-    color: purple;
-    scale: 1.5;
-    transform: translateX(18px);
-  }
-  .skill:hover:nth-of-type(12) .skill-percent {
-    background-color: rgb(201, 201, 0);
-  }
-  .skill:hover:nth-of-type(12) .skill-name {
-    color: rgb(211, 211, 0);
-    scale: 1.5;
-    transform: translateX(18px);
-  }
-  .skill:hover:nth-of-type(13) .skill-percent {
-    background-color: rgb(0, 161, 201);
-  }
-  .skill:hover:nth-of-type(13) .skill-name {
-    color: rgb(0, 161, 201);
-    scale: 1.5;
-    transform: translateX(18px);
   }
 
   .icon-wrapper {
@@ -376,15 +632,18 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
     align-items: center;
   }
   .icon-wrapper i {
-    transition: transform 0.5s;
-    scale: 1.5;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-size: 35px;
+    will-change: transform, color;
+    backface-visibility: hidden; /* GPU acceleration */
   }
   .icon-label {
-    opacity: .2;
+    opacity: 0;
     transform: translate(0, -5px) scale(.7);
     transition:  0.5s;
     font-size: 10px;
     margin-top: 5px;
+    color: var(--text-primary);
   }
   .icon-wrapper:hover i {
     transform: scale(1.2) translate(0, -5px);
@@ -397,7 +656,66 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
     transition: .5;
   }
 
- 
+  .cv {
+    box-shadow: var(--card-shadow);
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    position: relative;
+    border: 2px solid transparent;
+    padding: 0.75rem 1.5rem;
+    overflow: hidden;
+  }
+  
+  .cv:hover {
+    color: var(--accent);
+    transform: scale(1.05);
+    animation: border-glow 3s infinite;
+  }
+
+  .cv::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.7s;
+  }
+  
+  .cv:hover::before {
+    left: 100%;
+  }
+
+  @keyframes pulse-shadow {
+    0% {
+      box-shadow: 0 0 5px transparent;
+    }
+    50% {
+      box-shadow: 0 0 35px var(--accent), inset 0 0 15px 0px var(--bg-secondary);
+    }
+    100% {
+      box-shadow: 0 0 5px transparent;
+    }
+  }
+
+  @keyframes border-glow {
+    0% {
+      border-color: transparent;
+    }
+    50% {
+      border-color: var(--accent);
+    }
+    100% {
+      border-color: transparent;
+    }
+  }
+
+  .animate-cv {
+    animation: pulse-shadow 3s infinite;
+
+  }
 
   @media screen and (max-width: 768px) {
     .card {
@@ -415,3 +733,28 @@ import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
     
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const skillsSection = document.getElementById("skills");
+    const skillPercents = document.querySelectorAll(".skill-percent");
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate");
+          
+          skillPercents.forEach((skillBar, index) => {
+            (skillBar as HTMLElement).style.transitionDelay = `${index * 0.1}s`;
+          });
+        } else {
+          entry.target.classList.remove("animate");
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    if (skillsSection) {
+      observer.observe(skillsSection);
+    }
+  });
+</script>

@@ -1,6 +1,7 @@
 ---
 import "../css/fonts.css";
 import "../css/keyframes.css";
+import "../css/darkmode.css";
 import Nav from "../components/Nav.astro";
 import Iam from "../components/Iam.astro";
 import Myself from "../components/Myself.astro";
@@ -8,7 +9,7 @@ import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
-import background from "../assets/images/white-geometrical-shapes-background.jpg";
+import ScrollProgress from "../components/ScrollProgress.astro";
 ---
 
 <html class="w-full" lang="en">
@@ -22,24 +23,33 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
   <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
     <div id="home"></div>
     <Nav />
+    <ScrollProgress /> <!-- Position nach der Nav für korrektes Rendering -->
 
     <Iam />
 
     <div id="about">
       <Myself />
     </div>
-
-    <div id="skills">
-      
-      <Skills />
-    </div>
+    
+    <Skills />
+    
     <div id="projects" >
       <Projects />
     </div>
-    <div id="contact"></div>
-    <Contact />
+    <div id="contact">
+      <Contact />
+    </div>
 
     <Footer />
+    
+    <!-- Fixierter Theme Toggle Button -->
+    <button
+      id="darkModeToggle"
+      class="theme-toggle fixed z-50 p-3 rounded-full shadow-lg focus:outline-none"
+      aria-label="Theme wechseln"
+    >
+      <!-- Icon wird per JavaScript eingefügt -->
+    </button>
   </body>
 </html>
 
@@ -50,24 +60,30 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
     padding: 0;
     margin: 0;
   }
-  body{
+  body {
     overflow-x: hidden;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   #about {
-    padding-top: 45px;
+    position: relative;
+    min-height: 100vh;
+    z-index: 0; /* Stellt sicher, dass der Hintergrund hinter dem Inhalt liegt */
   }
   #skills {
-    padding-top: 35px;
-    height: 100vh;
+    min-height: 100vh;
   }
   #projects {
+    position: relative;
     padding: 0px 0;
     background-size: 500%;
     background-repeat: no-repeat; 
     background-attachment: fixed; 
     background-position: center;
     animation: slidein2 linear 1055s;
+    z-index: 0; /* Stellt sicher, dass der Hintergrund hinter dem Inhalt liegt */
   }
   #contact {
     padding-top: -150px;
@@ -87,9 +103,86 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
     border-radius: 5px;
   }
   
+  /* Theme Toggle Button Styling */
+  .theme-toggle {
+    bottom: 20px;
+    right: 20px;
+    padding: .9rem;
+    width: 55px;
+    background-color: var(--bg-secondary);
+    border: 1px currentColor var(--border);
+    color: var(--accent);
+    transition: all 0.3s ease;
+  }
+  
+  .theme-toggle:hover {
+    box-shadow: 0 0 10px 2px var(--pulse-shadow-mid);    
+    color: var(--accent);
+    background-color: var(--bg-secondary);
+    i{
+      transform: scale(1.5);
+      transition: .5s;
+    }
+  }
+  
+  .theme-toggle i {
+    font-size: 1.5rem;
+  }  
+ 
+  @media (max-width: 768px) {
+    .theme-toggle {
+      bottom: 15px;
+      right: 15px;
+      padding: 0.75rem;
+    }
+    
+    .theme-toggle i {
+      font-size: 1.2rem;
+    }
+  }
 </style>
 
 <script>
+  // Dark Mode Logic
+  document.addEventListener("DOMContentLoaded", () => {
+    const darkModeToggle = document.getElementById("darkModeToggle");
+    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+    
+    // Check for saved theme preference or use the system preference
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark" || (!savedTheme && prefersDarkScheme.matches)) {
+      document.documentElement.classList.add("dark-mode"); // Änderung: auf documentElement anwenden
+      updateIcon(true);
+    } else {
+      document.documentElement.classList.remove("dark-mode"); // Änderung: auf documentElement anwenden
+      updateIcon(false);
+    }
+    
+    // Toggle dark mode on click
+    darkModeToggle.addEventListener("click", () => {
+      const isDarkMode = document.documentElement.classList.toggle("dark-mode"); // Änderung: auf documentElement anwenden
+      localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+      updateIcon(isDarkMode);
+    });
+    
+    // Update the icon
+    function updateIcon(isDarkMode) {
+      // Altes Icon entfernen
+      darkModeToggle.innerHTML = '';
+      
+      // Neues Icon basierend auf Modus hinzufügen
+      const icon = document.createElement('i');
+      if (isDarkMode) {
+        icon.className = 'fa-solid fa-sun';
+        icon.setAttribute('title', 'Light Mode aktivieren');
+      } else {
+        icon.className = 'fa-solid fa-moon';
+        icon.setAttribute('title', 'Dark Mode aktivieren');
+      }
+      darkModeToggle.appendChild(icon);
+    }
+  });
+  
   document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll("div[id]");
     const navLinks = document.querySelectorAll("nav a");
@@ -105,13 +198,12 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
                 link.classList.remove("active");
               }
             });
-
           }
         });
       },
       {
-        threshold: 0.5, 
-        rootMargin: "0px",
+        threshold: 0.1, // Niedrigerer Threshold für bessere Erkennung
+        rootMargin: "0px 0px -60% 0px", // Negative Margin unten, damit früher erkannt wird
       }
     );
 
@@ -147,6 +239,38 @@ import background from "../assets/images/white-geometrical-shapes-background.jpg
 
     boxes.forEach((offscreen) => {
       observer.observe(offscreen);
+    });
+  });
+</script>
+<script>
+  // Zentrale Performance-Optimierung für Hintergrundbilder
+  document.addEventListener("DOMContentLoaded", () => {
+    // Liste aller Sektionen mit animierten Hintergründen
+    const animatedSections = [
+      document.getElementById("home-section"),
+      document.getElementById("skills"),
+      document.getElementById("contact-section"),
+      document.getElementById("projects")
+    ].filter(section => section !== null);
+    
+    // Intersection Observer für alle Sektionen
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // Klasse hinzufügen/entfernen je nachdem, ob Element sichtbar ist
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate");
+        } else {
+          entry.target.classList.remove("animate");
+        }
+      });
+    }, { 
+      threshold: 0.1,  // Animation startet, wenn 10% der Sektion sichtbar sind
+      rootMargin: "100px" // Etwas früher starten für flüssigeren Übergang
+    });
+    
+    // Alle animierten Sektionen beobachten
+    animatedSections.forEach(section => {
+      if (section) observer.observe(section);
     });
   });
 </script>

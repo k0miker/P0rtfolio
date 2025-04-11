@@ -1,0 +1,244 @@
+---
+// Keine Props benötigt
+---
+
+<div class="scroll-progress">
+  <div class="progress-bar"></div>
+  <div class="section-indicators-container">
+    <div class="section-indicators">
+      <div class="section-indicator" data-section="home">/Home</div>
+      <div class="section-indicator" data-section="about">/About</div>
+      <div class="section-indicator" data-section="skills">/Skills</div>
+      <div class="section-indicator" data-section="projects">/Projects</div>
+      <div class="section-indicator" data-section="contact">/Contact</div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .scroll-progress {
+    position: fixed;
+    top: 0%;
+    left: 0;
+    width: 5px; /* Schmale Breite für die Seitenleiste */
+    height: 40vh;
+    z-index: 51; /* Über der Navbar (z-50) */
+    background: rgba(0, 0, 0, 0.1); /* Subtiler Hintergrund */
+    pointer-events: none; /* Keine Mausinteraktionen blockieren */
+  }
+  
+  .progress-bar {
+    position: absolute;
+    bottom: 100; /* Fortschrittsbalken beginnt von unten */
+    left: 0;
+    width: 100%; /* Volle Breite des schmalen Containers */
+    background-color: var(--accent);
+    height: 0%; /* Startet mit 0% Höhe */
+    transition: height 0.1s ease;
+  }
+
+  /* Dunkler Modus Anpassungen */
+  .dark-mode .scroll-progress {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  /* Container für Sektionsanzeigen mit fester Höhe */
+  .section-indicators-container {
+    position: absolute;
+    left: 15px;
+    height: 100vh;
+    display: flex;
+    align-items: center; /* Vertikale Zentrierung */
+    overflow: visible;
+  }
+
+  /* Styling für den Sektionsindikator-Container */
+  .section-indicators {
+    position: relative;
+    top: -25%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between; /* Gleichmäßige Verteilung */
+    height: 50vh; /* 80% der Viewport-Höhe, um Platz an Rändern zu lassen */
+    transition: transform 0.4s ease;
+    transform-origin: center left;
+    padding: 10vh 0; /* Padding oben und unten für bessere Verteilung */
+  }
+
+  /* Styling für die einzelnen Sektionsindikatoren */
+  .section-indicator {
+    font-family: 'mono', monospace;
+    font-weight: bold;
+    font-size: 14px;
+    color: var(--accent);
+    text-transform: uppercase;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    margin: 20px 0; 
+    transform: scale(0.5); /* Starte mit kleinerer Größe */
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease, color 0.3s ease;
+    transform-origin: left center; /* Skalierung von links starten */
+    position: relative;
+  }
+
+  /* Aktiver Sektionsindikator */
+  .section-indicator.active {    
+    opacity: .5;
+    color: var(--accent);
+  }
+
+  /* Benachbarte Sektionen (etwas kleiner und weniger sichtbar) */
+  .section-indicator.nearby {
+    opacity: 0.4;
+    color: var(--text-secondary);
+  }
+
+  /* Weit entfernte Sektionen (noch kleiner und kaum sichtbar) */
+  .section-indicator.distant {
+    opacity: 0.25;
+    color: var(--text-secondary);
+  }
+  
+  .section-indicator.hide {
+    opacity: 0.1;
+    color: var(--text-secondary);
+  }
+
+  /* Anpassung für Mobilgeräte */
+  @media (max-width: 768px) {
+    .section-indicators-container {
+      left: 10px;
+    }
+    
+    .section-indicator {
+      font-size: 12px;
+      margin: 8px 0;
+    }
+    
+    .section-indicators {
+      height: 70vh; /* Etwas kompakter auf Mobilgeräten */
+      padding: 15vh 0; /* Mehr Padding für mobile Geräte */
+    }
+  }
+  
+  /* Ausblenden der Texte unter 500px Bildschirmbreite */
+  @media (max-width: 500px) {
+    .section-indicators-container {
+      display: none; /* Komplette Indikatoren ausblenden */
+    }
+    
+    /* Fortschrittsbalken bleibt sichtbar */
+    .scroll-progress {
+      height: 100vh; /* Volle Höhe nutzen */
+      width: 3px; /* Etwas schmaler für kleine Bildschirme */
+      top: 0; /* Von ganz oben beginnen */
+    }
+    
+    /* Progress-Bar anpassen */
+    .progress-bar {
+      bottom: 0;
+      height: 0%; /* Höhe wird durch JS gesetzt */
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const progressBar = document.querySelector('.progress-bar') as HTMLElement;
+    const sectionIndicatorsContainer = document.querySelector('.section-indicators') as HTMLElement;
+    const sectionIndicators = document.querySelectorAll('.section-indicator') as NodeListOf<HTMLElement>;
+    
+    // Definiere die Sektionen und ihre IDs
+    const sections = [
+      { id: 'home', label: '/Home' },
+      { id: 'about', label: '/About' },
+      { id: 'skills', label: '/Skills' },
+      { id: 'projects', label: '/Projects' },
+      { id: 'contact', label: '/Contact' }
+    ];
+    
+    // Funktionen zum Aktualisieren des aktiven Zustands
+    function updateSectionIndicators(currentSectionId) {
+      const currentIndex = sections.findIndex(section => section.id === currentSectionId);
+      
+      // Wir brauchen keinen Versatz mehr, da die Elemente bereits über die volle Höhe verteilt sind
+      // Die Elemente bleiben an ihrer Position, wir ändern nur ihr Erscheinungsbild
+      
+      sectionIndicators.forEach((indicator, index) => {
+        // Entferne alle Klassen
+        indicator.classList.remove('active', 'nearby', 'distant', 'hide');
+        
+        // Berechne den Abstand zum aktuellen Index
+        const distance = Math.abs(index - currentIndex);
+        
+        // Setze die entsprechende Klasse basierend auf dem Abstand
+        if (distance === 0) {
+          indicator.classList.add('active');
+          indicator.style.transform = 'scale(1)'; // Normale Größe für aktive Sektion
+        } else if (distance === 1) {
+          indicator.classList.add('nearby');
+          indicator.style.transform = 'scale(0.7)'; // Etwas kleiner für benachbarte Sektionen
+        } else if (distance === 2) {
+          indicator.classList.add('distant');
+          indicator.style.transform = 'scale(0.5)'; // Klein für weiter entfernte Sektionen
+        } else {
+          indicator.classList.add('hide');
+          indicator.style.transform = 'scale(0.3)'; // Sehr klein für weit entfernte Sektionen
+        }
+      });
+    }
+    
+    // Aktualisiere die Fortschrittsleiste und Sektionsanzeige beim Scrollen
+    window.addEventListener('scroll', () => {
+      // Scroll-Fortschritt berechnen
+      const scrollTop = window.scrollY;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+      
+      if (scrollHeight <= clientHeight) return;
+      
+      const scrolled = (scrollTop / (scrollHeight - clientHeight)) * 100;
+      
+      // Fortschrittsbalken aktualisieren
+      if (progressBar) {
+        progressBar.style.height = `${scrolled}%`;
+      }
+      
+      // Spezieller Fall für den Seitenende - Contact-Sektion
+      if (scrollTop + clientHeight >= scrollHeight - 200) {
+        updateSectionIndicators('contact');
+        return;
+      }
+      
+      // Aktuelle Sektion bestimmen
+      let currentSectionId = '';
+      
+      for (const section of sections) {
+        const element = document.getElementById(section.id);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          // Wenn die Mitte des Viewports in der Sektion liegt oder etwas darunter
+          if (rect.top <= window.innerHeight/2 && rect.bottom >= 0) {
+            currentSectionId = section.id;
+            break;
+          }
+        }
+      }
+      
+      // Fallback auf erste Sektion, wenn keine erkannt wurde
+      if (!currentSectionId && scrollTop < window.innerHeight) {
+        currentSectionId = 'home';
+      }
+      
+      // Aktualisiere die Sektionsanzeige
+      updateSectionIndicators(currentSectionId);
+    });
+    
+    // Initial beim Laden ausführen
+    setTimeout(() => {
+      updateSectionIndicators('home');
+    }, 100);
+  });
+</script>

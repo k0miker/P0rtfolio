@@ -1,0 +1,199 @@
+---
+const { project, image } = Astro.props;
+
+// Verwende cardDescriptionEN mit Fallback-Optionen
+const cardDescription = project.cardDescriptionEN || 
+                        project.cardDescriptionEn || 
+                        project.description?.en || 
+                        project.description || 
+                        "No description available";
+
+// Stelle sicher, dass die Kategorie immer gesetzt ist
+const category = project.category || 'Other';
+---
+
+<div class="card-wrapper " data-category={category}>
+  <div class="box card-3d offscreen" data-modal-target={`modal-${project.id}`}>
+    <div class="card-content">
+      <img
+        src={image.src}
+        alt={project.title}
+        loading="lazy"
+        class="card-image"
+      />
+      <div class="card-overlay">
+        <h3 class="card-title">{project.title}</h3>
+        <p class="card-tech">
+          {project.technologies?.join(" • ") || "No technologies specified"}
+        </p>
+        <div class="card-description">
+          <p>{cardDescription}</p>
+        </div>
+        <div class="card-badges">
+          {project.badges && project.badges.map(badge => (
+            <span class="badge">{badge}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .card-wrapper {
+    position: relative;
+    z-index: 5;
+    perspective: 1000px;
+  }
+
+  .box {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transform: translateZ(0);
+    transition: transform 0.5s ease-out, box-shadow 0.5s ease-out;
+    background-color: var(--bg-card);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .card-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.5s ease-out;
+  }
+
+  .card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8) 70%, transparent);
+    color: white;
+    transform: translateY(85%);
+    transition: transform 0.4s ease-out;
+    max-height: 90%;
+    overflow-y: auto;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-tech {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    margin-bottom: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-description {
+    margin: 0.75rem 0;
+    font-size: 0.875rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+
+  .card-description p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4;
+  }
+
+  .card-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    transition: opacity 0.3s ease-out;
+    opacity: 0;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background-color: var(--accent);
+    color: white;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
+
+  /* Hover Effekte */
+  .box:hover {
+    transform: rotateX(5deg) rotateY(5deg) translateZ(10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 
+                0 0 20px var(--pulse-shadow-mid);
+  }
+
+  .box:hover .card-image {
+    transform: scale(1.05);
+  }
+
+  .box:hover .card-overlay {
+    transform: translateY(0);
+  }
+
+  .box:hover .card-description {
+    max-height: 200px; 
+  }
+
+  .box:hover .card-badges {
+    opacity: 1;
+  }
+
+  /* Touch-Screen Geräte */
+  @media (hover: none) {
+    .card-description {
+      max-height: 80px;
+    }
+    
+    .card-overlay {
+      transform: translateY(60%);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const cards = document.querySelectorAll(".card-3d");
+    
+    cards.forEach(card => {
+      card.addEventListener("mousemove", (e: MouseEvent) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height /2;
+        
+        const rotateX = (y - centerY) / 15;
+        const rotateY = (centerX - x) / 15;
+        
+        (card as HTMLElement).style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+      
+      card.addEventListener("mouseleave", () => {
+        (card as HTMLElement).style.transform = 'rotateX(0) rotateY(0)';
+      });
+    });
+  });
+</script>
