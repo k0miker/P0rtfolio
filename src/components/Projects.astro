@@ -110,7 +110,7 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
   }
   
   .filter-btn {
-    padding: 0.5rem 1rem;
+    padding: 0.3rem .5rem;
     border: 1px solid var(--accent);
     border-radius: 25px;
     background-color: var(--bg-secondary);
@@ -119,8 +119,8 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
-    z-index: 12; /* Jeder Button bekommt einen noch höheren z-index */
-    white-space: nowrap; /* Verhindert Umbrüche innerhalb des Button-Textes */
+    z-index: 12; 
+    white-space: nowrap; 
   }
   
   .filter-btn:hover {

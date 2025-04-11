@@ -12,8 +12,8 @@ const cardDescription = project.cardDescriptionEN ||
 const category = project.category || 'Other';
 ---
 
-<div class="card-wrapper" data-category={category}>
-  <div class="box card-3d" data-modal-target={`modal-${project.id}`}>
+<div class="card-wrapper " data-category={category}>
+  <div class="box card-3d offscreen" data-modal-target={`modal-${project.id}`}>
     <div class="card-content">
       <img
         src={image.src}

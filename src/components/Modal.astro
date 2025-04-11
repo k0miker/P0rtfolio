@@ -561,9 +561,11 @@ const hasMultiLanguage = englishDesc !== germanDesc;
       
       // Verhindern, dass Klicks auf den Modal-Inhalt das Modal schließen
       const modalContent = modal.querySelector('.modal-content');
-      modalContent.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
+      if (modalContent) { // Null-Check hinzufügen
+        modalContent.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+      }
       
       // Bei Fenstergröße-Änderung die Höhe neu anpassen
       window.addEventListener("resize", updateDescriptionHeight);

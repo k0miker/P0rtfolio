@@ -223,11 +223,20 @@ import skillsBg from "../assets/images/skills.jpg";
     align-items: center;
     justify-content: center;
     margin-bottom: 5px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .skill:hover {
+    background-color: var(--bg-tertiary);
+    transform: translateX(5px);
+    box-shadow: -3px 0 0px var(--accent);
   }
 
   .skill-name {
     width: 120px;
-    transition: 0.5s;
+    transition: 0.3s;
     font-size: 16px;
     color: var(--text-primary);
   }
@@ -330,76 +339,80 @@ import skillsBg from "../assets/images/skills.jpg";
 
   @keyframes html-color {
     0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgba(0, 0, 147, 0.582); }
-    30% { background-color: rgba(0, 0, 147, 0.8); }
-    50% { background-color: rgba(0, 0, 147, 0.6); }
-    100% { background-color: var(--bg-secondary); }
+    10% { background-color: rgb(0, 0, 147); }
+    20% { background-color: var(--bg-secondary); }
   }
   
   @keyframes css-color {
     0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgba(128, 0, 128, 0.576); }
-    30% { background-color: rgba(128, 0, 128, 0.8); }
-    50% { background-color: rgba(128, 0, 128, 0.6); }
-    100% { background-color: var(--bg-secondary); }
+    10% { background-color: rgba(128, 0, 128, 0.976); }
+    20% { background-color: var(--bg-secondary); }
   }
   
   @keyframes js-color {
     0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgba(255, 99, 71, 0.47); }
-    30% { background-color: rgba(255, 99, 71, 0.7); }
-    50% { background-color: rgba(255, 99, 71, 0.5); }
-    100% { background-color: var(--bg-secondary); }
+    10% { background-color: rgba(255, 99, 71, 0.97); }
+    20% { background-color: var(--bg-secondary); }
   }
   
   @keyframes ts-color {
     0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgba(94, 171, 230, 0.536); }
+    10% { background-color: rgba(94, 171, 230, 0.936); }
+    20% { background-color: var(--bg-secondary); }
   }
   
   @keyframes astro-color {
    0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgba(216, 112, 147, 0.808); }
+    10% { background-color: rgba(217, 96, 136, 0.908); }
+    20% { background-color: var(--bg-secondary); }
   }
   
   @keyframes react-color {
     0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgb(0, 159, 180); }
+    10% { background-color: #58C4DC; }
+    20% { background-color: var(--bg-secondary); }
   }
   
   @keyframes tailwind-color {
     0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgb(0, 159, 180); }
+    10% { background-color: #36B7F0; }
+    20% { background-color: var(--bg-secondary); }
   }
   
   @keyframes github-color {
     0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgba(0, 145, 12, 0.593); }
+    10% { background-color: rgba(0, 145, 12, 0.93); }
+    20% { background-color: var(--bg-secondary); }
   }
   
   @keyframes scss-color {
     0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgba(128, 0, 128, 0.604); }
+    10% { background-color: rgba(128, 0, 128, 0.904); }
+    20% { background-color: var(--bg-secondary); }
   }
   
   @keyframes windows-color {
     0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgba(0, 149, 255, 0.622); }
+    10% { background-color: rgba(0, 149, 255, 0.922); }
+    20% { background-color: var(--bg-secondary); }
   }
   
   @keyframes linux-color {
     0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgba(128, 0, 128, 0.532); }
+    10% { background-color: rgba(128, 0, 128, 0.932); }
+    20% { background-color: var(--bg-secondary); }
   }
   
   @keyframes express-color {
     0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgba(201, 201, 0, 0.621); }
+    10% { background-color: rgba(201, 201, 0, 0.921); }
+    20% { background-color: var(--bg-secondary); }
   }
   
   @keyframes nosql-color {
     0% { background-color: var(--bg-secondary); }
-    10% { background-color: rgba(0, 161, 201, 0.564); }
+    10% { background-color: rgba(0, 161, 201, 0.964); }
+    20% { background-color: var(--bg-secondary); }
   }
 
   .skill:hover .skill-percent {
@@ -414,9 +427,192 @@ import skillsBg from "../assets/images/skills.jpg";
       transparent 75%,
       transparent
     );
-    will-change: transform, background-position;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    animation-delay: 0s, 0s !important;
+    animation-fill-mode: forwards !important;
+    animation-play-state: running !important;
+  }
+
+  /* Spezifische Hover-Effekte für jeden Skill */
+  .skill:nth-of-type(1):hover {
+    box-shadow: -3px 0 0px rgba(0, 0, 147, 0.982);
+    background-color: rgba(0, 0, 147, 0.1);
+  }
+  .skill:nth-of-type(1):hover .skill-name {
+    color: rgba(65, 65, 255, 0.982);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 0, 147, 0.3);
+  }
+  .skill:nth-of-type(1):hover .skill-percent {
+    background-color: rgb(0, 0, 147) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(2):hover {
+    box-shadow: -3px 0 0px rgba(128, 0, 128, 0.976);
+    background-color: rgba(128, 0, 128, 0.337);
+  }
+  .skill:nth-of-type(2):hover .skill-name {
+    color: rgba(128, 0, 128, 0.976);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(128, 0, 128, 0.3);
+  }
+  .skill:nth-of-type(2):hover .skill-percent {
+    background-color: rgba(128, 0, 128, 0.976) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(3):hover {
+    box-shadow: -3px 0 0px tomato;
+    background-color: rgba(255, 99, 71, 0.1);
+  }
+  .skill:nth-of-type(3):hover .skill-name {
+    color: tomato;
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(255, 99, 71, 0.3);
+  }
+  .skill:nth-of-type(3):hover .skill-percent {
+    background-color: tomato !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(4):hover {
+    box-shadow: -3px 0 0px rgb(94, 171, 230);
+    background-color: rgba(94, 171, 230, 0.1);
+  }
+  .skill:nth-of-type(4):hover .skill-name {
+    color: rgb(94, 171, 230);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(94, 171, 230, 0.3);
+  }
+  .skill:nth-of-type(4):hover .skill-percent {
+    background-color: rgb(94, 171, 230) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(5):hover {
+    box-shadow: -3px 0 0px palevioletred;
+    background-color: rgba(216, 112, 147, 0.1);
+  }
+  .skill:nth-of-type(5):hover .skill-name {
+    color: palevioletred;
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(216, 112, 147, 0.3);
+  }
+  .skill:nth-of-type(5):hover .skill-percent {
+    background-color: palevioletred !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(6):hover {
+    box-shadow: -3px 0 0px rgb(0, 159, 180);
+    background-color: rgba(0, 159, 180, 0.1);
+  }
+  .skill:nth-of-type(6):hover .skill-name {
+    color: rgb(0, 159, 180);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 159, 180, 0.3);
+  }
+  .skill:nth-of-type(6):hover .skill-percent {
+    background-color: rgb(0, 159, 180) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(7):hover {
+    box-shadow: -3px 0 0px rgb(0, 159, 180);
+    background-color: rgba(0, 159, 180, 0.1);
+  }
+  .skill:nth-of-type(7):hover .skill-name {
+    color: rgb(0, 159, 180);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 159, 180, 0.3);
+  }
+  .skill:nth-of-type(7):hover .skill-percent {
+    background-color: rgb(0, 159, 180) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(8):hover {
+    box-shadow: -3px 0 0px rgb(0, 145, 12);
+    background-color: rgba(0, 145, 12, 0.1);
+  }
+  .skill:nth-of-type(8):hover .skill-name {
+    color: rgb(0, 145, 12);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 145, 12, 0.3);
+  }
+  .skill:nth-of-type(8):hover .skill-percent {
+    background-color: rgb(0, 145, 12) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(9):hover {
+    box-shadow: -3px 0 0px purple;
+    background-color: rgba(128, 0, 128, 0.1);
+  }
+  .skill:nth-of-type(9):hover .skill-name {
+    color: purple;
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(128, 0, 128, 0.3);
+  }
+  .skill:nth-of-type(9):hover .skill-percent {
+    background-color: purple !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(10):hover {
+    box-shadow: -3px 0 0px rgb(0, 149, 255);
+    background-color: rgba(0, 149, 255, 0.1);
+  }
+  .skill:nth-of-type(10):hover .skill-name {
+    color: rgb(0, 149, 255);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 149, 255, 0.3);
+  }
+  .skill:nth-of-type(10):hover .skill-percent {
+    background-color: rgb(0, 149, 255) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(11):hover {
+    box-shadow: -3px 0 0px purple;
+    background-color: rgba(128, 0, 128, 0.1);
+  }
+  .skill:nth-of-type(11):hover .skill-name {
+    color: purple;
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(128, 0, 128, 0.3);
+  }
+  .skill:nth-of-type(11):hover .skill-percent {
+    background-color: purple !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(12):hover {
+    box-shadow: -3px 0 0px rgb(211, 211, 0);
+    background-color: rgba(211, 211, 0, 0.1);
+  }
+  .skill:nth-of-type(12):hover .skill-name {
+    color: rgb(211, 211, 0);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(211, 211, 0, 0.3);
+  }
+  .skill:nth-of-type(12):hover .skill-percent {
+    background-color: rgb(211, 211, 0) !important;
+    opacity: 1;
+  }
+  
+  .skill:nth-of-type(13):hover {
+    box-shadow: -3px 0 0px rgb(0, 161, 201);
+    background-color: rgba(0, 161, 201, 0.1);
+  }
+  .skill:nth-of-type(13):hover .skill-name {
+    color: rgb(0, 161, 201);
+    transform: translateX(10px) scale(1.2);
+    text-shadow: 0 0 5px rgba(0, 161, 201, 0.3);
+  }
+  .skill:nth-of-type(13):hover .skill-percent {
+    background-color: rgb(0, 161, 201) !important;
+    opacity: 1;
   }
 
   .skill-percent-number {
@@ -437,7 +633,7 @@ import skillsBg from "../assets/images/skills.jpg";
   }
   .icon-wrapper i {
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    scale: 1.5;
+    font-size: 35px;
     will-change: transform, color;
     backface-visibility: hidden; /* GPU acceleration */
   }
@@ -519,176 +715,6 @@ import skillsBg from "../assets/images/skills.jpg";
   .animate-cv {
     animation: pulse-shadow 3s infinite;
 
-  }
-
-  /* Verbesserte Hover-Effekte für die Texte mit synchronisierter Animation */
-  .skill:hover:nth-of-type(1) .skill-name {
-    color: rgba(0, 0, 147, 0.982);
-    scale: 1.5;
-    transform: translateX(18px);
-    text-shadow: 0 0 5px rgba(0, 0, 147, 0.982);
-    animation: html-text-color 2s infinite alternate;
-  }
-  
-  .skill:hover:nth-of-type(2) .skill-name {
-    color: rgba(128, 0, 128, 0.976);
-    scale: 1.5;
-    transform: translateX(18px);
-    text-shadow: 0 0 5px rgba(128, 0, 128, 0.976);
-    animation: css-text-color 2s infinite alternate;
-  }
-  
-  .skill:hover:nth-of-type(3) .skill-name {
-    color: tomato;
-    scale: 1.2;
-    transform: translateX(2px);
-    text-shadow: 0 0 5px tomato;
-    animation: js-text-color 2s infinite alternate;
-  }
-  
-  .skill:hover:nth-of-type(4) .skill-name {
-    color: rgb(94, 171, 230);
-    scale: 1.2;
-    transform: translateX(2px);
-    text-shadow: 0 0 5px rgb(94, 171, 230);
-    animation: ts-text-color 2s infinite alternate;
-  }
-  
-  .skill:hover:nth-of-type(5) .skill-name {
-    color: palevioletred;
-    scale: 1.5;
-    transform: translateX(18px);
-    text-shadow: 0 0 5px palevioletred;
-    animation: astro-text-color 2s infinite alternate;
-  }
-  
-  .skill:hover:nth-of-type(6) .skill-name {
-    color: rgb(0, 159, 180);
-    scale: 1.2;
-    transform: translateX(2px);
-    text-shadow: 0 0 5px rgb(0, 159, 180);
-    animation: react-text-color 2s infinite alternate;
-  }
-  
-  .skill:hover:nth-of-type(7) .skill-name {
-    color: rgb(0, 159, 180);
-    scale: 1.5;
-    transform: translateX(12px);
-    animation: tailwind-text-color 2s infinite alternate;
-  }
-  
-  .skill:hover:nth-of-type(8) .skill-name {
-    color: rgb(0, 145, 12);
-    scale: 1.5;
-    transform: translateX(18px);
-    text-shadow: 0 0 5px rgb(0, 145, 12);
-    animation: github-text-color 2s infinite alternate;
-  }
-  
-  .skill:hover:nth-of-type(9) .skill-name {
-    color: purple;
-    scale: 1.5;
-    transform: translateX(18px);
-    text-shadow: 0 0 5px purple;
-    animation: scss-text-color 2s infinite alternate;
-  }
-  
-  .skill:hover:nth-of-type(10) .skill-name {
-    color: rgb(0, 149, 255);
-    scale: 1.5;
-    transform: translateX(18px);
-    text-shadow: 0 0 5px rgb(0, 149, 255);
-    animation: windows-text-color 2s infinite alternate;
-  }
-  
-  .skill:hover:nth-of-type(11) .skill-name {
-    color: purple;
-    scale: 1.5;
-    transform: translateX(18px);
-    text-shadow: 0 0 5px purple;
-    animation: linux-text-color 2s infinite alternate;
-  }
-  
-  .skill:hover:nth-of-type(12) .skill-name {
-    color: rgb(211, 211, 0);
-    scale: 1.5;
-    transform: translateX(18px);
-    text-shadow: 0 0 5px rgb(211, 211, 0);
-    animation: express-text-color 2s infinite alternate;
-  }
-  
-  .skill:hover:nth-of-type(13) .skill-name {
-    color: rgb(0, 161, 201);
-    scale: 1.5;
-    transform: translateX(18px);
-    text-shadow: 0 0 5px rgb(0, 161, 201);
-    animation: nosql-text-color 2s infinite alternate;
-  }
-
-  /* Text-Farbanimationen entsprechend der Skill-Balken */
-  @keyframes html-text-color {
-    0% { color: rgba(52, 52, 170, 0.982); }
-    50%  { color: var(--text-secondary); }
-  }
-  
-  @keyframes css-text-color {
-    0% { color: rgba(128, 0, 128, 0.976); }
-    50% { color: var(--text-secondary);  }
-  }
-  
-  @keyframes js-text-color {
-    0% { color: tomato; }
-    50% { color: var(--text-secondary);  }
-  }
-  
-  @keyframes ts-text-color {
-    0% { color: rgb(94, 171, 230);}
-    50% { color: var(--text-secondary); }
-  }
-  
-  @keyframes astro-text-color {
-    0% { color: palevioletred; }
-    50% { text-shadow: 0 0 3px  }; 
-  }
-  
-  @keyframes react-text-color {
-    0% { color: rgb(0, 159, 180); }
-    50% { text-shadow: 0 0 3px  }; 
-  }
-  
-  @keyframes tailwind-text-color {
-    0% { color: rgb(0, 159, 180); }
-    50% { text-shadow: 0 0 3px  }; 
-  }
-  
-  @keyframes github-text-color {
-    0% { color: rgb(0, 145, 12); }
-    50% { text-shadow: 0 0 3px  }; 
-  }
-  
-  @keyframes scss-text-color {
-    0% { color: purple; }
-    50% { text-shadow: 0 0 3px  }; 
-  }
-  
-  @keyframes windows-text-color {
-    0% { color: rgb(0, 149, 255); }
-    50% { text-shadow: 0 0 3px  }; 
-  }
-  
-  @keyframes linux-text-color {
-    0% { color: purple; }
-    50% { text-shadow: 0 0 3px  }; 
-  }
-  
-  @keyframes express-text-color {
-    0% { color: rgb(211, 211, 0); }
-    50% { text-shadow: 0 0 3px  }; 
-  }
-  
-  @keyframes nosql-text-color {
-    0% { color: rgb(0, 161, 201); }
-    50% { text-shadow: 0 0 3px  }; 
   }
 
   @media screen and (max-width: 768px) {
