@@ -237,7 +237,7 @@
 }
 
 .dark-mode .footer {
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-primary);
 }
 
 .dark-mode form {
