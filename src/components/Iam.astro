@@ -24,15 +24,7 @@ import homeBg from "../assets/images/home.jpg";
     min-height: 40px;
   }
   
-  .down {
-    display: flex;
-    justify-content: center;
-    z-index: 10;
-    position: relative;
-    bottom: 20px;        
-    background-color: var(--bg-primary);
-
-  }
+ 
   a {
     color: var(--text-secondary);
     background-color: var(--bg-primary);
@@ -52,9 +44,23 @@ import homeBg from "../assets/images/home.jpg";
     transition: all 1s;
     flex-direction: column;
     div {
-      padding: 5px;
+      padding:0 5px;
     }
   }
+  .down {
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+    position: relative;
+    bottom: 19px;        
+    background-color: var(--bg-primary);
+    padding: 0;
+    a{
+    border-radius:  0.5em 0.5em 0 0;
+    }
+ 
+  }
+
   a:hover {
     transform: translateY(5px);
     background-color: var(--bg-primary);
