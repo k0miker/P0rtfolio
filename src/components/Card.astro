@@ -53,15 +53,29 @@ const category = project.category || 'Other';
     cursor: pointer;
     transform-style: preserve-3d;
     transform: translateZ(0);
-    transition: transform 0.5s ease-out, box-shadow 0.5s ease-out;
+    transition: transform 0.5s ease-out;
     background-color: var(--bg-card);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    animation: cardGlow 4s ease-in-out infinite alternate;
+  }
+  
+  @keyframes cardGlow {
+    0% {
+      box-shadow: 0 0 4px 1px var(--bg-primary), 0 0 2px 2px var(--bg-primary);
+    }
+    50% {
+      box-shadow: 0 0 2px 0px var(--accent), 0 0 1px 0px var(--accent);
+    }
+    100% {
+      box-shadow: 0 0 4px 1px var(--bg-primary), 0 0 2px 0px var(--bg-primary);
+    }
   }
 
   .card-content {
     position: relative;
     width: 100%;
     height: 100%;
+    
   }
 
   .card-image {
@@ -78,7 +92,7 @@ const category = project.category || 'Other';
     left: 0;
     right: 0;
     padding: 1.5rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.8) 70%, transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.528), rgba(0, 0, 0, 0.306) 70%, transparent);
     color: white;
     transform: translateY(85%);
     transition: transform 0.4s ease-out;
@@ -140,8 +154,18 @@ const category = project.category || 'Other';
   /* Hover Effekte */
   .box:hover {
     transform: rotateX(5deg) rotateY(5deg) translateZ(10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 
-                0 0 20px var(--pulse-shadow-mid);
+    animation: cardGlowIntense 2s ease-in-out infinite alternate;
+    scale: 1.1;
+    transition: 1s;
+  }
+  
+  @keyframes cardGlowIntense {
+    0% {
+      box-shadow: 0 0 15px 2px var(--accent), 0 0 10px 0px var(--accent);
+    }
+    100% {
+      box-shadow: 0 0 5px 5px var(--accent), 0 0 1px 0px var(--accent);
+    }
   }
 
   .box:hover .card-image {
@@ -167,7 +191,16 @@ const category = project.category || 'Other';
     }
     
     .card-overlay {
-      transform: translateY(60%);
+     .card-title {
+        font-size: .9rem;
+      }
+      font-size: .8rem;
+      line-height: 1.4;
+      transform: translateY(0%);
+      .card-badges {
+        opacity: .8;
+      }
+      
     }
   }
 </style>

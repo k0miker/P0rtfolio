@@ -1,6 +1,4 @@
 ---
-import "../css/fonts.css";
-import "../css/keyframes.css";
 import homeBg from "../assets/images/home.jpg";
 ---
 <div class="bg-container" id="home-section" style={`background-image: url(${homeBg.src})`}>
@@ -13,8 +11,8 @@ import homeBg from "../assets/images/home.jpg";
   </div>
 </div>
 <div class="down">
-  <a href="#about" 
-    ><div class="down">/down</div><div><i class=" fa-solid fa-arrow-down"></i></div></a
+  <a href="#contact" class=""
+    ><div >/down</div><div><i class=" fa-solid fa-arrow-down"></i></div></a
   >
 </div>
 </div>
@@ -31,8 +29,9 @@ import homeBg from "../assets/images/home.jpg";
     justify-content: center;
     z-index: 10;
     position: relative;
- 
-
+    bottom: 10px;    
+    
+    background-color: var(--bg-primary);
   }
   a {
     color: var(--text-secondary);
@@ -58,7 +57,7 @@ import homeBg from "../assets/images/home.jpg";
   }
   a:hover {
     transform: translateY(5px);
-    background-color: transparent;
+    background-color: var(--bg-primary);
   }
   a:hover div {
     color: tomato;
@@ -84,6 +83,7 @@ import homeBg from "../assets/images/home.jpg";
     background-repeat: no-repeat;
     background-attachment: fixed;
     transition: animation-play-state 0.3s;
+    min-height: 100vh;
   }
   
   .bg-container.animate {
@@ -93,8 +93,8 @@ import homeBg from "../assets/images/home.jpg";
   .console-container {
     color: white;
     box-shadow: inset 0px -2vh 5vw 10px #0000006f;
+    
     min-height: 100vh;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -126,33 +126,39 @@ import homeBg from "../assets/images/home.jpg";
     animation: fadein 4s;
     background-size: cover;
     background-attachment: fixed;
-    mask-image: url("https://i.imghippo.com/files/wula7758fc.png") ;
-
-    mask-size: 750px;
-    mask-position: center;  
-    mask-position: 52%;
-    @media screen and (max-width: 768px) {
-    mask-size: 450px;
-    mask-position: center;  
-    mask-position: 0%;
-      
-    }
- 
+    mask-image: url("https://i.imghippo.com/files/wula7758fc.png");
+    
+    /* Verbesserte Maskenpositionierung für konsistente Zentrierung */
+    mask-position: center center;
+    mask-size: min(750px, 100vw);
+    mask-position:  52% 50%;
+    mask-repeat: no-repeat;
     mask-origin: center;
     mask-mode: alpha;
     mask-clip: content-box;
-    mask-repeat: no-repeat;
-    backdrop-filter: blur(3px) ;
+    backdrop-filter: blur(3px);
     
-
   }
+  
+  /* Responsive Anpassungen für verschiedene Bildschirmgrößen */
   @media screen and (max-width: 768px) {
     .console-container {
       font-size: 1.5em;
     }
+    
+    .console-container::before {
+      /* Kleinere Maske für mobile Geräte, bleibt zentriert */
+      mask-size: min(450px, 90vw);
+    }
   }
-
-
+  
+  /* Sehr kleine Bildschirme */
+  @media screen and (max-width: 480px) {
+    .console-container::before {
+      /* Noch kleinere Maske, aber immer noch zentriert */
+      mask-size: min(350px, 95vw);
+    }
+  }
 </style>
 <script>
   // function([string1, string2],target id,[color1,color2])

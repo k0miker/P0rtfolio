@@ -4,7 +4,7 @@ import p5 from "../assets/images/p5.png";
 import p7 from "../assets/images/p7.gif";
 import p8 from "../assets/images/p8.png";
 import p9 from "../assets/images/p9.png";
-import p10 from "../assets/images/p10.gif";
+import p10 from "../assets/images/p10-2.gif";
 import p11 from "../assets/images/p11.gif";
 
 export const projects = [

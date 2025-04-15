@@ -1,6 +1,4 @@
 ---
-import "../css/keyframes.css";
-import "../css/darkmode.css";
 import logo from "../assets/images/logo.png";
 ---
 
@@ -84,13 +82,13 @@ import logo from "../assets/images/logo.png";
             @click="open = !open"
             class="px-0 w-[100%] text-left project-dropdown"
             ><a
-              class="px-2 py-2 mt-4 md:ml-3.5 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-600 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline min-w-16 flex"
+              class="px-2 py-2 mt-2 md:ml-3.5 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-600 focus:outline-none focus:shadow-outline min-w-16 flex"
               href="#projects"
               >/Projects<svg
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 :class="{'rotate-180': open, 'rotate-0': !open}"
-                class="w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform"
+                class="w-6 h-6 mt-0 ml-1 transition-transform duration-200 transform"
                 ><path
                   fill-rule="evenodd"
                   d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -179,6 +177,7 @@ import logo from "../assets/images/logo.png";
   nav * {
     font-family: mono;
     text-transform: uppercase;
+
   }
   
   /* Kopfzeile/Navbar Styling */
@@ -227,11 +226,119 @@ import logo from "../assets/images/logo.png";
     border-color: var(--border);
   }
   
+  /* Mobile Navigation Styling - Verbessert */
+  @media (max-width: 768px) {
+    /* Mindesthöhe für die Navigationsleiste festlegen */
+    .head {
+      min-height: 60px !important;
+      height: auto;
+    }
+    
+    /* Von der Seite einfliegendes Menü */
+    nav {
+      position: fixed;
+      right: -100%;
+      width: 100%;
+      background-color: var(--bg-transparent) ; /* Halbtransparenter Hintergrund */
+      z-index: 100;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;  
+      
+      border-radius: 0 0 0 18px; 
+    }
+    
+    .dark-mode nav {
+      background-color: rgba(37, 37, 37, 0.9) !important; /* Dunklere Variante mit Transparenz */
+    }
+    
+    /* Wenn das Menü geöffnet ist (über Alpine.js x-show/flex) */
+    nav.flex {
+      right: 0;
+    }
+    
+    /* Project-Dropdown für Mobile anpassen */
+    .project-modal {
+      position: relative !important;
+      width: 100% !important;
+      top: 0;
+      margin-top: 10px;
+      box-shadow: none;
+    }
+    
+    /* Projektlinks im Mobile-Menü */
+    .project-list {
+      width: 100% ;
+      margin-left: 0 ;
+      padding: 5px 0;
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 12px;
+      background-color: var(--bg-secondary);
+      border-radius: 8px;
+    }
+    
+    .project-list a {
+      margin: 3px;
+      padding: 5px 10px ;
+      border-radius: 6px;
+      text-align: center;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Hamburger-Menü immer im Vordergrund */
+    button[x-on\\:click="open = !open"] {
+      position: relative;
+      z-index: 101;
+    }
+  }
+  
+  /* Tablet-spezifische Anpassungen für Projekte */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .project-modal {
+      width: 400px !important;
+      right: -50px;
+    }
+    
+    .project-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding: 10px;
+    }
+    
+    .project-list a {
+      margin: 0;
+      padding: 12px 15px;
+      text-align: center;
+      height: 100%;
+    }
+  }
+  
   /* Mobile Navigation Styling */
   @media (max-width: 768px) {
     nav {
-      background-color: var(--nav-bg-solid) !important;  
+      background-color: transparent ;  
+      color: var(--bg-secondary);
+      top: 59px;
+      width: 80%;
+      a {
+        color: var(--text-secondary) ;
+        background-color: var(--bg-primary) ;
+        margin-bottom: 2px;
       }
+      
+      
+      &:hover {
+        background-color: var(--bg-primary) ;
+      }
+    }
+    .colored {
+      background-color: var(--bg-primary) ;
+      color: var(--text-primary);
+    }
     
     .dark-mode nav {
       background-color: var(--bg-card) !important;
@@ -309,7 +416,7 @@ import logo from "../assets/images/logo.png";
   .colored {
     height: 7vh;
     transition: all 1s;
-    background: var(--nav-bg-solid);
+    background: var(--bg-primary) ;
     box-shadow: var(--nav-shadow-solid);
     
     .name {
@@ -336,16 +443,23 @@ import logo from "../assets/images/logo.png";
         font-size: 0;
       }
     }
+    @media screen and (max-width:700px){    
+    nav {
+      background-color: var(--bg-primary) ;
+      color: var(--text-primary);
+      box-shadow: 0px 0 0px rgba(0,0,0,0.2);
+      transition: all 1s;
+    }
+  }
+
     a {
-      color: var(--text-secondary);
-      img {
+      color: var(--text-secondary) ;
+          img {
         scale: .8;
         translate: 2px 2px;
       }
     }
-    button {
-      color: tomato;
-    }
+    
    
   }
 
@@ -406,5 +520,46 @@ import logo from "../assets/images/logo.png";
     } else {
       navbar.classList.remove("colored");
     }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Verbesserte Handhabung des Project-Dropdowns
+    const navProjects = document.getElementById('nav-projects');
+    
+    // Wenn wir auf einem mobilen Gerät sind
+    if (window.innerWidth <= 768) {
+      // Ersetzen des Dropdown-Verhaltens für bessere Touch-Erfahrung
+      navProjects?.addEventListener('click', function(e) {
+        // Projektebereich finden
+        const projectLinks = document.querySelector('.project-list');
+        const dropdown = document.querySelector('.project-modal');
+        
+        // Wenn ausgeblendet, stellen wir sicher, dass alle Links sichtbar sind
+        if (dropdown && getComputedStyle(dropdown).display === 'none') {
+          setTimeout(() => {
+            // Scrollen zum Projektbereich für bessere Sichtbarkeit
+            if (projectLinks) {
+              projectLinks.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          }, 300);
+        }
+      });
+    }
+    
+    // Responsive Anpassungen bei Größenänderung
+    window.addEventListener('resize', () => {
+      const isMobile = window.innerWidth <= 768;
+      const dropdown = document.querySelector('.project-modal');
+      
+      if (dropdown) {
+        if (isMobile) {
+          (dropdown as HTMLElement).style.position = 'relative';
+          (dropdown as HTMLElement).style.width = '100%';
+        } else {
+          (dropdown as HTMLElement).style.position = '';
+          (dropdown as HTMLElement).style.width = '';
+        }
+      }
+    });
   });
 </script>

@@ -1,5 +1,5 @@
 ---
-const { id = "background-canvas", opacity = "0.9", color = "var(--accent)" } = Astro.props;
+const { id = "background-canvas", opacity = "0.9", color = "var(--accent)", particleCount = "250" } = Astro.props;
 ---
 
 <div class="background-container">
@@ -29,7 +29,7 @@ const { id = "background-canvas", opacity = "0.9", color = "var(--accent)" } = A
   }
 </style>
 
-<script define:vars={{ canvasId: id }}>
+<script define:vars={{ canvasId: id, userParticleCount: Number(particleCount) }}>
   // Hier wird die ID direkt als Variable übergeben, um document.currentScript zu vermeiden
   document.addEventListener("DOMContentLoaded", function() {
     try {
@@ -86,12 +86,17 @@ const { id = "background-canvas", opacity = "0.9", color = "var(--accent)" } = A
       
       // Funktion zur Berechnung der Partikelanzahl basierend auf der Canvas-Höhe
       function calculateParticleCount() {
-        // Basiswert pro 100 Pixel Höhe
-        const baseCountPer100Px = 8;
-        // Berechnung basierend auf der Canvas-Höhe
+        // Reduzierter Basiswert pro 100 Pixel Höhe
+        const baseCountPer100Px = 5; // Reduziert von 8 auf 3
+        
+        // Berechnung basierend auf der Canvas-Höhe und dem übergebenen Wert
         const calculatedCount = Math.floor((canvas.height / 100) * baseCountPer100Px);
-        // Minimum und Maximum Begrenzung
-        return Math.max(40, Math.min(200, calculatedCount));
+        
+        // Nutze den vom User übergebenen Wert als Faktor
+        const userModifier = userParticleCount ;
+        
+        // Reduzierte Minimum- und Maximum-Begrenzung
+        return Math.max(15, Math.min(60, calculatedCount * (userModifier / 10)));
       }
       
       // Canvas-Größe anpassen

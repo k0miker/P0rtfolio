@@ -1,14 +1,12 @@
 ---
-import "../css/fonts.css";
-import "../css/darkmode.css";
 import myself from "../assets/images/Cartoonify.svg";
 import myself3 from "../assets/images/myself.jpg";
 import Background from "./Background.astro";
 ---
 
 <div class="wrap sm:flex-col rounded-lg offscreen relative">
-  <Background id="myself-background" opacity=".5" />
-  <h3 class="py-5 font-[mono] text-4xl text-center offscreen hover:tracking-[.51vw]  hover:text-[tomato] text-[var(--text-primary)]">
+  <Background id="myself-background" opacity=".7" />
+  <h3 class="py-5 font-[mono] text-4xl text-center offscreen hover:tracking-[.51vw] hover:text-[tomato] text-[var(--text-primary)]">
     About<span class="animate-ping">_</span>
   </h3>
   <div class="flex flex-col items-center offscreen">
@@ -16,63 +14,96 @@ import Background from "./Background.astro";
       <img src={myself.src} class="sm:w-[100%] opacity-100" alt="foto of colin" />
       <img src={myself3.src} class="sm:w-[100%] " alt="foto of colin" />
     </div>
-    <div class="me flex flex-col justify-between ">
-      <p class="p-8 text-center text-pretty offscreen en">
-        <span class="text-[tomato] text-[8px]">hover for GERMAN</span><br>
-        Hello! <br />I'm Colin, a 38-year-old passionate web developer. Since my
-        youth, I've been a true PC nerd with a strong affinity for technology. <br
-        />Besides my work as a web developer, I'm also an avid gamer and love
-        spending my free time on challenging games. Additionally, I have a
-        special passion for bonsai art, which helps me bring calm and balance to
-        my daily life. 
-        With my diverse experience and wide-ranging interests, I bring creative
-        and functional solutions to my projects.<br />Whether it's developing a
-        user-friendly website or solving complex technical challenges, I am
-        always motivated to achieve the best results and help my clients reach
-        their goals. 
-        
-      </p>
 
-      <p class="p-8 text-center offscreen ger text-pretty ">
-        <br>
-        Hallo! <br>
-        Ich bin Colin, ein leidenschaftlicher Webentwickler. Seit
-        meiner Jugend ein PC-Nerd mit einer Affinität für
-        Technologie. Neben meiner Arbeit als Webentwickler bin ich auch ein begeisterter
-        Gamer und verbringe gerne Freizeit mit anspruchsvollen Spielen. Zusätzlich
-        habe ich eine Leidenschaft für die Bonsai-Kunst, die mir hilft,
-        Ruhe und Ausgleich in den Alltag zu bringen. Mit meiner vielfältigen Erfahrung
-        und meinen breitgefächerten Interessen bringe ich kreative und funktionale
-        Lösungen in Projekte ein. Egal ob es darum geht, eine benutzerfreundliche
-        Webseite zu entwickeln oder komplexe technische Herausforderungen zu lösen,
-        ich bin immer motiviert, die besten Ergebnisse zu erzielen und meinen Kunden
-        zu helfen, ihre Ziele zu erreichen.
-      </p>
-    </div>
-    
-    <div class="self flex-col w-full mt-8 px-[5vw] offscreen">
-      <h3 class="title text-center text-xl md:text-2xl p-4 font-[mono] rounded-t-xl w-full hover:tracking-[.51vw]  hover:text-[var(--accent)] duration-500 text-gray-200">
-        Self Proclamations<span class="animate-ping">_</span>
-      </h3>
-      <div class="skills-container flex p-4 w-[100%] rounded-b-xl max-w-[768px] font-[mono] text-center">
-        <div class="skill-item flex flex-grow flex-col p-2 items-center hover:text-[tomato] hover:scale-125 text-[12px] md:text-[16px]">
-          <i class="fa-solid fa-keyboard p-4 text-[20px] md:text-[50px]"></i>Web
-          Developer
+    <div class="content-section">
+      <div class="content-box">
+        <div class="language-switcher">
+          <h3 class="ml-20 w-full">Who am I ?</h3>
+          <button type="button" class="lang-btn active" data-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-lang="de">DE</button>
         </div>
-        <div class="skill-item flex flex-grow flex-col p-2 items-center font-[mono] hover:text-[tomato] hover:scale-125 text-[12px] md:text-[16px]">
-          <i class="fa-solid fa-user p-4 text-[20px] md:text-[50px] "></i>UI/UX
-          Enthusiast
+        
+        <div class="language-content active" id="content-en">
+          <p class="p-6">
+            Hello! <br />I'm Colin, a 38-year-old passionate web developer. Since my
+            youth, I've been a true PC nerd with a strong affinity for technology. <br
+            />Besides my work as a web developer, I'm also an avid gamer and love
+            spending my free time on challenging games. Additionally, I have a
+            special passion for bonsai art, which helps me bring calm and balance to
+            my daily life. 
+            With my diverse experience and wide-ranging interests, I bring creative
+            and functional solutions to my projects. Whether it's developing a
+            user-friendly website or solving complex technical challenges, I am
+            always motivated to achieve the best results and help my clients reach
+            their goals.
+          </p>
         </div>
-        <div class="skill-item flex flex-grow flex-col p-2 items-center font-[mono] hover:text-[tomato] hover:scale-125 md:text-[16px] text-[12px]">
-          <i class="fa-solid fa-leaf p-4 text-[20px] md:text-[50px]"></i>Bonsai
-          Enthusiast
+
+        <div class="language-content" id="content-de">
+          <p class="p-6">
+            Hallo! <br>
+            Ich bin Colin, ein leidenschaftlicher Webentwickler. Seit
+            meiner Jugend ein PC-Nerd mit einer Affinität für
+            Technologie. Neben meiner Arbeit als Webentwickler bin ich auch ein begeisterter
+            Gamer und verbringe gerne Freizeit mit anspruchsvollen Spielen. Zusätzlich
+            habe ich eine Leidenschaft für die Bonsai-Kunst, die mir hilft,
+            Ausgleich in den Alltag zu bringen. Mit meiner vielfältigen Erfahrung
+            und meinen breitgefächerten Interessen bringe ich kreative und funktionale
+            Lösungen in Projekte ein. Egal ob es darum geht, eine benutzerfreundliche
+            Webseite zu entwickeln oder komplexe technische Herausforderungen zu lösen,
+            ich bin immer motiviert, die besten Ergebnisse zu erzielen und meinen Kunden
+            zu helfen, ihre Ziele zu erreichen.
+          </p>
+        </div>
+      </div>
+      
+      <div class="content-box ">
+        <h3 class="content-header">
+          Self Proclamations<span class="animate-ping">_</span>
+        </h3>
+        <div class="skills-container">
+          <div class="skill-item">
+            <i class="fa-solid fa-keyboard"></i>
+            <span>Web Developer</span>
+          </div>
+          <div class="skill-item">
+            <i class="fa-solid fa-user"></i>
+            <span>UI/UX Enthusiast</span>
+          </div>
+          <div class="skill-item">
+            <i class="fa-solid fa-leaf"></i>
+            <span>Bonsai Enthusiast</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  
-
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const langBtns = document.querySelectorAll('.lang-btn');
+    const langContents = document.querySelectorAll('.language-content');
+    
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.getAttribute('data-lang');
+        
+        // Update active button
+        langBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Update active content
+        langContents.forEach(content => {
+          content.classList.remove('active');
+          if (content.id === `content-${lang}`) {
+            content.classList.add('active');
+          }
+        });
+      });
+    });
+  });
+</script>
 
 <style>
   .wrap {
@@ -82,7 +113,8 @@ import Background from "./Background.astro";
     padding-top: 40px;
     position: relative;
     overflow: hidden;
-    min-height: 80vh; 
+    min-height: 100vh; 
+    height: fit-content;
   }
   
   img {
@@ -102,79 +134,121 @@ import Background from "./Background.astro";
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--text-primary);
+    color: var(--text-titel);
   }
   
   p {
-    font-family: inter;
-    max-width: 768px;
-    text-align: center;
+    font-family: 'Inter', sans-serif;
     color: var(--text-primary);
     transition: .5s;
+    line-height: 1.6;
+    text-align: left;
   }
   
-  .ger {
-    opacity: 0;
-    position: fixed;
-    top: 180px;
-    scale: .9;
-    filter: blur(1px)
-  }
-  .ger:hover .en {
-    transform: translateY(10px);
+  .content-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 0 5vw;
+    margin-top: 2rem;
   }
   
-  .me:hover .ger {
-    opacity: 1;
-    filter: blur(0px);
-    scale: 1;
-    transform: translateY(1rem);
-  }
-  
-  .me:hover .en {
-    opacity: 0;
-    filter: blur(1px);
-    scale: .9;
-  }
-  .en,.ger {
-    margin-top: 25px;
-    font-family: monospace;
+  .content-box {
+    width: 90%;
     max-width: 768px;
-    text-align: center;
-    color: var(--text-primary);
-    transition: .5s;
-    font-size: 1rem;
     background-color: var(--bg-card);
     border-radius: 12px;
-    outline: 1px groove var(--border);
-
-  }
-  
-  .self {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 5vh;
-  }
-  
-  .title {
-    background-color: var(--bg-secondary);    
     border: 1px solid var(--border);
-    border-bottom: none;
-    max-width: 768px;
-    color: #E8E8E8;
-
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  
+  .language-switcher {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .lang-btn {
+    background: none;
+    border: 1px solid transparent;
+    padding: 0.25rem 0.75rem;
+    margin-left: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: mono;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+  }
+  
+  .lang-btn:hover {
+    color: tomato;
+  }
+  
+  .lang-btn.active {
+    border-color: var(--border);
+    color: tomato;
+    background-color: var(--bg-card);
+  }
+  
+  .language-content {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.5s ease;
+  }
+  
+  .language-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .content-header {
+    background-color: var(--bg-secondary);
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s ease;
+  }
+  
+  .content-header:hover {
+    letter-spacing: 0.51vw;
+    color: var(--accent);
   }
   
   .skills-container {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border);
-    border-top: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 2rem 1rem;
+  }
+  
+  .skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 0 30%;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    font-family: mono;
   }
   
   .skill-item i {
-    color: var(--text-secondary);
-    transition: color 0.3s ease;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+  
+  .skill-item:hover {
+    color: tomato;
+    transform: scale(1.1);
   }
   
   .foto-swich {
@@ -182,10 +256,12 @@ import Background from "./Background.astro";
     justify-content: center;
     width: 200px;
     border-radius: 0px;
-    img {
-      width: 200px;
-      transition: .5s;
-    }
+    margin-bottom: 2rem;
+  }
+  
+  .foto-swich img {
+    width: 200px;
+    transition: .5s;
   }
   
   .foto-swich:hover img:nth-of-type(2) {
@@ -203,6 +279,39 @@ import Background from "./Background.astro";
   
   .foto-swich img:nth-of-type(1) {
     transform: translateX(50%);
+  }
+  
+  @media (max-width: 768px) {
+    .skill-item i {
+      font-size: 2rem;
+      padding: 0.5rem;
+    }
+    
+    .content-box {
+      width: 95%;
+    }
+    
+    p {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .skills-container {
+      flex-direction: column;
+    }
+    
+    .skill-item {
+      margin-bottom: 1rem;
+    }
+    
+    .content-header {
+      font-size: 1.25rem;
+    }
+    
+    .lang-btn {
+      padding: 0.15rem 0.5rem;
+    }
   }
   
   @keyframes ping {

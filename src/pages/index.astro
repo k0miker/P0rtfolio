@@ -1,7 +1,9 @@
 ---
+// Zentrale Stelle für alle gemeinsam genutzten CSS-Dateien
 import "../css/fonts.css";
 import "../css/keyframes.css";
 import "../css/darkmode.css";
+// Komponenten-Importe
 import Nav from "../components/Nav.astro";
 import Iam from "../components/Iam.astro";
 import Myself from "../components/Myself.astro";
@@ -65,6 +67,7 @@ import ScrollProgress from "../components/ScrollProgress.astro";
     background-color: var(--bg-primary);
     color: var(--text-primary);
     transition: background-color 0.3s ease, color 0.3s ease;
+    padding-bottom: 80px; /* Platz für den fixierten Footer */
   }
 
   #about {
