@@ -5,11 +5,12 @@ import "../css/darkmode.css";
 
 <footer class="footer" id="page-footer">
   <div class="footer-content">
-    <!-- Nach oben Knopf - angepasst an den Stil des Down-Buttons -->
-    <div class="up-button">
-      <a href="#home" class=""
-        ><div>/up</div><div><i class="fa-solid fa-arrow-up"></i></div></a
-      >
+    <!-- Adaptiver Scroll-Button, der sich je nach Position ändert -->
+    <div class="scroll-button">
+      <a href="#contact" id="scroll-action" class="">
+        <div id="scroll-text">/down</div>
+        <div id="scroll-icon"><i class="fa-solid fa-arrow-down"></i></div>
+      </a>
     </div>
 
     <!-- Social Icons -->
@@ -142,8 +143,8 @@ import "../css/darkmode.css";
     color: var(--accent);
   }
 
-  /* Up Button - angepasst an den Stil des Down-Buttons */
-  .up-button {
+  /* Adaptiver Scroll-Button */
+  .scroll-button {
     display: flex;
     justify-content: center;
     z-index: 10;
@@ -152,15 +153,14 @@ import "../css/darkmode.css";
     left: 50%;
     transform: translateX(-50%);
     transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);   
-    
   }
   
-  .footer.expanded .up-button {
+  .footer.expanded .scroll-button {
     top: -30px;
     transform: translateX(-50%) scale(1.1);
   }
 
-  .up-button a {
+  .scroll-button a {
     color: var(--text-secondary);
     background-color: var(--bg-primary);
     height: 20px;
@@ -180,51 +180,83 @@ import "../css/darkmode.css";
     box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
   }
 
-  .up-button a div {
+  .scroll-button a div {
     padding: 5px;
   }
 
-  .up-button a:hover {
+  .scroll-button a:hover {
     transform: translateY(-2px);
   }
 
-  .up-button a:hover div {
+  .scroll-button a:hover div {
     color: tomato;
   }
 
-  .up-button a:hover div:nth-of-type(1) {
+  #scroll-icon {
+    display: none;
+  }
+  
+  .scroll-button a:hover #scroll-text {
     display: none;
   }
 
-  .up-button a div:nth-of-type(2) {
-    display: none;
-  }
-
-  .up-button a:hover div:nth-of-type(2) {
+  .scroll-button a:hover #scroll-icon {
     display: block;
   }
 
   @media (max-width: 768px) {
     .social-icons ul {
-      gap: 0.25rem;
+      gap: 0.1rem;
     }
 
     .social-icons ul li a i {
-      font-size: 0.9rem;
-      padding: 3px;
+      font-size: 0.8rem;
+      padding: 2px;
     }
 
     .copyright {
-      font-size: 0.7rem;
+      font-size: 0.6rem;
+      width: 25%;
     }
 
     .impressum-link {
-      font-size: 0.8rem;
+      font-size: 0.7rem;
     }
 
-    .up-button a {
-      width: 65px;
-      font-size: 14px;
+    .scroll-button a {
+      width: 55px;
+      font-size: 12px;
+    }
+    
+    .footer-content {
+      justify-content: space-between;
+      padding: 0 5px;
+    }
+    
+    .footer-item {
+      width: auto;
+      min-width: unset;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .social-icons ul {
+      gap: 0.05rem;
+    }
+    
+    .social-icons ul li a i {
+      font-size: 0.7rem;
+      padding: 1px;
+    }
+    
+    .footer.expanded .footer-content {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .footer.expanded {
+      height: 120px;
     }
   }
 </style>
@@ -239,7 +271,27 @@ import "../css/darkmode.css";
 
   document.addEventListener('DOMContentLoaded', () => {
     const footer = document.getElementById('page-footer');
+    const scrollAction = document.getElementById('scroll-action');
+    const scrollText = document.getElementById('scroll-text');
+    const scrollIcon = document.querySelector('#scroll-icon i');
     let isExpanded = false;
+    
+    // Funktion zur Anpassung des Scroll-Buttons basierend auf der Scroll-Position
+    function updateScrollButton() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      const windowHeight = window.innerHeight;
+      
+      // Wenn mehr als 30% der Viewport-Höhe gescrollt wurde, zeige "up" statt "down"
+      if (scrollY > windowHeight * 0.3) {
+        scrollAction.setAttribute('href', '#home');
+        scrollText.textContent = '/up';
+        scrollIcon.className = 'fa-solid fa-arrow-up';
+      } else {
+        scrollAction.setAttribute('href', '#contact');
+        scrollText.textContent = '/down';
+        scrollIcon.className = 'fa-solid fa-arrow-down';
+      }
+    }
     
     // Funktion zur Überprüfung, ob wir uns am Ende der Seite befinden
     function checkBottom() {
@@ -277,6 +329,9 @@ import "../css/darkmode.css";
           isExpanded = false;
         }
       }
+      
+      // Aktualisiere den Button-Status bei diesem Check
+      updateScrollButton();
     }
     
     // Scroll-Event mit verkürztem Debounce für bessere Performance
@@ -297,6 +352,9 @@ import "../css/darkmode.css";
         // Bei normalem Scrollen kleine Verzögerung
         scrollTimeout = setTimeout(checkBottom, 50) as unknown as number;
       }
+      
+      // Aktualisiere den Button-Status bei jedem Scroll
+      updateScrollButton();
     }, { passive: true });
     
     // Speichern der letzten Scroll-Position für Richtungserkennung
@@ -306,12 +364,15 @@ import "../css/darkmode.css";
     window.addEventListener('resize', checkBottom);
     
     // Initial prüfen
-    setTimeout(checkBottom, 500);
+    setTimeout(() => {
+      updateScrollButton();
+      checkBottom();
+    }, 500);
 
-    // Einfacher Smooth Scroll für Up-Button
-    const upButton = document.querySelector('.up-button a');
-    if (upButton) {
-      upButton.addEventListener('click', function(e) {
+    // Smooth Scroll für den Button
+    const scrollButton = document.querySelector('#scroll-action');
+    if (scrollButton) {
+      scrollButton.addEventListener('click', function(e) {
         e.preventDefault();
         
         const targetId = this.getAttribute('href');

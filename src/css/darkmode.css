@@ -249,3 +249,41 @@
   color: var(--text-primary);
   border-color: var(--border);
 }
+
+/* Optimierungen für mobile Performance */
+@media (max-width: 768px) {
+  /* Komplett deaktivierte Animationen für mobile Geräte */
+  .dark-mode .card::before {
+    display: none; /* Animation vollständig entfernen */
+  }
+  
+  /* Kein Hover-Effekt auf mobilen Geräten */
+  .dark-mode .card:hover {
+    transform: none;
+    box-shadow: var(--card-shadow);
+  }
+  
+  .dark-mode .card:hover::before {
+    animation: none;
+    display: none;
+  }
+  
+  /* Vereinfachte Card-Styles ohne Animationen */
+  .card {
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+  
+  /* Verwende passive IntersectionObserver-Callbacks für bessere Scrolling-Performance */
+  .card, .offscreen, .animate-on-scroll {
+    contain: content;
+  }
+  
+  /* Reduziere allgemeine Animationen */
+  * {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -61,13 +61,14 @@ const category = project.category || 'Other';
   
   @keyframes cardGlow {
     0% {
-      box-shadow: 0 0 4px 1px var(--bg-primary), 0 0 2px 2px var(--accent);
-    }
-    50% {
-      box-shadow: 0 0 2px 0px var(--accent), 0 0 1px 0px var(--accent);
+      box-shadow:
+      0 0 2px 1px var(--bg-primary),
+      0 0 1px 0px var(--accent);
     }
     100% {
-      box-shadow: 0 0 4px 1px var(--bg-primary), 0 0 2px 0px var(--accent);
+      box-shadow:
+      0 0 2px 1px var(--bg-primary),
+      0 0 5px 0px var(--accent);
     }
   }
 
@@ -206,26 +207,31 @@ const category = project.category || 'Other';
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const cards = document.querySelectorAll(".card-3d");
+    // Nur 3D-Effekte aktivieren, wenn nicht auf einem mobilen Gerät
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
     
-    cards.forEach(card => {
-      card.addEventListener("mousemove", (e: MouseEvent) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height /2;
-        
-        const rotateX = (y - centerY) / 15;
-        const rotateY = (centerX - x) / 15;
-        
-        (card as HTMLElement).style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      });
+    if (!isMobile) {
+      const cards = document.querySelectorAll(".card-3d");
       
-      card.addEventListener("mouseleave", () => {
-        (card as HTMLElement).style.transform = 'rotateX(0) rotateY(0)';
+      cards.forEach(card => {
+        card.addEventListener("mousemove", (e: MouseEvent) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateX = (y - centerY) / 15;
+          const rotateY = (centerX - x) / 15;
+          
+          (card as HTMLElement).style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        
+        card.addEventListener("mouseleave", () => {
+          (card as HTMLElement).style.transform = 'rotateX(0) rotateY(0)';
+        });
       });
-    });
+    }
   });
 </script>

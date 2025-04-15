@@ -2,10 +2,21 @@
 import "../css/fontawesome/css/fontawesome.css";
 import "../css/fontawesome/css/all.min.css";
 import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
+import { Picture } from 'astro:assets';
 import skillsBg from "../assets/images/skills.jpg";
 ---
 
+<!-- Optimierter Hintergrund für mobile Geräte -->
 <div class="flex flex-col box justify-center items-center min-h-[100vh]" id="skills">
+  <Picture
+    src={skillsBg}
+    alt=""
+    widths={[400, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 1200px"
+    class="skills-bg"
+    loading="lazy"
+  />
+  
   <div class="card offscreen">
     <div
       class="header font-[mono] text-[1.5rem] hover:tracking-[1vw]  hover:text-[tomato] text-[var(--text-primary)] duration-500 "
@@ -156,6 +167,17 @@ import skillsBg from "../assets/images/skills.jpg";
 </div>
 
 <style define:vars={{ skillsBgUrl: `url(${skillsBg.src})` }}>
+  /* Optimierte Bilddarstellung */
+  .skills-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+
   .box {
     padding: 5vw;
     background-image: var(--skillsBgUrl);
@@ -713,7 +735,8 @@ import skillsBg from "../assets/images/skills.jpg";
 
   }
 
-  @media screen and (max-width: 768px) {
+  /* Medienabfragen für bessere mobile Performance */
+  @media (max-width: 768px) {
     .card {
       width: 100%;
     }
@@ -722,11 +745,22 @@ import skillsBg from "../assets/images/skills.jpg";
     }
     .skill-percent {
       width: 200px;
+      transition: none; /* Entferne Übergänge auf mobilen Geräten */
     }
     .skill-percent-number {
       font-size: 14px;
     }
+    .icon-wrapper i {
+      transition: transform 0.3s ease; /* Vereinfachte Transition */
+    }
     
+    /* Reduzierte Animationen auf mobilen Geräten */
+    @supports (content-visibility: auto) {
+      .icon-wrapper {
+        content-visibility: auto;
+        contain-intrinsic-size: 0 40px;
+      }
+    }
   }
 </style>
 

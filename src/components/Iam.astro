@@ -2,19 +2,14 @@
 import homeBg from "../assets/images/home.jpg";
 ---
 <div class="bg-container" id="home-section" style={`background-image: url(${homeBg.src})`}>
-<div class="console-container font-[Marker] font-extrabold text-4xl">
-  <span id="text" class="offscreen"></span><div
-    class="console-underscore text-[tomato] animate-ping"
-    id="console"
-  >
-    &#95;
+  <div class="console-container font-[Marker] font-extrabold text-4xl">
+    <span id="text" class="offscreen"></span><div
+      class="console-underscore text-[tomato] animate-ping"
+      id="console"
+    >
+      &#95;
+    </div>
   </div>
-</div>
-<div class="down">
-  <a href="#contact" class=""
-    ><div >/down</div><div><i class=" fa-solid fa-arrow-down"></i></div></a
-  >
-</div>
 </div>
 <style>
   .hidden {
@@ -24,7 +19,6 @@ import homeBg from "../assets/images/home.jpg";
     min-height: 40px;
   }
   
- 
   a {
     color: var(--text-secondary);
     background-color: var(--bg-primary);
@@ -46,19 +40,6 @@ import homeBg from "../assets/images/home.jpg";
     div {
       padding:0 5px;
     }
-  }
-  .down {
-    display: flex;
-    justify-content: center;
-    z-index: 10;
-    position: relative;
-    bottom: 19px;        
-    background-color: var(--bg-primary);
-    padding: 0;
-    a{
-    border-radius:  0.5em 0.5em 0 0;
-    }
- 
   }
 
   a:hover {
