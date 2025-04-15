@@ -18,9 +18,14 @@ import Background from "./Background.astro";
     <div class="content-section">
       <div class="content-box">
         <div class="language-switcher">
-          <h3 class="ml-20 w-full">Who am I ?</h3>
-          <button type="button" class="lang-btn active" data-lang="en">EN</button>
-          <button type="button" class="lang-btn" data-lang="de">DE</button>
+          <h3 class="content-header2">
+            Who am I 
+            <span class="animate-ping"> ?</span>
+          </h3>
+          <div class="lang-buttons">
+            <button type="button" class="lang-btn active" data-lang="en">EN</button>
+            <button type="button" class="lang-btn" data-lang="de">DE</button>
+          </div>
         </div>
         
         <div class="language-content active" id="content-en">
@@ -217,8 +222,16 @@ import Background from "./Background.astro";
     border-bottom: 1px solid var(--border);
     transition: all 0.3s ease;
   }
-  
-  .content-header:hover {
+  .content-header2 {
+    background-color: var(--bg-secondary);
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    width: 70%;
+  }
+  .content-header:hover,
+  .content-header2:hover {
     letter-spacing: 0.51vw;
     color: var(--accent);
   }

@@ -61,13 +61,13 @@ const category = project.category || 'Other';
   
   @keyframes cardGlow {
     0% {
-      box-shadow: 0 0 4px 1px var(--bg-primary), 0 0 2px 2px var(--bg-primary);
+      box-shadow: 0 0 4px 1px var(--bg-primary), 0 0 2px 2px var(--accent);
     }
     50% {
       box-shadow: 0 0 2px 0px var(--accent), 0 0 1px 0px var(--accent);
     }
     100% {
-      box-shadow: 0 0 4px 1px var(--bg-primary), 0 0 2px 0px var(--bg-primary);
+      box-shadow: 0 0 4px 1px var(--bg-primary), 0 0 2px 0px var(--accent);
     }
   }
 
@@ -153,18 +153,17 @@ const category = project.category || 'Other';
 
   /* Hover Effekte */
   .box:hover {
-    transform: rotateX(5deg) rotateY(5deg) translateZ(10px);
-    animation: cardGlowIntense 2s ease-in-out infinite alternate;
-    scale: 1.1;
-    transition: 1s;
+    transform: rotateX(5deg) rotateY(5deg) ;
+    animation: cardGlowIntense 1s ease-in-out infinite alternate;
+    transition: .5s;
   }
   
   @keyframes cardGlowIntense {
     0% {
-      box-shadow: 0 0 15px 2px var(--accent), 0 0 10px 0px var(--accent);
+      box-shadow: 0 0 15px 0px var(--accent), 0 0 10px 0px var(--accent);
     }
     100% {
-      box-shadow: 0 0 5px 5px var(--accent), 0 0 1px 0px var(--accent);
+      box-shadow: 0 0 5px 0px var(--accent), 0 0 1px 0px var(--accent);
     }
   }
 
