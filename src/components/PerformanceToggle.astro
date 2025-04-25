@@ -1,0 +1,83 @@
+---
+// Diese Komponente fügt einen Schalter zum Umschalten des Batteriesparmodus hinzu
+---
+
+<button
+  id="save-battery"
+  class="battery-toggle"
+  aria-label="Batteriesparmodus umschalten"
+>
+  <i class="fa-solid fa-battery-half"></i>
+</button>
+
+<style>
+  .battery-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 90px; /* Rechts vom Theme-Toggle */
+    padding: 0.9rem;
+    width: 55px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    border-radius: 50%;
+    z-index: 50;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .battery-toggle:hover {
+    box-shadow: 0 0 10px 2px var(--pulse-shadow-mid);
+  }
+  
+  .battery-toggle i {
+    font-size: 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    .battery-toggle {
+      bottom: 15px;
+      right: 80px;
+      padding: 0.75rem;
+    }
+    
+    .battery-toggle i {
+      font-size: 1.2rem;
+    }
+  }
+  
+  /* Aktiv-Status für den Batteriesparmodus */
+  .battery-toggle.active {
+    background-color: var(--accent);
+    color: var(--bg-secondary);
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const batteryToggle = document.getElementById('save-battery');
+    
+    // Überprüfe den aktuellen Status aus dem localStorage
+    const isBatterySaving = localStorage.getItem('battery-saving') === 'true';
+    
+    // Setze den visuellen Status entsprechend
+    if (isBatterySaving) {
+      batteryToggle.classList.add('active');
+      batteryToggle.querySelector('i').className = 'fa-solid fa-battery-full';
+      batteryToggle.setAttribute('title', 'Energiesparmodus deaktivieren');
+    } else {
+      batteryToggle.classList.remove('active');
+      batteryToggle.querySelector('i').className = 'fa-solid fa-battery-half';
+      batteryToggle.setAttribute('title', 'Energiesparmodus aktivieren');
+    }
+    
+    // Event-Handler für Klicks
+    batteryToggle.addEventListener('click', () => {
+      const currentMode = localStorage.getItem('battery-saving') === 'true';
+      localStorage.setItem('battery-saving', (!currentMode).toString());
+      
+      // Seite neu laden, um die Änderungen zu übernehmen
+      window.location.reload();
+    });
+  });
+</script>

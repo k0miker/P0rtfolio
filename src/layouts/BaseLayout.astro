@@ -2,7 +2,7 @@
 const { title, description, image } = Astro.props;
 ---
 
-<html lang="de">
+<html lang="de" class="w-full">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -27,8 +27,11 @@ const { title, description, image } = Astro.props;
     <meta name="twitter:title" content={title || 'Colin Blome - Web Developer Portfolio'} />
     <meta name="twitter:description" content={description || 'Portfolio von Colin Blome, Web Developer aus Deutschland.'} />
     <meta name="twitter:image" content={image || 'https://i.imgur.com/ELVyRRc.jpeg'} />
+
+    <!-- Font Awesome für Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
-  <body>
+  <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
     <slot />
   </body>
 </html>

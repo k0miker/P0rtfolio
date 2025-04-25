@@ -11,49 +11,42 @@ import Projects from "../components/Projects.astro";
 import Skills from "../components/Skills.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
-import ScrollProgress from "../components/ScrollProgress.astro";
+import ScrollProgress from "../components/ui/ScrollProgress.astro";
+// Layout für besseres SEO und Performance-Optimierung
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html class="w-full" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Portfolio</title>
-  </head>
-  <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
-    <div id="home"></div>
-    <Nav />
-    <ScrollProgress /> <!-- Position nach der Nav für korrektes Rendering -->
+<BaseLayout title="Portfolio">
+  <div id="home"></div>
+  <Nav />
+  <ScrollProgress />
 
-    <Iam />
+  <Iam />
 
-    <div id="about">
-      <Myself />
-    </div>
+  <div id="about">
+    <Myself />
+  </div>
     
-    <Skills />
+  <Skills />
     
-    <div id="projects" >
-      <Projects />
-    </div>
-    <div id="contact">
-      <Contact />
-    </div>
+  <div id="projects">
+    <Projects />
+  </div>
+  <div id="contact">
+    <Contact />
+  </div>
 
-    <Footer />
+  <Footer />
     
-    <!-- Fixierter Theme Toggle Button -->
-    <button
-      id="darkModeToggle"
-      class="theme-toggle fixed z-50 p-3 rounded-full shadow-lg focus:outline-none"
-      aria-label="Theme wechseln"
-    >
-      <!-- Icon wird per JavaScript eingefügt -->
-    </button>
-  </body>
-</html>
+  <!-- Fixierter Theme Toggle Button -->
+  <button
+    id="darkModeToggle"
+    class="theme-toggle fixed z-50 p-3 rounded-full shadow-lg focus:outline-none"
+    aria-label="Theme wechseln"
+  >
+    <!-- Icon wird per JavaScript eingefügt -->
+  </button>
+</BaseLayout>
 
 <style>
   * {
@@ -73,7 +66,7 @@ import ScrollProgress from "../components/ScrollProgress.astro";
   #about {
     position: relative;
     min-height: 100vh;
-    z-index: 0; /* Stellt sicher, dass der Hintergrund hinter dem Inhalt liegt */
+    z-index: 0;
   }
   #skills {
     min-height: 100vh;
@@ -81,12 +74,12 @@ import ScrollProgress from "../components/ScrollProgress.astro";
   #projects {
     position: relative;
     padding: 0px 0;
-    background-size: 500%;
+    background-size: 100%;  /* Von 500% auf 100% reduziert */
     background-repeat: no-repeat; 
-    background-attachment: fixed; 
+    background-attachment: local; /* Von fixed auf local geändert für bessere Performance */
     background-position: center;
-    animation: slidein2 linear 1055s;
-    z-index: 0; /* Stellt sicher, dass der Hintergrund hinter dem Inhalt liegt */
+    /* Animation entfernt, um GPU-Last zu reduzieren */
+    z-index: 0;
   }
   #contact {
     padding-top: -150px;
@@ -94,8 +87,10 @@ import ScrollProgress from "../components/ScrollProgress.astro";
   .blurred {
     filter: blur(5px);
   }
+  
+  /* Optimierte Scrollbar */
   .custom-scrollbar::-webkit-scrollbar {
-    width: 10px;
+    width: 8px; /* Schmaler für bessere Performance */
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background-color: tomato;
@@ -123,8 +118,8 @@ import ScrollProgress from "../components/ScrollProgress.astro";
     color: var(--accent);
     background-color: var(--bg-secondary);
     i{
-      transform: scale(1.5);
-      transition: .5s;
+      transform: scale(1.2); /* Von 1.5 auf 1.2 reduziert */
+      transition: .3s; /* Von .5s auf .3s reduziert */
     }
   }
   
@@ -146,6 +141,12 @@ import ScrollProgress from "../components/ScrollProgress.astro";
 </style>
 
 <script>
+  // Batteriespar-Modus dauerhaft aktivieren
+  document.addEventListener("DOMContentLoaded", () => {
+    // Setze den Batteriespar-Modus immer auf aktiv
+    localStorage.setItem("battery-saving", "true");
+  });
+
   // Dark Mode Logic
   document.addEventListener("DOMContentLoaded", () => {
     const darkModeToggle = document.getElementById("darkModeToggle");
@@ -154,26 +155,23 @@ import ScrollProgress from "../components/ScrollProgress.astro";
     // Check for saved theme preference or use the system preference
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark" || (!savedTheme && prefersDarkScheme.matches)) {
-      document.documentElement.classList.add("dark-mode"); // Änderung: auf documentElement anwenden
+      document.documentElement.classList.add("dark-mode");
       updateIcon(true);
     } else {
-      document.documentElement.classList.remove("dark-mode"); // Änderung: auf documentElement anwenden
+      document.documentElement.classList.remove("dark-mode");
       updateIcon(false);
     }
     
     // Toggle dark mode on click
     darkModeToggle.addEventListener("click", () => {
-      const isDarkMode = document.documentElement.classList.toggle("dark-mode"); // Änderung: auf documentElement anwenden
+      const isDarkMode = document.documentElement.classList.toggle("dark-mode");
       localStorage.setItem("theme", isDarkMode ? "dark" : "light");
       updateIcon(isDarkMode);
     });
     
     // Update the icon
     function updateIcon(isDarkMode) {
-      // Altes Icon entfernen
       darkModeToggle.innerHTML = '';
-      
-      // Neues Icon basierend auf Modus hinzufügen
       const icon = document.createElement('i');
       if (isDarkMode) {
         icon.className = 'fa-solid fa-sun';
@@ -186,12 +184,22 @@ import ScrollProgress from "../components/ScrollProgress.astro";
     }
   });
   
+  // Optimized Navigation Highlighting - mit Throttling
   document.addEventListener("DOMContentLoaded", () => {
     const sections = document.querySelectorAll("div[id]");
     const navLinks = document.querySelectorAll("nav a");
-
+    
+    // Throttling-Funktion für bessere Scroll-Performance
+    let lastScrollTime = 0;
+    const throttleTime = 100; // ms zwischen Updates
+    
     const observer = new IntersectionObserver(
       (entries) => {
+        // Nur aktualisieren, wenn genug Zeit vergangen ist
+        const now = Date.now();
+        if (now - lastScrollTime < throttleTime) return;
+        lastScrollTime = now;
+        
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             navLinks.forEach((link) => {
@@ -215,127 +223,40 @@ import ScrollProgress from "../components/ScrollProgress.astro";
     });
   });
 </script>
+
 <script>
+  // Performance-optimierte IntersectionObserver mit reduziertem Umfang
   document.addEventListener("DOMContentLoaded", () => {
-    const boxes = document.querySelectorAll(".offscreen");
-
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.2,
-    };
-
-    const observerCallback = (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-        } else {
-          entry.target.classList.remove("in-view");
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
+    // Bei Energiesparmodus: Alle Elemente sofort anzeigen ohne Animationen
+    document.querySelectorAll(".offscreen").forEach(el => 
+      el.classList.add("in-view")
     );
+  });
+</script>
 
-    boxes.forEach((offscreen) => {
-      observer.observe(offscreen);
-    });
-  });
-</script>
 <script>
-  // Zentrale Performance-Optimierung für Hintergrundbilder
+  // Performance-optimierte Verzögertes Laden von Skripten
   document.addEventListener("DOMContentLoaded", () => {
-    // Liste aller Sektionen mit animierten Hintergründen
-    const animatedSections = [
-      document.getElementById("home-section"),
-      document.getElementById("skills"),
-      document.getElementById("contact-section"),
-      document.getElementById("projects")
-    ].filter(section => section !== null);
+    // Funktion zum verzögerten Laden der Skripte (die nun im Batteriespar-Modus laufen)
+    function loadDeferredScripts() {
+      // Projekt-Karten-Effekt
+      const projectScript = document.createElement('script');
+      projectScript.src = '/scripts/projectCards.js';
+      projectScript.defer = true;
+      document.body.appendChild(projectScript);
+      
+      // Scroll-Effekte
+      const scrollScript = document.createElement('script');
+      scrollScript.src = '/scripts/scrollOpacityEffect.js';
+      scrollScript.defer = true;
+      document.body.appendChild(scrollScript);
+    }
     
-    // Intersection Observer für alle Sektionen
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        // Klasse hinzufügen/entfernen je nachdem, ob Element sichtbar ist
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate");
-        } else {
-          entry.target.classList.remove("animate");
-        }
-      });
-    }, { 
-      threshold: 0.1,  // Animation startet, wenn 10% der Sektion sichtbar sind
-      rootMargin: "100px" // Etwas früher starten für flüssigeren Übergang
-    });
-    
-    // Alle animierten Sektionen beobachten
-    animatedSections.forEach(section => {
-      if (section) observer.observe(section);
-    });
-  });
-</script>
-<script>
-  // Performance-optimierte Animations- und Intersection Observer-Logik
-  document.addEventListener("DOMContentLoaded", () => {
-    // Zentralisierte IntersectionObserver-Konfiguration für bessere Performance
-    const observerOptions = {
-      rootMargin: "50px",
-      threshold: 0.1,
-    };
-    
-    // Ein einziger Observer für alle Animationseffekte
-    const animationObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        // Animations-Klassen nur hinzufügen/entfernen wenn nötig
-        if (entry.isIntersecting && !entry.target.classList.contains("in-view")) {
-          entry.target.classList.add("in-view");
-          // Staggered-Animation für Kinder-Elemente, falls vorhanden
-          if (entry.target.hasAttribute("data-stagger-children")) {
-            const children = entry.target.querySelectorAll(".stagger-item");
-            children.forEach((child, index) => {
-              // Mobile: Kleinere Verzögerungen verwenden
-              const isMobile = window.innerWidth < 768;
-              const delay = isMobile ? index * 0.05 : index * 0.1;
-              (child as HTMLElement).style.transitionDelay = `${delay}s`;
-            });
-          }
-        } else if (!entry.isIntersecting && entry.target.classList.contains("in-view")) {
-          // Auf Mobile: Optimiere, indem wir Klassen nicht entfernen, wenn der Nutzer scrollt
-          if (window.innerWidth >= 768) {
-            entry.target.classList.remove("in-view");
-          }
-        }
-      });
-    }, observerOptions);
-    
-    // Alle animierbaren Elemente mit einem Observer beobachten
-    const animatables = [
-      ...document.querySelectorAll(".offscreen"),
-      ...document.querySelectorAll(".animate-on-scroll"),
-      document.getElementById("home-section"),
-    document.getElementById("skills"),
-      document.getElementById("contact-section"),
-    document.getElementById("projects")
-    ].filter(el => el !== null);
-    
-    // Animationen nur starten, wenn das Gerät leistungsstark genug ist
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Check if deviceMemory is available in the browser
-    const hasDeviceMemory = 'deviceMemory' in navigator;
-    const isMobileWithLowMemory = window.innerWidth < 768 && hasDeviceMemory && (navigator as any).deviceMemory < 4;
-    
-    if (!prefersReducedMotion && !isMobileWithLowMemory) {
-      animatables.forEach(element => {
-        animationObserver.observe(element);
-      });
+    // Verzögertes Laden nach einer kurzen Pause
+    if (window.requestIdleCallback) {
+      requestIdleCallback(() => loadDeferredScripts());
     } else {
-      // Bei reduzierten Bewegungen: Direkt sichtbar machen ohne Animationen
-      animatables.forEach(element => {
-        element.classList.add("in-view");
-      });
+      setTimeout(loadDeferredScripts, 1000);
     }
   });
 </script>

@@ -1,6 +1,6 @@
 ---
-import Card from "./Card.astro";
-import Modal from "./Modal.astro";
+import Card from "./ui/Card.astro";
+import Modal from "./ui/Modal.astro";
 import { projects } from "../data/projectData.js";
 import "../css/keyframes.css";
 import Background from "./Background.astro";
@@ -268,7 +268,11 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
 </style>
 
 <script>
+  // Kombinierte Skript-Logik für Performance-Optimierung
   document.addEventListener("DOMContentLoaded", function () {
+    // Der Batteriespar-Modus ist immer aktiv
+    const useReducedAnimations = true;
+    
     // Existierende Modal-Logik
     let modalTriggers = document.querySelectorAll(".box[data-modal-target]");
     let openModal = null;
@@ -322,84 +326,16 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
       }
     });
 
-    // Neue Filter Funktionalität
+    // Filter Funktionalität
     const filterBtns = document.querySelectorAll('.filter-btn');
     const cards = document.querySelectorAll('.card-wrapper');
     
-    // Setze Animation-Order für jede Karte
+    // Setze Animation-Order für jede Karte mit reduzierter Animation im Batteriesparmodus
     cards.forEach((card, index) => {
-      card.setAttribute('style', `--order: ${index}`);
+      (card as HTMLElement).style.setProperty('--order', '0'); // Immer 0 für sofortige Anzeige
     });
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Aktiven Button markieren
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        const category = btn.getAttribute('data-category');
-        
-        // Filter-Animation für die Karten
-        cards.forEach((card) => {
-          // Entferne bestehende Animation
-          card.classList.remove('fadeInUp');
-          
-          setTimeout(() => {
-            if (category === 'All' || card.getAttribute('data-category') === category) {
-              (card as HTMLElement).style.display = 'block';
-              (card as HTMLElement).style.opacity = '0';
-              
-              // Kurze Verzögerung für Animation
-              setTimeout(() => {
-                card.classList.add('fadeInUp');
-                (card as HTMLElement).style.opacity = '1';
-              }, 50);
-            } else {
-              (card as HTMLElement).style.opacity = '0';
-              setTimeout(() => {
-                (card as HTMLElement).style.display = 'none';
-              }, 300);
-            }
-          }, 100);
-        });
-        
-        // Zum geklickten Filter scrollen
-        setTimeout(scrollToActiveFilter, 200);
-      });
-    });
-
-    // Initial den 'All' Button aktivieren
-    document.querySelector('.filter-btn[data-category="All"]')?.classList.add('active');
-    
-    // Initial Scroll zum aktiven Filter
-    setTimeout(scrollToActiveFilter, 800);
-    
-    // Horizontales Scrollen der Filter-Buttons zum aktiven Element
-    function scrollToActiveFilter() {
-      const activeFilter = document.querySelector('.filter-btn.active');
-      if (activeFilter) {
-        const container = document.querySelector('.filter-buttons') as HTMLElement;
-        if (container) {
-          // Scroll zum aktiven Filter mit etwas Abstand links
-          const scrollPos = (activeFilter as HTMLElement).offsetLeft - container.offsetWidth / 4;
-          container.scrollTo({
-            left: scrollPos,
-            behavior: 'smooth'
-          });
-        }
-      }
-    }
-  });
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-
-    // Verbesserte Filter Funktionalität
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.card-wrapper');
-  
-    // Hilfs-Handler für Button-Klicks
+    // Optimierte Filter-Funktion für bessere Performance
     function handleFilterClick(event) {
       const btn = event.currentTarget;
       
@@ -409,36 +345,18 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
       
       const category = btn.getAttribute('data-category');
       
-      // Filter-Animation für die Karten
-      cards.forEach((card) => {
-        const cardCategory = card.getAttribute('data-category');
-        
-        // Entferne bestehende Animation
-        card.classList.remove('fadeInUp');
-        
-        setTimeout(() => {
-          if (category === 'All' || card.getAttribute('data-category') === category) {
-            (card as HTMLElement).style.display = 'block';
-            // Neue Animation hinzufügen
-            setTimeout(() => {
-              card.classList.add('fadeInUp');
-            }, 10);
-          } else {
-            (card as HTMLElement).style.display = 'none';
-          }
-        }, 100);
+      // Optimierte Filter-Animation mit sofortiger Anzeige/Ausblendung
+      requestAnimationFrame(() => {
+        cards.forEach((card) => {
+          const shouldShow = category === 'All' || card.getAttribute('data-category') === category;
+          (card as HTMLElement).style.display = shouldShow ? 'block' : 'none';
+        });
       });
     }
     
-    // Event-Listener direkt inline anwenden
+    // Event-Listener für Filter-Buttons
     filterBtns.forEach(btn => {
-      btn.addEventListener('click', handleFilterClick);
-      
-      // Zusätzliche direkte Inline-Funktion für redundante Sicherheit
-      (btn as HTMLElement).onclick = function() {
-        handleFilterClick({ currentTarget: btn } as unknown as Event);
-        return false; // Verhindere Standardverhalten
-      };
+      btn.addEventListener('click', handleFilterClick, { passive: true });
     });
 
     // Initial den 'All' Button aktivieren
@@ -449,9 +367,7 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
       // Manuell den Klick auslösen
       setTimeout(() => {
         (allButton as HTMLElement).click();
-      }, 500);
-    } else {
-      console.error("All-Button nicht gefunden!");
+      }, 100);
     }
   });
 </script>

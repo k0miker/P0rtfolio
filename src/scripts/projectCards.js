@@ -1,37 +1,70 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const projectsContainer = document.querySelector('#projects'); // Angenommen, die Karten sind in #projects
-
-  // Tilt-Effekt für Desktop
-  if (window.matchMedia('(min-width: 768px)').matches && projectsContainer) {
-    projectsContainer.addEventListener('mousemove', e => {
-      const card = e.target.closest('.box'); // Finde die nächste .box
-      if (!card) return; // Nicht über einer Karte
-
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-
-      const tiltX = (centerY - y) / 10;
-      const tiltY = (x - centerX) / 10;
-
-      card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.05, 1.05, 1.05)`;
-    });
-
-    projectsContainer.addEventListener('mouseout', e => {
-      const card = e.target.closest('.box');
-      if (card) {
-         // Prüfen, ob die Maus wirklich den Container verlassen hat, nicht nur eine Karte
-         if (!projectsContainer.contains(e.relatedTarget)) {
-            // Alle Karten zurücksetzen (oder nur die spezifische, wenn nötig)
-            projectsContainer.querySelectorAll('.box').forEach(c => c.style.transform = '');
-         } else if (e.relatedTarget && !card.contains(e.relatedTarget)) {
-             // Maus hat die Karte verlassen, aber ist noch im Container
-             card.style.transform = '';
-         }
+  // Batteriespar-Modus ist immer aktiv - keine Tilt-Effekte
+  // Der Code bleibt hier erhalten für den Fall, dass der Modus in Zukunft deaktiviert wird
+  
+  // Für einen expliziten Test können wir auch überprüfen:
+  const isBatterySaving = localStorage.getItem("battery-saving") !== "false"; // Default: true
+  
+  if (!isBatterySaving && window.matchMedia('(min-width: 768px)').matches) {
+    // Dieser Code wird nicht ausgeführt, weil der Batteriespar-Modus immer aktiv ist
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (!prefersReducedMotion) {
+      const projectsContainer = document.querySelector('#projects');
+      
+      if (!projectsContainer) return;
+      
+      // Throttle-Funktion zur Reduzierung der Berechnungen
+      let ticking = false;
+      let lastMouseEvent = null;
+      
+      projectsContainer.addEventListener('mousemove', e => {
+        lastMouseEvent = e;
+        
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            handleMouseMove(lastMouseEvent);
+            ticking = false;
+          });
+          
+          ticking = true;
+        }
+      });
+      
+      // Separate Funktion für die Berechnung
+      function handleMouseMove(e) {
+        const card = e.target.closest('.box');
+        if (!card) return;
+        
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        // Reduzierte Tilt-Stärke (von /10 auf /15)
+        const tiltX = (centerY - y) / 15;
+        const tiltY = (x - centerX) / 15;
+        
+        // GPU-beschleunigte Transformation mit geringerem Skalierungsfaktor
+        card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
       }
-    });
+      
+      // Optimiertes Reset-Event
+      projectsContainer.addEventListener('mouseleave', () => {
+        projectsContainer.querySelectorAll('.box').forEach(card => {
+          card.style.transform = '';
+        });
+      });
+      
+      // Einzelkarten-Reset für bessere Performance
+      projectsContainer.addEventListener('mouseout', e => {
+        const card = e.target.closest('.box');
+        if (card && !card.contains(e.relatedTarget)) {
+          card.style.transform = '';
+        }
+      });
+    }
   }
 });
