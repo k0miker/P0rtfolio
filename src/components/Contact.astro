@@ -1,6 +1,7 @@
 ---
 import Button from "./Button.astro";
 import contactBg from "../assets/images/contact.jpg";
+import { performanceMonitor } from '../utils/performanceMonitor.js';
 ---
 
 <section 
@@ -80,6 +81,10 @@ import contactBg from "../assets/images/contact.jpg";
   
   section.animate {
     animation: slidein2 45s infinite alternate;
+  }
+
+  section.static-background {
+    background-attachment: scroll;
   }
 
   form {
@@ -231,8 +236,20 @@ import contactBg from "../assets/images/contact.jpg";
   }
 }
 
+/* Stil für deaktivierte Animationen */
+#contact-background.no-animation {
+  animation: none !important;
+  transition: none !important;
+}
+
+:global([data-performance="low"]) #contact-section {
+  background-attachment: scroll !important;
+  background-image: linear-gradient(to bottom, var(--bg-primary), var(--bg-secondary)) !important;
+}
 </style>
 <script>
+  import { performanceMonitor } from '../utils/performanceMonitor.js';
+  
   const form = document.querySelector("form");
   const input = document.querySelector(".checkbox") as HTMLInputElement;
   const toggle = document.querySelector(".toggle-switch");
@@ -254,18 +271,87 @@ import contactBg from "../assets/images/contact.jpg";
   document.addEventListener("DOMContentLoaded", () => {
     const contactSection = document.getElementById("contact-section");
     
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate");
+    // Prüfen des Performance-Modus
+    const currentMode = document.documentElement.getAttribute('data-performance') || 
+                        localStorage.getItem('performance-mode') || 'high';
+    
+    // Performance-basierte Einstellungen sofort anwenden
+    if (contactSection) {
+      if (currentMode === 'low') {
+        // Low-Performance-Modus: Keine Animation, aber Hintergrund anzeigen
+        contactSection.classList.remove("animate");
+        contactSection.classList.add("static-background");
+        contactSection.style.backgroundAttachment = "scroll";
+        
+        // Gradient-Hintergrund nur als Fallback, bewahre das Bild
+        contactSection.style.backgroundImage = `url(${contactSection.getAttribute('style').match(/url\(['"](.*?)['"]\)/)[1]})`;
+      } else {
+        // Normaler Modus mit Animation bei Sichtbarkeit
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && currentMode !== 'low') {
+              entry.target.classList.add("animate");
+            } else {
+              entry.target.classList.remove("animate");
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        observer.observe(contactSection);
+      }
+    }
+    
+    // Performance-Monitor Änderungsabonnement
+    if (performanceMonitor && contactSection) {
+      performanceMonitor.onPerformanceModeChange((mode) => {
+        if (mode === 'low') {
+          // Bei niedrigen FPS: Animation deaktivieren aber Hintergrund behalten
+          contactSection.classList.remove('animate');
+          contactSection.classList.add("static-background");
+          contactSection.style.backgroundAttachment = 'scroll';
+          
+          // Sicherstellen dass der ursprüngliche Hintergrund beibehalten wird
+          const originalBackground = contactSection.getAttribute('data-original-background');
+          if (originalBackground) {
+            contactSection.style.backgroundImage = originalBackground;
+          }
         } else {
-          entry.target.classList.remove("animate");
+          // Bei hohen FPS: Normale Darstellung wiederherstellen
+          contactSection.classList.remove("static-background");
+          contactSection.style.backgroundAttachment = 'fixed';
+          
+          // Original-Hintergrund wiederherstellen
+          const originalBackground = contactSection.getAttribute('data-original-background');
+          if (originalBackground) {
+            contactSection.style.backgroundImage = originalBackground;
+          }
+          
+          // Animation Klasse nur hinzufügen wenn sichtbar
+          if (isElementInViewport(contactSection)) {
+            contactSection.classList.add('animate');
+          }
         }
       });
-    }, { threshold: 0.1 });
+    }
     
-    if (contactSection) {
-      observer.observe(contactSection);
+    // Original-Hintergrund speichern
+    if (contactSection && !contactSection.hasAttribute('data-original-background')) {
+      const backgroundImageStyle = contactSection.getAttribute('style');
+      if (backgroundImageStyle) {
+        const match = backgroundImageStyle.match(/background-image:\s*([^;]+)/);
+        if (match) {
+          contactSection.setAttribute('data-original-background', match[1]);
+        }
+      }
+    }
+    
+    // Hilfsfunktion zur Prüfung, ob Element im Viewport ist
+    function isElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.bottom >= 0
+      );
     }
   });
 </script>

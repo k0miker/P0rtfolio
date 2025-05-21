@@ -9,19 +9,21 @@ import p1 from "../assets/images/bonsaiworld.jpg";
 import p2 from "../assets/images/blome.jpg";
 import p5 from "../assets/images/p5.png";
 import p4 from "../assets/images/p4.png";
-import p7 from "../assets/images/p7.gif";
+// GIF nicht mehr importieren, nur noch statisches Bild verwenden
+import p7static from "../assets/images/p7.2.png";
 import p8 from "../assets/images/p8.png";
 import p9 from "../assets/images/p9.png";
 import p10 from "../assets/images/p10.png";
 import p11 from "../assets/images/p11.png";
 
-// Map der Bildimporte zu Projekten
+// Map der Bildimporte zu Projekten, p7 jetzt immer mit statischem Bild
 const imageMap = {
   p1,
   p2,
   p4,
   p5,
-  p7,
+  // p7 direkt auf statisches Bild umleiten
+  p7: p7static,
   p8,
   p9,
   p10,
@@ -64,12 +66,18 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
 
   <div class="projects-container">
     {filteredProjects.map((project) => (
-      <Card project={project} image={imageMap[project.image]} />
+      <Card 
+        project={project} 
+        image={imageMap[project.image]} 
+      />
     ))}
   </div>
 
   {filteredProjects.map((project) => (
-    <Modal project={project} image={imageMap[project.image]} />
+    <Modal 
+      project={project} 
+      image={imageMap[project.image]}
+    />
   ))}
 </section>
 
@@ -147,13 +155,28 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
     z-index: 1;
   }
 
-  /* Masonry Layout mit unterschiedlichen Kartengrößen */
-  .projects-container > :global(.card-wrapper:nth-child(3n)) {
+  /* Masonry Layout mit unterschiedlichen Kartengrößen - im Standard-Modus */
+  :root:not([data-performance="low"]) .projects-container > :global(.card-wrapper:nth-child(3n)) {
     grid-row: span 1.2;
   }
   
-  .projects-container > :global(.card-wrapper:nth-child(4n)) {
+  :root:not([data-performance="low"]) .projects-container > :global(.card-wrapper:nth-child(4n)) {
     grid-row: span 0.8;
+  }
+
+  /* Festes 3x3 Grid Layout im Low-Performance-Modus */
+  :global([data-performance="low"]) .projects-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Festes 3-Spalten-Layout */
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  :global([data-performance="low"]) .projects-container > :global(.card-wrapper) {
+    grid-row: span 1 !important; /* Alle Karten gleich hoch */
+    min-height: 300px; /* Mindesthöhe für die Karten */
+    height: 100%;
   }
 
   /* Animation für Karten beim Erscheinen */
@@ -176,6 +199,60 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
   /* Klasse für animierte Karten */
   :global(.fadeInUp) {
     animation: fadeInUp 0.6s forwards;
+  }
+
+  /* Reduzierte Animationen für schwächere Systeme */
+  :global([data-performance="low"]) .projects-container > :global(.card-wrapper) {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    display: block !important;
+    height: auto !important;
+    min-height: 300px !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Verbesserte Darstellung der Karten im Low-Performance-Modus */
+  :global([data-performance="low"]) .projects-container > :global(.card-wrapper) :global(.box) {
+    height: 100% !important;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) !important;
+    display: block !important;
+  }
+  
+  :global([data-performance="low"]) .projects-container > :global(.card-wrapper) :global(.card-image) {
+    height: 200px !important;
+    object-fit: cover !important;
+  }
+  
+  :global([data-performance="low"]) .projects-container > :global(.card-wrapper) :global(.card-overlay) {
+    transform: translateY(60%) !important; /* Teilweise sichtbar */
+    transition: none !important;
+    opacity: 1 !important;
+  }
+  
+  :global([data-performance="low"]) .projects-container > :global(.card-wrapper:hover) :global(.card-overlay) {
+    transform: translateY(0) !important; /* Vollständig sichtbar beim Hover */
+  }
+
+  /* Sofort alle Karten anzeigen ohne Animation im Low-Performance-Modus */
+  :global([data-performance="low"]) .projects-container {
+    opacity: 1 !important;
+  }
+  
+  /* Hintergrund im Low-Performance-Modus ausblenden */
+  :global([data-performance="low"]) #projects-background {
+    display: none !important;
+  }
+
+  :global([data-performance="medium"]) .projects-container > :global(.card-wrapper) {
+    animation-duration: 0.3s !important;
+  }
+  
+  /* Weitere Optimierungen für schwache Performance */
+  :global([data-performance="low"]) #projects-background {
+    opacity: 0.2 !important;
   }
 
   @media screen and (max-width: 768px) {
@@ -269,106 +346,137 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
 </style>
 
 <script>
-  // Kombinierte Skript-Logik für Performance-Optimierung
+  import { performanceMonitor } from '../utils/performanceMonitor.js';
+  
   document.addEventListener("DOMContentLoaded", function () {
-    // Der Batteriespar-Modus ist immer aktiv
-    const useReducedAnimations = true;
+    // Performance-basierte Anpassungen
+    const currentMode = document.documentElement.getAttribute('data-performance') || 
+                      localStorage.getItem('performance-mode') || 'high';
     
-    // Existierende Modal-Logik
-    let modalTriggers = document.querySelectorAll(".box[data-modal-target]");
-    let openModal = null;
-
-    modalTriggers.forEach(function (trigger) {
-      trigger.addEventListener("click", function () {
-        let modalId = trigger.getAttribute("data-modal-target");
-        let modal = document.getElementById(modalId) as HTMLElement;
-
-        if (openModal && openModal !== modal) {
-          openModal.classList.remove('modal-open');
-          setTimeout(() => {
-            openModal.style.display = "none";
-          }, 300);
-        }
-
-        if (modal) {
-          modal.style.display = "flex";
-          // Kleine Verzögerung für die Animation
-          setTimeout(() => {
-            modal.classList.add('modal-open');
-          }, 10);
-          openModal = modal;
-        }
-      });
-    });
-
-    let closeIcons = document.querySelectorAll(".modal .close");
-    closeIcons.forEach(function (icon) {
-      icon.addEventListener("click", function () {
-        let modal = icon.closest(".modal") as HTMLElement;
-        if (modal) {
-          modal.classList.remove('modal-open');
-          setTimeout(() => {
-            modal.style.display = "none";
-          }, 300);
-          openModal = null;
-        }
-      });
-    });
-
-    window.addEventListener("click", function (event) {
-      const targetElement = event.target as Element;
-      if (targetElement.classList.contains("modal")) {
-        const modal = targetElement as HTMLElement;
-        modal.classList.remove('modal-open');
-        setTimeout(() => {
-          modal.style.display = "none";
-        }, 300);
-        openModal = null;
+    if (currentMode === 'low') {
+      // Hintergrund ausblenden
+      const projectsBackground = document.getElementById('projects-background');
+      if (projectsBackground) {
+        projectsBackground.style.display = 'none';
       }
-    });
-
-    // Filter Funktionalität
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.card-wrapper');
-    
-    // Setze Animation-Order für jede Karte mit reduzierter Animation im Batteriesparmodus
-    cards.forEach((card, index) => {
-      (card as HTMLElement).style.setProperty('--order', '0'); // Immer 0 für sofortige Anzeige
-    });
-
-    // Optimierte Filter-Funktion für bessere Performance
-    function handleFilterClick(event) {
-      const btn = event.currentTarget;
       
-      // Aktiven Button markieren
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      // Grid-Layout für 3x3 Anzeige anpassen
+      const projectsContainer = document.querySelector('.projects-container');
+      if (projectsContainer instanceof HTMLElement) {
+        projectsContainer.style.display = 'grid';
+        projectsContainer.style.gridTemplateColumns = 'repeat(3, 1fr)';
+        projectsContainer.style.gap = '1.5rem';
+      }
       
-      const category = btn.getAttribute('data-category');
+      // Sichtbarkeit der Projektkarten sicherstellen und Layout verbessern
+      document.querySelectorAll('.card-wrapper').forEach(function(card) {
+        // Cast to HTMLElement to access style property
+        const htmlCard = card as HTMLElement;
+        if (htmlCard && htmlCard.style) {
+          htmlCard.style.opacity = '1';
+          htmlCard.style.visibility = 'visible';
+          htmlCard.style.display = 'block';
+          htmlCard.style.transform = 'none';
+          htmlCard.style.gridRow = 'span 1'; // Alle Karten gleich hoch
+          htmlCard.style.minHeight = '300px';
+          
+          // Box-Element
+          const box = card.querySelector('.box') as HTMLElement;
+          if (box && box.style) {
+            box.style.opacity = '1';
+            box.style.visibility = 'visible';
+            box.style.transform = 'none';
+            box.style.height = '100%';
+            box.style.display = 'block';
+          }
+          
+          // Card-Content
+          const content = card.querySelector('.card-content') as HTMLElement;
+          if (content && content.style) {
+            content.style.height = '100%';
+          }
+          
+          // Bild
+          const img = card.querySelector('.card-image') as HTMLImageElement;
+          if (img && img.style) {
+            img.style.height = '200px';
+            img.style.objectFit = 'cover';
+          }
+          
+          // Overlay
+          const overlay = card.querySelector('.card-overlay') as HTMLElement;
+          if (overlay && overlay.style) {
+            overlay.style.transform = 'translateY(60%)'; // Teilweise sichtbar
+            overlay.style.opacity = '1';
+            
+            // Hover-Effekt für Overlay beibehalten
+            htmlCard.addEventListener('mouseenter', () => {
+              overlay.style.transform = 'translateY(0)';
+            });
+            htmlCard.addEventListener('mouseleave', () => {
+              overlay.style.transform = 'translateY(60%)';
+            });
+          }
+        }
+      });
       
-      // Optimierte Filter-Animation mit sofortiger Anzeige/Ausblendung
-      requestAnimationFrame(() => {
-        cards.forEach((card) => {
-          const shouldShow = category === 'All' || card.getAttribute('data-category') === category;
-          (card as HTMLElement).style.display = shouldShow ? 'block' : 'none';
+      // Filter-Buttons auch im Low-Performance-Modus aktivieren
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const category = this.getAttribute('data-category');
+          
+          // Alle Filter-Buttons deaktivieren
+          document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.remove('active');
+          });
+          
+          // Angeklickten Button aktivieren
+          this.classList.add('active');
+          
+          // Alle Karten filtern
+          document.querySelectorAll('.card-wrapper').forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            if (category === 'All' || cardCategory === category) {
+              (card as HTMLElement).style.display = 'block';
+            } else {
+              (card as HTMLElement).style.display = 'none';
+            }
+          });
         });
       });
+    } else {
+      // Standard-Filter-Logik für normale Performance-Modi
+      initializeFilters();
     }
     
-    // Event-Listener für Filter-Buttons
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', handleFilterClick, { passive: true });
-    });
-
-    // Initial den 'All' Button aktivieren
-    const allButton = document.querySelector('.filter-btn[data-category="All"]');
-    if (allButton) {
-      allButton.classList.add('active');
+    // Standard-Filter-Logik
+    function initializeFilters() {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const category = this.getAttribute('data-category');
+          
+          // Alle Filter-Buttons deaktivieren
+          document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.remove('active');
+          });
+          
+          // Angeklickten Button aktivieren
+          this.classList.add('active');
+          
+          // Alle Karten filtern
+          document.querySelectorAll('.card-wrapper').forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            if (category === 'All' || cardCategory === category) {
+              (card as HTMLElement).style.display = 'block';
+            } else {
+              (card as HTMLElement).style.display = 'none';
+            }
+          });
+        });
+      });
       
-      // Manuell den Klick auslösen
-      setTimeout(() => {
-        (allButton as HTMLElement).click();
-      }, 100);
+      // Initial "All" Button aktivieren
+      document.querySelector('.filter-btn[data-category="All"]')?.classList.add('active');
     }
   });
 </script>

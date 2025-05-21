@@ -3,7 +3,7 @@ const { id = "background-canvas", opacity = "0.9", color = "var(--accent)", part
 ---
 
 <div class="background-container">
-  <canvas id={id}></canvas>
+  <canvas id={id} class="performance-dependent"></canvas>
 </div>
 
 <style define:vars={{ opacity, color }}>
@@ -29,13 +29,26 @@ const { id = "background-canvas", opacity = "0.9", color = "var(--accent)", part
   }
 </style>
 
-<script define:vars={{ canvasId: id, userParticleCount: Number(particleCount) }}>
-  // Hier wird die ID direkt als Variable übergeben, um document.currentScript zu vermeiden
+<script type="module" define:vars={{ canvasId: id, userParticleCount: Number(particleCount) }}>
+  import { performanceMonitor } from '../utils/performanceMonitor.js';
+  
   document.addEventListener("DOMContentLoaded", function() {
     try {
-      // Canvas-Element direkt mit der ID abrufen
-      const canvas = document.getElementById(canvasId);
+      // Prüfen, ob wir im High-Performance-Modus sind
+      const currentMode = document.documentElement.getAttribute('data-performance') || 
+                        localStorage.getItem('performance-mode') || 'high';
       
+      // Bei nicht-High-Performance-Modi, Canvas nicht initialisieren
+      if (currentMode !== 'high') {
+        const canvas = document.getElementById(canvasId);
+        if (canvas) {
+          canvas.style.display = 'none';
+        }
+        return; // Canvas nicht initialisieren bei niedrigem Leistungsmodus
+      }
+      
+      // Canvas-Element für den Background initialisieren
+      const canvas = document.getElementById(canvasId);
       if (!canvas) {
         console.error(`Canvas mit ID "${canvasId}" nicht gefunden!`);
         return;
@@ -51,30 +64,89 @@ const { id = "background-canvas", opacity = "0.9", color = "var(--accent)", part
       const computedStyle = getComputedStyle(document.documentElement);
       const accentColor = computedStyle.getPropertyValue('--accent').trim() || "#ff5500";
       
-      // Alle Partikel verwenden die Akzentfarbe
-      const particleColor = accentColor;
+      // Performance-basierte Konfiguration mit direkter FPS-Überwachung
+      function getPerformanceConfig() {
+        const perfMode = document.documentElement.getAttribute('data-performance') || 'high';
+        
+        switch(perfMode) {
+          case 'low':
+            return {
+              particleMultiplier: 0.25, // Noch weniger Partikel
+              connectionDistance: 100,  // Noch kürzere Verbindungslinien
+              moreEfficient: true,      // Effizientere Algorithmen
+              skipFrames: 3,            // Jeden 4. Frame rendern
+              disableMouseInteraction: true // Mausinteraktion deaktivieren
+            };
+          case 'medium':
+            return {
+              particleMultiplier: 0.5,  // Hälfte der Partikel
+              connectionDistance: 150,  // Kürzere Verbindungslinien
+              moreEfficient: true,      // Effizientere Algorithmen
+              skipFrames: 1,            // Jeden 2. Frame rendern
+              disableMouseInteraction: false
+            };
+          default: // 'high'
+            return {
+              particleMultiplier: 0.8,  // 80% der Partikel (für bessere Performance)
+              connectionDistance: 200,  // Standard-Verbindungslinien
+              moreEfficient: false,     // Standard-Algorithmen
+              skipFrames: 0,            // Jeden Frame rendern
+              disableMouseInteraction: false
+            };
+        }
+      }
       
-      // Theme-Änderung überwachen und Farben aktualisieren
-      const themeObserver = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-          if (mutation.attributeName === 'class') {
-            // Kurze Verzögerung einfügen, damit die CSS-Variablen Zeit haben vollständig zu aktualisieren
-            setTimeout(() => {
-              // Farben neu laden wenn sich das Theme ändert
-              const updatedStyle = getComputedStyle(document.documentElement);
-              const newAccentColor = updatedStyle.getPropertyValue('--accent').trim() || "#ff5500";
-              
-              // Aktualisiere alle Partikel mit der neuen Akzentfarbe
-              particles.forEach(particle => {
-                particle.color = newAccentColor;
-              });
-            }, 100); // 100ms Verzögerung für die Aktualisierung
+      // Aktuelle Performance-Konfiguration
+      let perfConfig = getPerformanceConfig();
+      
+      // Performance-Modus-Änderungen überwachen
+      const perfObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.attributeName === 'data-performance') {
+            perfConfig = getPerformanceConfig();
+            
+            // Partikelanzahl neu berechnen und neu initialisieren
+            particleCount = calculateParticleCount();
+            initParticles();
           }
         });
       });
       
-      // Theme-Änderungen am HTML-Element beobachten (wo die .dark-mode Klasse hinzugefügt wird)
-      themeObserver.observe(document.documentElement, { attributes: true });
+      perfObserver.observe(document.documentElement, { attributes: true });
+      
+      // FPS-Überwachung für dynamische Anpassungen
+      if (typeof performanceMonitor !== 'undefined') {
+        performanceMonitor.onFPSChange((fps) => {
+          if (fps < 60 && canvas) {
+            // Canvas komplett ausblenden bei zu niedrigen FPS
+            canvas.style.display = 'none';
+          }
+          if (fps < 20 && perfConfig.particleMultiplier > 0.2) {
+            // Bei sehr niedrigen FPS noch stärker reduzieren
+            perfConfig.particleMultiplier = 0.2;
+            perfConfig.skipFrames = 4;
+            perfConfig.disableMouseInteraction = true;
+            perfConfig.connectionDistance = 80;
+            
+            // Partikel neu initialisieren mit weniger Elementen
+            particleCount = calculateParticleCount();
+            initParticles();
+          }
+        });
+      }
+      
+      // Auf Performance-Änderungen reagieren
+      if (performanceMonitor) {
+        performanceMonitor.onPerformanceModeChange((mode) => {
+          if (mode !== 'high') {
+            // Nur bei Wechsel zu nicht-High-Modi deaktivieren
+            canvas.style.display = 'none';
+          } else {
+            // Bei High-Modus wieder aktivieren
+            canvas.style.display = 'block';
+          }
+        });
+      }
       
       let mouseX = 0;
       let mouseY = 0;
@@ -87,16 +159,19 @@ const { id = "background-canvas", opacity = "0.9", color = "var(--accent)", part
       // Funktion zur Berechnung der Partikelanzahl basierend auf der Canvas-Höhe
       function calculateParticleCount() {
         // Reduzierter Basiswert pro 100 Pixel Höhe
-        const baseCountPer100Px = 5; // Reduziert von 8 auf 3
+        const baseCountPer100Px = 5;
         
         // Berechnung basierend auf der Canvas-Höhe und dem übergebenen Wert
         const calculatedCount = Math.floor((canvas.height / 100) * baseCountPer100Px);
         
         // Nutze den vom User übergebenen Wert als Faktor
-        const userModifier = userParticleCount ;
+        const userModifier = userParticleCount;
+        
+        // Performance-Multiplikator anwenden
+        const perfMultiplier = perfConfig.particleMultiplier;
         
         // Reduzierte Minimum- und Maximum-Begrenzung
-        return Math.max(15, Math.min(60, calculatedCount * (userModifier / 10)));
+        return Math.max(10, Math.min(60, calculatedCount * (userModifier / 10) * perfMultiplier));
       }
       
       // Canvas-Größe anpassen
@@ -142,7 +217,7 @@ const { id = "background-canvas", opacity = "0.9", color = "var(--accent)", part
               x: x,
               y: y,
               radius: 3,           
-              color: particleColor,
+              color: accentColor,
               vx: Math.random() * 0.1 - .025,
               vy: Math.random() * 0.1 - .025,
               life: Math.random(),
@@ -162,7 +237,7 @@ const { id = "background-canvas", opacity = "0.9", color = "var(--accent)", part
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
             radius: 3,
-            color: particleColor,
+            color: accentColor,
             vx: Math.random() * 0.1 - .025,
             vy: Math.random() * 0.1 - .025,
             life: Math.random(),
@@ -174,9 +249,18 @@ const { id = "background-canvas", opacity = "0.9", color = "var(--accent)", part
         }
       }
       
-      // Animation-Loop - auch beim Respawn gleichmäßige Verteilung
+      let frameCount = 0;
+      
+      // Animation-Loop mit Performance-Anpassungen
       function animate() {
         requestAnimationFrame(animate);
+        
+        // Frame-Skipping für niedrige Performance-Modi
+        frameCount++;
+        if (perfConfig.skipFrames > 0 && frameCount % (perfConfig.skipFrames + 1) !== 0) {
+          return;
+        }
+        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         // Partikel zeichnen und bewegen
@@ -212,7 +296,7 @@ const { id = "background-canvas", opacity = "0.9", color = "var(--accent)", part
               x: x,
               y: y,
               radius: 2,
-              color: particleColor,
+              color: accentColor,
               vx: Math.random() * 0.1 - .025,
               vy: Math.random() * 0.1 - .025,
               life: 0,
@@ -236,7 +320,8 @@ const { id = "background-canvas", opacity = "0.9", color = "var(--accent)", part
           particle.x += particle.vx;
           particle.y += particle.vy;
           
-          if (mouseActive) {
+          // Mausinteraktion nur aktivieren wenn Performance es zulässt
+          if (mouseActive && !perfConfig.disableMouseInteraction) {
             const canvasRect = canvas.getBoundingClientRect();
             const relMouseX = mouseX - canvasRect.left;
             const relMouseY = mouseY - canvasRect.top;
@@ -265,28 +350,74 @@ const { id = "background-canvas", opacity = "0.9", color = "var(--accent)", part
       }
       
       function drawConnections() {
-        const connectionDistance = 250;
+        const connectionDistance = perfConfig.connectionDistance;
         
-        for (let i = 0; i < particles.length; i++) {
+        // Optimierte Verbindungsberechnung für niedrige Performance
+        if (perfConfig.moreEfficient) {
+          // Weniger Iterationen durch Spatial Partitioning
+          const gridSize = Math.ceil(canvas.width / connectionDistance);
+          const grid = {};
           
-          for (let j = i + 1; j < particles.length; j++) {
+          // Partikel in Grid zuordnen
+          particles.forEach((particle, i) => {
+            const cellX = Math.floor(particle.x / connectionDistance);
+            const cellY = Math.floor(particle.y / connectionDistance);
+            const cellKey = `${cellX},${cellY}`;
             
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (!grid[cellKey]) {
+              grid[cellKey] = [];
+            }
+            grid[cellKey].push(i);
+          });
+          
+          // Nur Partikel in benachbarten Zellen prüfen
+          particles.forEach((particle, i) => {
+            const cellX = Math.floor(particle.x / connectionDistance);
+            const cellY = Math.floor(particle.y / connectionDistance);
             
-            if (distance < connectionDistance) {
-              ctx.beginPath();
-              // Volle Opazität für Verbindungslinien, nur abstandsabhängig
-              ctx.globalAlpha = Math.max(.1, 1 - (distance / connectionDistance));
-              ctx.strokeStyle = accentColor; // Verbindungslinienfarbe
+            // Überprüfe die aktuelle und alle angrenzenden Zellen
+            for (let x = cellX - 1; x <= cellX + 1; x++) {
+              for (let y = cellY - 1; y <= cellY + 1; y++) {
+                const cellKey = `${x},${y}`;
+                if (grid[cellKey]) {
+                  grid[cellKey].forEach(j => {
+                    if (j > i) { // Jedes Paar nur einmal prüfen
+                      const dx = particle.x - particles[j].x;
+                      const dy = particle.y - particles[j].y;
+                      const dist = Math.sqrt(dx * dx + dy * dy);
+                      
+                      if (dist < connectionDistance) {
+                        ctx.beginPath();
+                        ctx.globalAlpha = Math.max(.1, 1 - (dist / connectionDistance));
+                        ctx.strokeStyle = accentColor;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particle.x, particle.y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                      }
+                    }
+                  });
+                }
+              }
+            }
+          });
+        } else {
+          // Original-Code für volle Qualität
+          for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+              const dx = particles[i].x - particles[j].x;
+              const dy = particles[i].y - particles[j].y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
               
-              
-              ctx.lineWidth = 1;
-              
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.stroke();
+              if (distance < connectionDistance) {
+                ctx.beginPath();
+                ctx.globalAlpha = Math.max(.1, 1 - (distance / connectionDistance));
+                ctx.strokeStyle = accentColor;
+                ctx.lineWidth = 1;
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+              }
             }
           }
         }

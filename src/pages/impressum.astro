@@ -5,9 +5,11 @@ import "../css/darkmode.css";
 import "../css/fonts.css";
 import "../css/fontawesome/css/fontawesome.css";
 import "../css/fontawesome/css/all.min.css";
+import Nav from "../components/Nav.astro";
 ---
 
 <BaseLayout title="Impressum | Colin Blome">
+  <Nav />
   <main class="impressum-container">    
     <div class="container">
       <div class="header-container">
@@ -156,8 +158,7 @@ import "../css/fontawesome/css/all.min.css";
     font-weight: 600;
   }
   
-  p {
-    color: var(--text-secondary);
+  p {   
     line-height: 1.6;
     margin-bottom: 0.75rem;
   }

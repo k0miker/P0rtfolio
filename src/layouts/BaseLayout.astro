@@ -1,5 +1,6 @@
 ---
 const { title, description, image } = Astro.props;
+import "../utils/performanceStyles.css";
 ---
 
 <html lang="de" class="w-full">
@@ -13,7 +14,7 @@ const { title, description, image } = Astro.props;
     <title>{title || 'Colin Blome - Web Developer Portfolio'}</title>
     <meta name="description" content={description || 'Portfolio von Colin Blome, Web Developer aus Deutschland. Spezialisiert auf moderne Web-Entwicklung mit Fokus auf Benutzerfreundlichkeit und Responsive Design.'} />
     
-    <!-- Open Graph / Social Media -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title || 'Colin Blome - Web Developer Portfolio'} />
@@ -27,11 +28,53 @@ const { title, description, image } = Astro.props;
     <meta name="twitter:title" content={title || 'Colin Blome - Web Developer Portfolio'} />
     <meta name="twitter:description" content={description || 'Portfolio von Colin Blome, Web Developer aus Deutschland.'} />
     <meta name="twitter:image" content={image || 'https://i.imgur.com/ELVyRRc.jpeg'} />
-
+    
     <!-- Font Awesome für Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
   <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
     <slot />
+    
+    <!-- Performance-Monitor Script einbinden -->
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        try {
+          // Zuerst den gespeicherten Modus direkt anwenden, bevor wir warten
+          const savedMode = localStorage.getItem('performance-mode') || 'high';
+          document.documentElement.setAttribute('data-performance', savedMode);
+          
+          // Wenn wir im Low-Mode sind, Backgrounds sofort deaktivieren
+          if (savedMode === 'low') {
+            document.documentElement.classList.add('disable-backgrounds');
+            document.documentElement.classList.add('force-reduced-motion');
+          }
+          
+          // Performance-Monitor dynamisch importieren
+          const { performanceMonitor } = await import('../utils/performanceMonitor.js');
+          
+          // Performance-Monitor mit dem gespeicherten Modus initialisieren
+          if (performanceMonitor) {
+            performanceMonitor.setPerformanceMode(savedMode);
+            
+            // Bei niedriger FPS prefers-reduced-motion simulieren
+            performanceMonitor.onPerformanceModeChange((mode) => {
+              if (mode === 'low') {
+                // Füge Klasse hinzu, die reduzierte Bewegung für alle Elemente forciert
+                document.documentElement.classList.add('force-reduced-motion');
+                document.documentElement.classList.add('disable-backgrounds');
+              } else {
+                document.documentElement.classList.remove('force-reduced-motion');
+                // Hintergründe nur wieder aktivieren wenn wir auf "high" gehen
+                if (mode === 'high') {
+                  document.documentElement.classList.remove('disable-backgrounds');
+                }
+              }
+            });
+          }
+        } catch (e) {
+          console.error('Fehler beim Laden des Performance-Monitors:', e);
+        }
+      });
+    </script>
   </body>
 </html>

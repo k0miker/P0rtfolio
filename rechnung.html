@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rechnung - [1]</title>
+    <style>
+        @font-face {
+            font-family: "marker";
+            src: url(/Fonts/PermanentMarker-Regular.ttf);
+        }
+        @font-face {
+            font-family: "mono";
+            src: url(/Fonts/SpaceMono-Regular.ttf);
+        }
+        @font-face {
+            font-family: "inter";
+            src: url(/Fonts/Inter-VariableFont_slnt,wght.ttf);
+        }
+        
+        :root {
+            /* Farbpalette aus Ihrem CSS */
+            --accent: rgb(239, 91, 45); /* Ihre Tomato-Farbe */
+            --accent-light: rgba(239, 91, 45, 0.1);
+            --accent-medium: rgba(239, 91, 45, 0.25);
+            --accent-dark: rgba(214, 72, 28, 1);
+            --text-primary: #212121;
+            --text-secondary: #424242;
+            --text-muted: #9e9e9e;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --border: #e0e0e0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            
+            /* Kompakteres Layout - reduzierte Abstände */
+            --spacing-sm: 5px;
+            --spacing-md: 10px;
+            --spacing-lg: 15px;
+            --spacing-xl: 20px;
+            --spacing-xxl: 30px;
+            --spacing-xxxl: 40px;
+            --spacing-xxxxl: 50px;
+        }
+
+        body {
+            font-family: 'inter', sans-serif;
+            line-height: 1.4; /* Reduzierter Zeilenabstand */
+            font-size: 0.9rem; /* Kleinere Basisschriftgröße */
+            color: var(--text-primary);
+            margin: 0;
+            padding: var(--spacing-md);
+            background-color: #f8f8f8;
+            background-image: 
+                linear-gradient(120deg, var(--accent-light) 0%, transparent 70%),
+                radial-gradient(circle at top right, var(--accent-light), transparent 60%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .invoice-container {
+            max-width: 700px;
+            margin: var(--spacing-md) auto;
+            padding: var(--spacing-xl) var(--spacing-xxl); /* Reduziertes Padding */
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            box-shadow: 0 15px 30px var(--shadow), 0 10px 10px rgba(0, 0, 0, 0.04);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .invoice-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(to right, var(--accent), var(--accent-dark));
+        }
+        
+        .invoice-container::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(to right, var(--accent), var(--accent-dark));
+        }
+        
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-family: 'marker', sans-serif;
+            font-size: 8rem;
+            color: var(--accent-light);
+            white-space: nowrap;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Header mit Logo */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-xl); /* Reduzierter Abstand */
+            padding-bottom: var(--spacing-md); /* Reduzierter Abstand */
+            border-bottom: 2px solid var(--border);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-left {
+            flex: 1;
+        }
+
+        .header-right {
+            text-align: right;
+            flex: 1;
+        }
+
+        .header h1 {
+            color: var(--accent);
+            margin: 0 0 var(--spacing-md);
+            font-family: 'marker', sans-serif;
+            font-size: 2rem; /* Kleinerer Titel */
+            position: relative;
+        }
+        
+        
+
+        .logo {
+            width: 170px; /* Kleineres Logo */
+            height: auto;
+            margin-bottom: var(--spacing-lg);
+            display: block;
+        }
+
+        /* Adressblöcke */
+        .address-block {
+            margin-bottom: var(--spacing-lg); /* Reduzierter Abstand */
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+
+        .address-block div {
+            width: 48%;
+        }
+
+        .address-block strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-family: 'mono', monospace;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Rechnungsdetails */
+        .invoice-details {
+            margin-bottom: var(--spacing-md);
+            padding: var(--spacing-md);
+            background-color: var(--bg-secondary);
+            border-left: 4px solid var(--accent);
+            border-radius: 6px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .invoice-details:hover {
+            transform: translateY(-3px);
+        }
+
+        .invoice-details p {
+            margin: 4px 0; /* Reduzierter Abstand */
+            font-family: 'mono', monospace;
+            font-size: 0.85rem; /* Kleinere Schrift */
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .invoice-details p strong {
+            color: var(--text-secondary);
+            min-width: 160px;
+        }
+
+        /* Rechnungstitel */
+        h2 {
+            color: var(--text-secondary);
+            font-family: 'marker', sans-serif;
+            margin-bottom: var(--spacing-md); /* Reduzierter Abstand */
+            font-size: 1.4rem; /* Kleinerer Titel */
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Tabelle */
+        .invoice-table-container {
+            margin-bottom: var(--spacing-md);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'mono', monospace;
+            font-size: 0.85rem; /* Kleinere Tabelleneinträge */
+        }
+
+        .invoice-table th, .invoice-table td {
+            padding: 6px 8px; /* Reduziertes Padding in Tabellenzellen */
+            text-align: left;
+        }
+        
+        .invoice-table th {
+            background-color: var(--accent);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+        }
+
+        .invoice-table tbody tr:nth-child(even) {
+            background-color: var(--bg-secondary);
+        }
+        
+        .invoice-table tbody tr {
+            transition: background-color 0.2s ease;
+        }
+        
+        .invoice-table tbody tr:hover {
+            background-color: var(--accent-light);
+        }
+
+        .total-row {
+            background-color: var(--text-secondary) !important;
+            color: white;
+        }
+        
+        .total-row td {
+            font-weight: 700;
+            text-align: right;
+            padding: 10px 12px;
+        }
+
+        .total-row td:first-child {
+            text-align: left;
+        }
+
+        .total-row td:last-child {
+            font-size: 1.2em;
+            color: white;
+            background-color: var(--accent);
+        }
+
+        /* Hinweis zur USt */
+        .vat-note {
+            margin-top: var(--spacing-md);
+            padding: var(--spacing-sm);
+            background-color: var(--accent-light);
+            border: 1px solid var(--accent);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            font-size: 0.8em;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .vat-note strong {
+            color: var(--accent-dark);
+        }
+
+        /* Zahlungsinfos */
+        .payment-info {
+            margin-top: var(--spacing-lg);
+            padding: var(--spacing-md);
+            background-color: var(--bg-secondary);
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .payment-info-content {
+            flex: 1;
+            min-width: 280px;
+        }
+        
+        .payment-info h3 {
+            color: var(--text-secondary);
+            margin-top: 0;
+            margin-bottom: var(--spacing-sm);
+            font-family: 'mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem; /* Kleinerer Titel */
+            border-bottom: 2px solid var(--accent-medium);
+            padding-bottom: var(--spacing-sm);
+            display: inline-block;
+        }
+        
+        .payment-info .highlight {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1em;
+        }
+        
+        .payment-info .due-date {
+            display: inline-block;
+            padding: 3px 6px;
+            background-color: var(--accent-medium);
+            border-radius: 4px;
+            color: var(--accent-dark);
+            font-weight: bold;
+            margin: 0 3px;
+        }
+        
+        .bank-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: var(--spacing-sm);
+            font-size: 0.8rem;
+        }
+        
+        .bank-detail {
+            padding: var(--spacing-sm);
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            font-size: 0.8rem; /* Kleinere Schrift */
+            flex: 1 0 auto;
+            min-width: 120px;
+        }
+
+        /* QR-Code für Zahlungsinformationen */
+        .qr-container {
+            margin-left: var(--spacing-md);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        
+        .qr-code {
+            width: 80px; /* Kleinerer QR-Code */
+            height: 80px;
+            background-color: white;
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .qr-code::after {
+            content: "Zahlung scannen";
+            position: absolute;
+            bottom: -18px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8em;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Editierbare Felder */
+        .editable {
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 1px dashed var(--border);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+        }
+        
+        .editable:hover {
+            background-color: var(--accent-light);
+            cursor: pointer;
+        }
+        
+        .editable:focus {
+            background-color: white;
+            border: 1px solid var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+        
+        .editable::before {
+            content: "✎";
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            color: var(--accent);
+        }
+        
+        .editable:hover::before {
+            opacity: 1;
+        }
+        
+        /* Tooltip für editierbare Felder */
+        .tooltip {
+            position: absolute;
+            background-color: #323232;
+            color: white;
+            padding: 3px 6px;  /* Reduziert */
+            border-radius: 4px;
+            font-size: 10px;  /* Kleiner */
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            z-index: 10;
+        }
+
+        /* Druckoptimierungen */
+        @media print {
+            body {
+                background-image: none !important;
+                background-color: white !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                font-size: 0.8rem !important;  /* Noch kleiner */
+                line-height: 1.2 !important;   /* Extrem kompakt */
+                display: flex !important;
+                flex-direction: column !important;
+                min-height: 100vh !important;
+            }
+
+            .invoice-container {
+                margin: 0 auto !important;
+                padding: 8px 5px !important;  /* Minimal */
+                box-shadow: none !important;
+                border: none !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                page-break-inside: avoid !important;
+                box-sizing: border-box !important;
+                transform: scale(0.93) !important;  /* Stärker verkleinern */
+                transform-origin: top center !important;
+                display: flex !important;
+                flex-direction: column !important;
+                flex: 1 !important;
+                min-height: 99vh !important; /* Fast volle Viewport-Höhe für den Container */
+                justify-content: space-between !important; /* Verteilt Inhalt und Footer */
+            }
+            
+            .invoice-container::before,
+            .invoice-container::after {
+                display: none !important;
+            }
+            
+            /* Hauptinhalt-Bereich wächst flexibel */
+            .invoice-content {
+                flex: 1 1 auto !important;
+            }
+            
+            /* Zahlungsinfos und Footer fixiert am Ende der Seite */
+            .payment-info-wrapper {
+                margin-top: auto !important; /* Drückt Elemente ans untere Ende */
+                page-break-before: avoid !important;
+                page-break-inside: avoid !important;
+                page-break-after: avoid !important;
+            }
+            
+            /* Fügt einen flexiblen Spacer ein, der den verfügbaren Platz füllt */
+            .payment-info-wrapper {
+                margin-top: 10px !important; /* Reduziert von auto/30px */
+                page-break-before: auto !important;
+                page-break-inside: avoid !important;
+                page-break-after: avoid !important;
+            }
+            
+            .watermark {
+                font-size: 6rem !important;  /* Kleinerer Wasserzeichen */
+                opacity: 0.03 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+            
+            .editable {
+                border: none !important;
+                background-color: transparent !important;
+                padding: 0 !important;
+            }
+            
+            .editable::before, .tooltip {
+                display: none !important;
+            }
+            
+            .invoice-details:hover {
+                transform: none !important;
+            }
+            
+            /* Sicherstellen, dass Tabellenstile erhalten bleiben */
+            .invoice-table-container {
+                page-break-inside: avoid !important;
+                box-shadow: none !important;
+            }
+            
+            .invoice-table th {
+                background-color: var(--accent) !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .invoice-table tbody tr:nth-child(even) {
+                background-color: var(--bg-secondary) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .total-row td:last-child {
+                background-color: var(--accent) !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            /* Zahlungshinweise und Bank-Details gut sichtbar halten */
+            .payment-info {
+                margin-top: 10px !important; /* Reduziert von 30px */
+                margin-bottom: 10px !important; /* Reduziert von 20px */
+                padding: 5px !important; /* Reduziert von 10px */
+                page-break-inside: avoid !important;
+            }
+            
+            .payment-info-content {
+                font-size: 0.7rem !important;
+            }
+            
+            .payment-info h3 {
+                margin-bottom: 2px !important;
+                font-size: 0.75rem !important;
+                padding-bottom: 2px !important;
+            }
+            
+            .payment-info p {
+                margin: 3px 0 !important;
+                line-height: 1.1 !important;
+            }
+            
+            .bank-details {
+                gap: 2px !important;
+                margin-top: 2px !important;
+            }
+            
+            .bank-detail {
+                padding: 2px !important;
+                font-size: 0.7rem !important;
+            }
+            
+            .qr-container {
+                margin-left: 3px !important;
+            }
+            
+            .qr-code {
+                width: 70px !important;
+                height: 70px !important;
+                padding: 3px !important;
+            }
+            
+            .qr-code::after {
+                font-size: 0.65rem !important;
+                bottom: -15px !important;
+            }
+            
+            .footer {
+                margin-top: 5px !important;
+                padding-top: 2px !important;
+                font-size: 0.65rem !important;
+                line-height: 1 !important;
+            }
+            
+            .footer p {
+                margin: 2px 0 !important;
+            }
+            
+            .footer p:last-child {
+                margin-top: 10px !important; /* Reduziert von 30px */
+            }
+            
+            /* USt-Hinweis deutlich sichtbar halten */
+            .vat-note {
+                background-color: var(--accent-light) !important;
+                border: 1px solid var(--accent) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            /* QR-Code gut sichtbar halten */
+            .qr-code {
+                background-color: white !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .qr-code::after {
+                display: block !important;
+            }
+            
+            /* Verhindern von unerwünschten Seitenumbrüchen */
+            h1, h2, h3 {
+                page-break-after: avoid !important;
+            }
+            
+            .header, .address-block, .invoice-table-container, .vat-note, .payment-info, .footer {
+                page-break-inside: avoid !important;
+            }
+            
+            /* Sicherstellen, dass die Tabelle vollständig auf einer Seite gedruckt wird */
+            thead {
+                display: table-header-group !important;
+            }
+            
+            tfoot {
+                display: table-footer-group !important;
+            }
+            
+            /* Extrem kompakte Tabellenzeilen */
+            .invoice-table th, .invoice-table td {
+                padding: 3px 4px !important;
+            }
+            
+            /* Optimiere den Fluss der Seite */
+            @page {
+                margin: 0.7cm 0.2cm 0.2cm 0.2cm !important;  /* Erhöhter oberer Rand (0.7cm), andere Ränder bleiben minimal */
+                size: A4 !important;
+            }
+        }
+        
+        /* Extra Unterstützung für Browser, die print-color-adjust nicht unterstützen */
+        @media print and (-webkit-min-device-pixel-ratio:0) {
+            .invoice-table th, .total-row td:last-child, .vat-note, .payment-info {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+            
+            /* Zusätzlicher Abstand am Anfang des Dokuments */
+            .invoice-container {
+                padding-top: 15px !important;
+            }
+        }
+        
+        /* Button Styles */
+        .btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'inter', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-secondary {
+            background-color: var(--text-secondary);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="watermark">RECHNUNG</div>
+        
+        <div class="header">
+            <div class="header-left">
+                <img src="./public/logo2.png" alt="Colin Blome Logo" class="logo">
+                <h1>Rechnung</h1>
+            </div>
+            <div class="header-right">
+                <p>
+                    <strong style="display:block; color:var(--accent); margin-bottom:5px;">Colin Blome</strong>
+                    Webentwicklung & Webdesign<br>
+                    Buten Porten 4<br>
+                    49584 Fürstenau<br>
+                    01736098320<br>
+                    kontakt@colinblome.dev
+                </p>
+            </div>
+        </div>
+
+        <div class="address-block">
+            <div>
+                <strong>RECHNUNGSADRESSE</strong>
+                <p class="editable" contenteditable="true">
+                    Industrieboden Dr. Meyer GmbH<br>
+                    Hakenbusch 9<br>
+                    49078 Osnabrück
+                </p>
+            </div>
+            <div class="invoice-details">
+                <p><strong>Rechnungsnummer:</strong> <span class="editable" contenteditable="true">2025-01</span></p>
+                <p><strong>Rechnungsdatum:</strong> <span class="editable" contenteditable="true">15.06.2025</span></p>
+                <p><strong>Leistungszeitraum:</strong> <span class="editable" contenteditable="true">10.06.2025-15.05.2025</span></p>
+                <p><strong>Steuernummer:</strong> <span class="editable" contenteditable="true">43036981272</span></p>
+            </div>
+        </div>
+
+        <h2><span contenteditable="true" class="editable">Rechnung für Website-Migration von TYPO3 zu Astro</span></h2>
+
+        <div class="invoice-table-container">
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th>Pos.</th>
+                        <th>Beschreibung</th>
+                        <th>Menge</th>
+                        <th>Einheit</th>
+                        <th>Einzelpreis (€)</th>
+                        <th>Gesamtpreis (€)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Projektanalyse und Einarbeitung in die bestehende TYPO3-Website</td>
+                        <td class="editable" contenteditable="true">2,5</td>
+                        <td>Std.</td>
+                        <td class="editable" contenteditable="true">50,00</td>
+                        <td>125,00</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Transpiling von TYPO3 zu Astro inkl. Datenstrukturanpassung und Template-Migration</td>
+                        <td class="editable" contenteditable="true">15</td>
+                        <td>Std.</td>
+                        <td class="editable" contenteditable="true">50,00</td>
+                        <td>750,00</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Überarbeitung der CSS-Styles, Responsive-Optimierung und Design-Anpassungen</td>
+                        <td class="editable" contenteditable="true">10</td>
+                        <td>Std.</td>
+                        <td class="editable" contenteditable="true">50,00</td>
+                        <td>500,00</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Implementierung eines sicheren PHP-Skripts für Kontaktformular-Integration</td>
+                        <td class="editable" contenteditable="true">3</td>
+                        <td>Std.</td>
+                        <td class="editable" contenteditable="true">50,00</td>
+                        <td>150,00</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Deployment und Server-Konfiguration für das Astro-Projekt</td>
+                        <td class="editable" contenteditable="true">2</td>
+                        <td>Std.</td>
+                        <td class="editable" contenteditable="true">50,00</td>
+                        <td>100,00</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Logo-Anpassungen für E-Rechnung und Responsive-Darstellung</td>
+                        <td class="editable" contenteditable="true">1</td>
+                        <td>Std.</td>
+                        <td class="editable" contenteditable="true">50,00</td>
+                        <td>50,00</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Überarbeitung der Landingpage und Erstellung der "Vorteile-Seite"</td>
+                        <td class="editable" contenteditable="true">2</td>
+                        <td>Std.</td>
+                        <td class="editable" contenteditable="true">50,00</td>
+                        <td>100,00</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr class="total-row">
+                        <td colspan="2"></td>
+                        <td colspan="2">Gesamtbetrag:</td>
+                        <td colspan="2">1.775,00 €</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="vat-note">
+            <strong>Hinweis zur Umsatzsteuer:</strong> Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.
+        </div>
+
+        <div class="payment-info-wrapper">
+            <div class="payment-info">
+                <div class="payment-info-content">
+                    <h3>ZAHLUNGSINFORMATIONEN</h3>
+                    <p>
+                        Bitte überweisen Sie den Gesamtbetrag von <span class="highlight">1.775,00 €</span> bis zum <span class="due-date">29.06.2025</span> auf folgendes Konto:
+                    </p>
+                    
+                    <div class="bank-details">
+                        <div class="bank-detail">
+                            <strong>Kontoinhaber</strong>
+                            Colin Blome
+                        </div>
+                        <div class="bank-detail">
+                            <strong>IBAN</strong>
+                            DE77265515400085421089
+                        </div>
+                        <div class="bank-detail">
+                            <strong>BIC</strong>
+                            NOLADE21BEB
+                        </div>
+                        <div class="bank-detail">
+                            <strong>Bank</strong>
+                            KSK Bersenbrück
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top:15px;">
+                        <strong>Verwendungszweck:</strong> Rechnung 2025-01
+                    </p>
+                    
+                    <p style="margin-top:20px; color: var(--accent-dark); font-weight: 600;">
+                        Zahlbar innerhalb von 14 Tagen ab Rechnungsdatum ohne Abzug.
+                    </p>
+                </div>
+                
+                <!-- QR-Code für Zahlungsinformationen -->
+                <div class="qr-container">
+                    <div class="qr-code">
+                        <!-- QR-Code wird hier dynamisch eingefügt -->
+                        <canvas id="qrcode-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>Vielen Dank für Ihr Vertrauen und die gute Zusammenarbeit!</p>
+                <p>Mit freundlichen Grüßen<br><strong style="color: var(--accent);">Colin Blome</strong></p>
+                <p style="font-size: 0.8em; margin-top: 30px;">colinblome.dev | Web Development & Design</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hilfe-Buttons (nur sichtbar im Browser, nicht beim Drucken) -->
+    <div class="no-print" style="max-width: 800px; margin: 20px auto; text-align: center;">
+        <button onclick="window.print()" class="btn">
+            <i class="fa fa-print"></i> Als PDF drucken/speichern
+        </button>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 15px;">
+            Tipp: Klicken Sie auf die hervorgehobenen Felder zum Bearbeiten. Um die Rechnung als PDF zu speichern, 
+            klicken Sie auf den Button und wählen Sie im Druckdialog "Als PDF speichern".
+        </p>
+    </div>
+
+    <!-- Fügen Sie Ihre Font Awesome Icons ein wenn verfügbar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    
+    <!-- QR-Code Bibliothek einbinden -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mache Tabellenzellen editierbar
+            setupEditableTable();
+            setupEditableFields();
+            
+            // Initialisiere Berechnungen
+            calculateAllRows();
+            calculateTotal();
+            
+            // Tooltips für editierbare Felder hinzufügen
+            addTooltipsToEditableFields();
+            
+            // QR-Code generieren
+            generateQRCode();
+        });
+        
+        // Tooltips für editierbare Felder
+        function addTooltipsToEditableFields() {
+            const editables = document.querySelectorAll('.editable');
+            editables.forEach(el => {
+                const tooltip = document.createElement('span');
+                tooltip.className = 'tooltip';
+                tooltip.textContent = 'Klicken zum Bearbeiten';
+                el.appendChild(tooltip);
+            });
+        }
+
+        // Funktion zum Einrichten editierbarer Zellen
+        function setupEditableTable() {
+            const table = document.querySelector('.invoice-table');
+            const rows = table.querySelectorAll('tbody tr');
+            
+            rows.forEach((row, index) => {
+                // Mache Menge und Einzelpreis editierbar
+                const mengeCell = row.cells[2];
+                const preisCell = row.cells[4];
+                
+                mengeCell.contentEditable = true;
+                preisCell.contentEditable = true;
+                
+                // Klasse für visuelle Rückmeldung hinzufügen
+                mengeCell.classList.add('editable');
+                preisCell.classList.add('editable');
+                
+                // Event-Listener für Änderungen
+                mengeCell.addEventListener('input', () => {
+                    calculateRow(row);
+                    calculateTotal();
+                });
+                
+                preisCell.addEventListener('input', () => {
+                    calculateRow(row);
+                    calculateTotal();
+                });
+            });
+            
+            // Füge CSS für editierbare Zellen hinzu
+            const style = document.createElement('style');
+            style.textContent = `
+                .editable {
+                    background-color: rgba(255, 255, 255, 0.7);
+                    border: 1px dashed var(--border);
+                    transition: background-color 0.3s;
+                }
+                .editable:hover {
+                    background-color: rgba(239, 91, 45, 0.1);
+                }
+                .editable:focus {
+                    background-color: rgba(239, 91, 45, 0.2);
+                    border: 1px solid var(--accent);
+                    outline: none;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Berechnung einer einzelnen Tabellenzeile
+        function calculateRow(row) {
+            const menge = parseFloat(row.cells[2].textContent.replace(',', '.')) || 0;
+            const preis = parseFloat(row.cells[4].textContent.replace(',', '.').replace('€', '')) || 0;
+            const gesamtpreis = menge * preis;
+            
+            // Formatieren mit 2 Dezimalstellen und deutschen Tausender-Punkten
+            row.cells[5].textContent = formatCurrency(gesamtpreis);
+        }
+
+        // Alle Zeilen berechnen
+        function calculateAllRows() {
+            const rows = document.querySelectorAll('.invoice-table tbody tr');
+            rows.forEach(row => calculateRow(row));
+        }
+
+        // Gesamtsumme berechnen
+        function calculateTotal() {
+            const rows = document.querySelectorAll('.invoice-table tbody tr');
+            let total = 0;
+            
+            rows.forEach(row => {
+                const gesamtpreis = parseFloat(row.cells[5].textContent.replace('.', '').replace(',', '.').replace('€', '')) || 0;
+                total += gesamtpreis;
+            });
+            
+            // Gesamtbetrag aktualisieren
+            const totalCell = document.querySelector('.total-row td:last-child');
+            totalCell.textContent = formatCurrency(total);
+            
+            // Zahlungshinweis aktualisieren
+            const paymentInfo = document.querySelector('.payment-info p .highlight');
+            paymentInfo.textContent = formatCurrency(total);
+        }
+
+        // Formatierung als Euro-Betrag mit Tausendertrennzeichen
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('de-DE', { 
+                minimumFractionDigits: 2, 
+                maximumFractionDigits: 2 
+            }).format(value) + ' €';
+        }
+        
+        // Funktion für editierbare Felder
+        function setupEditableFields() {
+            // Diese Funktion kann später implementiert werden, wird aber bereits oben aufgerufen
+        }
+        
+        // QR-Code für Zahlungsinformationen generieren
+        function generateQRCode() {
+            // Aktuelle Werte aus der Rechnung holen
+            const rechnungsnummer = document.querySelector('.invoice-details p:nth-child(1) .editable').textContent.trim();
+            const gesamtbetrag = document.querySelector('.total-row td:last-child').textContent.trim();
+            const betrag = gesamtbetrag.replace(' €', '').replace('.', '').replace(',', '.');
+            
+            // SEPA QR-Code Daten im Format: 
+            // BCD
+            // 001
+            // 1
+            // SCT
+            // BIC
+            // Empfängername
+            // IBAN
+            // EUR#Betrag
+            // #
+            // #Verwendungszweck
+            
+            const qrData = [
+                'BCD',
+                '001',
+                '1',
+                'SCT',
+                'NOLADE21BEB',
+                'Colin Blome',
+                'DE77265515400085421089',
+                'EUR' + betrag,
+                '',
+                'Rechnung ' + rechnungsnummer
+            ].join('\n');
+            
+            // QR-Code generieren
+            const qrCode = qrcode(0, 'M');
+            qrCode.addData(qrData);
+            qrCode.make();
+            
+            // QR-Code auf Canvas zeichnen
+            const canvas = document.getElementById('qrcode-canvas');
+            canvas.width = 100;
+            canvas.height = 100;
+            const ctx = canvas.getContext('2d');
+            
+            // QR-Code auf Canvas rendern
+            const moduleCount = qrCode.getModuleCount();
+            const tileSize = canvas.width / moduleCount;
+            
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = '#000000';
+            for (let row = 0; row < moduleCount; row++) {
+                for (let col = 0; col < moduleCount; col++) {
+                    if (qrCode.isDark(row, col)) {
+                        ctx.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
+                    }
+                }
+            }
+            
+            // QR-Code aktualisieren, wenn sich der Betrag ändert
+            document.querySelector('.invoice-table').addEventListener('input', function() {
+                setTimeout(generateQRCode, 100); // Kurze Verzögerung für Neuberechnung
+            });
+        }
+    </script>
+</body>
+</html>

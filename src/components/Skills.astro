@@ -765,6 +765,8 @@ import skillsBg from "../assets/images/skills.jpg";
 </style>
 
 <script>
+  import { performanceMonitor } from '../utils/performanceMonitor.js';
+  
   document.addEventListener("DOMContentLoaded", () => {
     const skillsSection = document.getElementById("skills");
     const skillPercents = document.querySelectorAll(".skill-percent");
@@ -785,6 +787,46 @@ import skillsBg from "../assets/images/skills.jpg";
     
     if (skillsSection) {
       observer.observe(skillsSection);
+
+      // Original-Hintergrund speichern
+      if (!skillsSection.hasAttribute('data-original-background')) {
+        const computedStyle = window.getComputedStyle(skillsSection);
+        const backgroundImage = computedStyle.backgroundImage;
+        if (backgroundImage && backgroundImage !== 'none') {
+          skillsSection.setAttribute('data-original-background', backgroundImage);
+        }
+      }
+      
+      // Performance-Modus prüfen
+      const currentMode = document.documentElement.getAttribute('data-performance') || 
+                          localStorage.getItem('performance-mode') || 'high';
+      
+      // Im Low-Performance-Modus Animationen deaktivieren, aber Hintergrund behalten
+      if (currentMode === 'low') {
+        skillsSection.style.backgroundAttachment = 'scroll';
+        skillsSection.classList.add('static-background');
+        
+        // Animation entfernen, aber Hintergrund behalten
+        const animations = skillsSection.getAnimations();
+        animations.forEach(animation => {
+          animation.cancel();
+        });
+      }
+      
+      // Auf Performance-Modus-Änderungen reagieren
+      if (performanceMonitor) {
+        performanceMonitor.onPerformanceModeChange((mode) => {
+          if (mode === 'low') {
+            // Animation deaktivieren, Hintergrund behalten
+            skillsSection.style.backgroundAttachment = 'scroll';
+            skillsSection.classList.add('static-background');
+          } else {
+            // Normale Darstellung wiederherstellen
+            skillsSection.style.backgroundAttachment = '';
+            skillsSection.classList.remove('static-background');
+          }
+        });
+      }
     }
   });
 </script>

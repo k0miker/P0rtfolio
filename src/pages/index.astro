@@ -12,6 +12,7 @@ import Skills from "../components/Skills.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import ScrollProgress from "../components/ui/ScrollProgress.astro";
+import PerformanceToggle from "../components/ui/PerformanceToggle.astro"; // Performance-Toggle hinzugefügt
 // Layout für besseres SEO und Performance-Optimierung
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
@@ -46,6 +47,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   >
     <!-- Icon wird per JavaScript eingefügt -->
   </button>
+  
+  <!-- Performance-Toggle hinzugefügt -->
+  <PerformanceToggle />
+  
+  <!-- Performance-Toggle ohne FPS-Anzeige -->
+  <div id="performance-toggle-container">
+    <div class="performance-indicator" id="performance-indicator"></div>
+  </div>
 </BaseLayout>
 
 <style>
@@ -60,7 +69,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     background-color: var(--bg-primary);
     color: var(--text-primary);
     transition: background-color 0.3s ease, color 0.3s ease;
-    padding-bottom: 80px; /* Platz für den fixierten Footer */
+    padding-bottom: 120px; /* Von 80px auf 120px erhöht für mehr Platz zum Footer */
   }
 
   #about {
@@ -136,6 +145,46 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     
     .theme-toggle i {
       font-size: 1.2rem;
+    }
+  }
+  
+  /* Performance-Indikator */
+  #performance-toggle-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+  }
+  
+  .performance-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #4CAF50; /* Grün für hohe Performance */
+    transition: background-color 0.3s ease;
+  }
+  
+  .performance-indicator.medium {
+    background-color: #FF9800; /* Orange für mittlere Performance */
+  }
+  
+  .performance-indicator.low {
+    background-color: #F44336; /* Rot für niedrige Performance */
+  }
+  
+  @media (max-width: 768px) {
+    #performance-toggle-container {
+      bottom: 15px;
+      left: 15px;
+    }
+    
+    .performance-indicator {
+      width: 10px;
+      height: 10px;
     }
   }
 </style>
@@ -221,6 +270,27 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     sections.forEach((section) => {
       observer.observe(section);
     });
+  });
+  
+  // Performance-Monitor-Integration (ohne FPS-Anzeige)
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      // Performance-Monitor importieren
+      const { performanceMonitor } = await import('../utils/performanceMonitor.js');
+      
+      // Elemente abrufen
+      const perfIndicator = document.getElementById('performance-indicator');
+      
+      if (perfIndicator && performanceMonitor) {
+        // Auf Performance-Änderungen reagieren
+        performanceMonitor.onPerformanceModeChange((mode) => {
+          // Nur Indikator anpassen ohne FPS anzuzeigen
+          perfIndicator.className = 'performance-indicator ' + mode;
+        });
+      }
+    } catch (e) {
+      console.error('Fehler beim Laden des Performance-Monitors:', e);
+    }
   });
 </script>
 

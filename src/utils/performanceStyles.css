@@ -1,0 +1,219 @@
+/* CSS-Anpassungen basierend auf Performance-Modus */
+:root[data-performance="low"] {
+  --animation-duration: 0;
+  --transition-duration: 0.1s;
+  --effect-opacity: 0.3;
+  --reduced-motion: 1;
+  --animation-play-state: paused;
+}
+
+:root[data-performance="medium"] {
+  --animation-duration: 0.5;
+  --transition-duration: 0.2s;
+  --effect-opacity: 0.6;
+  --reduced-motion: 0;
+  --animation-play-state: running;
+}
+
+:root[data-performance="high"] {
+  --animation-duration: 1;
+  --transition-duration: 0.3s;
+  --effect-opacity: 1;
+  --reduced-motion: 0;
+  --animation-play-state: running;
+}
+
+/* Explizite Hintergrund-Deaktivierung im niedrigen Performance-Modus */
+:root[data-performance="low"] [id$="-background"],
+:root[data-performance="low"] .animated-background {
+  display: none !important;
+}
+
+/* Im High-Modus Hintergründe explizit aktivieren */
+:root[data-performance="high"] [id$="-background"],
+:root[data-performance="high"] .animated-background {
+  display: block !important;
+  opacity: var(--effect-opacity) !important;
+}
+
+/* Hintergründe in allen Modi außer High deaktivieren */
+:root:not([data-performance="high"]) .disable-in-lowperf {
+  display: none !important;
+}
+
+/* Statische Hintergründe für alle Sektionen im niedrigen Leistungsmodus - Angepasst */
+:root[data-performance="low"] #contact-section {
+  background-attachment: scroll !important;
+  animation: none !important;
+  /* Linearen Gradienten NICHT mehr erzwingen, um das Hintergrundbild zu behalten */
+}
+
+:root[data-performance="low"] #projects {
+  background: linear-gradient(to bottom, var(--bg-primary), var(--bg-secondary)) !important;
+}
+
+:root[data-performance="low"] #about {
+  background-color: var(--bg-primary) !important;
+}
+
+:root[data-performance="low"] #skills {
+  /* Hier keinen Hintergrund erzwingen, um den originalen beizubehalten */
+  background-attachment: scroll !important;
+  animation: none !important;
+}
+
+/* Deaktivierung aller Animationen im niedrigen Leistungsmodus */
+:root[data-performance="low"] * {
+  animation-play-state: paused !important;
+  transition-duration: 0s !important;
+}
+
+/* Ausnahmen für wichtige UI-Elemente und Inhalte */
+:root[data-performance="low"] .critical-animation,
+:root[data-performance="low"] .card-wrapper,
+:root[data-performance="low"] .box,
+:root[data-performance="low"] .card-content,
+:root[data-performance="low"] .card-image,
+:root[data-performance="low"] .card-overlay,
+:root[data-performance="low"] .projects-container * {
+  animation-play-state: running !important;
+  transition-duration: var(--transition-duration) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* Spezielle Anpassungen für die Projektkarten im niedrigen Leistungsmodus */
+:root[data-performance="low"] .card-wrapper {
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+:root[data-performance="low"] .box {
+  transform: none !important;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) !important;
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+:root[data-performance="low"] .card-overlay {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+}
+
+/* Spezielle Animation-Ausnahmen (für wichtige UI-Elemente) */
+:root[data-performance="low"] .critical-animation {
+  animation-play-state: running !important;
+  transition-duration: var(--transition-duration) !important;
+}
+
+/* UI-Elemente vom Pausieren der Animationen ausnehmen */
+:root[data-performance="low"] .battery-toggle,
+:root[data-performance="low"] .theme-toggle,
+:root[data-performance="low"] .quality-btn,
+:root[data-performance="low"] .toggle-label {
+  animation-play-state: running !important;
+  transition-duration: 0.3s !important;
+}
+
+/* Sicherstellen dass UI-Elemente keine Ränder haben */
+.battery-toggle,
+.theme-toggle {
+  border: none !important;
+  border-radius: 50% !important;
+}
+
+/* Alternative Stile für deaktivierte Background-Komponenten */
+:root.disable-backgrounds [id$="-background"] {
+  display: none !important;
+}
+
+/* Alternatives Styling für Sektionen ohne animierte Hintergründe */
+:root.disable-backgrounds #projects {
+  background: linear-gradient(to bottom, var(--bg-primary), var(--bg-secondary)) !important;
+}
+
+:root.disable-backgrounds #about {
+  background-color: var(--bg-primary) !important;
+}
+
+:root.disable-backgrounds #contact {
+  background-color: var(--bg-secondary) !important;
+}
+
+:root.disable-backgrounds #skills {
+  background: linear-gradient(to bottom, var(--bg-secondary), var(--bg-primary)) !important;
+}
+
+/* Animationen basierend auf Performance-Modus skalieren */
+@media (prefers-reduced-motion: no-preference) {
+  .animated {
+    animation-duration: calc(var(--base-duration, 1s) * var(--animation-duration, 1));
+    animation-play-state: var(--animation-play-state, running);
+  }
+  
+  .animated-bg {
+    opacity: var(--effect-opacity, 1);
+  }
+  
+  .transition-element {
+    transition-duration: var(--transition-duration, 0.3s);
+  }
+
+  /* Spezifische Animationskontrolle für niedrige Performance */
+  :root[data-performance="low"] .animated {
+    animation-play-state: paused;
+  }
+}
+
+/* Spezifische Anpassungen für statische Hintergründe */
+:root.static-backgrounds #contact-section,
+:root[data-performance="low"] #contact-section {
+  animation: none !important;
+  background-attachment: scroll !important;
+}
+
+:root.static-backgrounds #skills,
+:root[data-performance="low"] #skills {
+  animation: none !important;
+  background-attachment: scroll !important;
+}
+
+:root.static-backgrounds #home,
+:root[data-performance="low"] #home {
+  animation: none !important;
+  background-attachment: scroll !important;
+}
+
+/* Explizite Ausnahmen für bewegte Hintergründe */
+:root[data-performance="low"] .static-background {
+  animation: none !important;
+  transition: none !important;
+  background-attachment: scroll !important;
+}
+
+/* Animation-Klassen deaktivieren */
+:root[data-performance="low"] .animate {
+  animation: none !important;
+}
+
+/* Spezifische Stile für statische Hintergründe */
+.static-background {
+  animation: none !important;
+  background-attachment: scroll !important;
+  /* Kein backgroundImage überschreiben */
+}
+
+/* Zusätzliche Animation-Kontrolle für spezifische Elemente */
+:root[data-performance="low"] #contact-section {
+  animation-play-state: paused !important;
+}
+
+:root[data-performance="low"] #skills {
+  animation-play-state: paused !important;
+}
+
+:root[data-performance="low"] #home {
+  animation-play-state: paused !important;
+}
