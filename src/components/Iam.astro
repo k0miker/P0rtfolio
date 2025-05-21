@@ -74,7 +74,7 @@ import homeBg from "../assets/images/home.jpg";
   }
   
   .bg-container.animate {
-    animation: slidein linear 55s infinite alternate;
+    animation: slidein2 linear 25s infinite alternate;
   }
 
   .console-container {
@@ -115,21 +115,12 @@ import homeBg from "../assets/images/home.jpg";
   @media screen and (max-width: 768px) {
     .console-container {
       font-size: 1.5em;
-    }
-    
-    .console-container::before {
-      /* Kleinere Maske für mobile Geräte, bleibt zentriert */
-      mask-size: min(450px, 90vw);
-    }
+    }   
   }
   
-  /* Sehr kleine Bildschirme */
-  @media screen and (max-width: 480px) {
-    .console-container::before {
-      /* Noch kleinere Maske, aber immer noch zentriert */
-      mask-size: min(350px, 95vw);
-    }
-  }
+ 
+
+  
 </style>
 <script>
   // function([string1, string2],target id,[color1,color2])
