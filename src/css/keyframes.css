@@ -113,4 +113,20 @@
 
 }
 
+/* Performance-bezogene Animation-Deaktivierung */
+[data-performance="low"] .animate {
+  animation: none !important;
+  transition: none !important;
+}
+
+[data-performance="low"] .bg-container,
+[data-performance="low"] #skills,
+[data-performance="low"] section,
+[data-performance="low"] #contact-section,
+[data-performance="low"] #home-section {
+  animation: none !important;
+  background-attachment: scroll !important;
+  background-position: center center !important;
+}
+
 

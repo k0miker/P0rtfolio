@@ -101,31 +101,15 @@ import homeBg from "../assets/images/home.jpg";
     top: 0;
     left: 10px;
   }
-  /* .console-container::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 0;  
-    background: rgba(0, 0, 0, 0.492);
-    animation: fadein 4s;
-    background-size: cover;
-    background-attachment: fixed;
-    mask-image: url("https://i.imghippo.com/files/wula7758fc.png");
-    
-    /* Verbesserte Maskenpositionierung für konsistente Zentrierung */
-    /* mask-position: center center;
-    mask-size: min(750px, 100vw);
-    mask-position:  52% 50%;
-    mask-repeat: no-repeat;
-    mask-origin: center;
-    mask-mode: alpha;
-    mask-clip: content-box;
-    backdrop-filter: blur(3px);
-    
-  }  */
+  
+  /* Performance-bezogene Styles - überarbeitete Version */
+  :global([data-performance="low"]) .bg-container,
+  :global(body[data-performance="low"]) #home-section {
+    animation: none !important;
+    background-attachment: scroll !important;
+    background-position: center center !important;
+    background-size: cover !important;
+  }
   
   /* Responsive Anpassungen für verschiedene Bildschirmgrößen */
   @media screen and (max-width: 768px) {
@@ -199,13 +183,41 @@ import homeBg from "../assets/images/home.jpg";
     
   }
 
-  // Animation nur starten, wenn Sektion im Viewport ist
+  // Animation nur starten, wenn Sektion im Viewport ist und Performance-Modus es erlaubt
   document.addEventListener("DOMContentLoaded", () => {
     const homeSection = document.getElementById("home-section");
+    if (!homeSection) return;
     
+    // Prüfen, ob Animationen deaktiviert werden sollen
+    function updateAnimation(isLowPerformance) {
+      if (isLowPerformance) {
+        console.log("Deaktiviere Home-Animation (Low-Performance)");
+        homeSection.classList.remove("animate");
+        homeSection.style.backgroundAttachment = "scroll";
+        homeSection.style.backgroundPosition = "center center";
+      } else {
+        console.log("Aktiviere Home-Animation (High-Performance)");
+        // Nur aktivieren, wenn sichtbar
+        if (isElementInViewport(homeSection)) {
+          homeSection.classList.add("animate");
+          homeSection.style.backgroundAttachment = "fixed";
+        }
+      }
+    }
+    
+    // Performance-Monitor für Animationssteuerung
+    import('../utils/performanceMonitor.js').then(({ performanceMonitor }) => {
+      performanceMonitor.addListener(updateAnimation);
+    }).catch(err => console.error("Fehler beim Laden des Performance-Monitors:", err));
+    
+    // Sichtbarkeits-Observer für verzögerte Animation
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        // Nur animieren wenn High-Performance AND sichtbar
+        const currentMode = document.documentElement.getAttribute('data-performance') || 'high';
+        
+        if (entry.isIntersecting && currentMode !== 'low') {
+          console.log("Home-Sektion sichtbar, aktiviere Animation");
           entry.target.classList.add("animate");
         } else {
           entry.target.classList.remove("animate");
@@ -213,8 +225,15 @@ import homeBg from "../assets/images/home.jpg";
       });
     }, { threshold: 0.1 });
     
-    if (homeSection) {
-      observer.observe(homeSection);
+    observer.observe(homeSection);
+    
+    // Hilfsfunktion zur Prüfung, ob Element im Viewport ist
+    function isElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.bottom >= 0
+      );
     }
   });
 </script>

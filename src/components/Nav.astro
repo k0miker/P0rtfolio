@@ -30,7 +30,7 @@ import logo from "../assets/images/logo.png";
       <!-- Hamburger-Menü für Mobile -->
       <div class="flex items-center">
         <button
-          class="md:hidden rounded-lg focus:outline-none focus:shadow-outline"
+          class="md:hidden rounded-lg focus:outline-none focus:shadow-outline mobile-menu-button"
           @click="open = !open"
         >
           <svg fill="currentColor" viewBox="0 0 20 20" class="w-16 h-12">
@@ -52,7 +52,7 @@ import logo from "../assets/images/logo.png";
     <!-- NAVIGATION: Links mit responsivem Verhalten -->
     <nav
       :class="{'flex': open, 'hidden': !open}"
-      class="flex-col flex-grow pb-4 max-w-200px w-full md:pb-0 hidden md:flex md:justify-end md:flex-row md:bg-transparent md:text-gray-200 text-gray-600"
+      class="flex-col flex-grow pb-4 max-w-200px w-full md:pb-0 hidden md:flex md:justify-end md:flex-row md:bg-transparent md:text-gray-200 text-gray-600 mobile-menu"
     >
       <!-- Standard Navigation Links -->
       <div class="nav-links flex flex-col md:flex-row">
@@ -573,5 +573,95 @@ import logo from "../assets/images/logo.png";
         }
       }
     });
+
+    const navLinks = document.querySelectorAll("nav a");
+    const mobileMenuButton = document.querySelector(".mobile-menu-button");
+    const mobileMenu = document.querySelector(".mobile-menu");
+    
+    // Mobile Menu Toggle
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+        mobileMenuButton.classList.toggle("active");
+      });
+    }
+    
+    // Aktiven Link basierend auf URL markieren
+    const currentUrl = window.location.pathname;
+    const currentHash = window.location.hash;
+    
+    navLinks.forEach((link) => {
+      const href = link.getAttribute('href');
+      
+      // Exakte URL-Übereinstimmung prüfen
+      if (href === currentUrl || 
+          (currentUrl === '/' && href === '/') ||
+          (currentHash && href === currentHash)) {
+        link.classList.add('active');
+      }
+      
+      // Klick auf Nav-Link behandeln
+      link.addEventListener('click', (e) => {
+        // Wenn es ein Hash-Link ist und wir auf der richtigen Seite sind
+        const isHashLink = href?.includes('#');
+        const isOnCorrectPage = currentUrl === '/' || href?.startsWith(currentUrl);
+        
+        if (isHashLink && isOnCorrectPage) {
+          // Schließe mobiles Menü, wenn geöffnet
+          if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+            mobileMenuButton?.classList.remove('active');
+          }
+        }
+      });
+    });
+
+    // Verbesserte Navigation-Highlight-Logik
+    function updateActiveNav() {
+      // Hole aktuelle Scroll-Position
+      const scrollPosition = window.scrollY + 100; // +100 als Offset für bessere Erkennung
+      
+      // IDs der Sektionen auf der Seite
+      const sections = ["home", "about", "skills", "projects", "contact"];
+      
+      // Das aktuelle Element finden
+      let currentSection = sections[0]; // Default auf home
+      
+      sections.forEach(sectionId => {
+        const section = document.getElementById(sectionId);
+        if (!section) return;
+        
+        // Prüfen ob die Sektion im sichtbaren Bereich ist
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        
+        if (scrollPosition >= sectionTop && 
+            scrollPosition < sectionTop + sectionHeight) {
+          currentSection = sectionId;
+        }
+      });
+      
+      // NavLinks aktualisieren
+      const navLinks = document.querySelectorAll("nav a");
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+        
+        // Hash aus href extrahieren
+        const linkTargetId = href.startsWith('#') ? href.substring(1) : 
+                              href.includes('#') ? href.split('#')[1] : null;
+        
+        if (linkTargetId === currentSection) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+    
+    // Beim Laden und bei Scroll die Navigation aktualisieren
+    updateActiveNav();
+    window.addEventListener('scroll', updateActiveNav);
+    window.addEventListener('resize', updateActiveNav);
   });
 </script>

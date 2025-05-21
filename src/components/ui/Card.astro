@@ -1,5 +1,5 @@
 ---
-const { project, image, altImage } = Astro.props;
+const { project, image } = Astro.props;
 
 // Verwende cardDescriptionEN mit Fallback-Optionen
 const cardDescription = project.cardDescriptionEN || 
@@ -19,8 +19,7 @@ const category = project.category || 'Other';
         src={image.src}
         alt={project.title}
         loading="lazy"
-        class="card-image main-image"
-        data-alt-src={altImage ? altImage.src : null}
+        class="card-image"
       />
       <div class="card-overlay">
         <h3 class="card-title">{project.title}</h3>
@@ -60,7 +59,7 @@ const category = project.category || 'Other';
     animation: cardGlow 4s ease-in-out infinite alternate;
   }
   
-  @keyframes cardGlow {
+  /* @keyframes cardGlow {
     0% {
       box-shadow:
       0 0 2px 1px var(--bg-primary),
@@ -71,7 +70,7 @@ const category = project.category || 'Other';
       0 0 2px 1px var(--bg-primary),
       0 0 5px 0px var(--accent);
     }
-  }
+  } */
 
   .card-content {
     position: relative;
@@ -204,50 +203,9 @@ const category = project.category || 'Other';
       
     }
   }
-
-  /* Performance-optimierte Stile */
-  :global([data-performance="low"]) .box {
-    transform: none !important;
-    animation: none !important;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-  
-  :global([data-performance="low"]) .box:hover {
-    transform: none !important;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3) !important;
-    animation: none !important;
-  }
-
-  :global([data-performance="low"]) .card-overlay {
-    transform: translateY(0%) !important;
-    opacity: 1 !important;
-  }
-
-  :global([data-performance="low"]) .card-description {
-    max-height: 80px !important;
-    opacity: 1 !important;
-  }
-
-  :global([data-performance="low"]) .card-badges {
-    opacity: 0.8 !important;
-  }
-  
-  /* Bei mittlerer Performance reduzierte Effekte */
-  :global([data-performance="medium"]) .box {
-    animation: simpleGlow 3s ease-in-out infinite alternate !important;
-  }
-  
-  @keyframes simpleGlow {
-    from { box-shadow: 0 0 2px 0px var(--accent); }
-    to { box-shadow: 0 0 5px 0px var(--accent); }
-  }
 </style>
 
 <script>
-  import { performanceMonitor } from '../../utils/performanceMonitor.js';
-  
   document.addEventListener("DOMContentLoaded", function() {
     // Nur 3D-Effekte aktivieren, wenn nicht auf einem mobilen Gerät
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
@@ -273,57 +231,6 @@ const category = project.category || 'Other';
         card.addEventListener("mouseleave", () => {
           (card as HTMLElement).style.transform = 'rotateX(0) rotateY(0)';
         });
-      });
-    }
-
-    // Statisches Bild anstelle von GIF bei niedriger Performance verwenden
-    if (performanceMonitor) {
-      const images = document.querySelectorAll('.card-image.main-image');
-      
-      function updateImages(mode) {
-        images.forEach(img => {
-          const imgElement = img as HTMLImageElement;
-          const altSrc = imgElement.getAttribute('data-alt-src');
-          if (altSrc && mode === 'low') {
-            // Originalsrc speichern wenn noch nicht getan
-            if (!imgElement.getAttribute('data-original-src')) {
-              imgElement.setAttribute('data-original-src', imgElement.src);
-            }
-            // Zu statischem Bild wechseln
-            imgElement.src = altSrc;
-          } else if (imgElement.getAttribute('data-original-src') && mode !== 'low') {
-            // Zurück zum Original
-            imgElement.src = imgElement.getAttribute('data-original-src');
-          }
-        });
-      }
-      
-      // Initial Update und bei Änderungen
-      updateImages(performanceMonitor.getPerformanceMode());
-      performanceMonitor.onPerformanceModeChange((mode) => {
-        updateImages(mode);
-      });
-    }
-
-    // Sicherstellen, dass die Karten im Low-Performance-Modus sichtbar sind
-    const currentMode = document.documentElement.getAttribute('data-performance') || 
-                        localStorage.getItem('performance-mode') || 'high';
-                        
-    if (currentMode === 'low') {
-      // Alle Karten sichtbar machen
-      document.querySelectorAll('.card-wrapper').forEach(card => {
-        if (card instanceof HTMLElement) {
-          card.style.opacity = '1';
-          card.style.visibility = 'visible';
-          card.style.transform = 'none';
-        }
-      });
-      
-      document.querySelectorAll('.card-overlay').forEach(overlay => {
-        if (overlay instanceof HTMLElement) {
-          overlay.style.transform = 'translateY(0)';
-          overlay.style.opacity = '1';
-        }
       });
     }
   });

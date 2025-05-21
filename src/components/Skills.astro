@@ -762,18 +762,43 @@ import skillsBg from "../assets/images/skills.jpg";
       }
     }
   }
+
+  /* Performance-bezogene Styles */
+  :global([data-performance="low"]) .box {
+    animation: none !important;
+    background-attachment: scroll !important;
+  }
 </style>
 
 <script>
-  import { performanceMonitor } from '../utils/performanceMonitor.js';
-  
   document.addEventListener("DOMContentLoaded", () => {
     const skillsSection = document.getElementById("skills");
     const skillPercents = document.querySelectorAll(".skill-percent");
     
+    // Import des Performance-Monitors
+    import('../utils/performanceMonitor.js').then(({ performanceMonitor }) => {
+      performanceMonitor.addListener((isLowPerformance) => {
+        if (skillsSection) {
+          if (isLowPerformance) {
+            skillsSection.classList.remove("animate");
+            skillsSection.style.backgroundAttachment = "scroll";
+          } else {
+            // Bei hoher Performance Animation nur hinzufügen, wenn im Viewport
+            if (isElementInViewport(skillsSection)) {
+              skillsSection.classList.add("animate");
+              skillsSection.style.backgroundAttachment = "fixed";
+            }
+          }
+        }
+      });
+    });
+    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        // Prüfen des aktuellen Performance-Modus
+        const currentMode = document.documentElement.getAttribute('data-performance') || 'high';
+        
+        if (entry.isIntersecting && currentMode !== 'low') {
           entry.target.classList.add("animate");
           
           skillPercents.forEach((skillBar, index) => {
@@ -787,46 +812,15 @@ import skillsBg from "../assets/images/skills.jpg";
     
     if (skillsSection) {
       observer.observe(skillsSection);
-
-      // Original-Hintergrund speichern
-      if (!skillsSection.hasAttribute('data-original-background')) {
-        const computedStyle = window.getComputedStyle(skillsSection);
-        const backgroundImage = computedStyle.backgroundImage;
-        if (backgroundImage && backgroundImage !== 'none') {
-          skillsSection.setAttribute('data-original-background', backgroundImage);
-        }
-      }
-      
-      // Performance-Modus prüfen
-      const currentMode = document.documentElement.getAttribute('data-performance') || 
-                          localStorage.getItem('performance-mode') || 'high';
-      
-      // Im Low-Performance-Modus Animationen deaktivieren, aber Hintergrund behalten
-      if (currentMode === 'low') {
-        skillsSection.style.backgroundAttachment = 'scroll';
-        skillsSection.classList.add('static-background');
-        
-        // Animation entfernen, aber Hintergrund behalten
-        const animations = skillsSection.getAnimations();
-        animations.forEach(animation => {
-          animation.cancel();
-        });
-      }
-      
-      // Auf Performance-Modus-Änderungen reagieren
-      if (performanceMonitor) {
-        performanceMonitor.onPerformanceModeChange((mode) => {
-          if (mode === 'low') {
-            // Animation deaktivieren, Hintergrund behalten
-            skillsSection.style.backgroundAttachment = 'scroll';
-            skillsSection.classList.add('static-background');
-          } else {
-            // Normale Darstellung wiederherstellen
-            skillsSection.style.backgroundAttachment = '';
-            skillsSection.classList.remove('static-background');
-          }
-        });
-      }
+    }
+    
+    // Hilfsfunktion zur Prüfung, ob Element im Viewport ist
+    function isElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+      return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.bottom >= 0
+      );
     }
   });
 </script>
