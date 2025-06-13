@@ -107,11 +107,10 @@
   --pulse-shadow-mid: rgb(255, 99, 71);
   --link: #90caf9;
   
-  /* Verbesserte Karten-Variablen für Dark Mode */
+  /* Karten-Variablen für Dark Mode */
   --card-bg: #252525;
   --card-highlight: linear-gradient(145deg, rgba(45,45,45,1) 0%, rgba(32,32,32,1) 100%);
   --card-border-glow: 0 0 2px 1px rgba(255, 99, 71, 0.2);
-  --card-outline-hover: 2px solid rgba(255, 99, 71, 0.7);
   --card-hover-transform: translateY(-10px) scale(1.02);
 }
 
@@ -172,7 +171,6 @@
 
 /* Hover-Effekte für die sanfte Animation */
 .dark-mode .card:hover {
-  transform: translateY(-8px);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
