@@ -1,0 +1,190 @@
+/* 
+ * SEO-spezifische CSS-Regeln
+ * Optimiert für lokale Suchen und bessere Indexierung
+ */
+
+/* Screen Reader und SEO-freundliche versteckte Inhalte */
+.seo-hidden,
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Lokaler SEO Content - für Suchmaschinen sichtbar, für Nutzer versteckt */
+.local-seo-content {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  font-size: 0;
+  line-height: 0;
+}
+
+/* Strukturierte Daten Markierungen */
+[itemscope] {
+  position: relative;
+}
+
+/* Mikrodaten für lokale Businesses */
+.business-info[itemtype*="LocalBusiness"] {
+  display: block;
+}
+
+/* Service Area Markierungen */
+.service-area {
+  display: inline-block;
+}
+
+/* Schema.org Property Optimierungen */
+[itemprop="name"] {
+  font-weight: 600;
+}
+
+[itemprop="address"] {
+  display: inline;
+}
+
+[itemprop="telephone"],
+[itemprop="email"] {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+/* Breadcrumb Schema Support */
+.breadcrumb {
+  list-style: none;
+  display: flex;
+  gap: var(--space-sm);
+  margin: var(--space-md) 0;
+  padding: 0;
+}
+
+.breadcrumb li:not(:last-child)::after {
+  content: " / ";
+  margin-left: var(--space-sm);
+  color: var(--text-muted);
+}
+
+/* FAQ Schema Support */
+.faq-item[itemtype*="Question"] {
+  margin-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: var(--space-md);
+}
+
+.faq-question[itemprop="name"] {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  color: var(--text-primary);
+}
+
+.faq-answer[itemprop="text"] {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Review/Rating Schema Support */
+.review[itemtype*="Review"] {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.rating[itemprop="ratingValue"] {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Service Schema Optimierungen */
+.service[itemtype*="Service"] {
+  display: block;
+  margin-bottom: var(--space-lg);
+}
+
+.service-name[itemprop="name"] {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.service-description[itemprop="description"] {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+}
+
+.service-area[itemprop="areaServed"] {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Local Business Contact Info */
+.contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.contact-item i {
+  color: var(--accent);
+  width: 20px;
+  text-align: center;
+}
+
+/* Mobile Optimierungen für lokale Suchen */
+@media (max-width: 768px) {
+  .local-business-info {
+    text-align: center;
+    padding: var(--space-md);
+  }
+  
+  .service-areas ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    list-style: none;
+    padding: 0;
+  }
+  
+  .contact-info {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Print-Optimierungen für Business Cards */
+@media print {
+  .local-seo-content,
+  .seo-hidden {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
+  }
+  
+  .contact-info {
+    page-break-inside: avoid;
+  }
+}

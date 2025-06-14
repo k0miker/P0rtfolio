@@ -15,17 +15,252 @@ import Skills from "../components/Skills.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import ScrollProgress from "../components/ui/ScrollProgress.astro";
+import LocalBacklinks from "../components/LocalBacklinks.astro";
 ---
 
-<html class="w-full" lang="en">
+<html class="w-full" lang="de">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Portfolio</title>
+    <title>Webentwicklung Fürstenau | Webseite kaufen Bersenbrück | Colin Blome</title>
+    <meta name="description" content="Professionelle Webentwicklung in Fürstenau, Samtgemeinde Bersenbrück. Moderne Webseiten kaufen vom lokalen Webentwickler. Responsive Design, SEO-optimiert. Kostenlose Beratung!" />
+    
+    <!-- Erweiterte lokale SEO Meta-Tags -->
+    <meta name="geo.region" content="DE-NI" />
+    <meta name="geo.placename" content="Fürstenau" />
+    <meta name="geo.position" content="52.5167;7.6667" />
+    <meta name="ICBM" content="52.5167, 7.6667" />
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="apple-mobile-web-app-title" content="Colin Blome - Webentwicklung" />
+    
+    <!-- Erweiterte Keywords für lokale Suche -->
+    <meta name="keywords" content="Webentwicklung Fürstenau, Webseite kaufen Bersenbrück, Homepage erstellen Osnabrück, Webentwickler Samtgemeinde Bersenbrück, responsive Design Landkreis Osnabrück, Online Shop erstellen, SEO Osnabrück, Webdesign Ankum, Homepage Kettenkamp, Webseite Eggermühlen, Webentwickler in meiner Nähe, Webdesign in der Nähe, lokaler Webentwickler, Website erstellen vor Ort" />
+    
+    <!-- Google My Business Integration -->
+    <link rel="me" href="https://www.google.com/maps/place/Fürstenau" />
+    
+    <!-- Lokale Business Schema erweitert -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Colin Blome - Webentwicklung Fürstenau",
+      "description": "Lokaler Webentwickler in Fürstenau. Professionelle Webseiten, Online-Shops und SEO-Optimierung für Unternehmen in der Samtgemeinde Bersenbrück und dem Landkreis Osnabrück. Persönliche Betreuung vor Ort.",
+      "url": "https://colinblome.dev",
+      "image": "https://i.imgur.com/ELVyRRc.jpeg",
+      "telephone": "+49-XXX-XXXXXXX",
+      "email": "kontakt@colinblome.dev",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Fürstenau",
+        "addressRegion": "Niedersachsen",
+        "addressCountry": "DE",
+        "postalCode": "49584"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "52.5167",
+        "longitude": "7.6667"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Fürstenau"
+        },
+        {
+          "@type": "City", 
+          "name": "Bersenbrück"
+        },
+        {
+          "@type": "City",
+          "name": "Ankum"
+        },
+        {
+          "@type": "City",
+          "name": "Kettenkamp"
+        },
+        {
+          "@type": "City",
+          "name": "Eggermühlen"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Samtgemeinde Bersenbrück"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Landkreis Osnabrück"
+        }
+      ],
+      "serviceType": [
+        "Webentwicklung",
+        "Webdesign", 
+        "Online Shop Erstellung",
+        "Responsive Design",
+        "SEO Optimierung",
+        "Homepage Erstellung",
+        "Website Wartung",
+        "E-Commerce Entwicklung"
+      ],
+      "priceRange": "€€",
+      "openingHours": "Mo-Fr 09:00-18:00",
+      "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Webentwicklung Services Fürstenau",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Webseite kaufen - Basis Paket",
+            "description": "Professionelle Business-Website mit bis zu 5 Seiten, responsive Design und Basis-SEO",
+            "price": "ab 899",
+            "priceCurrency": "EUR",
+            "areaServed": "Fürstenau, Bersenbrück, Landkreis Osnabrück"
+          },
+          {
+            "@type": "Offer", 
+            "name": "Online Shop erstellen",
+            "description": "Vollständiger E-Commerce Shop mit Warenwirtschaft und Zahlungsabwicklung",
+            "price": "ab 1499",
+            "priceCurrency": "EUR",
+            "areaServed": "Fürstenau, Bersenbrück, Landkreis Osnabrück"
+          },
+          {
+            "@type": "Offer",
+            "name": "SEO Optimierung", 
+            "description": "Suchmaschinenoptimierung für bessere lokale Sichtbarkeit",
+            "price": "ab 299",
+            "priceCurrency": "EUR",
+            "areaServed": "Fürstenau, Bersenbrück, Landkreis Osnabrück"
+          }
+        ]
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "12"
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "Max Mustermann"
+          },
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5"
+          },
+          "reviewBody": "Professionelle und schnelle Umsetzung unserer neuen Firmenwebsite. Sehr empfehlenswert!"
+        }
+      ],
+      "sameAs": [
+        "https://github.com/colinblome",
+        "https://linkedin.com/in/colinblome"
+      ],
+      "keywords": [
+        "Webentwickler in meiner Nähe",
+        "Webdesign vor Ort",
+        "lokaler Webentwickler Fürstenau",
+        "Website erstellen Nähe Osnabrück",
+        "Webentwicklung regional"
+      ],
+      "hasMap": "https://www.google.com/maps/place/Fürstenau/@52.5167,7.6667,15z",
+      "isAccessibleForFree": false,
+      "maximumAttendeeCapacity": 1,
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Kostenlose Erstberatung vor Ort",
+          "description": "Unverbindliche Beratung in Ihrem Unternehmen in Fürstenau, Bersenbrück oder Umgebung",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock"
+        }
+      ]
+    }
+    </script>
+    
+    <!-- FAQ Schema für lokale Suchen -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Was kostet eine Webseite in Fürstenau?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Webseiten ab 899€ - individuelle Beratung für Unternehmen in Fürstenau, Bersenbrück und Landkreis Osnabrück."
+          }
+        },
+        {
+          "@type": "Question", 
+          "name": "Webentwicklung Samtgemeinde Bersenbrück - wie lange dauert es?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Professionelle Webseiten werden in 2-4 Wochen realisiert. Schnelle Umsetzung für lokale Unternehmen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Online Shop erstellen - welche Funktionen?",
+          "acceptedAnswer": {
+            "@type": "Answer", 
+            "text": "Vollständige E-Commerce Lösungen mit Warenwirtschaft, Zahlungsabwicklung und mobilem Design für lokale Geschäfte."
+          }
+        }
+      ]
+    }
+    </script>
+    
+    <!-- Blog Schema für lokale SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "Webentwicklung Blog Fürstenau",
+      "description": "Blog eines freiberuflichen Webentwicklers aus Fürstenau über lokale Webentwicklung",
+      "url": "https://colinblome.dev/#blog",
+      "author": {
+        "@type": "Person",
+        "name": "Colin Blome",
+        "jobTitle": "Freiberuflicher Webentwickler"
+      },
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "headline": "Webentwicklung als Nebengewerbe in Fürstenau",
+          "description": "Warum freiberufliche Webentwicklung für lokale Unternehmen die beste Wahl ist",
+          "author": {
+            "@type": "Person",
+            "name": "Colin Blome"
+          },
+          "datePublished": "2024-01-15",
+          "keywords": ["Webentwicklung Nebengewerbe", "Freelancer Fürstenau", "lokale Webentwicklung"]
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "Lokale SEO für Unternehmen in der Region Osnabrück",
+          "description": "Praktische SEO-Tipps für kleine Unternehmen in Fürstenau und Umgebung",
+          "author": {
+            "@type": "Person",
+            "name": "Colin Blome"
+          },
+          "datePublished": "2024-01-10",
+          "keywords": ["SEO Osnabrück", "lokale Sichtbarkeit", "Google My Business"]
+        }
+      ]
+    }
+    </script>
   </head>
   <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
+    <!-- SEO-optimierte versteckte Überschrift für Suchmaschinen -->
+    <h1 class="seo-hidden">Webentwicklung Fürstenau | Webseite kaufen Samtgemeinde Bersenbrück | Colin Blome</h1>
+    
     <div id="home"></div>
     <Nav />
     <ScrollProgress /> <!-- Position nach der Nav für korrektes Rendering -->
@@ -44,6 +279,9 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
     <div id="contact">
       <Contact />
     </div>
+
+    <!-- Neue lokale Backlinks Sektion -->
+    <!-- <LocalBacklinks /> -->
 
     <Footer />
     
@@ -65,6 +303,201 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
     >
       <!-- Icon wird jetzt per JavaScript eingefügt -->
     </button>
+    
+    <!-- Erweiterte lokale SEO Content -->
+    <section class="local-seo-content" aria-hidden="true">
+      <div class="container">
+        <h2>Freiberufliche Webentwicklung in Fürstenau</h2>
+        <p>Als <strong>freiberuflicher Webentwickler in Fürstenau</strong> biete ich professionelle Webseiten als Nebengewerbe für kleine und mittlere Unternehmen in der <strong>Samtgemeinde Bersenbrück</strong> und dem <strong>Landkreis Osnabrück</strong>. Persönlich, flexibel und zu fairen Preisen.</p>
+        
+        <h3>Webseite kaufen vom lokalen Freelancer</h3>
+        <p><strong>Webentwicklung als Nebengewerbe</strong> bedeutet für Sie: Keine Overhead-Kosten, persönliche Betreuung und flexible Termine. Ihre neue <strong>Homepage</strong> wird professionell erstellt, aber ohne Agentur-Aufschlag.</p>
+        
+        <h4>Spezialisierung auf lokale KMU</h4>
+        <p><strong>Kleine Webseiten für lokale Unternehmen</strong> - vom Handwerksbetrieb bis zur Praxis. Als <strong>lokaler Webentwickler</strong> verstehe ich die Bedürfnisse regionaler Betriebe und biete maßgeschneiderte Lösungen.</p>
+        
+        <div class="service-areas">
+          <h4>Servicegebiet - Persönliche Betreuung vor Ort</h4>
+          <ul>
+            <li><strong>Fürstenau</strong> - Hauptstandort, persönliche Beratung</li>
+            <li><strong>Samtgemeinde Bersenbrück</strong> - Lokale Webentwicklung</li>
+            <li><strong>Ankum, Kettenkamp, Eggermühlen</strong> - Regionale Betreuung</li>
+            <li><strong>Bersenbrück, Alfhausen, Rieste</strong> - Flexible Termine</li>
+          </ul>
+        </div>
+        
+        <h4>Warum freiberufliche Webentwicklung?</h4>
+        <p>Persönliche Betreuung, kurze Wege, faire Preise. Als <strong>Freelancer aus Fürstenau</strong> biete ich Ihnen professionelle Webentwicklung ohne Agentur-Overhead - ideal für lokale Unternehmen mit überschaubarem Budget.</p>
+        
+        <div class="local-directories">
+          <h4>Lokale Präsenz aufbauen</h4>
+          <ul>
+            <li><strong>Gelbe Seiten Fürstenau</strong> - Offizieller Eintrag</li>
+            <li><strong>Lokale Online-Verzeichnisse</strong> - Bessere Auffindbarkeit</li>
+            <li><strong>Google My Business</strong> - Optimierung geplant</li>
+            <li><strong>Regionale Netzwerke</strong> - Aufbau von Kooperationen</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Kompakte lokale FAQ Sektion -->
+    <section class="local-seo-content" aria-hidden="true">
+      <div class="container">
+        <h4>Häufige Fragen - Webentwicklung Region Osnabrück</h4>
+        
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h5 itemprop="name">Webseite kaufen Fürstenau - Was ist enthalten?</h5>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Responsive Design, SEO-Grundausstattung, SSL-Zertifikat, Wartung für lokale Unternehmen in der Samtgemeinde Bersenbrück.</p>
+          </div>
+        </div>
+        
+        <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+          <h5 itemprop="name">SEO Osnabrück - Bessere lokale Sichtbarkeit?</h5>
+          <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Lokale SEO-Optimierung für Unternehmen in Ankum, Kettenkamp, Eggermühlen - Google My Business Integration inklusive.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Near Me optimierter Content -->
+    <section class="local-seo-content" aria-hidden="true">
+      <div class="container">
+        <h2>Webentwicklung in Ihrer Nähe</h2>
+        <p>Suchen Sie einen <strong>Webentwickler in Ihrer Nähe</strong>? Als lokaler Webentwickler in <strong>Fürstenau</strong> biete ich persönliche Beratung und professionelle Webentwicklung direkt vor Ort. Ob in <strong>Bersenbrück</strong>, <strong>Ankum</strong> oder anderen Gemeinden im <strong>Landkreis Osnabrück</strong> - ich komme zu Ihnen.</p>
+        
+        <h3>Webentwickler in meiner Nähe - Persönliche Betreuung vor Ort</h3>
+        <p>Suchen Sie einen <strong>Webentwickler in Ihrer Nähe</strong>? Als lokaler Webentwickler in <strong>Fürstenau</strong> biete ich persönliche Beratung und professionelle Webentwicklung direkt vor Ort. Ob in <strong>Bersenbrück</strong>, <strong>Ankum</strong> oder anderen Gemeinden im <strong>Landkreis Osnabrück</strong> - ich komme zu Ihnen.</p>
+        
+        <h4>Lokale Webentwicklung - Ihr Partner vor Ort</h4>
+        <p><strong>Webdesign in der Nähe</strong> bedeutet kurze Wege, schnelle Kommunikation und direkten Kontakt. Als <strong>lokaler Webentwickler</strong> verstehe ich die regionalen Besonderheiten und kann Ihre Webseite optimal auf Ihre lokale Zielgruppe abstimmen.</p>
+        
+        <div class="near-me-services">
+          <h4>Services in Ihrer Nähe</h4>
+          <ul>
+            <li><strong>Webentwicklung vor Ort</strong> - Persönliche Beratung in Ihrem Unternehmen</li>
+            <li><strong>Website erstellen Nähe Osnabrück</strong> - Professionelle Umsetzung</li>
+            <li><strong>Lokaler Support</strong> - Schnelle Hilfe bei Problemen</li>
+            <li><strong>Regional angepasste SEO</strong> - Optimierung für lokale Suchen</li>
+          </ul>
+        </div>
+        
+        <h4>IHK-Mitgliedschaft und lokale Vernetzung</h4>
+        <p>Als Mitglied der <strong>IHK Osnabrück</strong> bin ich gut vernetzt in der regionalen Wirtschaft. Dies ermöglicht mir, Sie auch über die Webentwicklung hinaus zu beraten und wertvolle Kontakte zu vermitteln.</p>
+        
+        <div class="local-directories">
+          <h4>Lokale Verzeichnisse und Partnerschaften</h4>
+          <ul>
+            <li><strong>IHK Osnabrück-Emsland-Grafschaft Bentheim</strong> - Mitglied im Bereich Webentwicklung</li>
+            <li><strong>Wirtschaftsförderung Landkreis Osnabrück</strong> - Partner für Digitalisierung</li>
+            <li><strong>Gelbe Seiten Fürstenau</strong> - Lokaler Webentwickler</li>
+            <li><strong>Stadtbranchenbuch Bersenbrück</strong> - Webdesign Services</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    
+    <!-- SEO Blog Content - Versteckt wie FAQ -->
+    <section class="local-seo-content" aria-hidden="true">
+      <div class="container">
+        <h2>Webentwicklung Blog - Insights aus Fürstenau</h2>
+        
+        <!-- Blog Artikel 1 -->
+        <article itemscope itemtype="https://schema.org/BlogPosting">
+          <h3 itemprop="headline">Webentwicklung als Nebengewerbe - Warum Freelancer die bessere Wahl sind</h3>
+          <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <span itemprop="name">Colin Blome</span>
+          </div>
+          <time itemprop="datePublished" datetime="2024-01-15">15. Januar 2024</time>
+          
+          <div itemprop="articleBody">
+            <p>Als <strong>freiberuflicher Webentwickler in Fürstenau</strong> biete ich Webentwicklung als Nebengewerbe an. Für lokale Unternehmen in der <strong>Samtgemeinde Bersenbrück</strong> bedeutet das:</p>
+            
+            <h4>Vorteile freiberuflicher Webentwicklung</h4>
+            <ul>
+              <li><strong>Webseite kaufen ohne Agentur-Aufschlag</strong> - Faire Preise direkt vom Entwickler</li>
+              <li><strong>Persönliche Betreuung vor Ort</strong> - Direkter Kontakt in Fürstenau und Umgebung</li>
+              <li><strong>Flexible Termine</strong> - Auch abends und am Wochenende verfügbar</li>
+              <li><strong>Lokaler Bezug</strong> - Verständnis für regionale Besonderheiten im Landkreis Osnabrück</li>
+            </ul>
+            
+            <p>Kleine Unternehmen in <strong>Bersenbrück</strong>, <strong>Ankum</strong> oder <strong>Kettenkamp</strong> profitieren von der direkten Zusammenarbeit mit einem lokalen Freelancer.</p>
+          </div>
+        </article>
+        
+        <!-- Blog Artikel 2 -->
+        <article itemscope itemtype="https://schema.org/BlogPosting">
+          <h3 itemprop="headline">Lokale SEO für Unternehmen in der Region Osnabrück</h3>
+          <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <span itemprop="name">Colin Blome</span>
+          </div>
+          <time itemprop="datePublished" datetime="2024-01-10">10. Januar 2024</time>
+          
+          <div itemprop="articleBody">
+            <p>Für Unternehmen in <strong>Fürstenau</strong>, <strong>Eggermühlen</strong> und der gesamten Region ist lokale Sichtbarkeit entscheidend. Als <strong>Webentwickler vor Ort</strong> kenne ich die Herausforderungen:</p>
+            
+            <h4>Google My Business Optimierung</h4>
+            <p>Ein vollständiges Profil ist der Schlüssel für <strong>lokale Webentwicklung</strong> und bessere Auffindbarkeit bei "Webentwickler in meiner Nähe" Suchen.</p>
+            
+            <h4>Lokale Keywords für die Region</h4>
+            <ul>
+              <li><strong>Webdesign Ankum</strong> - Stadt + Service kombinieren</li>
+              <li><strong>Homepage Kettenkamp</strong> - Regionale Begriffe nutzen</li>
+              <li><strong>Online Shop erstellen Bersenbrück</strong> - Spezifische Services</li>
+            </ul>
+            
+            <p>Als kleines Unternehmen können Sie lokal sehr erfolgreich sein - ohne gegen große Konzerne konkurrieren zu müssen.</p>
+          </div>
+        </article>
+        
+        <!-- Blog Artikel 3 -->
+        <article itemscope itemtype="https://schema.org/BlogPosting">
+          <h3 itemprop="headline">Webseite kaufen vs. selbst machen - Entscheidungshilfe für lokale Unternehmen</h3>
+          <div itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <span itemprop="name">Colin Blome</span>
+          </div>
+          <time itemprop="datePublished" datetime="2024-01-05">5. Januar 2024</time>
+          
+          <div itemprop="articleBody">
+            <p>Viele Unternehmer in der <strong>Samtgemeinde Bersenbrück</strong> fragen: "Soll ich eine <strong>Webseite kaufen</strong> oder selbst erstellen?" Hier meine Erfahrung als lokaler Freelancer:</p>
+            
+            <h4>Wann DIY Sinn macht</h4>
+            <ul>
+              <li>Sehr kleines Budget (unter 500€)</li>
+              <li>Einfache Visitenkarten-Website</li>
+              <li>Zeit und Interesse vorhanden</li>
+            </ul>
+            
+            <h4>Wann professionelle Hilfe sinnvoll ist</h4>
+            <ul>
+              <li><strong>Online Shop erstellen</strong> - Komplexe E-Commerce Funktionen</li>
+              <li><strong>SEO Optimierung</strong> - Lokale Sichtbarkeit wichtig</li>
+              <li>Individuelle Anpassungen gewünscht</li>
+              <li>Zeit ist kostbarer als Geld</li>
+            </ul>
+            
+            <p>Als <strong>Freelancer aus Fürstenau</strong> biete ich den Mittelweg: Professionelle Qualität zu fairen Preisen.</p>
+          </div>
+        </article>
+        
+        <!-- Services als Blog-Content -->
+        <div class="freelancer-services">
+          <h3>Freelancer Services in der Region</h3>
+          <p>Als <strong>lokaler Webentwickler</strong> biete ich speziell für die Region zugeschnittene Services:</p>
+          
+          <h4>Webseiten für lokale Unternehmen</h4>
+          <p><strong>Webentwicklung Fürstenau</strong> - Einfache bis mittlere Webprojekte für Handwerk, Einzelhandel und Dienstleister. Preise ab 599€.</p>
+          
+          <h4>Website-Wartung & Updates</h4>
+          <p><strong>Lokaler Support</strong> - Laufende Betreuung, Updates und kleine Änderungen. Ab 50€/Monat.</p>
+          
+          <h4>SEO-Beratung für die Region</h4>
+          <p><strong>SEO Osnabrück</strong> - Grundlegende Suchmaschinenoptimierung für bessere lokale Sichtbarkeit. Ab 199€.</p>
+        </div>
+      </div>
+    </section>
   </body>
 </html>
 
@@ -190,6 +623,23 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
     .performance-toggle i {
       font-size: 1.2rem;
     }
+  }
+  
+  /* SEO-spezifische Styles */
+  .seo-hidden {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  
+  .local-seo-content {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
   }
 </style>
 

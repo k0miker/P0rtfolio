@@ -1,5 +1,12 @@
 ---
 const { title, description, image } = Astro.props;
+
+// Lokale SEO-Daten
+const businessName = "Colin Blome - Webentwicklung";
+const location = "Fürstenau, Samtgemeinde Bersenbrück, Landkreis Osnabrück";
+const services = "Webentwicklung, Webseiten erstellen, Homepage kaufen, Responsive Design";
+const localTitle = title || `${businessName} | ${location} | Webseite kaufen`;
+const localDescription = description || `Professionelle Webentwicklung in ${location}. Moderne Webseiten, responsive Design, SEO-optimiert. Webseite kaufen vom lokalen Webentwickler. Kostenlose Beratung!`;
 ---
 
 <html lang="de" class="w-full">
@@ -10,26 +17,146 @@ const { title, description, image } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     
     <!-- SEO Meta Tags -->
-    <title>{title || 'Colin Blome - Web Developer Portfolio'}</title>
-    <meta name="description" content={description || 'Portfolio von Colin Blome, Web Developer aus Deutschland. Spezialisiert auf moderne Web-Entwicklung mit Fokus auf Benutzerfreundlichkeit und Responsive Design.'} />
+    <title>{localTitle}</title>
+    <meta name="description" content={localDescription} />
+    <meta name="keywords" content="Webentwicklung Fürstenau, Webseite kaufen Bersenbrück, Homepage erstellen Osnabrück, Webentwickler Samtgemeinde Bersenbrück, responsive Design, SEO Optimierung, lokale Webseiten" />
+    <meta name="author" content="Colin Blome" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={Astro.url} />
+    
+    <!-- Lokale SEO -->
+    <meta name="geo.region" content="DE-NI" />
+    <meta name="geo.placename" content="Fürstenau" />
+    <meta name="geo.position" content="52.5167;7.6667" />
+    <meta name="ICBM" content="52.5167, 7.6667" />
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
-    <meta property="og:title" content={title || 'Colin Blome - Web Developer Portfolio'} />
-    <meta property="og:description" content={description || 'Portfolio von Colin Blome, Web Developer aus Deutschland.'} />
+    <meta property="og:title" content={localTitle} />
+    <meta property="og:description" content={localDescription} />
     <meta property="og:image" content={image || 'https://i.imgur.com/ELVyRRc.jpeg'} />
+    <meta property="og:locale" content="de_DE" />
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:domain" content={new URL(Astro.url).hostname} />
     <meta property="twitter:url" content={Astro.url} />
-    <meta name="twitter:title" content={title || 'Colin Blome - Web Developer Portfolio'} />
-    <meta name="twitter:description" content={description || 'Portfolio von Colin Blome, Web Developer aus Deutschland.'} />
+    <meta name="twitter:title" content={localTitle} />
+    <meta name="twitter:description" content={localDescription} />
     <meta name="twitter:image" content={image || 'https://i.imgur.com/ELVyRRc.jpeg'} />
 
     <!-- Font Awesome für Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Strukturierte Daten für lokales Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "@id": "https://colinblome.dev/#business",
+      "name": "Colin Blome - Webentwicklung",
+      "description": "Professionelle Webentwicklung und Webdesign in Fürstenau, Samtgemeinde Bersenbrück. Moderne, responsive Webseiten für lokale Unternehmen.",
+      "url": "https://colinblome.dev",
+      "telephone": "+49-XXX-XXXXXXX",
+      "email": "kontakt@colinblome.dev",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Fürstenau",
+        "addressRegion": "Niedersachsen",
+        "addressCountry": "DE",
+        "postalCode": "49584"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "52.5167",
+        "longitude": "7.6667"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Fürstenau"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Samtgemeinde Bersenbrück"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Landkreis Osnabrück"
+        }
+      ],
+      "serviceType": [
+        "Webentwicklung",
+        "Webdesign",
+        "Responsive Design",
+        "SEO Optimierung",
+        "Homepage Erstellung",
+        "E-Commerce Entwicklung"
+      ],
+      "priceRange": "€€",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Webentwicklung Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Webseite kaufen",
+              "description": "Professionelle Webseiten-Erstellung mit modernem Design"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Responsive Webdesign",
+              "description": "Mobile-optimierte Webseiten für alle Endgeräte"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "SEO Optimierung",
+              "description": "Suchmaschinenoptimierung für bessere Sichtbarkeit"
+            }
+          }
+        ]
+      },
+      "sameAs": [
+        "https://github.com/colinblome",
+        "https://linkedin.com/in/colinblome"
+      ]
+    }
+    </script>
+
+    <!-- Website Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Colin Blome Portfolio",
+      "url": "https://colinblome.dev",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://colinblome.dev/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Colin Blome",
+        "jobTitle": "Webentwickler",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Fürstenau",
+          "addressRegion": "Niedersachsen",
+          "addressCountry": "DE"
+        }
+      }
+    }
+    </script>
   </head>
   <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
     <slot />
