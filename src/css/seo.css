@@ -58,6 +58,32 @@
   color: var(--accent);
 }
 
+/* Geolokale SEO-Optimierungen */
+.geo-location-tag {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: var(--font-size-sm);
+  margin-right: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+
+/* Lokale Service-Area-Markierungen */
+.service-localities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin: var(--space-md) 0;
+}
+
+/* Standort-Hervorhebung */
+.primary-location {
+  font-weight: 700;
+  color: var(--accent);
+}
+
 /* Breadcrumb Schema Support */
 .breadcrumb {
   list-style: none;

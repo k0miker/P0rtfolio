@@ -1,12 +1,95 @@
 ---
 const { title, description, image } = Astro.props;
 
-// Lokale SEO-Daten
-const businessName = "Colin Blome - Webentwicklung";
-const location = "Fürstenau, Samtgemeinde Bersenbrück, Landkreis Osnabrück";
-const services = "Webentwicklung, Webseiten erstellen, Homepage kaufen, Responsive Design";
-const localTitle = title || `${businessName} | ${location} | Webseite kaufen`;
-const localDescription = description || `Professionelle Webentwicklung in ${location}. Moderne Webseiten, responsive Design, SEO-optimiert. Webseite kaufen vom lokalen Webentwickler. Kostenlose Beratung!`;
+// Lokale Geschäftsdaten
+const businessData = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "CB-WebDevelopment - Webentwicklung Fürstenau",
+  "alternateName": "Colin Blome - CB-WebDevelopment",
+  "description": "Professionelle Webentwicklung in Fürstenau, Samtgemeinde Bersenbrück & Landkreis Osnabrück. Moderne, responsive Webseiten die Kunden gewinnen.",
+  "url": Astro.url.toString(),
+  "logo": "https://i.imgur.com/ELVyRRc.jpeg",
+  "image": image || "https://i.imgur.com/ELVyRRc.jpeg",
+  "telephone": "+49XXXXXXXXXX", // Ihre Telefonnummer hier einfügen
+  "email": "kontakt@colinblome.de", // Ihre E-Mail hier einfügen
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Fürstenau",
+    "addressRegion": "Niedersachsen",
+    "postalCode": "49584",
+    "addressCountry": "DE"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "52.5438", // Koordinaten für Fürstenau
+    "longitude": "7.6722"
+  },
+  "priceRange": "€€",
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Fürstenau"
+    },
+    {
+      "@type": "City",
+      "name": "Bersenbrück"
+    },
+    {
+      "@type": "City",
+      "name": "Ankum"
+    },
+    {
+      "@type": "City",
+      "name": "Kettenkamp"
+    },
+    {
+      "@type": "City",
+      "name": "Eggermühlen"
+    }
+  ],
+  "serviceArea": {
+    "@type": "GeoCircle", 
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "52.5438",
+      "longitude": "7.6722"
+    },
+    "geoRadius": "30000"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "16:00",
+    "closes": "21:00"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/in/colinblome/", 
+    "https://github.com/colinblome",
+    "https://g.page/cb-webdevelopment"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "CB-WebDevelopment Dienstleistungen",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Webseite kaufen - Komplett-Pakete",
+        "description": "Professionelle Webseiten für lokale Unternehmen in Fürstenau und Umgebung von CB-WebDevelopment"
+      },
+      {
+        "@type": "Offer",
+        "name": "Online-Shops & E-Commerce",
+        "description": "E-Commerce Lösungen für Unternehmen im Landkreis Osnabrück"
+      },
+      {
+        "@type": "Offer",
+        "name": "SEO-Optimierung",
+        "description": "Lokale Suchmaschinenoptimierung für bessere Sichtbarkeit in Fürstenau und Umgebung"
+      }
+    ]
+  }
+};
 ---
 
 <html lang="de" class="w-full">
@@ -17,146 +100,46 @@ const localDescription = description || `Professionelle Webentwicklung in ${loca
     <meta name="generator" content={Astro.generator} />
     
     <!-- SEO Meta Tags -->
-    <title>{localTitle}</title>
-    <meta name="description" content={localDescription} />
-    <meta name="keywords" content="Webentwicklung Fürstenau, Webseite kaufen Bersenbrück, Homepage erstellen Osnabrück, Webentwickler Samtgemeinde Bersenbrück, responsive Design, SEO Optimierung, lokale Webseiten" />
-    <meta name="author" content="Colin Blome" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href={Astro.url} />
+    <title>{title || 'CB-WebDevelopment | Webentwicklung Fürstenau | Ihr lokaler Webentwickler'}</title>
+    <meta name="description" content={description || 'CB-WebDevelopment - Professionelle Webentwicklung in Fürstenau, Bersenbrück und Umgebung. Moderne, responsive Webseiten die Kunden gewinnen. Lokaler Service mit persönlicher Betreuung.'} />
     
-    <!-- Lokale SEO -->
+    <!-- Lokale SEO Tags -->
     <meta name="geo.region" content="DE-NI" />
     <meta name="geo.placename" content="Fürstenau" />
-    <meta name="geo.position" content="52.5167;7.6667" />
-    <meta name="ICBM" content="52.5167, 7.6667" />
+    <meta name="geo.position" content="52.5438;7.6722" />
+    <meta name="ICBM" content="52.5438, 7.6722" />
+    <meta name="author" content="CB-WebDevelopment" />
+    <meta name="copyright" content="CB-WebDevelopment" />
     
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
-    <meta property="og:title" content={localTitle} />
-    <meta property="og:description" content={localDescription} />
+    <meta property="og:title" content={title || 'CB-WebDevelopment | Webentwicklung Fürstenau | Ihr lokaler Webentwickler'} />
+    <meta property="og:description" content={description || 'CB-WebDevelopment - Professionelle Webentwicklung in Fürstenau, Bersenbrück und Umgebung. Moderne Webseiten, Online-Shops und SEO-Optimierung.'} />
     <meta property="og:image" content={image || 'https://i.imgur.com/ELVyRRc.jpeg'} />
     <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="CB-WebDevelopment" />
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:domain" content={new URL(Astro.url).hostname} />
     <meta property="twitter:url" content={Astro.url} />
-    <meta name="twitter:title" content={localTitle} />
-    <meta name="twitter:description" content={localDescription} />
+    <meta name="twitter:title" content={title || 'CB-WebDevelopment | Webentwicklung Fürstenau | Ihr lokaler Webentwickler'} />
+    <meta name="twitter:description" content={description || 'CB-WebDevelopment - Professionelle Webentwicklung in Fürstenau, Bersenbrück und Umgebung.'} />
     <meta name="twitter:image" content={image || 'https://i.imgur.com/ELVyRRc.jpeg'} />
+    <meta name="twitter:creator" content="@CB_WebDevelopment" />
+
+    <!-- Google Business Verknüpfung -->
+    <link rel="publisher" href="https://g.page/cb-webdevelopment" />
+
+    <!-- Strukturierte Daten für lokales Geschäft -->
+    <script type="application/ld+json" set:html={JSON.stringify(businessData)}></script>
 
     <!-- Font Awesome für Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     
-    <!-- Strukturierte Daten für lokales Business -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "@id": "https://colinblome.dev/#business",
-      "name": "Colin Blome - Webentwicklung",
-      "description": "Professionelle Webentwicklung und Webdesign in Fürstenau, Samtgemeinde Bersenbrück. Moderne, responsive Webseiten für lokale Unternehmen.",
-      "url": "https://colinblome.dev",
-      "telephone": "+49-XXX-XXXXXXX",
-      "email": "kontakt@colinblome.dev",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Fürstenau",
-        "addressRegion": "Niedersachsen",
-        "addressCountry": "DE",
-        "postalCode": "49584"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "52.5167",
-        "longitude": "7.6667"
-      },
-      "areaServed": [
-        {
-          "@type": "City",
-          "name": "Fürstenau"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Samtgemeinde Bersenbrück"
-        },
-        {
-          "@type": "AdministrativeArea",
-          "name": "Landkreis Osnabrück"
-        }
-      ],
-      "serviceType": [
-        "Webentwicklung",
-        "Webdesign",
-        "Responsive Design",
-        "SEO Optimierung",
-        "Homepage Erstellung",
-        "E-Commerce Entwicklung"
-      ],
-      "priceRange": "€€",
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Webentwicklung Services",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Webseite kaufen",
-              "description": "Professionelle Webseiten-Erstellung mit modernem Design"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Responsive Webdesign",
-              "description": "Mobile-optimierte Webseiten für alle Endgeräte"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "SEO Optimierung",
-              "description": "Suchmaschinenoptimierung für bessere Sichtbarkeit"
-            }
-          }
-        ]
-      },
-      "sameAs": [
-        "https://github.com/colinblome",
-        "https://linkedin.com/in/colinblome"
-      ]
-    }
-    </script>
-
-    <!-- Website Schema -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Colin Blome Portfolio",
-      "url": "https://colinblome.dev",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://colinblome.dev/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Colin Blome",
-        "jobTitle": "Webentwickler",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Fürstenau",
-          "addressRegion": "Niedersachsen",
-          "addressCountry": "DE"
-        }
-      }
-    }
-    </script>
+    <!-- Canonical URL -->
+    <link rel="canonical" href={Astro.url} />
   </head>
   <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
     <slot />
