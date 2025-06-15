@@ -1,12 +1,10 @@
 ---
-// Zentrale Stelle für alle gemeinsam genutzten CSS-Dateien
+
 import "../css/fonts.css";
 import "../css/keyframes.css";
 import "../css/darkmode.css";
-// FontAwesome importieren, um sicherzustellen, dass Symbole verfügbar sind
 import "../css/fontawesome/css/fontawesome.css";
 import "../css/fontawesome/css/all.min.css";
-// Komponenten-Importe
 import Nav from "../components/Nav.astro";
 import Iam from "../components/Iam.astro";
 import Myself from "../components/Myself.astro";
@@ -15,7 +13,6 @@ import Skills from "../components/Skills.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import ScrollProgress from "../components/ui/ScrollProgress.astro";
-import LocalBacklinks from "../components/LocalBacklinks.astro";
 ---
 
 <html class="w-full" lang="de">
@@ -24,8 +21,8 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>CB-WebDevelopment | Webentwicklung Fürstenau | Webseite kaufen Bersenbrück</title>
-    <meta name="description" content="CB-WebDevelopment - Professionelle Webentwicklung in Fürstenau, Samtgemeinde Bersenbrück. Moderne Webseiten kaufen vom lokalen Webentwickler. Responsive Design, SEO-optimiert. Kostenlose Beratung!" />
+    <title>CB-WebDev | Webentwicklung Fürstenau | Webseite kaufen Bersenbrück</title>
+    <meta name="description" content="CB-WebDev - Professionelle Webentwicklung in Fürstenau, Samtgemeinde Bersenbrück. Moderne Webseiten kaufen vom lokalen Webentwickler. Responsive Design, SEO-optimiert. Kostenlose Beratung!" />
     
     <!-- Erweiterte lokale SEO Meta-Tags -->
     <meta name="geo.region" content="DE-NI" />
@@ -33,27 +30,26 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
     <meta name="geo.position" content="52.5167;7.6667" />
     <meta name="ICBM" content="52.5167, 7.6667" />
     <meta name="format-detection" content="telephone=yes" />
-    <meta name="apple-mobile-web-app-title" content="CB-WebDevelopment" />
+    <meta name="apple-mobile-web-app-title" content="CB-WebDev" />
     
     <!-- Erweiterte Keywords für lokale Suche -->
-    <meta name="keywords" content="CB-WebDevelopment, Webentwicklung Fürstenau, Webseite kaufen Bersenbrück, Homepage erstellen Osnabrück, Webentwickler Samtgemeinde Bersenbrück, responsive Design Landkreis Osnabrück, Online Shop erstellen, SEO Osnabrück, Webdesign Ankum, Homepage Kettenkamp, Webseite Eggermühlen, Webentwickler in meiner Nähe, Webdesign in der Nähe, lokaler Webentwickler, Website erstellen vor Ort" />
+    <meta name="keywords" content="CB-WebDev, Webentwicklung Fürstenau, Webseite kaufen Bersenbrück, Homepage erstellen Osnabrück, Webentwickler Samtgemeinde Bersenbrück, responsive Design Landkreis Osnabrück, Online Shop erstellen, SEO Osnabrück, Webdesign Ankum, Homepage Kettenkamp, Webseite Eggermühlen, Webentwickler in meiner Nähe, Webdesign in der Nähe, lokaler Webentwickler, Website erstellen vor Ort" />
     
     <!-- Google My Business Integration -->
     <link rel="me" href="https://www.google.com/maps/place/Fürstenau" />
-    <link rel="publisher" href="https://g.page/cb-webdevelopment" />
+    <link rel="publisher" href="https://g.page/cb-webdev" />
     
     <!-- Lokale Business Schema erweitert -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "name": "CB-WebDevelopment - Webentwicklung Fürstenau",
-      "alternateName": "Colin Blome - CB-WebDevelopment",
+      "name": "CB-WebDev - Webentwicklung Fürstenau",
+      "alternateName": "Colin Blome - CB-WebDev",
       "description": "Lokaler Webentwickler in Fürstenau. Professionelle Webseiten, Online-Shops und SEO-Optimierung für Unternehmen in der Samtgemeinde Bersenbrück und dem Landkreis Osnabrück. Persönliche Betreuung vor Ort.",
       "url": "https://colinblome.dev",
       "image": "https://i.imgur.com/ELVyRRc.jpeg",
-      "telephone": "+49-XXX-XXXXXXX",
-      "email": "kontakt@colinblome.dev",
+      "email": "info@colinblome.dev",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Fürstenau",
@@ -107,12 +103,20 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
         "E-Commerce Entwicklung"
       ],
       "priceRange": "€€",
-      "openingHours": "Mo-Fr 09:00-18:00",
+      "openingHours": "Mo-Fr 16:00-21:00", 
       "paymentAccepted": "Cash, Credit Card, Bank Transfer",
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Webentwicklung Services Fürstenau",
         "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Visitenkarten Webseite erstellen",
+            "description": "Individuelle Website",
+            "price": "ab 199",
+            "priceCurrency": "EUR",
+            "areaServed": "Fürstenau, Bersenbrück, Landkreis Osnabrück"
+          },
           {
             "@type": "Offer",
             "name": "Webseite kaufen - Basis Paket",
@@ -141,27 +145,14 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
       },
       "aggregateRating": {
         "@type": "AggregateRating",
-        "ratingValue": "5.0",
-        "reviewCount": "12"
-      },
-      "review": [
-        {
-          "@type": "Review",
-          "author": {
-            "@type": "Person",
-            "name": "Max Mustermann"
-          },
-          "reviewRating": {
-            "@type": "Rating",
-            "ratingValue": "5"
-          },
-          "reviewBody": "Professionelle und schnelle Umsetzung unserer neuen Firmenwebsite. Sehr empfehlenswert!"
-        }
-      ],
+        "ratingValue": "5.0", 
+        "reviewCount": "1"  
+      },    
+  
       "sameAs": [
         "https://github.com/colinblome",
         "https://linkedin.com/in/colinblome",
-        "https://g.page/cb-webdevelopment"
+        "https://g.page/cb-webdev"
       ],
       "keywords": [
         "Webentwickler in meiner Nähe",
@@ -194,7 +185,7 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Was kostet eine Webseite bei CB-WebDevelopment in Fürstenau?",
+          "name": "Was kostet eine Webseite bei CB-WebDev in Fürstenau?",
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Webseiten ab 899€ - individuelle Beratung für Unternehmen in Fürstenau, Bersenbrück und Landkreis Osnabrück."
@@ -225,13 +216,13 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
     {
       "@context": "https://schema.org",
       "@type": "Blog",
-      "name": "CB-WebDevelopment Blog Fürstenau",
+      "name": "CB-WebDev Blog Fürstenau",
       "description": "Blog eines freiberuflichen Webentwicklers aus Fürstenau über lokale Webentwicklung",
       "url": "https://colinblome.dev/#blog",
       "author": {
         "@type": "Person",
         "name": "Colin Blome",
-        "jobTitle": "Inhaber CB-WebDevelopment"
+        "jobTitle": "Inhaber CB-WebDev"
       },
       "blogPost": [
         {
@@ -262,11 +253,11 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
   </head>
   <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
     <!-- SEO-optimierte versteckte Überschrift für Suchmaschinen -->
-    <h1 class="seo-hidden">CB-WebDevelopment | Webentwicklung Fürstenau | Webseite kaufen Samtgemeinde Bersenbrück</h1>
+    <h1 class="seo-hidden">CB-WebDev | Webentwicklung Fürstenau | Webseite kaufen Samtgemeinde Bersenbrück</h1>
     
     <div id="home"></div>
     <Nav />
-    <ScrollProgress /> <!-- Position nach der Nav für korrektes Rendering -->
+    <ScrollProgress /> 
 
     <Iam />
 
@@ -283,35 +274,30 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
       <Contact />
     </div>
 
-    <!-- Neue lokale Backlinks Sektion -->
-    <!-- <LocalBacklinks /> -->
-
     <Footer />
     
-    <!-- Fixierter Theme Toggle Button -->
+
     <button
       id="darkModeToggle"
       class="theme-toggle fixed z-50 p-3 rounded-full shadow-lg focus:outline-none"
       aria-label="Theme wechseln"
     >
-      <!-- Icon wird per JavaScript eingefügt -->
     </button>
     
-    <!-- Performance-Modus Toggle -->
     <button
       id="performanceToggle"
       class="performance-toggle fixed z-50 p-3 rounded-full shadow-lg focus:outline-none"
       aria-label="Performance-Modus wechseln"
       title="Performance-Modus wechseln"
     >
-      <!-- Icon wird jetzt per JavaScript eingefügt -->
+
     </button>
     
-    <!-- Erweiterte lokale SEO Content -->
+ 
     <section class="local-seo-content" aria-hidden="true">
       <div class="container">
-        <h2>CB-WebDevelopment - Freiberufliche Webentwicklung in Fürstenau</h2>
-        <p>Als <strong>freiberuflicher Webentwickler in Fürstenau</strong> bietet CB-WebDevelopment professionelle Webseiten als Nebengewerbe für kleine und mittlere Unternehmen in der <strong>Samtgemeinde Bersenbrück</strong> und dem <strong>Landkreis Osnabrück</strong>. Persönlich, flexibel und zu fairen Preisen.</p>
+        <h2>CB-WebDev - Freiberufliche Webentwicklung in Fürstenau</h2>
+        <p>Als <strong>freiberuflicher Webentwickler in Fürstenau</strong> bietet CB-WebDev professionelle Webseiten als Nebengewerbe für kleine und mittlere Unternehmen in der <strong>Samtgemeinde Bersenbrück</strong> und dem <strong>Landkreis Osnabrück</strong>. Persönlich, flexibel und zu fairen Preisen.</p>
         
         <h3>Webseite kaufen vom lokalen Freelancer</h3>
         <p><strong>Webentwicklung als Nebengewerbe</strong> bedeutet für Sie: Keine Overhead-Kosten, persönliche Betreuung und flexible Termine. Ihre neue <strong>Homepage</strong> wird professionell erstellt, aber ohne Agentur-Aufschlag.</p>
@@ -385,122 +371,11 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
             <li><strong>Lokaler Support</strong> - Schnelle Hilfe bei Problemen</li>
             <li><strong>Regional angepasste SEO</strong> - Optimierung für lokale Suchen</li>
           </ul>
-        </div>
-        
-        <h4>IHK-Mitgliedschaft und lokale Vernetzung</h4>
-        <p>Als Mitglied der <strong>IHK Osnabrück</strong> bin ich gut vernetzt in der regionalen Wirtschaft. Dies ermöglicht mir, Sie auch über die Webentwicklung hinaus zu beraten und wertvolle Kontakte zu vermitteln.</p>
-        
-        <div class="local-directories">
-          <h4>Lokale Verzeichnisse und Partnerschaften</h4>
-          <ul>
-            <li><strong>IHK Osnabrück-Emsland-Grafschaft Bentheim</strong> - Mitglied im Bereich Webentwicklung</li>
-            <li><strong>Wirtschaftsförderung Landkreis Osnabrück</strong> - Partner für Digitalisierung</li>
-            <li><strong>Gelbe Seiten Fürstenau</strong> - Lokaler Webentwickler</li>
-            <li><strong>Stadtbranchenbuch Bersenbrück</strong> - Webdesign Services</li>
-          </ul>
-        </div>
+        </div>    
       </div>
     </section>
     
-    <!-- SEO Blog Content - Versteckt wie FAQ -->
-    <section class="local-seo-content" aria-hidden="true">
-      <div class="container">
-        <h2>Webentwicklung Blog - Insights aus Fürstenau</h2>
-        
-        <!-- Blog Artikel 1 -->
-        <article itemscope itemtype="https://schema.org/BlogPosting">
-          <h3 itemprop="headline">Webentwicklung als Nebengewerbe - Warum Freelancer die bessere Wahl sind</h3>
-          <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-            <span itemprop="name">Colin Blome</span>
-          </div>
-          <time itemprop="datePublished" datetime="2024-01-15">15. Januar 2024</time>
-          
-          <div itemprop="articleBody">
-            <p>Als <strong>freiberuflicher Webentwickler in Fürstenau</strong> biete ich Webentwicklung als Nebengewerbe an. Für lokale Unternehmen in der <strong>Samtgemeinde Bersenbrück</strong> bedeutet das:</p>
-            
-            <h4>Vorteile freiberuflicher Webentwicklung</h4>
-            <ul>
-              <li><strong>Webseite kaufen ohne Agentur-Aufschlag</strong> - Faire Preise direkt vom Entwickler</li>
-              <li><strong>Persönliche Betreuung vor Ort</strong> - Direkter Kontakt in Fürstenau und Umgebung</li>
-              <li><strong>Flexible Termine</strong> - Auch abends und am Wochenende verfügbar</li>
-              <li><strong>Lokaler Bezug</strong> - Verständnis für regionale Besonderheiten im Landkreis Osnabrück</li>
-            </ul>
-            
-            <p>Kleine Unternehmen in <strong>Bersenbrück</strong>, <strong>Ankum</strong> oder <strong>Kettenkamp</strong> profitieren von der direkten Zusammenarbeit mit einem lokalen Freelancer.</p>
-          </div>
-        </article>
-        
-        <!-- Blog Artikel 2 -->
-        <article itemscope itemtype="https://schema.org/BlogPosting">
-          <h3 itemprop="headline">Lokale SEO für Unternehmen in der Region Osnabrück</h3>
-          <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-            <span itemprop="name">Colin Blome</span>
-          </div>
-          <time itemprop="datePublished" datetime="2024-01-10">10. Januar 2024</time>
-          
-          <div itemprop="articleBody">
-            <p>Für Unternehmen in <strong>Fürstenau</strong>, <strong>Eggermühlen</strong> und der gesamten Region ist lokale Sichtbarkeit entscheidend. Als <strong>Webentwickler vor Ort</strong> kenne ich die Herausforderungen:</p>
-            
-            <h4>Google My Business Optimierung</h4>
-            <p>Ein vollständiges Profil ist der Schlüssel für <strong>lokale Webentwicklung</strong> und bessere Auffindbarkeit bei "Webentwickler in meiner Nähe" Suchen.</p>
-            
-            <h4>Lokale Keywords für die Region</h4>
-            <ul>
-              <li><strong>Webdesign Ankum</strong> - Stadt + Service kombinieren</li>
-              <li><strong>Homepage Kettenkamp</strong> - Regionale Begriffe nutzen</li>
-              <li><strong>Online Shop erstellen Bersenbrück</strong> - Spezifische Services</li>
-            </ul>
-            
-            <p>Als kleines Unternehmen können Sie lokal sehr erfolgreich sein - ohne gegen große Konzerne konkurrieren zu müssen.</p>
-          </div>
-        </article>
-        
-        <!-- Blog Artikel 3 -->
-        <article itemscope itemtype="https://schema.org/BlogPosting">
-          <h3 itemprop="headline">Webseite kaufen vs. selbst machen - Entscheidungshilfe für lokale Unternehmen</h3>
-          <div itemprop="author" itemscope itemtype="https://schema.org/Person">
-            <span itemprop="name">Colin Blome</span>
-          </div>
-          <time itemprop="datePublished" datetime="2024-01-05">5. Januar 2024</time>
-          
-          <div itemprop="articleBody">
-            <p>Viele Unternehmer in der <strong>Samtgemeinde Bersenbrück</strong> fragen: "Soll ich eine <strong>Webseite kaufen</strong> oder selbst erstellen?" Hier meine Erfahrung als lokaler Freelancer:</p>
-            
-            <h4>Wann DIY Sinn macht</h4>
-            <ul>
-              <li>Sehr kleines Budget (unter 500€)</li>
-              <li>Einfache Visitenkarten-Website</li>
-              <li>Zeit und Interesse vorhanden</li>
-            </ul>
-            
-            <h4>Wann professionelle Hilfe sinnvoll ist</h4>
-            <ul>
-              <li><strong>Online Shop erstellen</strong> - Komplexe E-Commerce Funktionen</li>
-              <li><strong>SEO Optimierung</strong> - Lokale Sichtbarkeit wichtig</li>
-              <li>Individuelle Anpassungen gewünscht</li>
-              <li>Zeit ist kostbarer als Geld</li>
-            </ul>
-            
-            <p>Als <strong>Freelancer aus Fürstenau</strong> biete ich den Mittelweg: Professionelle Qualität zu fairen Preisen.</p>
-          </div>
-        </article>
-        
-        <!-- Services als Blog-Content -->
-        <div class="freelancer-services">
-          <h3>Freelancer Services in der Region</h3>
-          <p>Als <strong>lokaler Webentwickler</strong> biete ich speziell für die Region zugeschnittene Services:</p>
-          
-          <h4>Webseiten für lokale Unternehmen</h4>
-          <p><strong>Webentwicklung Fürstenau</strong> - Einfache bis mittlere Webprojekte für Handwerk, Einzelhandel und Dienstleister. Preise ab 599€.</p>
-          
-          <h4>Website-Wartung & Updates</h4>
-          <p><strong>Lokaler Support</strong> - Laufende Betreuung, Updates und kleine Änderungen. Ab 50€/Monat.</p>
-          
-          <h4>SEO-Beratung für die Region</h4>
-          <p><strong>SEO Osnabrück</strong> - Grundlegende Suchmaschinenoptimierung für bessere lokale Sichtbarkeit. Ab 199€.</p>
-        </div>
-      </div>
-    </section>
+  
   </body>
 </html>
 
@@ -516,7 +391,7 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
     background-color: var(--bg-primary);
     color: var(--text-primary);
     transition: background-color 0.3s ease, color 0.3s ease;
-    padding-bottom: 80px; /* Platz für den fixierten Footer */
+    padding-bottom: 80px; 
   }
 
   #about {
@@ -554,7 +429,6 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
     border-radius: 5px;
   }
   
-  /* Theme Toggle Button Styling */
   .theme-toggle {
     bottom: 20px;
     right: 20px;
@@ -591,7 +465,6 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
     }
   }
   
-  /* Performance Toggle Button Styling */
   .performance-toggle {
     bottom: 20px;
     left: 20px;
@@ -628,7 +501,6 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
     }
   }
   
-  /* SEO-spezifische Styles */
   .seo-hidden {
     position: absolute;
     left: -9999px;
@@ -652,29 +524,23 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
     const darkModeToggle = document.getElementById("darkModeToggle");
     const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
     
-    // Check for saved theme preference or use the system preference
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark" || (!savedTheme && prefersDarkScheme.matches)) {
-      document.documentElement.classList.add("dark-mode"); // Änderung: auf documentElement anwenden
+      document.documentElement.classList.add("dark-mode"); 
       updateIcon(true);
     } else {
-      document.documentElement.classList.remove("dark-mode"); // Änderung: auf documentElement anwenden
+      document.documentElement.classList.remove("dark-mode");
       updateIcon(false);
     }
     
-    // Toggle dark mode on click
     darkModeToggle.addEventListener("click", () => {
-      const isDarkMode = document.documentElement.classList.toggle("dark-mode"); // Änderung: auf documentElement anwenden
+      const isDarkMode = document.documentElement.classList.toggle("dark-mode"); 
       localStorage.setItem("theme", isDarkMode ? "dark" : "light");
       updateIcon(isDarkMode);
     });
     
-    // Update the icon
     function updateIcon(isDarkMode) {
-      // Altes Icon entfernen
       darkModeToggle.innerHTML = '';
-      
-      // Neues Icon basierend auf Modus hinzufügen
       const icon = document.createElement('i');
       if (isDarkMode) {
         icon.className = 'fa-solid fa-sun';
@@ -747,9 +613,7 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
   });
 </script>
 <script>
-  // Zentrale Performance-Optimierung für Hintergrundbilder
   document.addEventListener("DOMContentLoaded", () => {
-    // Liste aller Sektionen mit animierten Hintergründen
     const animatedSections = [
       document.getElementById("home-section"),
       document.getElementById("skills"),
@@ -757,10 +621,8 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
       document.getElementById("projects")
     ].filter(section => section !== null);
     
-    // Intersection Observer für alle Sektionen
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        // Klasse hinzufügen/entfernen je nachdem, ob Element sichtbar ist
         if (entry.isIntersecting) {
           entry.target.classList.add("animate");
         } else {
@@ -768,43 +630,35 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
         }
       });
     }, { 
-      threshold: 0.1,  // Animation startet, wenn 10% der Sektion sichtbar sind
-      rootMargin: "100px" // Etwas früher starten für flüssigeren Übergang
+      threshold: 0.1,  
+      rootMargin: "100px" 
     });
     
-    // Alle animierten Sektionen beobachten
     animatedSections.forEach(section => {
       if (section) observer.observe(section);
     });
   });
 </script>
 <script>
-  // Performance-optimierte Animations- und Intersection Observer-Logik
   document.addEventListener("DOMContentLoaded", () => {
-    // Zentralisierte IntersectionObserver-Konfiguration für bessere Performance
     const observerOptions = {
       rootMargin: "50px",
       threshold: 0.1,
     };
     
-    // Ein einziger Observer für alle Animationseffekte
     const animationObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        // Animations-Klassen nur hinzufügen/entfernen wenn nötig
         if (entry.isIntersecting && !entry.target.classList.contains("in-view")) {
           entry.target.classList.add("in-view");
-          // Staggered-Animation für Kinder-Elemente, falls vorhanden
           if (entry.target.hasAttribute("data-stagger-children")) {
             const children = entry.target.querySelectorAll(".stagger-item");
             children.forEach((child, index) => {
-              // Mobile: Kleinere Verzögerungen verwenden
               const isMobile = window.innerWidth < 768;
               const delay = isMobile ? index * 0.05 : index * 0.1;
               (child as HTMLElement).style.transitionDelay = `${delay}s`;
             });
           }
         } else if (!entry.isIntersecting && entry.target.classList.contains("in-view")) {
-          // Auf Mobile: Optimiere, indem wir Klassen nicht entfernen, wenn der Nutzer scrollt
           if (window.innerWidth >= 768) {
             entry.target.classList.remove("in-view");
           }
@@ -812,7 +666,6 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
       });
     }, observerOptions);
     
-    // Alle animierbaren Elemente mit einem Observer beobachten
     const animatables = [
       ...document.querySelectorAll(".offscreen"),
       ...document.querySelectorAll(".animate-on-scroll"),
@@ -822,9 +675,7 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
     document.getElementById("projects")
     ].filter(el => el !== null);
     
-    // Animationen nur starten, wenn das Gerät leistungsstark genug ist
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Check if deviceMemory is available in the browser
     const hasDeviceMemory = 'deviceMemory' in navigator;
     const isMobileWithLowMemory = window.innerWidth < 768 && hasDeviceMemory && (navigator as any).deviceMemory < 4;
     
@@ -833,7 +684,6 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
         animationObserver.observe(element);
       });
     } else {
-      // Bei reduzierten Bewegungen: Direkt sichtbar machen ohne Animationen
       animatables.forEach(element => {
         element.classList.add("in-view");
       });
@@ -841,41 +691,37 @@ import LocalBacklinks from "../components/LocalBacklinks.astro";
   });
 </script>
 <script>
-  // Performance-Monitor initialisieren
   document.addEventListener("DOMContentLoaded", () => {
-    // Performance-Monitor importieren und für ganze Seite aktivieren
     import('../utils/performanceMonitor.js').then(({ performanceMonitor }) => {
       performanceMonitor.start();
       
       const performanceToggle = document.getElementById('performanceToggle');
 
-      if (performanceToggle) { // Überprüfe nur, ob der Button existiert
-        // Funktion zum Aktualisieren des Icons basierend auf dem Performance-Modus
+      if (performanceToggle) { 
         function updatePerformanceIcon(isLowMode) {
-          if (!performanceToggle) return; // Sicherstellen, dass der Button existiert
+          if (!performanceToggle) return;
           
-          performanceToggle.innerHTML = ''; // Altes Icon entfernen (falls vorhanden)
-          const icon = document.createElement('i'); // Neues Icon-Element erstellen
+          performanceToggle.innerHTML = ''; 
+          const icon = document.createElement('i'); 
           
           if (isLowMode) {
-            icon.className = 'fa-solid fa-gauge'; // Icon für Low-Performance-Modus
+            icon.className = 'fa-solid fa-gauge';
             icon.setAttribute('title', 'High Performance Modus aktivieren');
           } else {
-            icon.className = 'fa-solid fa-gauge-high'; // Icon für High-Performance-Modus
+            icon.className = 'fa-solid fa-gauge-high';
             icon.setAttribute('title', 'Low Performance Modus aktivieren');
           }
-          performanceToggle.appendChild(icon); // Neues Icon dem Button hinzufügen
+          performanceToggle.appendChild(icon); 
         }
         
-        // Initialen Status setzen und Icon erstellen
         updatePerformanceIcon(localStorage.getItem('performance-mode') === 'low');
         
         performanceToggle.addEventListener('click', () => {
           const isLowMode = performanceMonitor.togglePerformanceMode();
-          updatePerformanceIcon(isLowMode); // Ruft die aktualisierte Funktion auf
+          updatePerformanceIcon(isLowMode); 
         });
         
-        // Listener für Änderungen hinzufügen, falls der Modus anderweitig geändert wird
+ 
         performanceMonitor.addListener(updatePerformanceIcon);
       }
     });
