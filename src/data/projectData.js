@@ -10,9 +10,9 @@ import p11 from "../assets/images/p11.gif";
 export const projects = [
   {
     id: "1",
-    title: "Bonsai World Shop",
+    title: "Bonsai World",
     description: 
-       "An E-Commerce shop for bonsai enthusiasts with modern design and user-friendly navigation.",
+       "A website for bonsai enthusiasts with modern design and user-friendly navigation.",
     technologies: ["HTML", "CSS", "JavaScript"],
     image: "p1",
     modalDescriptionDe: "Mein erstes reines HTML/CSS-Projekt ohne Baukasten oder Frameworks. Im Rahmen des DCI Kurses entstanden, konnte ich hierbei meine Leidenschaft für die Bonsai-Kunst zum Ausdruck bringen. Das Projekt hat mir geholfen, grundlegende Webentwicklungsprinzipien zu verstehen und meine Coding-Fähigkeiten zu verbessern.",
