@@ -33,7 +33,7 @@ import logo from "../assets/images/logo.png";
           class="md:hidden rounded-lg focus:outline-none focus:shadow-outline mobile-menu-button"
           @click="open = !open"
         >
-          <svg fill="currentColor" viewBox="0 0 20 20" class="w-16 h-12">
+          <svg fill="currentColor" viewBox="0 0 20 20" class="w-14 h-12">
             <path
               x-show="!open"
               fill-rule="evenodd"
@@ -292,6 +292,12 @@ import logo from "../assets/images/logo.png";
     button[x-on\\:click="open = !open"] {
       position: relative;
       z-index: 101;
+    }
+    .logo {
+      width: 35px;
+      translate: 0 0;
+      transition: 1s;
+      margin: 5px;
     }
   }
   
