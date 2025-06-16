@@ -430,7 +430,7 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
   }
   
   .theme-toggle {
-    bottom: 20px;
+    bottom: 50px;
     right: 20px;
     padding: .9rem;
     width: 55px;
@@ -452,21 +452,8 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
   .theme-toggle i {
     font-size: 1.5rem;
   }  
- 
-  @media (max-width: 768px) {
-    .theme-toggle {
-      bottom: 15px;
-      right: 15px;
-      padding: 0.75rem;
-    }
-    
-    .theme-toggle i {
-      font-size: 1.2rem;
-    }
-  }
-  
-  .performance-toggle {
-    bottom: 20px;
+ .performance-toggle {
+    bottom: 50px;
     left: 20px;
     padding: .9rem;
     width: 55px;
@@ -474,6 +461,28 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
     color: var(--accent);
     transition: all 0.3s ease;
   }
+  @media (max-width: 768px) {
+    .theme-toggle {
+      bottom: 55px;
+      right: 15px;
+      padding: 0.75rem;
+    }
+    
+    .theme-toggle i {
+      font-size: 1.2rem;
+    }
+    .performance-toggle {
+      bottom: 55px;
+      left: 15px;
+      padding: 0.75rem;
+    }
+      .performance-toggle i {
+      font-size: 1.2rem;
+    }
+    
+  }
+  
+  
 
   .performance-toggle i {
     font-size: 1.5rem;
@@ -489,17 +498,7 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
     transform: scale(1.5);
   }
   
-  @media (max-width: 768px) {
-    .performance-toggle {
-      bottom: 15px;
-      left: 15px;
-      padding: 0.75rem;
-    }
-    
-    .performance-toggle i {
-      font-size: 1.2rem;
-    }
-  }
+  
   
   .seo-hidden {
     position: absolute;
