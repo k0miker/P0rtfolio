@@ -1,8 +1,10 @@
 ---
 import homeBg from "../assets/images/home.jpg";
+import inkBg from "../assets/images/ink_2.png";
 ---
 <div class="bg-container" id="home-section" style={`background-image: url(${homeBg.src})`}>
   <div class="console-container font-[Marker] font-extrabold text-4xl">
+    <div class="text-backdrop" style={`background-image: url(${inkBg.src})`}></div>
     <span id="text" class="offscreen"></span><div
       class="console-underscore text-[tomato] animate-ping"
       id="console"
@@ -95,11 +97,39 @@ import homeBg from "../assets/images/home.jpg";
     margin: auto;
   }
   
+  /* Text-Styling mit starkem Schatten für bessere Lesbarkeit */
+  #text {
+    text-shadow: 
+      0px 0px 10px rgba(0, 0, 0, 0.9),
+      0px 0px 20px rgba(0, 0, 0, 0.7),
+      0px 0px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 3;
+  }
+  
+  /* Tintenhintergrund für den Text */
+  .text-backdrop {
+    position: absolute;
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.55;
+    filter: contrast(1.2) brightness(0.6);
+    transform: scale(1.2);
+    z-index: 2;
+    pointer-events: none;
+  }
+  
   .console-underscore {
     display: inline-block;
     position: relative;
     top: 0;
     left: 10px;
+    z-index: 3;
+    text-shadow: 0 0 10px rgba(255, 99, 71, 0.7); /* Glow-Effekt für den Cursor */
   }
   
   /* Performance-bezogene Styles - überarbeitete Version */
@@ -115,12 +145,27 @@ import homeBg from "../assets/images/home.jpg";
   @media screen and (max-width: 768px) {
     .console-container {
       font-size: 1.5em;
-    }   
+    }
+    
+    .text-backdrop {
+      max-width: 90%;
+      height: 350px;
+      transform: scale(1.1);
+    }
+    
+    #text {
+      text-shadow: 
+        0px 0px 8px rgba(0, 0, 0, 0.607),
+        1px 1px 6px rgba(0, 0, 0, 0.2);
+    }
   }
   
- 
-
-  
+  @media screen and (max-width: 480px) {
+    .text-backdrop {
+      max-width: 95%;
+      height: 420px;
+    }
+  }
 </style>
 <script>
   // function([string1, string2],target id,[color1,color2])
