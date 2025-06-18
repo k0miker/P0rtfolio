@@ -319,7 +319,8 @@
   }
 </style>
 
-<script>
+<script lang="js">
+
   document.addEventListener('DOMContentLoaded', () => {
     const cookieBanner = document.getElementById('cookie-consent');
     const cookieOverlay = document.getElementById('cookie-overlay');
@@ -331,7 +332,7 @@
     const backToSimpleBtn = document.getElementById('back-to-simple');
     const simpleView = document.getElementById('simple-view');
     const advancedView = document.getElementById('advanced-view');
-    const analyticsCheckbox = document.getElementById('analytics-cookies') as HTMLInputElement | null;
+    const analyticsCheckbox = document.getElementById('analytics-cookies');
     
     // Null-Check für DOM-Elemente
     if (!cookieBanner || !cookieOverlay || !acceptAllBtn || !saveSettingsBtn || !rejectAllBtn || 
@@ -413,7 +414,7 @@
     closeBtn.style.display = 'none';
     
     // Funktionen zum Speichern der Einwilligung und Initialisieren von Analytics
-    function saveConsent(analyticsEnabled: boolean): void {
+    function saveConsent(analyticsEnabled){
       const consentData = {
         essential: true,
         analytics: analyticsEnabled,
@@ -422,7 +423,7 @@
       localStorage.setItem('cookie-consent', JSON.stringify(consentData));
     }
     
-    function initializeAnalytics(): void {
+    function initializeAnalytics(){
       // Sicherstellen, dass dataLayer existiert
       if (!window.dataLayer) {
         window.dataLayer = [];
