@@ -50,11 +50,20 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
     
     <!-- Google Tag Manager -->
     <script is:inline>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','G-DPXY96XYN3');
+      // TypeScript-sicherer GTM-Code
+      (function(w, d, s, l, i) {
+        var f, j;
+        (w[l] = w[l] || []).push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+        f = d.getElementsByTagName(s)[0];
+        j = d.createElement(s);
+        if (j instanceof HTMLScriptElement) {
+          j.async = true;
+          j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + (l !== 'dataLayer' ? '&l=' + l : '');
+        }
+        if (f && f.parentNode) {
+          f.parentNode.insertBefore(j, f);
+        }
+      })(window, document, 'script', 'dataLayer', 'GTM-WFG6LFSX');
     </script>
     <!-- End Google Tag Manager -->
     
@@ -295,7 +304,7 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
   <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
     <!-- Google Tag Manager (noscript) -->
     <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=G-TFYTPSM053" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WFG6LFSX" height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
     
@@ -507,7 +516,7 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
     z-index: 0; 
   }
   #contact {
-    padding-top: -150px;
+    padding-top: 50px;
   }
   .blurred {
     filter: blur(5px);
@@ -839,4 +848,4 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
       console.error('Fehler beim Laden des Performance-Monitors:', err);
     });
   });
-</script> 
+</script>

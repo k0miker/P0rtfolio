@@ -80,9 +80,9 @@ import logo from "../assets/images/logo.png";
           <button
             id="nav-projects"
             @click="open = !open"
-            class="px-0 w-[100%] text-left project-dropdown hover:bg-gray-200 hover:text-[tomato] focus:text-gray-900 focus:bg-gray-200 focus:outline-none focus:shadow-outline rounded-lg md:ml-2"
+            class="px-0 w-[100%] text-left project-dropdown hover:text-[tomato] focus:text-gray-900 focus:outline-none focus:shadow-outline rounded-lg md:ml-2"
             ><a
-              class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato]hover:bg-gray-200 focus:text-gray-600 focus:outline-none focus:shadow-outline min-w-16"
+              class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-600 focus:outline-none focus:shadow-outline min-w-16"
               href="#projects"
               >/Projects<svg
                 fill="currentColor"
@@ -207,6 +207,21 @@ import logo from "../assets/images/logo.png";
     z-index: 100;
     position: absolute;
     top:6vh;
+  }
+  
+  /* Anpassung für das Project-Dropdown */
+  .project-dropdown {
+    transition: all 0.3s ease;
+  }
+  
+  .project-dropdown:hover {
+    background-color: var(--bg-secondary); /* Konsistentes Hover-Styling */
+    color: tomato;
+  }
+  
+  .project-dropdown:focus {
+    background-color: var(--bg-secondary);
+    outline: none;
   }
   
   .project-list {

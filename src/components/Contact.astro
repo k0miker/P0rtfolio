@@ -64,7 +64,33 @@ import contactBg from "../assets/images/contact.jpg";
       >
     </div>
     <Button class="button" disabled />
+    <div class="direct-contact">
+      <hr class="contact-divider" />
+      <p class="contact-option-text">Oder kontaktieren Sie mich jetzt direkt:</p>
+      <div class="contact-options">
+        <div class="contact-option email-option">
+          <i class="fas fa-envelope"></i>
+          <div class="contact-info-reveal">
+            <span class="email-text">info@colinblome.dev</span>
+            <button class="copy-btn" data-copy="info@colinblome.dev">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+        </div>
+        <div class="contact-option phone-option">
+          <i class="fas fa-phone"></i>
+          <div class="contact-info-reveal">
+            <span class="phone-text">0173-609-8320</span>
+            <button class="copy-btn" data-copy="017360983320">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </form>
+
+
 </section>
 
 <style>
@@ -257,7 +283,161 @@ import contactBg from "../assets/images/contact.jpg";
   background-position: center center !important;
   background-size: cover !important;
 }
+
+/* Direkte Kontaktmöglichkeiten */
+.direct-contact {
+    width: 100%;
+    max-width: 668px;
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact-divider {
+    width: 80%;
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, transparent, var(--accent), transparent);
+    margin-bottom: 1.5rem;
+  }
+  
+  .contact-option-text {
+    color: var(--form-text);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    font-family: 'mono', monospace;
+    letter-spacing: 0.5px;
+  }
+  
+  .contact-options {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .contact-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid rgba(255, 99, 71, 0.1);
+    position: relative;
+  }
+  
+  .contact-option i {
+    font-size: 1.2rem;
+    color: var(--accent);
+    transition: all 0.3s ease;
+  }
+  
+  .contact-option:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 99, 71, 0.3);
+  }
+  
+  .contact-info-reveal {
+    display: none;
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--bg-secondary);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid rgba(255, 99, 71, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 5;
+  }
+  
+  .contact-option.active .contact-info-reveal {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .contact-info-reveal::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid rgba(255, 99, 71, 0.2);
+    border-bottom: 1px solid rgba(255, 99, 71, 0.2);
+  }
+  
+  .email-text, .phone-text {
+    font-family: 'mono', monospace;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+  }
+  
+  .copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    padding: 0.2rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+  
+  .copy-btn:hover {
+    color: var(--accent);
+  }
+  
+  .copy-btn.copied {
+    color: #4CAF50;
+  }
+  
+  @media (max-width: 768px) {
+    .contact-options {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .contact-option {
+      width: 80%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .contact-divider {
+      margin-bottom: 1rem;
+    }
+    
+    .contact-option-text {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    
+    .contact-option {
+      padding: 0.5rem 1rem;
+    }
+  }
 </style>
+
 <script>  
   const form = document.querySelector("form");
   const input = document.querySelector(".checkbox") as HTMLInputElement;
@@ -331,6 +511,73 @@ import contactBg from "../assets/images/contact.jpg";
         rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
         rect.bottom >= 0
       );
+    }
+  });
+  
+  document.addEventListener("DOMContentLoaded", () => {
+    // Kontaktoptionen Interaktivität
+    const contactOptions = document.querySelectorAll('.contact-option');
+    contactOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        // Andere offene Optionen schließen
+        contactOptions.forEach(otherOption => {
+          if (otherOption !== option) {
+            otherOption.classList.remove('active');
+          }
+        });
+        
+        // Toggle für aktiven Zustand
+        this.classList.toggle('active');
+      });
+    });
+    
+    // Außerhalb klicken, um zu schließen
+    document.addEventListener('click', function(e) {
+      const target = e.target as HTMLElement;
+      const isOutsideContact = !target.closest('.contact-option');
+      if (isOutsideContact) {
+        contactOptions.forEach(option => {
+          option.classList.remove('active');
+        });
+      }
+    });
+    
+    // Kopieren-Funktionalität
+    const copyButtons = document.querySelectorAll('.copy-btn');
+    copyButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.stopPropagation(); // Verhindern, dass der Kontaktbutton-Click ausgelöst wird
+        
+        const textToCopy = this.getAttribute('data-copy');
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          // Visuelle Bestätigung
+          this.classList.add('copied');
+          const originalIcon = this.innerHTML;
+          this.innerHTML = '<i class="fas fa-check"></i>';
+          
+          setTimeout(() => {
+            this.classList.remove('copied');
+            this.innerHTML = originalIcon;
+          }, 2000);
+        });
+      });
+    });
+    
+    // E-Mail und Telefon Links öffnen bei Klick auf die Inhalte
+    const emailText = document.querySelector('.email-text');
+    if (emailText) {
+      emailText.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.location.href = 'mailto:info@colinblome.dev';
+      });
+    }
+    
+    const phoneText = document.querySelector('.phone-text');
+    if (phoneText) {
+      phoneText.addEventListener('click', (e) => {
+        e.stopPropagation();
+        window.location.href = 'tel:+4917360983320';
+      });
     }
   });
 </script>
