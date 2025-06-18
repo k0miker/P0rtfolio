@@ -1,5 +1,4 @@
 ---
-
 import "../css/fonts.css";
 import "../css/keyframes.css";
 import "../css/darkmode.css";
@@ -13,10 +12,61 @@ import Skills from "../components/Skills.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import ScrollProgress from "../components/ui/ScrollProgress.astro";
+import CookieConsent from "../components/CookieConsent.astro";
+
+// Prüfen, ob Cookie-Consent bereits gesetzt wurde
+const hasCookieConsent = false; // Dies wird clientseitig überprüft
 ---
 
 <html class="w-full" lang="de">
   <head>
+    <!-- Sofort ausgeführtes Script für Scroll-Blockierung -->
+    <script is:inline>
+      // Prüfen, ob bereits eine Cookie-Entscheidung vorliegt
+      if (!localStorage.getItem('cookie-consent')) {
+        // Klasse hinzufügen, die das Scrollen verhindert
+        document.documentElement.classList.add('no-scroll');
+      }
+    </script>
+    
+    <!-- CSS für Scroll-Blockierung -->
+    <style is:inline>
+      html.no-scroll {
+        overflow: hidden !important;
+        height: 100% !important;
+        position: fixed !important;
+        width: 100% !important;
+      }
+      
+      html.no-scroll body {
+        overflow: hidden !important;
+      }
+      
+      /* Verhindert "Touch-Scrolling" auf Mobilgeräten */
+      html.no-scroll * {
+        touch-action: none !important;
+      }
+    </style>
+    
+    <!-- Google Tag Manager -->
+    <script is:inline>
+      // TypeScript-sicherer GTM-Code
+      (function(w, d, s, l, i) {
+        var f, j;
+        (w[l] = w[l] || []).push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+        f = d.getElementsByTagName(s)[0];
+        j = d.createElement(s);
+        if (j instanceof HTMLScriptElement) {
+          j.async = true;
+          j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + (l !== 'dataLayer' ? '&l=' + l : '');
+        }
+        if (f && f.parentNode) {
+          f.parentNode.insertBefore(j, f);
+        }
+      })(window, document, 'script', 'dataLayer', 'GTM-WFG6LFSX');
+    </script>
+    <!-- End Google Tag Manager -->
+    
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
@@ -252,6 +302,12 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
     </script>
   </head>
   <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WFG6LFSX" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
     <!-- SEO-optimierte versteckte Überschrift für Suchmaschinen -->
     <h1 class="seo-hidden">CB-WebDev | Webentwicklung Fürstenau | Webseite kaufen Samtgemeinde Bersenbrück</h1>
     
@@ -275,7 +331,6 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
     </div>
 
     <Footer />
-    
 
     <button
       id="darkModeToggle"
@@ -293,7 +348,7 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
 
     </button>
     
- 
+    <!-- Versteckte SEO-Inhalte -->
     <section class="local-seo-content" aria-hidden="true">
       <div class="container">
         <h2>CB-WebDev - Freiberufliche Webentwicklung in Fürstenau</h2>
@@ -375,7 +430,54 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
       </div>
     </section>
     
-  
+    <!-- Cookie-Consent-Banner mit Overlay -->
+    <CookieConsent />
+    
+    <!-- Script zum Verhindern des Scrollens während das Cookie-Banner angezeigt wird -->
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Nochmals prüfen, ob Cookie-Consent gesetzt ist
+        if (!localStorage.getItem('cookie-consent')) {
+          // Verhindere Scrollen durch Wheel-Events
+          document.addEventListener('wheel', preventScroll, { passive: false });
+          // Verhindere Scrollen durch Tastatur
+          document.addEventListener('keydown', preventScrollKeys);
+          // Verhindere Scrollen durch Touch-Events
+          document.addEventListener('touchmove', preventScroll, { passive: false });
+        }
+        
+        // Event-Listener für Cookie-Entscheidung
+        const acceptAllBtn = document.getElementById('accept-all-cookies');
+        const saveSettingsBtn = document.getElementById('save-cookie-settings');
+        const rejectAllBtn = document.getElementById('reject-all-cookies');
+        
+        if (acceptAllBtn) acceptAllBtn.addEventListener('click', removeScrollLock);
+        if (saveSettingsBtn) saveSettingsBtn.addEventListener('click', removeScrollLock);
+        if (rejectAllBtn) rejectAllBtn.addEventListener('click', removeScrollLock);
+        
+        function removeScrollLock() {
+          document.documentElement.classList.remove('no-scroll');
+          document.removeEventListener('wheel', preventScroll);
+          document.removeEventListener('keydown', preventScrollKeys);
+          document.removeEventListener('touchmove', preventScroll);
+        }
+        
+        function preventScroll(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+        
+        function preventScrollKeys(e) {
+          // Pfeiltasten, Bild auf/ab, Pos1/Ende, Leertaste
+          const keys = {37: 1, 38: 1, 39: 1, 40: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 1};
+          if (keys[e.keyCode]) {
+            e.preventDefault();
+            return false;
+          }
+        }
+      });
+    </script>
   </body>
 </html>
 
@@ -386,7 +488,9 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
     padding: 0;
     margin: 0;
   }
-  body {
+  
+  /* Styles nur anwenden, wenn keine Scroll-Blockierung aktiv ist */
+  html:not(.no-scroll) body {
     overflow-x: hidden;
     background-color: var(--bg-primary);
     color: var(--text-primary);
@@ -521,6 +625,13 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
   // Dark Mode Logic
   document.addEventListener("DOMContentLoaded", () => {
     const darkModeToggle = document.getElementById("darkModeToggle");
+    
+    // Wenn Element nicht gefunden wird, frühzeitig beenden
+    if (!darkModeToggle) {
+      console.error("Dark Mode Toggle nicht gefunden");
+      return;
+    }
+    
     const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
     
     const savedTheme = localStorage.getItem("theme");
@@ -538,7 +649,9 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
       updateIcon(isDarkMode);
     });
     
-    function updateIcon(isDarkMode) {
+    function updateIcon(isDarkMode: boolean): void {
+      if (!darkModeToggle) return;
+      
       darkModeToggle.innerHTML = '';
       const icon = document.createElement('i');
       if (isDarkMode) {
@@ -591,8 +704,8 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
       threshold: 0.2,
     };
 
-    const observerCallback = (entries, observer) => {
-      entries.forEach((entry) => {
+    const observerCallback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+      entries.forEach((entry: IntersectionObserverEntry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("in-view");
         } else {
@@ -620,8 +733,8 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
       document.getElementById("projects")
     ].filter(section => section !== null);
     
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    const observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry: IntersectionObserverEntry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("animate");
         } else {
@@ -645,7 +758,7 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
       threshold: 0.1,
     };
     
-    const animationObserver = new IntersectionObserver((entries) => {
+    const animationObserver = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.classList.contains("in-view")) {
           entry.target.classList.add("in-view");
@@ -654,7 +767,7 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
             children.forEach((child, index) => {
               const isMobile = window.innerWidth < 768;
               const delay = isMobile ? index * 0.05 : index * 0.1;
-              (child as HTMLElement).style.transitionDelay = `${delay}s`;
+              (child as HTMLElementWithStyle).style.transitionDelay = `${delay}s`;
             });
           }
         } else if (!entry.isIntersecting && entry.target.classList.contains("in-view")) {
@@ -690,14 +803,21 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
   });
 </script>
 <script>
+  // TypeScript-Deklaration für performance monitor
+  interface PerformanceMonitor {
+    start: () => void;
+    togglePerformanceMode: () => boolean;
+    addListener: (callback: (isLowMode: boolean) => void) => void;
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
-    import('../utils/performanceMonitor.js').then(({ performanceMonitor }) => {
+    import('../utils/performanceMonitor.js').then(({ performanceMonitor }: { performanceMonitor: PerformanceMonitor }) => {
       performanceMonitor.start();
       
       const performanceToggle = document.getElementById('performanceToggle');
 
       if (performanceToggle) { 
-        function updatePerformanceIcon(isLowMode) {
+        function updatePerformanceIcon(isLowMode: boolean): void {
           if (!performanceToggle) return;
           
           performanceToggle.innerHTML = ''; 
@@ -713,16 +833,19 @@ import ScrollProgress from "../components/ui/ScrollProgress.astro";
           performanceToggle.appendChild(icon); 
         }
         
-        updatePerformanceIcon(localStorage.getItem('performance-mode') === 'low');
+        // localStorage kann null zurückgeben
+        const savedMode = localStorage.getItem('performance-mode');
+        updatePerformanceIcon(savedMode === 'low');
         
         performanceToggle.addEventListener('click', () => {
           const isLowMode = performanceMonitor.togglePerformanceMode();
           updatePerformanceIcon(isLowMode); 
         });
         
- 
         performanceMonitor.addListener(updatePerformanceIcon);
       }
+    }).catch(err => {
+      console.error('Fehler beim Laden des Performance-Monitors:', err);
     });
   });
 </script>
