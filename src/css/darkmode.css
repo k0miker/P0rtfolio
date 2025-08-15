@@ -36,7 +36,7 @@
   --modal-border: #888;
   --modal-text: #333;
   --modal-close: #333;
-  --form-bg: #33333391;
+  --form-bg: #ffffffe1;
   --form-text: #eeeeeef3;
   --input-bg: #eeeeeef3;
   --input-text: #333;
@@ -57,8 +57,8 @@
 }
 
 .dark-mode {
-  --bg-primary: #171717;
-  --bg-secondary: #2c2c2c;
+  --bg-primary: #2c2c2c;
+  --bg-secondary: #3b3b3b;
   --bg-tertiary: #5d5d5d;
   --bg-transparent: rgba(0, 0, 0, 0.8);
   --bg-transparent-dark: rgba(255, 255, 255, 0.8);
@@ -90,11 +90,11 @@
   --nav-shadow-solid: 0 0px 15px 2px #000000;
   --nav-mobile-bg: rgba(25, 25, 25, 0.85); /* Halbtransparenter Hintergrund für mobiles Menü im Dark Mode */
   --modal-overlay: rgba(0, 0, 0, 0.8);
-  --modal-bg: #252525;
+  --modal-bg: #252525eb;
   --modal-border: #404040;
   --modal-text: #e0e0e0;
   --modal-close: #b0b0b0;
-  --form-bg: rgba(25, 25, 25, 0.9);
+  --form-bg: rgba(39, 39, 39, 0.905);
   --form-text: #e0e0e0;
   --input-bg: #333333;
   --input-text: #e0e0e0;
@@ -115,15 +115,15 @@
 }
 
 /* Animierter Gradient für Cards im Dark Mode */
-.dark-mode .card {
-  background-color: var(--bg-card);
+/* .dark-mode .card {
+  background-color: var(--form-bg);
   position: relative;
   z-index: 1;
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
   will-change: transform, box-shadow;
-}
+} */
 
-.dark-mode .card::before {
+/* .dark-mode .card::before {
   content: "";
   position: absolute;
   top: -5px;
@@ -139,7 +139,7 @@
   filter: blur(12px);
   will-change: opacity, filter, background-position;
   transform: translateZ(0);
-}
+} */
 
 @keyframes smoothGlow {
   0% {
@@ -212,10 +212,7 @@
 }
 
 /* Dark Mode-Anpassungen für spezifische Komponenten */
-.dark-mode .card {
-  background-color: var(--bg-card);
-  box-shadow: var(--card-shadow);
-}
+
 
 .dark-mode .skill-name {
   color: var(--text-secondary);

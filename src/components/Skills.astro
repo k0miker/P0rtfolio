@@ -15,7 +15,7 @@ import skillsBg from "../assets/images/skills.webp";
     >
       My Skills<span class="animate-ping">_</span>
     </div>
-    <div class="body">
+    <div class="body form-bg">
       <div class="skill">
         <div class="skill-name html font-[mono]">HTML</div>
         <div class="skill-level">
@@ -169,7 +169,9 @@ import skillsBg from "../assets/images/skills.webp";
     object-fit: cover;
     z-index: -1;
   }
-
+  .form-bg {
+    background-color: var(--form-bg);
+  }
   .box {
     padding: 5vw;
     background-image: var(--skillsBgUrl);
@@ -200,7 +202,6 @@ import skillsBg from "../assets/images/skills.webp";
     max-width: 768px;
     width: 90%;
     height: fit-content;
-    background: var(--card-highlight);
     box-shadow: var(--card-shadow), var(--card-border-glow);
     border-radius: 10px;
     overflow: hidden;
@@ -211,11 +212,11 @@ import skillsBg from "../assets/images/skills.webp";
     will-change: transform, box-shadow;
   }
   
-  .card:hover {
+  /* .card:hover {
     transform:  scale(1.01);
     box-shadow: var(--card-shadow), 0 15px 30px rgba(0, 0, 0, 0.2), var(--card-border-glow);
     transition: box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  }
+  } */
 
   .header {
     background-color: var(--bg-secondary);
@@ -226,7 +227,7 @@ import skillsBg from "../assets/images/skills.webp";
 
   .body {
     padding: 20px;
-    background-color: var(--bg-card);
+    background-color: var(--form-bg);
   }
 
   .skill {
