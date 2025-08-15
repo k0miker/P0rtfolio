@@ -9,96 +9,93 @@ import contactBg from "../assets/images/contact.webp";
   id="contact-section"
   style={`background-image: url(${contactBg.src})`}
 >
-  <form
-    name="contact"
-    class="offscreen"
-    data-netlify="true"
-    data-netlify-honeypot="bot-field"
-    method="POST"    
-  >
-    <input type="hidden" name="bot-field" />
-    <h1 class="font-[mono] md:mb-8 text-2xl hover:tracking-[0.5vw] duration-500 hover:text-[tomato] "> 
-      Get in touch<span class="animate-ping">_</span><span
-        class="animate-ping font-sans text-2xl">!</span
+  <div class="card offscreen">
+    <div class="header  font-[mono] text-[1.5rem] hover:tracking-[1vw] hover:text-[tomato] text-[var(--text-primary)] duration-500">
+      Get in touch<span class="animate-ping">_</span><span class="animate-ping font-sans text-2xl">!</span>
+    </div>
+    <div class="body form-bg ">
+      <form
+        name="contact"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+        method="POST"    
       >
-    </h1>
-    <div class="input-group">
-      <input
-        required
-        type="text"
-        name="name"
-        class="input"
-        id="name"
-      />
-      <label class="user-label" for="name">First Name</label>
-    </div>
-    <div class="input-group">
-      <input
-        required
-        type="email"
-        name="email"
-        class="input"
-        id="mail"
-      />
-      <label class="user-label" for="mail">E-Mail</label>
-    </div>
-    <div class="input-group">
-      <textarea
-        required
-        name="text"
-        rows="5"
-        autocomplete="off"
-        class="textarea input"
-        id="message"></textarea>
-      <label class="user-label" for="message">Message</label>
-    </div>
-    <div class="mt-4">
-      <div class="toggle-switch">
-        <input type="checkbox" required id="toggle" class="toggle-input checkbox" />
-        <label for="toggle" class="toggle-label"></label>
-      </div>
-      I agree to the <a
-        href="https://www.netlify.com/privacy/"
-        target="_blank"
-        class="underline text-base toggle-switch-label">privacy policy.</a
-      >
-    </div>
-    <Button class="button" disabled />
-    <div class="direct-contact">
-      <hr class="contact-divider" />
-      <p class="contact-option-text">Oder kontaktieren Sie mich jetzt direkt:</p>
-      <div class="contact-options">
-        <div class="contact-option email-option">
-          <i class="fas fa-envelope"></i>
-          <div class="contact-info-reveal">
-            <span class="email-text">info@colinblome.dev</span>
-            <button class="copy-btn" data-copy="info@colinblome.dev">
-              <i class="fas fa-copy"></i>
-            </button>
+        <input type="hidden" name="bot-field" />
+        <div class="input-group">
+          <input
+            required
+            type="text"
+            name="name"
+            class="input"
+            id="name"
+          />
+          <label class="user-label" for="name">First Name</label>
+        </div>
+        <div class="input-group">
+          <input
+            required
+            type="email"
+            name="email"
+            class="input"
+            id="mail"
+          />
+          <label class="user-label" for="mail">E-Mail</label>
+        </div>
+        <div class="input-group">
+          <textarea
+            required
+            name="text"
+            rows="5"
+            autocomplete="off"
+            class="textarea input"
+            id="message"></textarea>
+          <label class="user-label" for="message">Message</label>
+        </div>
+        <div class="mt-4">
+          <div class="toggle-switch">
+            <input type="checkbox" required id="toggle" class="toggle-input checkbox" />
+            <label for="toggle" class="toggle-label"></label>
+          </div>
+          I agree to the <a
+            href="https://www.netlify.com/privacy/"
+            target="_blank"
+            class="underline text-base toggle-switch-label">privacy policy.</a
+          >
+        </div>
+        <Button class="button" disabled />
+        <div class="direct-contact">
+          <hr class="contact-divider" />
+          <p class="contact-option-text">Oder kontaktieren Sie mich jetzt direkt:</p>
+          <div class="contact-options">
+            <div class="contact-option email-option">
+              <i class="fas fa-envelope"></i>
+              <div class="contact-info-reveal">
+                <span class="email-text">info@colinblome.dev</span>
+                <button class="copy-btn" data-copy="info@colinblome.dev">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <div class="contact-option phone-option">
+              <i class="fas fa-phone"></i>
+              <div class="contact-info-reveal">
+                <span class="phone-text">0173-609-8320</span>
+                <button class="copy-btn" data-copy="017360983320">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="contact-option phone-option">
-          <i class="fas fa-phone"></i>
-          <div class="contact-info-reveal">
-            <span class="phone-text">0173-609-8320</span>
-            <button class="copy-btn" data-copy="017360983320">
-              <i class="fas fa-copy"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
-  </form>
-
-
-</section>
-
-<style>
+  </div>
+</section><style>
   section {
     align-items: center;
     justify-content: center;
     min-height: 95vh;
-    padding-bottom: 150px;
+    padding: 5vw;
     background-size: cover;
     box-shadow: inset 0px -2vh 10vw 10px var(--shadow-strong);
     background-attachment: fixed;
@@ -113,24 +110,45 @@ import contactBg from "../assets/images/contact.webp";
     background-attachment: scroll;
   }
 
-  form {
-    padding: 25px;
-    max-width: 668px;
-    width: 100%;
+  .card {
+    display: flex;
+    flex-direction: column;
+    max-width: 768px;
+    width: 90%;
+    height: fit-content;
+    box-shadow: var(--card-shadow), var(--card-border-glow);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+    will-change: transform, box-shadow;
+  }
+
+  .header {
+    background-color: var(--bg-secondary);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .body {
+
+    padding-top: 40px;
+    padding: 20px;
     background-color: var(--form-bg);
+  }
+
+  .form-bg {
+    background-color: var(--form-bg);
+  }
+  form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 15px;
-    transition: background-color 0.3s ease;
-    position: relative;
-    z-index: 0;
-
-    h1 {
-      color: var(--text-primary);
-      transition: 1s;
-    }
+    width: 100%;
   }
   span:nth-child(2) {
     display: none;

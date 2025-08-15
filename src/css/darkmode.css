@@ -235,9 +235,9 @@
   background-color: var(--bg-primary);
 }
 
-.dark-mode form {
+/* .dark-mode form {
   background-color: rgba(18, 18, 18, 0.85);
-}
+} */
 
 .dark-mode .input {
   background: var(--bg-primary);

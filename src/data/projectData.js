@@ -6,6 +6,8 @@ import p8 from "../assets/images/p8.png";
 import p9 from "../assets/images/p9.png";
 import p10 from "../assets/images/p10-2.gif";
 import p11 from "../assets/images/p11.gif";
+import p12 from "../assets/images/p12.png";
+import p13 from "../assets/images/p13.png";
 
 export const projects = [
   {
@@ -141,5 +143,35 @@ export const projects = [
     responsiveIframe: true,
     category: "Finance",
     badges: ["React Native", "TypeScript", "Mobile App", "Crypto", "AI"]
+  },
+  {
+    id: "13",
+    title: "Bella Ciao Bistro",
+    description: "Authentische italienische Restaurant-Website mit moderner Gestaltung und Online-Speisekarte",
+    image: "p13",
+    technologies: ["Astro", "CSS", "JavaScript", "Responsive Design"],
+    modalDescriptionDe: "Eine moderne Website für das italienische Bistro Bella Ciao in Fürstenau. Die Seite präsentiert authentische italienische Küche mit einer interaktiven Speisekarte, die neapolitanische Panini und romanische Pinsa hervorhebt. Das Design vermittelt das warme, familiäre Ambiente einer italienischen Trattoria und bietet eine benutzerfreundliche Navigation für Gäste, die sich über das Angebot informieren oder Kontakt aufnehmen möchten. Die Website ist vollständig responsiv und optimiert für alle Geräte.",
+    modalDescriptionEn: "A modern website for the Italian bistro Bella Ciao in Fürstenau. The site presents authentic Italian cuisine with an interactive menu featuring Neapolitan panini and Roman pinsa. The design conveys the warm, family atmosphere of an Italian trattoria and offers user-friendly navigation for guests who want to learn about the offerings or get in touch. The website is fully responsive and optimized for all devices.",
+    website: "https://bella-ciao-fuerstenau.netlify.app/",
+    github: "https://github.com/k0miker/bella-ciao-bistro",
+    iframe: true,
+    iframeUrl: "https://bella-ciao-fuerstenau.netlify.app/",
+    category: "Restaurant",
+    badges: ["Astro", "Restaurant", "Business", "Responsive Design"]
+  },
+  {
+    id: "12",
+    title: "Pizzeria La Bellezza",
+    description: "Professionelle Restaurant-Website mit eleganter Präsentation und Bestell-Funktionalität",
+    image: "p12",
+    technologies: ["Astro", "CSS", "JavaScript", "Business"],
+    modalDescriptionDe: "Eine professionelle Website für die Pizzeria La Bellezza, die italienische Gastfreundschaft und Kochkunst in den Mittelpunkt stellt. Die Seite bietet eine umfassende Präsentation des Restaurants mit detaillierter Speisekarte, Informationen über die Geschichte und Philosophie des Hauses sowie moderne Funktionalitäten für Reservierungen und Bestellungen. Das elegante Design spiegelt die Qualität und Tradition der italienischen Küche wider und schafft eine einladende Online-Präsenz.",
+    modalDescriptionEn: "A professional website for Pizzeria La Bellezza, highlighting Italian hospitality and culinary arts. The site offers a comprehensive presentation of the restaurant with a detailed menu, information about the history and philosophy of the establishment, and modern functionalities for reservations and orders. The elegant design reflects the quality and tradition of Italian cuisine and creates an inviting online presence.",
+    website: "https://www.pizzeria-la-bellezza.de",
+    github: "https://github.com/k0miker/pizzeria-la-bellezza",
+    iframe: true,
+    iframeUrl: "https://www.pizzeria-la-bellezza.de",
+    category: "Restaurant",
+    badges: ["Astro", "Restaurant", "Business", "Professional"]
   }
 ];
