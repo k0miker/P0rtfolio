@@ -223,8 +223,8 @@ const category = project.category || 'Other';
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
           
-          const rotateX = (y - centerY) / 10;
-          const rotateY = (centerX - x) / 10;
+          const rotateX = (y - centerY) / 15;
+          const rotateY = (centerX - x) / 15;
           
           (card as HTMLElement).style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });

@@ -320,11 +320,15 @@
   }
   
   @media (max-width: 768px) {
-    /* Overlay auf kleinen Bildschirmen ausblenden, da es mit dem Banner überlappt */
+    /* Cookie-Overlay auf mobilen Geräten anpassen */
     .cookie-overlay {
-      display: none !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
+      background-color: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 9998;
+    }
+
+    .overlay-message {
+      display: none; /* Verstecke die Overlay-Nachricht auf mobilen Geräten */
     }
 
     /* Cookie-Banner auf mobilen Geräten als zentriertes Modal darstellen */
@@ -335,49 +339,119 @@
       right: auto;
       bottom: auto;
       transform: translate(-50%, -50%);
-      width: 92%;
-      max-width: 720px;
-      border-radius: 12px;
-      padding: 1.25rem;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
-      transform-origin: center;
+      width: 95%;
+      max-width: 420px;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 
+        0 20px 50px rgba(0,0,0,0.5),
+        0 10px 20px rgba(0,0,0,0.3);
       background-color: var(--bg-primary);
-      z-index: 10099;
-      max-height: 90vh;
+      z-index: 9999;
+      max-height: 85vh;
       overflow-y: auto;
+      border: 1px solid var(--border);
+      /* Entferne die Standard-Transform-Animation für mobile */
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    /* Bei sichtbarem Banner sicherstellen, dass die translateY-Animation (desktop) nicht greift */
+    /* Initialer Zustand für mobile Animation */
+    .cookie-banner:not(.visible) {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.9);
+      pointer-events: none;
+    }
+
+    /* Bei sichtbarem Banner */
     .cookie-banner.visible {
-      transform: translate(-50%, -50%) !important;
-      top: 50% !important;
-      left: 50% !important;
-      bottom: auto !important;
-      right: auto !important;
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1) !important;
+      pointer-events: all;
     }
     
     .cookie-content {
-      padding: 0.75rem;
+      padding: 0.5rem;
       max-width: 100%;
+    }
+
+    .cookie-view {
+      padding: 0.5rem 0;
+    }
+
+    .cookie-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .cookie-header h3 {
+      font-size: 1.2rem;
+      line-height: 1.3;
     }
 
     /* Buttons untereinander und full-width für bessere Bedienbarkeit auf Touch-Geräten */
     .cookie-actions {
       flex-direction: column;
-      gap: 0.6rem;
-      margin-top: 1rem;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
     }
 
     .btn-primary, .btn-secondary, .btn-text {
       width: 100%;
+      padding: 0.9rem 1.2rem;
+      font-size: 0.95rem;
+      border-radius: 8px;
+    }
+
+    .btn-primary {
+      order: 1; /* Alle akzeptieren zuerst */
+    }
+
+    .btn-text {
+      order: 2; /* Nur notwendige zweite */
+    }
+
+    .btn-secondary {
+      order: 3; /* Einstellungen zuletzt */
     }
 
     .advanced-actions {
-      flex-direction: column-reverse;
+      flex-direction: column;
     }
 
-    .cookie-view {
-      padding: 0.5rem 0.25rem;
+    .advanced-actions .btn-secondary {
+      order: 1; /* Auswahl speichern zuerst */
+    }
+
+    .advanced-actions .btn-text {
+      order: 2; /* Nur notwendige zweite */
+    }
+
+    /* Consent Options auf mobile anpassen */
+    .consent-options {
+      margin: 1rem 0;
+    }
+
+    .option {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      background-color: var(--bg-secondary);
+      border-radius: 8px;
+    }
+
+    .option-description {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    /* Touch-optimierte Checkbox-Größe */
+    .option input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-right: 1rem;
+    }
+
+    .option label {
+      font-size: 0.95rem;
+      line-height: 1.4;
     }
   }
 </style>
@@ -422,9 +496,14 @@
     if (!consentSaved) {
       setTimeout(() => {
         // Sicherstellen, dass die Elemente existieren, bevor wir sie nutzen
-        if (cookieBanner && cookieOverlay) {
+        if (cookieBanner) {
           cookieBanner.classList.add('visible');
-          cookieOverlay.classList.add('visible');
+          
+          // Overlay nur auf Desktop anzeigen
+          const isMobile = window.matchMedia("(max-width: 768px)").matches;
+          if (!isMobile && cookieOverlay) {
+            cookieOverlay.classList.add('visible');
+          }
           
           // Stelle sicher, dass die Scroll-Blockade aktiv ist
           document.documentElement.classList.add('no-scroll');
@@ -446,7 +525,12 @@
     function hideBannerAndOverlay() {
       // Null-Check hinzugefügt, um sicherzustellen, dass die Elemente existieren
       if (cookieBanner) cookieBanner.classList.remove('visible');
-      if (cookieOverlay) cookieOverlay.classList.remove('visible');
+      
+      // Overlay nur entfernen wenn es existiert (auf Desktop)
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      if (!isMobile && cookieOverlay) {
+        cookieOverlay.classList.remove('visible');
+      }
       
       // Scroll-Blockade aufheben
       document.documentElement.classList.remove('no-scroll');
