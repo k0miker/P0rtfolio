@@ -30,11 +30,31 @@
       
       <div class="cookie-actions simple-actions">
         <button id="accept-all-cookies" class="btn-primary">Alle akzeptieren</button>
+        <button id="only-essential-cookies" class="btn-text">Nur notwendige</button>
         <button id="show-settings" class="btn-secondary">Einstellungen</button>
       </div>
     </div>
     
-    <!-- Erweiterte Ansicht (Einstellungen) -->
+    <!-- CSS für Scroll-Blockierung -->
+<style is:inline>
+  html.no-scroll {
+    overflow: hidden !important;
+    height: 100% !important;
+    position: fixed !important;
+    width: 100% !important;
+  }
+  
+  html.no-scroll body {
+    overflow: hidden !important;
+  }
+  
+  /* Verhindert "Touch-Scrolling" auf Mobilgeräten */
+  html.no-scroll * {
+    touch-action: none !important;
+  }
+</style>
+
+<!-- Cookie-Banner mit erweiterter Ansicht -->
     <div id="advanced-view" class="cookie-view">
       <div class="cookie-header">
         <h3>Cookie-Einstellungen anpassen</h3>
@@ -300,21 +320,64 @@
   }
   
   @media (max-width: 768px) {
-    .cookie-content {
-      padding: 0.5rem;
+    /* Overlay auf kleinen Bildschirmen ausblenden, da es mit dem Banner überlappt */
+    .cookie-overlay {
+      display: none !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    /* Cookie-Banner auf mobilen Geräten als zentriertes Modal darstellen */
+    .cookie-banner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      right: auto;
+      bottom: auto;
+      transform: translate(-50%, -50%);
+      width: 92%;
+      max-width: 720px;
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+      transform-origin: center;
+      background-color: var(--bg-primary);
+      z-index: 10099;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    /* Bei sichtbarem Banner sicherstellen, dass die translateY-Animation (desktop) nicht greift */
+    .cookie-banner.visible {
+      transform: translate(-50%, -50%) !important;
+      top: 50% !important;
+      left: 50% !important;
+      bottom: auto !important;
+      right: auto !important;
     }
     
+    .cookie-content {
+      padding: 0.75rem;
+      max-width: 100%;
+    }
+
+    /* Buttons untereinander und full-width für bessere Bedienbarkeit auf Touch-Geräten */
     .cookie-actions {
       flex-direction: column;
       gap: 0.6rem;
+      margin-top: 1rem;
     }
-    
+
     .btn-primary, .btn-secondary, .btn-text {
       width: 100%;
     }
-    
+
     .advanced-actions {
       flex-direction: column-reverse;
+    }
+
+    .cookie-view {
+      padding: 0.5rem 0.25rem;
     }
   }
 </style>
@@ -325,6 +388,7 @@
     const cookieBanner = document.getElementById('cookie-consent');
     const cookieOverlay = document.getElementById('cookie-overlay');
     const acceptAllBtn = document.getElementById('accept-all-cookies');
+    const onlyEssentialBtn = document.getElementById('only-essential-cookies');
     const saveSettingsBtn = document.getElementById('save-cookie-settings');
     const rejectAllBtn = document.getElementById('reject-all-cookies');
     const closeBtn = document.getElementById('cookie-close');
@@ -335,7 +399,7 @@
     const analyticsCheckbox = document.getElementById('analytics-cookies');
     
     // Null-Check für DOM-Elemente
-    if (!cookieBanner || !cookieOverlay || !acceptAllBtn || !saveSettingsBtn || !rejectAllBtn || 
+    if (!cookieBanner || !cookieOverlay || !acceptAllBtn || !onlyEssentialBtn || !saveSettingsBtn || !rejectAllBtn || 
         !closeBtn || !analyticsCheckbox || !showSettingsBtn || 
         !backToSimpleBtn || !simpleView || !advancedView) {
       console.error('Cookie-Banner-Elemente konnten nicht gefunden werden');
@@ -393,6 +457,11 @@
       saveConsent(true);
       hideBannerAndOverlay();
       initializeAnalytics();
+    });
+    
+    onlyEssentialBtn.addEventListener('click', () => {
+      saveConsent(false);
+      hideBannerAndOverlay();
     });
     
     saveSettingsBtn.addEventListener('click', () => {

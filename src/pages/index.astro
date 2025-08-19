@@ -29,25 +29,6 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
       }
     </script>
     
-    <!-- CSS für Scroll-Blockierung -->
-    <style is:inline>
-      html.no-scroll {
-        overflow: hidden !important;
-        height: 100% !important;
-        position: fixed !important;
-        width: 100% !important;
-      }
-      
-      html.no-scroll body {
-        overflow: hidden !important;
-      }
-      
-      /* Verhindert "Touch-Scrolling" auf Mobilgeräten */
-      html.no-scroll * {
-        touch-action: none !important;
-      }
-    </style>
-    
     <!-- Google Tag Manager -->
     <script is:inline>
       // TypeScript-sicherer GTM-Code
@@ -555,15 +536,14 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
     filter: blur(5px);
   }
   .custom-scrollbar::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background-color: tomato;
-    border-radius: 10px;
+    border-radius: 4px;
   }
   .custom-scrollbar::-webkit-scrollbar-track {
-    background-color: #00000094;
-    border-radius: 5px;
+    background-color: #00000000;
   }
   
   .theme-toggle {
