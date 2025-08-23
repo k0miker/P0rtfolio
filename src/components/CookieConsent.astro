@@ -35,26 +35,7 @@
       </div>
     </div>
     
-    <!-- CSS für Scroll-Blockierung -->
-<style is:inline>
-  html.no-scroll {
-    overflow: hidden !important;
-    height: 100% !important;
-    position: fixed !important;
-    width: 100% !important;
-  }
-  
-  html.no-scroll body {
-    overflow: hidden !important;
-  }
-  
-  /* Verhindert "Touch-Scrolling" auf Mobilgeräten */
-  html.no-scroll * {
-    touch-action: none !important;
-  }
-</style>
-
-<!-- Cookie-Banner mit erweiterter Ansicht -->
+    <!-- Cookie-Banner mit erweiterter Ansicht -->
     <div id="advanced-view" class="cookie-view">
       <div class="cookie-header">
         <h3>Cookie-Einstellungen anpassen</h3>
@@ -504,9 +485,6 @@
           if (!isMobile && cookieOverlay) {
             cookieOverlay.classList.add('visible');
           }
-          
-          // Stelle sicher, dass die Scroll-Blockade aktiv ist
-          document.documentElement.classList.add('no-scroll');
         }
       }, 800); // Verzögerung, damit Benutzer zuerst die Seite sehen können
     } else {
@@ -524,32 +502,37 @@
     // Funktion zum Schließen des Banners und Entfernen des Overlays
     function hideBannerAndOverlay() {
       // Null-Check hinzugefügt, um sicherzustellen, dass die Elemente existieren
-      if (cookieBanner) cookieBanner.classList.remove('visible');
+      if (cookieBanner) {
+        cookieBanner.classList.remove('visible');
+      }
       
       // Overlay nur entfernen wenn es existiert (auf Desktop)
       const isMobile = window.matchMedia("(max-width: 768px)").matches;
       if (!isMobile && cookieOverlay) {
         cookieOverlay.classList.remove('visible');
       }
-      
-      // Scroll-Blockade aufheben
-      document.documentElement.classList.remove('no-scroll');
     }
     
     // Event-Handler für alle Buttons
-    acceptAllBtn.addEventListener('click', () => {
+    acceptAllBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('Alle Cookies akzeptiert');
       saveConsent(true);
       hideBannerAndOverlay();
       initializeAnalytics();
     });
     
-    onlyEssentialBtn.addEventListener('click', () => {
+    onlyEssentialBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('Nur notwendige Cookies akzeptiert');
       saveConsent(false);
       hideBannerAndOverlay();
     });
     
-    saveSettingsBtn.addEventListener('click', () => {
+    saveSettingsBtn.addEventListener('click', (e) => {
+      e.preventDefault();
       const analyticsEnabled = analyticsCheckbox.checked;
+      console.log('Cookie-Einstellungen gespeichert:', analyticsEnabled);
       saveConsent(analyticsEnabled);
       hideBannerAndOverlay();
       
@@ -558,7 +541,9 @@
       }
     });
     
-    rejectAllBtn.addEventListener('click', () => {
+    rejectAllBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('Alle Cookies abgelehnt');
       saveConsent(false);
       hideBannerAndOverlay();
     });

@@ -22,11 +22,8 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
   <head>
     <!-- Sofort ausgeführtes Script für Scroll-Blockierung -->
     <script is:inline>
-      // Prüfen, ob bereits eine Cookie-Entscheidung vorliegt
-      if (!localStorage.getItem('cookie-consent')) {
-        // Klasse hinzufügen, die das Scrollen verhindert
-        document.documentElement.classList.add('no-scroll');
-      }
+      // Cookie-Consent wird komplett von der CookieConsent-Komponente verwaltet
+      // Kein dupliziertes Scroll-Blocking hier
     </script>
     
     <!-- Google Tag Manager -->
@@ -450,47 +447,10 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
     <!-- Script zum Verhindern des Scrollens während das Cookie-Banner angezeigt wird -->
     <script is:inline>
       document.addEventListener('DOMContentLoaded', () => {
-        // Nochmals prüfen, ob Cookie-Consent gesetzt ist
-        if (!localStorage.getItem('cookie-consent')) {
-          // Verhindere Scrollen durch Wheel-Events
-          document.addEventListener('wheel', preventScroll, { passive: false });
-          // Verhindere Scrollen durch Tastatur
-          document.addEventListener('keydown', preventScrollKeys);
-          // Verhindere Scrollen durch Touch-Events
-          document.addEventListener('touchmove', preventScroll, { passive: false });
-        }
-        
-        // Event-Listener für Cookie-Entscheidung
-        const acceptAllBtn = document.getElementById('accept-all-cookies');
-        const saveSettingsBtn = document.getElementById('save-cookie-settings');
-        const rejectAllBtn = document.getElementById('reject-all-cookies');
-        
-        if (acceptAllBtn) acceptAllBtn.addEventListener('click', removeScrollLock);
-        if (saveSettingsBtn) saveSettingsBtn.addEventListener('click', removeScrollLock);
-        if (rejectAllBtn) rejectAllBtn.addEventListener('click', removeScrollLock);
-        
-        function removeScrollLock() {
-          document.documentElement.classList.remove('no-scroll');
-          document.removeEventListener('wheel', preventScroll);
-          document.removeEventListener('keydown', preventScrollKeys);
-          document.removeEventListener('touchmove', preventScroll);
-        }
-        
-        function preventScroll(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          return false;
-        }
-        
-        function preventScrollKeys(e) {
-          // Pfeiltasten, Bild auf/ab, Pos1/Ende, Leertaste
-          const keys = {37: 1, 38: 1, 39: 1, 40: 1, 32: 1, 33: 1, 34: 1, 35: 1, 36: 1};
-          if (keys[e.keyCode]) {
-            e.preventDefault();
-            return false;
-          }
-        }
+        // Cookie-Consent wird vollständig von der CookieConsent-Komponente verwaltet
+        // Kein redundanter Code hier
       });
+    </script>
     </script>
   </body>
 </html>
