@@ -1,19 +1,20 @@
 ---
 import logo from "../assets/images/logo.png";
+import { projects } from "../data/projectData.js";
+
+// Filter projects that should be shown in the dropdown (e.g. featured ones or all)
+// For now, we'll show all projects, but you could filter by `project.featured` if you add that property
+const navProjects = projects;
 ---
 
 <!-- Hauptnavigationskomponente -->
-<script
-  src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
-  defer></script>
 <div
   class="head w-full justify-center items-center fixed z-50 text-gray-200 sm:bg-transparent dark-mode:text-gray-200 dark-mode:bg-gray-800"
   id="navbar"
 >
   <div
-    x-data="{ open: false }"
     class="flex flex-col h-full max-w-screen-2xl items-center md:justify-center mx-auto md:flex-row md:px-6 mg:px-2"
-    @click.away="open = false"
+    id="nav-container"
   >
     <!-- HEADER: Logo und Hamburger-Menü -->
     <div class="name flex flex-row items-center w-full justify-between">
@@ -22,25 +23,26 @@ import logo from "../assets/images/logo.png";
         href="/"
         class="name lg:text-lg font-semibold duration-200 flex items-center justify-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-none focus:shadow-outline"
         ><img class="logo" src={logo.src} alt="" /><i>C</i><span>olin</span>
-        <i>B</i><span>lome </span><span class="dev"> Webdev<i class="dash animate-ping">_</i></span><span
-          >elopment</span
-        ><span class="animate-ping">_</span></a
+        <i>B</i><span>lome </span><span class="dev">
+          Webdev<i class="dash animate-ping">_</i></span
+        ><span>elopment</span><span class="animate-ping">_</span></a
       >
-      
+
       <!-- Hamburger-Menü für Mobile -->
       <div class="flex items-center">
         <button
           class="md:hidden rounded-lg focus:outline-none focus:shadow-outline mobile-menu-button"
-          @click="open = !open"
+          aria-label="Menü öffnen"
+          id="mobile-menu-btn"
         >
           <svg fill="currentColor" viewBox="0 0 20 20" class="w-14 h-12">
             <path
-              x-show="!open"
+              class="menu-icon-closed"
               fill-rule="evenodd"
               d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
               clip-rule="evenodd"></path>
             <path
-              x-show="open"
+              class="menu-icon-open hidden"
               fill-rule="evenodd"
               d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
               clip-rule="evenodd"></path>
@@ -48,10 +50,10 @@ import logo from "../assets/images/logo.png";
         </button>
       </div>
     </div>
-    
+
     <!-- NAVIGATION: Links mit responsivem Verhalten -->
     <nav
-      :class="{'flex': open, 'hidden': !open}"
+      id="main-nav"
       class="flex-col flex-grow pb-4 max-w-200px w-full md:pb-0 hidden md:flex md:justify-end md:flex-row md:bg-transparent md:text-gray-200 text-gray-600 mobile-menu"
     >
       <!-- Standard Navigation Links -->
@@ -59,36 +61,33 @@ import logo from "../assets/images/logo.png";
         <a
           class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
           href="/#home"
-          id="nav-home"
-          @click="open = false">/Home</a
+          id="nav-home">/Home</a
         >
         <a
           class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
           href="/#about"
-          id="nav-about"
-          @click="open = false">/About</a
+          id="nav-about">/About</a
         >
         <a
           class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
           href="/#skills"
-          id="nav-skills"
-          @click="open = false">/Skills</a
+          id="nav-skills">/Skills</a
         >
-      
+
         <!-- PROJEKT DROPDOWN: Eigener Bereich mit Dropdown-Funktionalität -->
-        <div @click.away="open = false" class="relative" x-data="{ open: false }">
+        <div class="relative group" id="project-dropdown-container">
           <button
             id="nav-projects"
-            @click="open = !open"
             class="px-0 w-[100%] text-left project-dropdown hover:text-[tomato] focus:text-gray-900 focus:outline-none focus:shadow-outline rounded-lg md:ml-2"
+            aria-haspopup="true"
+            aria-expanded="false"
             ><a
               class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-600 focus:outline-none focus:shadow-outline min-w-16"
               href="/#projects"
               >/Projects<svg
                 fill="currentColor"
                 viewBox="0 0 20 20"
-                :class="{'rotate-180': open, 'rotate-0': !open}"
-                class="w-6 h-6 mt-0 ml-1 transition-transform duration-200 transform"
+                class="w-6 h-6 mt-0 ml-1 transition-transform duration-200 transform dropdown-arrow"
                 ><path
                   fill-rule="evenodd"
                   d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -96,76 +95,37 @@ import logo from "../assets/images/logo.png";
               ></a
             >
           </button>
-          
+
           <!-- Projekt-Modal Dropdown -->
           <div
-            x-show="open"
-            x-transition:enter="transition ease-out duration-100"
-            x-transition:enter-start="transform opacity-0 scale-95"
-            x-transition:enter-end="transform opacity-100 scale-100"
-            x-transition:leave="transition ease-in duration-75"
-            x-transition:leave-start="transform opacity-100 scale-100"
-            x-transition:leave-end="transform opacity-0 scale-95"
-            class="absolute right-0 mt-2 origin-top-right rounded-md shadow-lg w-48 project-modal"
+            id="project-dropdown-menu"
+            class="absolute right-0 mt-2 origin-top-right rounded-md shadow-lg w-48 project-modal hidden group-hover:block"
           >
             <div
               class="px-2 py-2 rounded-md shadow dark-mode:bg-gray-800 project-list"
             >
-              <!-- Projekt-Links -->
-              <a
-                class="block px-4 py-2 mt-2 text-sm font-semibold rounded-lg md:mt-0 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                href="https://bonsaiworld.netlify.app/"
-                target="_blank"
-                @click="open = false">bonsaiworld</a
-              >
-             
-              <a
-                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                href="https://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor"
-                target="_blank"
-                @click="open = false">marketing-campagne</a
-              > 
-              
-              <a
-                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                href="https://www.industriebodenplanung.com/"
-                target="_blank"
-                @click="open = false">Industrieboden Dr. Meyer</a
-              >
-              <a
-                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                href="https://k0miker.github.io/starfieldclash/"
-                target="_blank"
-                @click="open = false">starfield-game</a
-              >
-              <a
-                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                href="https://zombi-island.netlify.app"
-                target="_blank"
-                @click="open = false">Zombi-island</a
-              >
-              <a
-                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                href="https://dataglobe.netlify.app/"
-                target="_blank"
-                @click="open = false">dataglobe</a
-              >
-              <a
-                class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                href="https://broke.dev-space.vip/"
-                target="_blank"
-                @click="open = false">BrokeChain</a
-              >
+              <!-- Projekt-Links dynamisch generiert -->
+              {
+                navProjects.map((project) => (
+                  <a
+                    class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                    href={project.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {project.title}
+                  </a>
+                ))
+              }
             </div>
           </div>
         </div>
-        
+
         <!-- Kontakt-Link -->
         <a
           class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
           href="/#contact"
-          id="nav-contact"
-          @click="open = false">/Contact</a
+          id="nav-contact">/Contact</a
         >
       </div>
     </nav>
@@ -177,9 +137,8 @@ import logo from "../assets/images/logo.png";
   nav * {
     font-family: mono;
     text-transform: uppercase;
-
   }
-  
+
   /* Kopfzeile/Navbar Styling */
   .head {
     transition: all 1s;
@@ -188,44 +147,44 @@ import logo from "../assets/images/logo.png";
     background: var(--nav-bg);
     box-shadow: var(--nav-shadow);
   }
-  
+
   /* Aktiver Link Styling */
   .flex .active {
     background: var(--bg-secondary);
-    color:var(--accent);
+    color: var(--accent);
   }
-  
+
   /* Logo Styling */
   .logo {
     width: 45px;
     translate: 0 5px;
     transition: 1s;
   }
-  
+
   /* Projekt-Modal spezifische Stile */
   .project-modal {
     z-index: 100;
     position: absolute;
-    top:6vh;
+    top: 6vh;
   }
-  
+
   /* Anpassung für das Project-Dropdown */
   .project-dropdown {
     transition: all 0.3s ease;
   }
-  
+
   .project-dropdown:hover {
     background-color: var(--bg-secondary); /* Konsistentes Hover-Styling */
     color: tomato;
   }
-  
+
   .project-dropdown:focus {
     background-color: var(--bg-secondary);
     outline: none;
   }
-  
+
   .project-list {
-    a{
+    a {
       color: var(--text-secondary);
       background-color: var(--bg-primary);
       margin-bottom: 2px;
@@ -235,12 +194,12 @@ import logo from "../assets/images/logo.png";
       }
     }
   }
-  
+
   .dark-mode .project-list {
     background-color: var(--bg-card);
     border-color: var(--border);
   }
-  
+
   /* Mobile Navigation Styling - Verbessert */
   @media (max-width: 768px) {
     /* Mindesthöhe für die Navigationsleiste festlegen */
@@ -248,29 +207,36 @@ import logo from "../assets/images/logo.png";
       min-height: 60px !important;
       height: auto;
     }
-    
+
     /* Von der Seite einfliegendes Menü */
     nav {
       position: fixed;
       right: -100%;
       width: 100%;
-      background-color: var(--bg-transparent) ; /* Halbtransparenter Hintergrund */
+      background-color: var(
+        --bg-transparent
+      ); /* Halbtransparenter Hintergrund */
       z-index: 100;
       /* box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2); */
-      overflow-y: auto;  
+      overflow-y: auto;
       padding: 0px 0;
-      border-radius: 0 0 0 10px; 
+      border-radius: 0 0 0 10px;
+      transition: right 0.3s ease-in-out;
     }
-    
-    .dark-mode nav {
-      background-color: rgba(37, 37, 37, 0.9) !important; /* Dunklere Variante mit Transparenz */
-    }
-    
-    /* Wenn das Menü geöffnet ist (über Alpine.js x-show/flex) */
-    nav.flex {
+
+    nav.open {
       right: 0;
     }
-    
+
+    .dark-mode nav {
+      background-color: rgba(
+        37,
+        37,
+        37,
+        0.9
+      ) !important; /* Dunklere Variante mit Transparenz */
+    }
+
     /* Project-Dropdown für Mobile anpassen */
     .project-modal {
       position: relative !important;
@@ -278,12 +244,17 @@ import logo from "../assets/images/logo.png";
       top: 0;
       margin-top: 10px;
       box-shadow: none;
+      display: none; /* Standardmäßig versteckt */
     }
-    
+
+    .project-modal.open {
+      display: block;
+    }
+
     /* Projektlinks im Mobile-Menü */
     .project-list {
-      width: 100% ;
-      margin-left: 0 ;
+      width: 100%;
+      margin-left: 0;
       padding: 5px 0;
       display: grid;
       grid-template-columns: repeat(1, 1fr);
@@ -291,10 +262,10 @@ import logo from "../assets/images/logo.png";
       background-color: var(--bg-secondary);
       border-radius: 8px;
     }
-    
+
     .project-list a {
       margin: 3px;
-      padding: 5px 10px ;
+      padding: 5px 10px;
       border-radius: 6px;
       text-align: center;
       height: 100%;
@@ -302,9 +273,9 @@ import logo from "../assets/images/logo.png";
       align-items: center;
       justify-content: center;
     }
-    
+
     /* Hamburger-Menü immer im Vordergrund */
-    button[x-on\\:click="open = !open"] {
+    #mobile-menu-btn {
       position: relative;
       z-index: 101;
     }
@@ -315,21 +286,21 @@ import logo from "../assets/images/logo.png";
       margin: 5px;
     }
   }
-  
+
   /* Tablet-spezifische Anpassungen für Projekte */
   @media (min-width: 769px) and (max-width: 1024px) {
     .project-modal {
       width: 400px !important;
       right: -50px;
     }
-    
+
     .project-list {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 8px;
       padding: 10px;
     }
-    
+
     .project-list a {
       margin: 0;
       padding: 12px 15px;
@@ -337,51 +308,50 @@ import logo from "../assets/images/logo.png";
       height: 100%;
     }
   }
-  
+
   /* Mobile Navigation Styling */
   @media (max-width: 768px) {
     nav {
-      background-color: transparent ;  
+      background-color: transparent;
       color: var(--bg-secondary);
       top: 59px;
       width: 80%;
       a {
-        color: var(--text-secondary) ;
-        background-color: var(--bg-primary) ;
+        color: var(--text-secondary);
+        background-color: var(--bg-primary);
         margin-bottom: 2px;
       }
-      
-      
+
       &:hover {
-        background-color: var(--bg-primary) ;
+        background-color: var(--bg-primary);
       }
     }
     .colored {
       color: var(--text-primary);
     }
-    
+
     .dark-mode nav {
       background-color: var(--bg-card) !important;
     }
-    
+
     .project-modal {
-      position: static ;
+      position: static;
       width: 90% !important;
     }
-    
+
     .project-list {
       width: 100%;
       margin-left: 20px;
     }
   }
-  
+
   .name {
     letter-spacing: -1px;
     color: tomato;
     font-family: monospace;
     font-size: 24px;
     .logo {
-      transform: translate( 4px, 2px);
+      transform: translate(4px, 2px);
     }
     .dev {
       font-size: 16px;
@@ -395,15 +365,14 @@ import logo from "../assets/images/logo.png";
       font-size: 0;
       filter: blur(1px);
     }
-    i{
+    i {
       transition: 0.5s;
       font-style: normal;
     }
-    i:nth-of-type(2)  {      
+    i:nth-of-type(2) {
       translate: -3px 11px;
       scale: 1.4;
     }
-    
   }
   .name:hover {
     color: tomato;
@@ -418,39 +387,37 @@ import logo from "../assets/images/logo.png";
       font-size: 0;
     }
     .logo {
-    transform: translateX(3px) translateY(2px);
-    
+      transform: translateX(3px) translateY(2px);
     }
     .dev {
       translate: 0 2px;
       font-size: 24px;
       color: tomato;
     }
-    i:nth-of-type(2)  {
+    i:nth-of-type(2) {
       translate: 0 0;
       rotate: 360deg;
-      scale: 1;      
+      scale: 1;
     }
-     
   }
   .colored {
     height: 7vh;
     transition: all 1s;
-    background: var(--bg-primary) ;
+    background: var(--bg-primary);
     box-shadow: var(--nav-shadow-solid);
-    
+
     .name {
       letter-spacing: normal;
       color: tomato;
       i:nth-of-type(2) {
         translate: 0 0;
-        scale: 1;        
+        scale: 1;
       }
       .dev {
         font-size: 24px;
         color: tomato;
-        @media screen and (min-width:768px){          
-        translate: 0 5px;        
+        @media screen and (min-width: 768px) {
+          translate: 0 5px;
         }
       }
       span {
@@ -463,65 +430,61 @@ import logo from "../assets/images/logo.png";
         font-size: 0;
       }
     }
-    nav{
-     
+    nav {
       color: var(--text-primary);
       transition: all 1s;
       a {
-        color: var(--text-secondary) ;
+        color: var(--text-secondary);
         margin-bottom: 2px;
         &:hover {
           color: tomato;
-          background-color: var(--bg-secondary) ;
+          background-color: var(--bg-secondary);
         }
       }
     }
-    @media screen and (max-width:700px){    
-    nav {
-      background-color: var(--bg-primary) ;
-      color: var(--text-primary);
-      /* box-shadow: 0px 0 0px rgba(0,0,0,0.2); */
-      transition: all 1s;
+    @media screen and (max-width: 700px) {
+      nav {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        /* box-shadow: 0px 0 0px rgba(0,0,0,0.2); */
+        transition: all 1s;
+      }
     }
-  }
 
     a {
-      color: var(--text-secondary) ;
-          img {
-        scale: .8;
+      color: var(--text-secondary);
+      img {
+        scale: 0.8;
         translate: 2px 2px;
       }
     }
-    
-   
   }
-
 
   .colored:hover {
     .logo {
-    transform: translateX(10px) translateY(3px);
-    scale: .7;
-  }
+      transform: translateX(10px) translateY(3px);
+      scale: 0.7;
+    }
     .dev {
       color: #616161;
       font-size: 24px;
       translate: 3px -2px;
     }
     span {
-      font-size: 0;      
+      font-size: 0;
     }
     .dash {
       font-size: 20px;
     }
     i:nth-of-type(1) {
-      transition: .5s;
+      transition: 0.5s;
       font-size: 32px;
-      font-style: normal;      
+      font-style: normal;
       translate: 0px -5px;
       scale: 1;
     }
     i:nth-of-type(2) {
-      transition: .5s;
+      transition: 0.5s;
       font-style: normal;
       translate: -3px 10px;
       scale: 1.5;
@@ -529,172 +492,183 @@ import logo from "../assets/images/logo.png";
   }
 
   /* Korrigiere Farben für Dark Mode */
-  .dark-mode .colored a, .dark-mode .colored button {
+  .dark-mode .colored a,
+  .dark-mode .colored button {
     color: var(--text-primary);
   }
-  
+
   .dark-mode .name span {
     color: var(--text-primary);
   }
-  
+
   .dark-mode .name:hover span {
     color: var(--text-primary);
   }
-  
+
   .dark-mode nav.bg-white {
     background-color: var(--bg-secondary) !important;
   }
 </style>
 <script>
-  window.addEventListener("scroll", () => {
+  // Vanilla JS Navigation Logic
+  document.addEventListener("DOMContentLoaded", () => {
     const navbar = document.getElementById("navbar");
-    if (window.scrollY > navbar.offsetTop) {
-      navbar.classList.add("colored");
-    } else {
-      navbar.classList.remove("colored");
-    }
-  });
-
-  document.addEventListener('DOMContentLoaded', () => {
-    // Verbesserte Handhabung des Project-Dropdowns
-    const navProjects = document.getElementById('nav-projects');
-    
-    // Wenn wir auf einem mobilen Gerät sind
-    if (window.innerWidth <= 768) {
-      // Ersetzen des Dropdown-Verhaltens für bessere Touch-Erfahrung
-      navProjects?.addEventListener('click', function(e) {
-        // Projektebereich finden
-        const projectLinks = document.querySelector('.project-list');
-        const dropdown = document.querySelector('.project-modal');
-        
-        // Wenn ausgeblendet, stellen wir sicher, dass alle Links sichtbar sind
-        if (dropdown && getComputedStyle(dropdown).display === 'none') {
-          setTimeout(() => {
-            // Scrollen zum Projektbereich für bessere Sichtbarkeit
-            if (projectLinks) {
-              projectLinks.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-          }, 300);
-        }
-      });
-    }
-    
-    // Responsive Anpassungen bei Größenänderung
-    window.addEventListener('resize', () => {
-      const isMobile = window.innerWidth <= 768;
-      const dropdown = document.querySelector('.project-modal');
-      
-      if (dropdown) {
-        if (isMobile) {
-          (dropdown as HTMLElement).style.position = 'relative';
-          (dropdown as HTMLElement).style.width = '100%';
-        } else {
-          (dropdown as HTMLElement).style.position = '';
-          (dropdown as HTMLElement).style.width = '';
-        }
-      }
-    });
-
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("main-nav");
+    const menuIconClosed = document.querySelector(".menu-icon-closed");
+    const menuIconOpen = document.querySelector(".menu-icon-open");
     const navLinks = document.querySelectorAll("nav a");
-    const mobileMenuButton = document.querySelector(".mobile-menu-button");
-    const mobileMenu = document.querySelector(".mobile-menu");
-    
-    // Mobile Menu Toggle
-    if (mobileMenuButton && mobileMenu) {
-      mobileMenuButton.addEventListener("click", () => {
-        mobileMenu.classList.toggle("hidden");
-        mobileMenuButton.classList.toggle("active");
-      });
-    }
-    
-    // Aktiven Link basierend auf URL markieren
-    const currentUrl = window.location.pathname;
-    const currentHash = window.location.hash;
-    
-    navLinks.forEach((link) => {
-      const href = link.getAttribute('href');
-      
-      // Exakte URL-Übereinstimmung prüfen
-      if (href === currentUrl || 
-          (currentUrl === '/' && href === '/') ||
-          (currentHash && href === currentHash)) {
-        link.classList.add('active');
+    const projectDropdownBtn = document.getElementById("nav-projects");
+    const projectDropdownMenu = document.getElementById(
+      "project-dropdown-menu",
+    );
+    const projectDropdownArrow = document.querySelector(".dropdown-arrow");
+
+    // Scroll Handler
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > navbar.offsetTop) {
+        navbar.classList.add("colored");
+      } else {
+        navbar.classList.remove("colored");
       }
-      
-      // Klick auf Nav-Link behandeln
-      link.addEventListener('click', (e) => {
-        // Wenn es ein Hash-Link ist und wir auf der richtigen Seite sind
-        const isHashLink = href?.includes('#');
-        const isOnCorrectPage = currentUrl === '/' || href?.startsWith(currentUrl);
-        
-        if (isHashLink && isOnCorrectPage) {
-          // Schließe mobiles Menü, wenn geöffnet
-          if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-            mobileMenu.classList.add('hidden');
-            mobileMenuButton?.classList.remove('active');
-          }
-        }
-      });
+      updateActiveNav();
     });
 
-    // Verbesserte Navigation-Highlight-Logik
+    // Mobile Menu Toggle
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = mobileMenu.classList.contains("open");
+
+        if (isOpen) {
+          mobileMenu.classList.remove("open");
+          mobileMenu.classList.add("hidden"); // Ensure hidden is added back for layout
+          mobileMenu.classList.remove("flex"); // Remove flex
+          menuIconClosed.classList.remove("hidden");
+          menuIconOpen.classList.add("hidden");
+        } else {
+          mobileMenu.classList.add("open");
+          mobileMenu.classList.remove("hidden");
+          mobileMenu.classList.add("flex"); // Add flex for layout
+          menuIconClosed.classList.add("hidden");
+          menuIconOpen.classList.remove("hidden");
+        }
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          mobileMenu.classList.contains("open") &&
+          !mobileMenu.contains(e.target as Node) &&
+          !mobileMenuBtn.contains(e.target as Node)
+        ) {
+          mobileMenu.classList.remove("open");
+          mobileMenu.classList.add("hidden");
+          mobileMenu.classList.remove("flex");
+          menuIconClosed.classList.remove("hidden");
+          menuIconOpen.classList.add("hidden");
+        }
+      });
+    }
+
+    // Project Dropdown Toggle (Mobile & Desktop Click)
+    if (projectDropdownBtn && projectDropdownMenu) {
+      projectDropdownBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        // Toggle visibility
+        projectDropdownMenu.classList.toggle("hidden");
+        projectDropdownMenu.classList.toggle("open"); // For mobile specific styles
+
+        // Rotate arrow
+        if (projectDropdownArrow) {
+          projectDropdownArrow.classList.toggle("rotate-180");
+        }
+
+        // Update aria attributes
+        const isExpanded = projectDropdownMenu.classList.contains("open");
+        projectDropdownBtn.setAttribute("aria-expanded", isExpanded.toString());
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !projectDropdownMenu.classList.contains("hidden") &&
+          !projectDropdownMenu.contains(e.target as Node) &&
+          !projectDropdownBtn.contains(e.target as Node)
+        ) {
+          projectDropdownMenu.classList.add("hidden");
+          projectDropdownMenu.classList.remove("open");
+          if (projectDropdownArrow) {
+            projectDropdownArrow.classList.remove("rotate-180");
+          }
+          projectDropdownBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+    }
+
+    // Navigation Highlight Logic
     function updateActiveNav() {
       // Prüfen, ob wir auf der Hauptseite sind (mit Sektionen) oder auf einer separaten Seite
-      const isMainPage = window.location.pathname === '/' || window.location.pathname === '/index.html';
-      
+      const isMainPage =
+        window.location.pathname === "/" ||
+        window.location.pathname === "/index.html";
+
       if (!isMainPage) {
-        // Auf separaten Seiten (wie Datenschutz) alle Nav-Links deaktivieren
-        const navLinks = document.querySelectorAll("nav a");
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-        });
+        navLinks.forEach((link) => link.classList.remove("active"));
         return;
       }
-      
-      // Hole aktuelle Scroll-Position
-      const scrollPosition = window.scrollY + 100; // +100 als Offset für bessere Erkennung
-      
-      // IDs der Sektionen auf der Seite
+
+      const scrollPosition = window.scrollY + 100;
       const sections = ["home", "about", "skills", "projects", "contact"];
-      
-      // Das aktuelle Element finden
-      let currentSection = sections[0]; // Default auf home
-      
-      sections.forEach(sectionId => {
+      let currentSection = sections[0];
+
+      sections.forEach((sectionId) => {
         const section = document.getElementById(sectionId);
         if (!section) return;
-        
-        // Prüfen ob die Sektion im sichtbaren Bereich ist
+
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
-        
-        if (scrollPosition >= sectionTop && 
-            scrollPosition < sectionTop + sectionHeight) {
+
+        if (
+          scrollPosition >= sectionTop &&
+          scrollPosition < sectionTop + sectionHeight
+        ) {
           currentSection = sectionId;
         }
       });
-      
-      // NavLinks aktualisieren
-      const navLinks = document.querySelectorAll("nav a");
-      navLinks.forEach(link => {
-        const href = link.getAttribute('href');
+
+      navLinks.forEach((link) => {
+        const href = link.getAttribute("href");
         if (!href) return;
-        
-        // Hash aus href extrahieren
-        const linkTargetId = href.startsWith('#') ? href.substring(1) : 
-                              href.includes('#') ? href.split('#')[1] : null;
-        
+
+        const linkTargetId = href.startsWith("#")
+          ? href.substring(1)
+          : href.includes("#")
+            ? href.split("#")[1]
+            : null;
+
         if (linkTargetId === currentSection) {
-          link.classList.add('active');
+          link.classList.add("active");
         } else {
-          link.classList.remove('active');
+          link.classList.remove("active");
         }
       });
     }
-    
-    // Beim Laden und bei Scroll die Navigation aktualisieren
+
+    // Initial call
     updateActiveNav();
-    window.addEventListener('scroll', updateActiveNav);
-    window.addEventListener('resize', updateActiveNav);
+
+    // Close mobile menu when a link is clicked
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (mobileMenu && mobileMenu.classList.contains("open")) {
+          mobileMenu.classList.remove("open");
+          mobileMenu.classList.add("hidden");
+          mobileMenu.classList.remove("flex");
+          menuIconClosed.classList.remove("hidden");
+          menuIconOpen.classList.add("hidden");
+        }
+      });
+    });
   });
 </script>

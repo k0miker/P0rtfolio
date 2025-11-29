@@ -4,7 +4,6 @@ import Modal from "./ui/Modal.astro";
 import { projects } from "../data/projectData.js";
 import "../css/keyframes.css";
 
-
 import p1 from "../assets/images/bonsaiworld.jpg";
 import p2 from "../assets/images/blome.jpg";
 import p5 from "../assets/images/p5.png";
@@ -33,7 +32,7 @@ const imageMap = {
 };
 
 // Verbesserung der Filterlogik mit zusätzlicher Prüfung
-const filteredProjects = projects.filter(project => {
+const filteredProjects = projects.filter((project) => {
   const hasImage = !!imageMap[project.image];
   if (!hasImage) {
     console.warn(`Bild für Projekt ${project.title} (${project.image}) fehlt!`);
@@ -42,11 +41,13 @@ const filteredProjects = projects.filter(project => {
 });
 
 // Extrahiere alle einzigartigen Kategorien
-const categories = ['All', ...new Set(filteredProjects.map(project => project.category || 'Other'))];
+const categories = [
+  "All",
+  ...new Set(filteredProjects.map((project) => project.category || "Other")),
+];
 ---
 
 <section class="projects-wrapper min-h-full mt-9 relative">
- 
   <h1
     class="text-center mt-4 p-8 text-4xl font-[mono] offscreen hover:tracking-[1vw] hover:text-[tomato] text-[var(--text-primary)]"
   >
@@ -56,25 +57,38 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
   <!-- Filter Navigation -->
   <div class="filter-container">
     <div class="filter-buttons">
-      {categories.map((category) => (
-        <button class="filter-btn" data-category={category}>{category}</button>
-      ))}
+      {
+        categories.map((category) => (
+          <button class="filter-btn" data-category={category}>
+            {category}
+          </button>
+        ))
+      }
     </div>
   </div>
 
-  {filteredProjects.length === 0 && (
-    <p class="text-center text-red-500">Keine Projekte gefunden. Bitte überprüfe die Bildnamen in projectData.js!</p>
-  )}
+  {
+    filteredProjects.length === 0 && (
+      <p class="text-center text-red-500">
+        Keine Projekte gefunden. Bitte überprüfe die Bildnamen in
+        projectData.js!
+      </p>
+    )
+  }
 
   <div class="projects-container">
-    {filteredProjects.map((project) => (
-      <Card project={project} image={imageMap[project.image]} />
-    ))}
+    {
+      filteredProjects.map((project) => (
+        <Card project={project} image={imageMap[project.image]} />
+      ))
+    }
   </div>
 
-  {filteredProjects.map((project) => (
-    <Modal project={project} image={imageMap[project.image]} />
-  ))}
+  {
+    filteredProjects.map((project) => (
+      <Modal project={project} image={imageMap[project.image]} />
+    ))
+  }
 </section>
 
 <style>
@@ -101,7 +115,7 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
     position: relative;
     z-index: 10; /* Erhöhter z-index für bessere Klickbarkeit */
   }
-  
+
   .filter-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -112,9 +126,9 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
     position: relative;
     z-index: 11; /* Erhöhter z-index für die Buttons */
   }
-  
+
   .filter-btn {
-    padding: 0.3rem .5rem;
+    padding: 0.3rem 0.5rem;
     border-radius: 25px;
     background-color: var(--bg-secondary);
     color: var(--text-titel);
@@ -122,17 +136,17 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
-    z-index: 12; 
-    white-space: nowrap; 
+    z-index: 12;
+    white-space: nowrap;
   }
-  
+
   .filter-btn:hover {
     background-color: var(--accent);
     color: var(--bg-primary);
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
-  
+
   .filter-btn.active {
     background-color: var(--accent);
     color: var(--bg-primary);
@@ -154,7 +168,7 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
   .projects-container > :global(.card-wrapper:nth-child(3n)) {
     grid-row: span 1.2;
   }
-  
+
   .projects-container > :global(.card-wrapper:nth-child(4n)) {
     grid-row: span 0.8;
   }
@@ -165,9 +179,11 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
     transform: translateY(30px);
     animation: fadeInUp 0.6s forwards;
     animation-delay: calc(var(--order) * 0.1s);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
   }
-  
+
   /* Animation für das Einblenden */
   @keyframes fadeInUp {
     to {
@@ -175,7 +191,7 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
       transform: translateY(0);
     }
   }
-  
+
   /* Klasse für animierte Karten */
   :global(.fadeInUp) {
     animation: fadeInUp 0.6s forwards;
@@ -186,13 +202,13 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
       grid-template-columns: 1fr;
       padding: 1rem;
     }
-    
+
     .filter-container {
       margin-bottom: 1.5rem;
       position: relative;
       padding: 0 0.5rem;
     }
-    
+
     /* Verbesserte mobile Ansicht für Filter-Buttons */
     .filter-buttons {
       flex-wrap: nowrap;
@@ -203,28 +219,40 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
       gap: 0.75rem;
       -webkit-overflow-scrolling: touch; /* Für besseres Scrollen auf iOS */
       scrollbar-width: none; /* Firefox */
-      mask-image: linear-gradient(to right, transparent, black 10px, black 90%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 10px, black 90%, transparent);
+      mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 10px,
+        black 90%,
+        transparent
+      );
+      -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        black 10px,
+        black 90%,
+        transparent
+      );
     }
-    
+
     /* Verstecke Scrollbar bei Webkit-Browsern */
     .filter-buttons::-webkit-scrollbar {
       display: none;
     }
-    
+
     .filter-btn {
       padding: 0.6rem 1.2rem;
       font-size: 0.9rem;
       min-width: auto;
       flex: 0 0 auto;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
-    
+
     .filter-btn.active {
       transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-    
+
     /* Visuelle Hinweise zum Scrollen */
     .filter-container::after {
       content: "";
@@ -237,7 +265,7 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
       pointer-events: none;
       z-index: 13;
     }
-    
+
     .filter-container::before {
       content: "";
       position: absolute;
@@ -250,18 +278,18 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
       z-index: 13;
     }
   }
-  
+
   /* Noch kleinere Bildschirme */
   @media screen and (max-width: 480px) {
     .filter-btn {
       padding: 0.5rem 1rem;
       font-size: 0.85rem;
     }
-    
+
     .projects-wrapper {
       padding: 60px 0 40px;
     }
-    
+
     /* Zentrierte Anordnung der Filter-Buttons bei sehr kleinen Bildschirmen */
     .filter-buttons {
       justify-content: flex-start;
@@ -273,7 +301,7 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // Existierende Modal-Logik
+    // --- Modal Logic ---
     let modalTriggers = document.querySelectorAll(".box[data-modal-target]");
     let openModal = null;
 
@@ -283,7 +311,7 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
         let modal = document.getElementById(modalId) as HTMLElement;
 
         if (openModal && openModal !== modal) {
-          openModal.classList.remove('modal-open');
+          openModal.classList.remove("modal-open");
           setTimeout(() => {
             openModal.style.display = "none";
           }, 300);
@@ -293,7 +321,7 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
           modal.style.display = "flex";
           // Kleine Verzögerung für die Animation
           setTimeout(() => {
-            modal.classList.add('modal-open');
+            modal.classList.add("modal-open");
           }, 10);
           openModal = modal;
         }
@@ -305,7 +333,7 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
       icon.addEventListener("click", function () {
         let modal = icon.closest(".modal") as HTMLElement;
         if (modal) {
-          modal.classList.remove('modal-open');
+          modal.classList.remove("modal-open");
           setTimeout(() => {
             modal.style.display = "none";
           }, 300);
@@ -318,7 +346,7 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
       const targetElement = event.target as Element;
       if (targetElement.classList.contains("modal")) {
         const modal = targetElement as HTMLElement;
-        modal.classList.remove('modal-open');
+        modal.classList.remove("modal-open");
         setTimeout(() => {
           modal.style.display = "none";
         }, 300);
@@ -326,136 +354,88 @@ const categories = ['All', ...new Set(filteredProjects.map(project => project.ca
       }
     });
 
-    // Neue Filter Funktionalität
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.card-wrapper');
-    
+    // --- Filter Logic ---
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const cards = document.querySelectorAll(".card-wrapper");
+
     // Setze Animation-Order für jede Karte
     cards.forEach((card, index) => {
-      card.setAttribute('style', `--order: ${index}`);
+      card.setAttribute("style", `--order: ${index}`);
     });
 
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        // Aktiven Button markieren
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        const category = btn.getAttribute('data-category');
-        
-        // Filter-Animation für die Karten
-        cards.forEach((card) => {
-          // Entferne bestehende Animation
-          card.classList.remove('fadeInUp');
-          
-          setTimeout(() => {
-            if (category === 'All' || card.getAttribute('data-category') === category) {
-              (card as HTMLElement).style.display = 'block';
-              (card as HTMLElement).style.opacity = '0';
-              
-              // Kurze Verzögerung für Animation
-              setTimeout(() => {
-                card.classList.add('fadeInUp');
-                (card as HTMLElement).style.opacity = '1';
-              }, 50);
-            } else {
-              (card as HTMLElement).style.opacity = '0';
-              setTimeout(() => {
-                (card as HTMLElement).style.display = 'none';
-              }, 300);
-            }
-          }, 100);
-        });
-        
-        // Zum geklickten Filter scrollen
-        setTimeout(scrollToActiveFilter, 200);
+    function handleFilterClick(event) {
+      const btn = event.currentTarget;
+
+      // Aktiven Button markieren
+      filterBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const category = btn.getAttribute("data-category");
+
+      // Filter-Animation für die Karten
+      cards.forEach((card) => {
+        // Entferne bestehende Animation
+        card.classList.remove("fadeInUp");
+
+        setTimeout(() => {
+          if (
+            category === "All" ||
+            card.getAttribute("data-category") === category
+          ) {
+            (card as HTMLElement).style.display = "block";
+            (card as HTMLElement).style.opacity = "0";
+
+            // Kurze Verzögerung für Animation
+            setTimeout(() => {
+              card.classList.add("fadeInUp");
+              (card as HTMLElement).style.opacity = "1";
+            }, 50);
+          } else {
+            (card as HTMLElement).style.opacity = "0";
+            setTimeout(() => {
+              (card as HTMLElement).style.display = "none";
+            }, 300);
+          }
+        }, 100);
       });
+
+      // Zum geklickten Filter scrollen
+      setTimeout(scrollToActiveFilter, 200);
+    }
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", handleFilterClick);
     });
 
-    // Initial den 'All' Button aktivieren
-    document.querySelector('.filter-btn[data-category="All"]')?.classList.add('active');
-    
-    // Initial Scroll zum aktiven Filter
-    setTimeout(scrollToActiveFilter, 800);
-    
     // Horizontales Scrollen der Filter-Buttons zum aktiven Element
     function scrollToActiveFilter() {
-      const activeFilter = document.querySelector('.filter-btn.active');
+      const activeFilter = document.querySelector(".filter-btn.active");
       if (activeFilter) {
-        const container = document.querySelector('.filter-buttons') as HTMLElement;
+        const container = document.querySelector(
+          ".filter-buttons",
+        ) as HTMLElement;
         if (container) {
           // Scroll zum aktiven Filter mit etwas Abstand links
-          const scrollPos = (activeFilter as HTMLElement).offsetLeft - container.offsetWidth / 4;
+          const scrollPos =
+            (activeFilter as HTMLElement).offsetLeft -
+            container.offsetWidth / 4;
           container.scrollTo({
             left: scrollPos,
-            behavior: 'smooth'
+            behavior: "smooth",
           });
         }
       }
     }
-  });
-</script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-
-    // Verbesserte Filter Funktionalität
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.card-wrapper');
-  
-    // Hilfs-Handler für Button-Klicks
-    function handleFilterClick(event) {
-      const btn = event.currentTarget;
-      
-      // Aktiven Button markieren
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      
-      const category = btn.getAttribute('data-category');
-      
-      // Filter-Animation für die Karten
-      cards.forEach((card) => {
-        const cardCategory = card.getAttribute('data-category');
-        
-        // Entferne bestehende Animation
-        card.classList.remove('fadeInUp');
-        
-        setTimeout(() => {
-          if (category === 'All' || card.getAttribute('data-category') === category) {
-            (card as HTMLElement).style.display = 'block';
-            // Neue Animation hinzufügen
-            setTimeout(() => {
-              card.classList.add('fadeInUp');
-            }, 10);
-          } else {
-            (card as HTMLElement).style.display = 'none';
-          }
-        }, 100);
-      });
-    }
-    
-    // Event-Listener direkt inline anwenden
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', handleFilterClick);
-      
-      // Zusätzliche direkte Inline-Funktion für redundante Sicherheit
-      (btn as HTMLElement).onclick = function() {
-        handleFilterClick({ currentTarget: btn } as unknown as Event);
-        return false; // Verhindere Standardverhalten
-      };
-    });
 
     // Initial den 'All' Button aktivieren
-    const allButton = document.querySelector('.filter-btn[data-category="All"]');
+    const allButton = document.querySelector(
+      '.filter-btn[data-category="All"]',
+    );
     if (allButton) {
-      allButton.classList.add('active');
-      
-      // Manuell den Klick auslösen
-      setTimeout(() => {
-        (allButton as HTMLElement).click();
-      }, 500);
-    } else {
-      console.error("All-Button nicht gefunden!");
+      allButton.classList.add("active");
     }
+
+    // Initial Scroll zum aktiven Filter
+    setTimeout(scrollToActiveFilter, 800);
   });
 </script>

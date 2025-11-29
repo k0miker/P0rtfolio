@@ -1,67 +1,94 @@
 ---
 import myself from "../assets/images/Cartoonify.svg";
 import myself3 from "../assets/images/myself.jpg";
+// import { age } from "../scripts/age.js";
+
+
+  let date_now = new Date();
+  let date_birthday = new Date("1986-04-30");
+  let age = date_now.getFullYear() - date_birthday.getFullYear();
+
+
+
+  // Überprüfe, ob der Geburtstag in diesem Jahr bereits war
+  const hasHadBirthdayThisYear =
+    date_now.getMonth() > date_birthday.getMonth() ||
+    (date_now.getMonth() === date_birthday.getMonth() &&
+      date_now.getDate() >= date_birthday.getDate());
+
+  // Wenn der Geburtstag noch nicht war, ziehe 1 Jahr ab
+  if (!hasHadBirthdayThisYear) {
+    age--;
+  }  
+  console.log("age", age);
+  
 ---
 
 <div class="wrap sm:flex-col rounded-lg offscreen relative">
- 
-  <h3 class="py-5 font-[mono] text-4xl text-center offscreen hover:tracking-[.51vw] hover:text-[tomato] text-[var(--text-primary)]">
+  <h3
+    class="py-5 font-[mono] text-4xl text-center offscreen hover:tracking-[.51vw] hover:text-[tomato] text-[var(--text-primary)]"
+  >
     About<span class="animate-ping">_</span>
   </h3>
   <div class="flex flex-col items-center offscreen">
     <div class="foto-swich">
-      <img src={myself.src} class="sm:w-[100%] opacity-100" alt="foto of colin" />
-      <img src={myself3.src} class="sm:w-[100%] " alt="foto of colin" />
+      <img
+        src={myself.src}
+        class="sm:w-[100%] opacity-100"
+        alt="foto of colin"
+      />
+      <img src={myself3.src} class="sm:w-[100%]" alt="foto of colin" />
     </div>
 
     <div class="content-section">
       <div class="content-box">
         <div class="language-switcher">
           <h3 class="content-header2">
-            Who am I 
+            Who am I
             <span class="animate-ping"> ?</span>
           </h3>
           <div class="lang-buttons">
-            <button type="button" class="lang-btn active" data-lang="en">EN</button>
+            <button type="button" class="lang-btn active" data-lang="en"
+              >EN</button
+            >
             <button type="button" class="lang-btn" data-lang="de">DE</button>
           </div>
         </div>
-        
+
         <div class="language-content active" id="content-en">
           <p class="p-6">
-            Hello! <br />I'm Colin, a 38-year-old passionate web developer. Since my
-            youth, I've been a true PC nerd with a strong affinity for technology. <br
-            />Besides my work as a web developer, I'm also an avid gamer and love
-            spending my free time on challenging games. Additionally, I have a
-            special passion for bonsai art, which helps me bring calm and balance to
-            my daily life. 
-            With my diverse experience and wide-ranging interests, I bring creative
-            and functional solutions to my projects. Whether it's developing a
+            Hello! <br />I'm Colin, a {age}-year-old passionate web developer.
+            Since my youth, I've been a true PC nerd with a strong affinity for
+            technology. <br />Besides my work as a web developer, I'm also an
+            avid gamer and love spending my free time on challenging games.
+            Additionally, I have a special passion for bonsai art, which helps
+            me bring calm and balance to my daily life. With my diverse
+            experience and wide-ranging interests, I bring creative and
+            functional solutions to my projects. Whether it's developing a
             user-friendly website or solving complex technical challenges, I am
-            always motivated to achieve the best results and help my clients reach
-            their goals.
+            always motivated to achieve the best results and help my clients
+            reach their goals.
           </p>
         </div>
 
         <div class="language-content" id="content-de">
           <p class="p-6">
-            Hallo! <br>
-            Ich bin Colin, ein leidenschaftlicher Webentwickler. Seit
-            meiner Jugend ein PC-Nerd mit einer Affinität für
-            Technologie. Neben meiner Arbeit als Webentwickler bin ich auch ein begeisterter
-            Gamer und verbringe gerne Freizeit mit anspruchsvollen Spielen. Zusätzlich
-            habe ich eine Leidenschaft für die Bonsai-Kunst, die mir hilft,
-            Ausgleich in den Alltag zu bringen. Mit meiner vielfältigen Erfahrung
-            und meinen breitgefächerten Interessen bringe ich kreative und funktionale
-            Lösungen in Projekte ein. Egal ob es darum geht, eine benutzerfreundliche
-            Webseite zu entwickeln oder komplexe technische Herausforderungen zu lösen,
-            ich bin immer motiviert, die besten Ergebnisse zu erzielen und meinen Kunden
-            zu helfen, ihre Ziele zu erreichen.
+            Hallo! <br />
+            Ich bin Colin, ein leidenschaftlicher Webentwickler. Seit meiner Jugend
+            ein PC-Nerd mit einer Affinität für Technologie. Neben meiner Arbeit
+            als Webentwickler bin ich auch ein begeisterter Gamer und verbringe gerne
+            Freizeit mit anspruchsvollen Spielen. Zusätzlich habe ich eine Leidenschaft
+            für die Bonsai-Kunst, die mir hilft, Ausgleich in den Alltag zu bringen.
+            Mit meiner vielfältigen Erfahrung und meinen breitgefächerten Interessen
+            bringe ich kreative und funktionale Lösungen in Projekte ein. Egal ob
+            es darum geht, eine benutzerfreundliche Webseite zu entwickeln oder komplexe
+            technische Herausforderungen zu lösen, ich bin immer motiviert, die besten
+            Ergebnisse zu erzielen und meinen Kunden zu helfen, ihre Ziele zu erreichen.
           </p>
         </div>
       </div>
-      
-      <div class="content-box ">
+
+      <div class="content-box">
         <h3 class="content-header">
           Self Proclamations<span class="animate-ping">_</span>
         </h3>
@@ -85,28 +112,30 @@ import myself3 from "../assets/images/myself.jpg";
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const langBtns = document.querySelectorAll('.lang-btn');
-    const langContents = document.querySelectorAll('.language-content');
-    
-    langBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const lang = btn.getAttribute('data-lang');
-        
+  document.addEventListener("DOMContentLoaded", () => {
+    const langBtns = document.querySelectorAll(".lang-btn");
+    const langContents = document.querySelectorAll(".language-content");
+
+    langBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const lang = btn.getAttribute("data-lang");
+
         // Update active button
-        langBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
+        langBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
         // Update active content
-        langContents.forEach(content => {
-          content.classList.remove('active');
+        langContents.forEach((content) => {
+          content.classList.remove("active");
           if (content.id === `content-${lang}`) {
-            content.classList.add('active');
+            content.classList.add("active");
           }
         });
       });
     });
   });
+
+
 </script>
 
 <style>
@@ -117,10 +146,10 @@ import myself3 from "../assets/images/myself.jpg";
     padding-top: 40px;
     position: relative;
     overflow: hidden;
-    min-height: 100vh; 
+    min-height: 100vh;
     height: fit-content;
   }
-  
+
   img {
     width: 30%;
     max-width: 250px;
@@ -140,15 +169,15 @@ import myself3 from "../assets/images/myself.jpg";
     align-items: center;
     color: var(--text-titel);
   }
-  
+
   p {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     color: var(--text-primary);
-    transition: .5s;
+    transition: 0.5s;
     line-height: 1.6;
     text-align: left;
   }
-  
+
   .content-section {
     display: flex;
     flex-direction: column;
@@ -157,7 +186,7 @@ import myself3 from "../assets/images/myself.jpg";
     padding: 0 5vw;
     margin-top: 2rem;
   }
-  
+
   .content-box {
     width: 90%;
     max-width: 768px;
@@ -168,7 +197,7 @@ import myself3 from "../assets/images/myself.jpg";
     position: relative;
     margin-bottom: 2rem;
   }
-  
+
   .language-switcher {
     display: flex;
     justify-content: flex-end;
@@ -176,7 +205,7 @@ import myself3 from "../assets/images/myself.jpg";
     background-color: var(--bg-secondary);
     border-bottom: 1px solid var(--border);
   }
-  
+
   .lang-btn {
     background: none;
     border: 1px solid transparent;
@@ -189,30 +218,30 @@ import myself3 from "../assets/images/myself.jpg";
     color: var(--text-titel);
     transition: all 0.3s ease;
   }
-  
+
   .lang-btn:hover {
     color: tomato;
   }
-  
+
   .lang-btn.active {
     border-color: var(--border);
     color: tomato;
     background-color: var(--bg-card);
   }
-  
+
   .language-content {
     display: none;
     opacity: 0;
     transform: translateY(10px);
     transition: all 0.5s ease;
   }
-  
+
   .language-content.active {
     display: block;
     opacity: 1;
     transform: translateY(0);
   }
-  
+
   .content-header {
     background-color: var(--bg-secondary);
     padding: 1rem;
@@ -234,14 +263,14 @@ import myself3 from "../assets/images/myself.jpg";
     letter-spacing: 0.51vw;
     color: var(--accent);
   }
-  
+
   .skills-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 2rem 1rem;
   }
-  
+
   .skill-item {
     display: flex;
     flex-direction: column;
@@ -251,18 +280,18 @@ import myself3 from "../assets/images/myself.jpg";
     transition: all 0.3s ease;
     font-family: mono;
   }
-  
+
   .skill-item i {
     font-size: 2.5rem;
     margin-bottom: 1rem;
     padding: 1rem;
   }
-  
+
   .skill-item:hover {
     color: tomato;
     transform: scale(1.1);
   }
-  
+
   .foto-swich {
     display: flex;
     justify-content: center;
@@ -270,69 +299,69 @@ import myself3 from "../assets/images/myself.jpg";
     border-radius: 0px;
     margin-bottom: 2rem;
   }
-  
+
   .foto-swich img {
     width: 200px;
-    transition: .5s;
+    transition: 0.5s;
   }
-  
+
   .foto-swich:hover img:nth-of-type(2) {
     opacity: 1;
   }
-  
+
   .foto-swich:hover img:nth-of-type(1) {
     opacity: 0;
   }
-  
+
   .foto-swich img:nth-of-type(2) {
     transform: translateX(-50%);
-    opacity: 0;    
+    opacity: 0;
   }
-  
+
   .foto-swich img:nth-of-type(1) {
     transform: translateX(50%);
   }
-  
+
   @media (max-width: 768px) {
     .skill-item i {
       font-size: 2rem;
       padding: 0.5rem;
     }
-    
+
     .content-box {
       width: 95%;
     }
-    
+
     p {
       font-size: 0.9rem;
     }
   }
-  
+
   @media (max-width: 480px) {
     .skills-container {
       flex-direction: column;
     }
-    
+
     .skill-item {
       margin-bottom: 1rem;
     }
-    
+
     .content-header {
       font-size: 1.25rem;
     }
-    
+
     .lang-btn {
       padding: 0.15rem 0.5rem;
     }
   }
-  
+
   @keyframes ping {
     75%,
     100% {
       opacity: 0;
     }
   }
-  
+
   .animate-ping {
     animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
   }

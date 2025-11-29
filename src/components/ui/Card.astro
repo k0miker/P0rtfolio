@@ -1,23 +1,29 @@
 ---
+import { Image } from "astro:assets";
+
 const { project, image } = Astro.props;
 
 // Verwende cardDescriptionEN mit Fallback-Optionen
-const cardDescription = project.cardDescriptionEN || 
-                        project.cardDescriptionEn || 
-                        project.description?.en || 
-                        project.description || 
-                        "No description available";
+const cardDescription =
+  project.cardDescriptionEN ||
+  project.cardDescriptionEn ||
+  project.description?.en ||
+  project.description ||
+  "No description available";
 
 // Stelle sicher, dass die Kategorie immer gesetzt ist
-const category = project.category || 'Other';
+const category = project.category || "Other";
 ---
 
-<div class="card-wrapper " data-category={category}>
+<div class="card-wrapper" data-category={category}>
   <div class="box card-3d offscreen" data-modal-target={`modal-${project.id}`}>
     <div class="card-content">
-      <img
-        src={image.src}
+      <Image
+        src={image}
         alt={project.title}
+        width={600}
+        height={400}
+        format="webp"
         loading="lazy"
         class="card-image"
       />
@@ -30,9 +36,10 @@ const category = project.category || 'Other';
           <p>{cardDescription}</p>
         </div>
         <div class="card-badges">
-          {project.badges && project.badges.map(badge => (
-            <span class="badge">{badge}</span>
-          ))}
+          {
+            project.badges &&
+              project.badges.map((badge) => <span class="badge">{badge}</span>)
+          }
         </div>
       </div>
     </div>
@@ -58,7 +65,7 @@ const category = project.category || 'Other';
     border-radius: 15px;
     animation: cardGlow 4s ease-in-out infinite alternate;
   }
-  
+
   /* @keyframes cardGlow {
     0% {
       box-shadow:
@@ -76,7 +83,6 @@ const category = project.category || 'Other';
     position: relative;
     width: 100%;
     height: 100%;
-    
   }
 
   .card-image {
@@ -84,7 +90,9 @@ const category = project.category || 'Other';
     height: 300px;
     object-fit: cover;
     object-position: top;
-    transition: transform 0.5s ease-out, filter 0.4s ease-out;
+    transition:
+      transform 0.5s ease-out,
+      filter 0.4s ease-out;
   }
 
   .card-overlay {
@@ -93,7 +101,12 @@ const category = project.category || 'Other';
     left: 0;
     right: 0;
     padding: 1.5rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.528), rgba(0, 0, 0, 0.306) 70%, transparent);
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.528),
+      rgba(0, 0, 0, 0.306) 70%,
+      transparent
+    );
     color: white;
     transform: translateY(85%);
     transition: transform 0.4s ease-out;
@@ -154,17 +167,21 @@ const category = project.category || 'Other';
 
   /* Hover Effekte */
   .box:hover {
-    transform: rotateX(8deg) rotateY(8deg) ;
+    transform: rotateX(8deg) rotateY(8deg);
     animation: cardGlowIntense 1s ease-in-out infinite alternate;
-    transition: .5s;
+    transition: 0.5s;
   }
-  
+
   @keyframes cardGlowIntense {
     0% {
-      box-shadow: 0 0 15px 0px var(--accent), 0 0 10px 0px var(--accent);
+      box-shadow:
+        0 0 15px 0px var(--accent),
+        0 0 10px 0px var(--accent);
     }
     100% {
-      box-shadow: 0 0 5px 0px var(--accent), 0 0 1px 0px var(--accent);
+      box-shadow:
+        0 0 5px 0px var(--accent),
+        0 0 1px 0px var(--accent);
     }
   }
 
@@ -178,7 +195,7 @@ const category = project.category || 'Other';
   }
 
   .box:hover .card-description {
-    max-height: 200px; 
+    max-height: 200px;
   }
 
   .box:hover .card-badges {
@@ -190,47 +207,47 @@ const category = project.category || 'Other';
     .card-description {
       max-height: 80px;
     }
-    
+
     .card-overlay {
-     .card-title {
-        font-size: .9rem;
+      .card-title {
+        font-size: 0.9rem;
       }
-      font-size: .8rem;
+      font-size: 0.8rem;
       line-height: 1.4;
       transform: translateY(0%);
       .card-badges {
-        opacity: .8;
+        opacity: 0.8;
       }
-      
     }
   }
 </style>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function () {
     // Nur 3D-Effekte aktivieren, wenn nicht auf einem mobilen Gerät
     const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    
+
     if (!isMobile) {
       const cards = document.querySelectorAll(".card-3d");
-      
-      cards.forEach(card => {
+
+      cards.forEach((card) => {
         card.addEventListener("mousemove", (e: MouseEvent) => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
-          
+
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
-          
+
           const rotateX = (y - centerY) / 15;
           const rotateY = (centerX - x) / 15;
-          
-          (card as HTMLElement).style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+          (card as HTMLElement).style.transform =
+            `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
-        
+
         card.addEventListener("mouseleave", () => {
-          (card as HTMLElement).style.transform = 'rotateX(0) rotateY(0)';
+          (card as HTMLElement).style.transform = "rotateX(0) rotateY(0)";
         });
       });
     }
