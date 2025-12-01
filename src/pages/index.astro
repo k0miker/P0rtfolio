@@ -594,6 +594,11 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
 </html>
 
 <style>
+  /* Global base font-size reduction for more compact layout */
+  html {
+    font-size: 85%; /* Makes all rem-based sizing 85% of default (16px -> 13.6px) */
+  }
+
   * {
     scroll-behavior: smooth;
     font-family: mono;

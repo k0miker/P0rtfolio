@@ -2,9 +2,15 @@
 import homeBg from "../assets/images/home.webp";
 import inkBg from "../assets/images/ink_2.png";
 ---
-<div class="bg-container" id="home-section" style={`background-image: url(${homeBg.src})`}>
+
+<div
+  class="bg-container"
+  id="home-section"
+  style={`background-image: url(${homeBg.src})`}
+>
   <div class="console-container font-[Marker] font-extrabold text-4xl">
-    <div class="text-backdrop" style={`background-image: url(${inkBg.src})`}></div>
+    <div class="text-backdrop" style={`background-image: url(${inkBg.src})`}>
+    </div>
     <span id="text" class="offscreen"></span><div
       class="console-underscore text-[tomato] animate-ping"
       id="console"
@@ -20,7 +26,7 @@ import inkBg from "../assets/images/ink_2.png";
   span {
     min-height: 40px;
   }
-  
+
   a {
     color: var(--text-secondary);
     background-color: var(--bg-primary);
@@ -40,7 +46,7 @@ import inkBg from "../assets/images/ink_2.png";
     transition: all 1s;
     flex-direction: column;
     div {
-      padding:0 5px;
+      padding: 0 5px;
     }
   }
 
@@ -67,14 +73,14 @@ import inkBg from "../assets/images/ink_2.png";
     }
   }
 
-  .bg-container{
+  .bg-container {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     transition: animation-play-state 0.3s;
     min-height: 100vh;
   }
-  
+
   .bg-container.animate {
     animation: slidein linear 25s infinite alternate;
   }
@@ -82,12 +88,12 @@ import inkBg from "../assets/images/ink_2.png";
   .console-container {
     color: white;
     box-shadow: inset 0px -2vh 5vw 10px #0000006f;
-    
+
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
     position: relative;
     z-index: 1;
     top: 0;
@@ -96,17 +102,17 @@ import inkBg from "../assets/images/ink_2.png";
     bottom: -30px;
     margin: auto;
   }
-  
+
   /* Text-Styling mit starkem Schatten für bessere Lesbarkeit */
   #text {
-    text-shadow: 
+    text-shadow:
       0px 0px 10px rgba(0, 0, 0, 0.9),
       0px 0px 20px rgba(0, 0, 0, 0.7),
       0px 0px 30px rgba(0, 0, 0, 0.5);
     position: relative;
     z-index: 3;
   }
-  
+
   /* Tintenhintergrund für den Text */
   .text-backdrop {
     position: absolute;
@@ -122,7 +128,7 @@ import inkBg from "../assets/images/ink_2.png";
     z-index: 2;
     pointer-events: none;
   }
-  
+
   .console-underscore {
     display: inline-block;
     position: relative;
@@ -131,7 +137,7 @@ import inkBg from "../assets/images/ink_2.png";
     z-index: 3;
     text-shadow: 0 0 10px rgba(255, 99, 71, 0.7); /* Glow-Effekt für den Cursor */
   }
-  
+
   /* Performance-bezogene Styles - überarbeitete Version */
   :global([data-performance="low"]) .bg-container,
   :global(body[data-performance="low"]) #home-section {
@@ -140,26 +146,26 @@ import inkBg from "../assets/images/ink_2.png";
     background-position: center center !important;
     background-size: cover !important;
   }
-  
+
   /* Responsive Anpassungen für verschiedene Bildschirmgrößen */
   @media screen and (max-width: 768px) {
     .console-container {
       font-size: 1.5em;
     }
-    
+
     .text-backdrop {
       max-width: 90%;
       height: 350px;
       transform: scale(1.1);
     }
-    
+
     #text {
-      text-shadow: 
+      text-shadow:
         0px 0px 8px rgba(0, 0, 0, 0.607),
         1px 1px 6px rgba(0, 0, 0, 0.2);
     }
   }
-  
+
   @media screen and (max-width: 480px) {
     .text-backdrop {
       max-width: 95%;
@@ -179,7 +185,7 @@ import inkBg from "../assets/images/ink_2.png";
       "Nerd.",
     ],
     "text",
-    ["tomato"]
+    ["tomato"],
   );
   function consoleText(words, id, colors) {
     if (colors === undefined) colors = ["#fff"];
@@ -216,23 +222,20 @@ import inkBg from "../assets/images/ink_2.png";
         letterCount += x;
       }
     }, 80);
-    
   }
 
   // Animation nur starten, wenn Sektion im Viewport ist und Performance-Modus es erlaubt
   document.addEventListener("DOMContentLoaded", () => {
     const homeSection = document.getElementById("home-section");
     if (!homeSection) return;
-    
+
     // Prüfen, ob Animationen deaktiviert werden sollen
     function updateAnimation(isLowPerformance) {
       if (isLowPerformance) {
-        console.log("Deaktiviere Home-Animation (Low-Performance)");
         homeSection.classList.remove("animate");
         homeSection.style.backgroundAttachment = "scroll";
         homeSection.style.backgroundPosition = "center center";
       } else {
-        console.log("Aktiviere Home-Animation (High-Performance)");
         // Nur aktivieren, wenn sichtbar
         if (isElementInViewport(homeSection)) {
           homeSection.classList.add("animate");
@@ -240,34 +243,42 @@ import inkBg from "../assets/images/ink_2.png";
         }
       }
     }
-    
+
     // Performance-Monitor für Animationssteuerung
-    import('../utils/performanceMonitor.js').then(({ performanceMonitor }) => {
-      performanceMonitor.addListener(updateAnimation);
-    }).catch(err => console.error("Fehler beim Laden des Performance-Monitors:", err));
-    
+    import("../utils/performanceMonitor.js")
+      .then(({ performanceMonitor }) => {
+        performanceMonitor.addListener(updateAnimation);
+      })
+      .catch((err) =>
+        console.error("Fehler beim Laden des Performance-Monitors:", err),
+      );
+
     // Sichtbarkeits-Observer für verzögerte Animation
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        // Nur animieren wenn High-Performance AND sichtbar
-        const currentMode = document.documentElement.getAttribute('data-performance') || 'high';
-        
-        if (entry.isIntersecting && currentMode !== 'low') {
-          console.log("Home-Sektion sichtbar, aktiviere Animation");
-          entry.target.classList.add("animate");
-        } else {
-          entry.target.classList.remove("animate");
-        }
-      });
-    }, { threshold: 0.1 });
-    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Nur animieren wenn High-Performance AND sichtbar
+          const currentMode =
+            document.documentElement.getAttribute("data-performance") || "high";
+
+          if (entry.isIntersecting && currentMode !== "low") {
+            entry.target.classList.add("animate");
+          } else {
+            entry.target.classList.remove("animate");
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+
     observer.observe(homeSection);
-    
+
     // Hilfsfunktion zur Prüfung, ob Element im Viewport ist
     function isElementInViewport(el) {
       const rect = el.getBoundingClientRect();
       return (
-        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.top <=
+          (window.innerHeight || document.documentElement.clientHeight) &&
         rect.bottom >= 0
       );
     }

@@ -3,23 +3,20 @@ import myself from "../assets/images/Cartoonify.svg";
 import myself3 from "../assets/images/myself.jpg";
 // import { age } from "../scripts/age.js";
 
+let date_now = new Date();
+let date_birthday = new Date("1986-04-30");
+let age = date_now.getFullYear() - date_birthday.getFullYear();
 
-  let date_now = new Date();
-  let date_birthday = new Date("1986-04-30");
-  let age = date_now.getFullYear() - date_birthday.getFullYear();
+// Überprüfe, ob der Geburtstag in diesem Jahr bereits war
+const hasHadBirthdayThisYear =
+  date_now.getMonth() > date_birthday.getMonth() ||
+  (date_now.getMonth() === date_birthday.getMonth() &&
+    date_now.getDate() >= date_birthday.getDate());
 
-
-
-  // Überprüfe, ob der Geburtstag in diesem Jahr bereits war
-  const hasHadBirthdayThisYear =
-    date_now.getMonth() > date_birthday.getMonth() ||
-    (date_now.getMonth() === date_birthday.getMonth() &&
-      date_now.getDate() >= date_birthday.getDate());
-
-  // Wenn der Geburtstag noch nicht war, ziehe 1 Jahr ab
-  if (!hasHadBirthdayThisYear) {
-    age--;
-  }  
+// Wenn der Geburtstag noch nicht war, ziehe 1 Jahr ab
+if (!hasHadBirthdayThisYear) {
+  age--;
+}
 ---
 
 <div class="wrap sm:flex-col rounded-lg offscreen relative">
@@ -55,15 +52,16 @@ import myself3 from "../assets/images/myself.jpg";
 
         <div class="language-content active" id="content-en">
           <p class="p-6">
-            Hello! <br />I'm Colin, a {age}-year-old passionate web developer.
-            Since my youth, I've been a true PC nerd with a strong affinity for
-            technology. <br />Besides my work as a web developer, I'm also an
-            avid gamer and love spending my free time on challenging games.
+            Hello! <br />
+            I'm Colin, a {age}-year-old passionate web developer. Since my
+            youth, I've been a true PC nerd with a strong affinity for
+            technology. Besides my work as a web developer, I'm also an avid
+            gamer who loves spending my free time on challenging games.
             Additionally, I have a special passion for bonsai art, which helps
-            me bring calm and balance to my daily life. With my diverse
+            me find calm and balance in my daily life. With my diverse
             experience and wide-ranging interests, I bring creative and
             functional solutions to my projects. Whether it's developing a
-            user-friendly website or solving complex technical challenges, I am
+            user-friendly website or tackling complex technical challenges – I'm
             always motivated to achieve the best results and help my clients
             reach their goals.
           </p>
@@ -72,16 +70,19 @@ import myself3 from "../assets/images/myself.jpg";
         <div class="language-content" id="content-de">
           <p class="p-6">
             Hallo! <br />
-            Ich bin Colin, ein leidenschaftlicher Webentwickler. Seit meiner Jugend
-            ein PC-Nerd mit einer Affinität für Technologie. Neben meiner Arbeit
-            als Webentwickler bin ich auch ein begeisterter Gamer und verbringe gerne
-            Freizeit mit anspruchsvollen Spielen. Zusätzlich habe ich eine Leidenschaft
-            für die Bonsai-Kunst, die mir hilft, Ausgleich in den Alltag zu bringen.
-            Mit meiner vielfältigen Erfahrung und meinen breitgefächerten Interessen
-            bringe ich kreative und funktionale Lösungen in Projekte ein. Egal ob
-            es darum geht, eine benutzerfreundliche Webseite zu entwickeln oder komplexe
-            technische Herausforderungen zu lösen, ich bin immer motiviert, die besten
-            Ergebnisse zu erzielen und meinen Kunden zu helfen, ihre Ziele zu erreichen.
+            Ich bin Colin, ein {age}-jähriger leidenschaftlicher Webentwickler.
+            Seit meiner Jugend bin ich ein echter PC-Nerd mit einer starken
+            Affinität für Technologie. Neben meiner Arbeit als Webentwickler bin
+            ich auch ein begeisterter Gamer und verbringe gerne meine Freizeit
+            mit anspruchsvollen Spielen. Zusätzlich habe ich eine besondere
+            Leidenschaft für die Bonsai-Kunst, die mir hilft, Ruhe und Ausgleich
+            in meinen Alltag zu bringen. Mit meiner vielfältigen Erfahrung und
+            meinen breitgefächerten Interessen bringe ich kreative und
+            funktionale Lösungen in meine Projekte ein. Egal ob es darum geht,
+            eine benutzerfreundliche Webseite zu entwickeln oder komplexe
+            technische Herausforderungen zu lösen – ich bin immer motiviert, die
+            besten Ergebnisse zu erzielen und meinen Kunden zu helfen, ihre
+            Ziele zu erreichen.
           </p>
         </div>
       </div>
@@ -132,8 +133,6 @@ import myself3 from "../assets/images/myself.jpg";
       });
     });
   });
-
-
 </script>
 
 <style>
@@ -250,7 +249,7 @@ import myself3 from "../assets/images/myself.jpg";
   }
   .content-header2 {
     background-color: var(--bg-secondary);
-    padding: 1rem;
+    padding: .5rem;
     text-align: center;
     font-size: 1.5rem;
     transition: all 0.3s ease;
@@ -266,7 +265,7 @@ import myself3 from "../assets/images/myself.jpg";
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
   }
 
   .skill-item {

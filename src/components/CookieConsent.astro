@@ -7,7 +7,10 @@
   <div class="overlay-message">
     <i class="fa-solid fa-cookie-bite fa-2x"></i>
     <h2>Bitte Cookie-Einstellungen wählen</h2>
-    <p>Um fortzufahren, treffen Sie bitte eine Auswahl bezüglich der Cookie-Einstellungen.</p>
+    <p>
+      Um fortzufahren, treffen Sie bitte eine Auswahl bezüglich der
+      Cookie-Einstellungen.
+    </p>
   </div>
 </div>
 
@@ -21,20 +24,24 @@
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-      
+
       <p>
-        Diese Website verwendet Google Analytics, um die Nutzererfahrung zu verbessern.
-        Weitere Informationen finden Sie in unserer
+        Diese Website verwendet Google Analytics, um die Nutzererfahrung zu
+        verbessern. Weitere Informationen finden Sie in unserer
         <a href="/datenschutz">Datenschutzerklärung</a>.
       </p>
-      
+
       <div class="cookie-actions simple-actions">
-        <button id="accept-all-cookies" class="btn-primary">Alle akzeptieren</button>
-        <button id="only-essential-cookies" class="btn-text">Nur notwendige</button>
+        <button id="accept-all-cookies" class="btn-primary"
+          >Alle akzeptieren</button
+        >
+        <button id="only-essential-cookies" class="btn-text"
+          >Nur notwendige</button
+        >
         <button id="show-settings" class="btn-secondary">Einstellungen</button>
       </div>
     </div>
-    
+
     <!-- Cookie-Banner mit erweiterter Ansicht -->
     <div id="advanced-view" class="cookie-view">
       <div class="cookie-header">
@@ -43,29 +50,35 @@
           <i class="fa-solid fa-arrow-left"></i>
         </button>
       </div>
-      
+
       <p>
-        Hier können Sie entscheiden, welche Cookies Sie zulassen möchten. 
+        Hier können Sie entscheiden, welche Cookies Sie zulassen möchten.
         Notwendige Cookies sind für die Funktionalität der Website erforderlich.
       </p>
-      
+
       <div class="consent-options">
         <div class="option">
           <input type="checkbox" id="essential-cookies" checked disabled />
-          <label for="essential-cookies">Notwendige Cookies <span>(immer aktiv)</span></label>
+          <label for="essential-cookies"
+            >Notwendige Cookies <span>(immer aktiv)</span></label
+          >
         </div>
-        
+
         <div class="option">
           <input type="checkbox" id="analytics-cookies" />
-          <label for="analytics-cookies">Analyse-Cookies <span>(Google Analytics)</span></label>
+          <label for="analytics-cookies"
+            >Analyse-Cookies <span>(Google Analytics)</span></label
+          >
           <div class="option-description">
             Helfen uns zu verstehen, wie Besucher unsere Website nutzen.
           </div>
         </div>
       </div>
-      
+
       <div class="cookie-actions advanced-actions">
-        <button id="save-cookie-settings" class="btn-secondary">Auswahl speichern</button>
+        <button id="save-cookie-settings" class="btn-secondary"
+          >Auswahl speichern</button
+        >
         <button id="reject-all-cookies" class="btn-text">Nur Notwendige</button>
       </div>
     </div>
@@ -90,12 +103,12 @@
     pointer-events: none;
     transition: opacity 0.4s ease;
   }
-  
+
   .cookie-overlay.visible {
     opacity: 1;
     pointer-events: all;
   }
-  
+
   .overlay-message {
     background-color: var(--bg-primary);
     border: 1px solid var(--border);
@@ -106,22 +119,22 @@
     margin: 0 1rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   }
-  
+
   .overlay-message i {
     color: var(--accent);
     margin-bottom: 1rem;
   }
-  
+
   .overlay-message h2 {
-    font-family: 'mono', monospace;
+    font-family: "mono", monospace;
     color: var(--text-titel);
     margin-bottom: 1rem;
     font-size: 1.5rem;
   }
-  
+
   .overlay-message p {
     color: var(--text-primary);
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     line-height: 1.5;
   }
 
@@ -138,45 +151,46 @@
     border-top: 1px solid var(--border);
     transform: translateY(100%);
     transition: transform 0.4s ease-in-out;
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
   }
-  
+
   .cookie-banner.visible {
     transform: translateY(0);
   }
-  
+
   .cookie-content {
     max-width: 800px;
     margin: 0 auto;
     position: relative;
   }
-  
+
   .cookie-view {
     display: none;
     opacity: 0;
     transition: opacity 0.3s ease;
     padding: 1rem;
   }
-  
+
   .cookie-view.active {
     display: block;
     opacity: 1;
   }
-  
+
   .cookie-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
   }
-  
+
   .cookie-header h3 {
     color: var(--text-titel);
     margin: 0;
     font-size: 1.3rem;
   }
-  
-  #cookie-close, #back-to-simple {
+
+  #cookie-close,
+  #back-to-simple {
     background: none;
     border: none;
     color: var(--text-primary);
@@ -185,52 +199,53 @@
     padding: 0.3rem;
     transition: color 0.3s ease;
   }
-  
-  #cookie-close:hover, #back-to_simple:hover {
+
+  #cookie-close:hover,
+  #back-to_simple:hover {
     color: var(--accent);
   }
-  
+
   .cookie-banner p {
     margin-bottom: 1.2rem;
     line-height: 1.5;
     color: var(--text-primary);
   }
-  
+
   .cookie-banner a {
     color: var(--accent);
     text-decoration: underline;
   }
-  
+
   .consent-options {
     margin-bottom: 1.5rem;
   }
-  
+
   .option {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     margin-bottom: 0.8rem;
   }
-  
+
   .option input {
     margin-right: 0.8rem;
     accent-color: var(--accent);
     width: 1.2rem;
     height: 1.2rem;
   }
-  
+
   .option label {
     font-weight: 500;
     color: var(--text-primary);
   }
-  
+
   .option label span {
     font-weight: normal;
     font-size: 0.9rem;
     color: var(--text-secondary);
     margin-left: 0.3rem;
   }
-  
+
   .option-description {
     padding-left: 2rem;
     width: 100%;
@@ -238,22 +253,22 @@
     font-size: 0.85rem;
     color: var(--text-secondary);
   }
-  
+
   .cookie-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     margin-top: 1rem;
   }
-  
+
   .simple-actions {
     justify-content: center;
   }
-  
+
   .advanced-actions {
     justify-content: space-between;
   }
-  
+
   .btn-primary {
     background-color: var(--accent);
     color: white;
@@ -264,11 +279,11 @@
     font-weight: 500;
     transition: background-color 0.3s;
   }
-  
+
   .btn-primary:hover {
     background-color: var(--accent-dark, #e94c30);
   }
-  
+
   .btn-secondary {
     background-color: var(--bg-secondary);
     color: var(--text-titel);
@@ -279,12 +294,12 @@
     font-weight: 500;
     transition: all 0.3s;
   }
-  
+
   .btn-secondary:hover {
     background-color: var(--bg-tertiary);
     color: var(--accent);
   }
-  
+
   .btn-text {
     background: none;
     color: var(--text-secondary);
@@ -294,12 +309,12 @@
     font-weight: 500;
     transition: color 0.3s;
   }
-  
+
   .btn-text:hover {
     color: var(--accent);
     text-decoration: underline;
   }
-  
+
   @media (max-width: 768px) {
     /* Cookie-Overlay auf mobilen Geräten anpassen */
     .cookie-overlay {
@@ -324,16 +339,18 @@
       max-width: 420px;
       border-radius: 16px;
       padding: 1.5rem;
-      box-shadow: 
-        0 20px 50px rgba(0,0,0,0.5),
-        0 10px 20px rgba(0,0,0,0.3);
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.5),
+        0 10px 20px rgba(0, 0, 0, 0.3);
       background-color: var(--bg-primary);
       z-index: 9999;
       max-height: 85vh;
       overflow-y: auto;
       border: 1px solid var(--border);
       /* Entferne die Standard-Transform-Animation für mobile */
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
     }
 
     /* Initialer Zustand für mobile Animation */
@@ -349,7 +366,7 @@
       transform: translate(-50%, -50%) scale(1) !important;
       pointer-events: all;
     }
-    
+
     .cookie-content {
       padding: 0.5rem;
       max-width: 100%;
@@ -375,7 +392,9 @@
       margin-top: 1.5rem;
     }
 
-    .btn-primary, .btn-secondary, .btn-text {
+    .btn-primary,
+    .btn-secondary,
+    .btn-text {
       width: 100%;
       padding: 0.9rem 1.2rem;
       font-size: 0.95rem;
@@ -438,52 +457,62 @@
 </style>
 
 <script lang="js">
+  document.addEventListener("DOMContentLoaded", () => {
+    const cookieBanner = document.getElementById("cookie-consent");
+    const cookieOverlay = document.getElementById("cookie-overlay");
+    const acceptAllBtn = document.getElementById("accept-all-cookies");
+    const onlyEssentialBtn = document.getElementById("only-essential-cookies");
+    const saveSettingsBtn = document.getElementById("save-cookie-settings");
+    const rejectAllBtn = document.getElementById("reject-all-cookies");
+    const closeBtn = document.getElementById("cookie-close");
+    const showSettingsBtn = document.getElementById("show-settings");
+    const backToSimpleBtn = document.getElementById("back-to-simple");
+    const simpleView = document.getElementById("simple-view");
+    const advancedView = document.getElementById("advanced-view");
+    const analyticsCheckbox = document.getElementById("analytics-cookies");
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const cookieBanner = document.getElementById('cookie-consent');
-    const cookieOverlay = document.getElementById('cookie-overlay');
-    const acceptAllBtn = document.getElementById('accept-all-cookies');
-    const onlyEssentialBtn = document.getElementById('only-essential-cookies');
-    const saveSettingsBtn = document.getElementById('save-cookie-settings');
-    const rejectAllBtn = document.getElementById('reject-all-cookies');
-    const closeBtn = document.getElementById('cookie-close');
-    const showSettingsBtn = document.getElementById('show-settings');
-    const backToSimpleBtn = document.getElementById('back-to-simple');
-    const simpleView = document.getElementById('simple-view');
-    const advancedView = document.getElementById('advanced-view');
-    const analyticsCheckbox = document.getElementById('analytics-cookies');
-    
     // Null-Check für DOM-Elemente
-    if (!cookieBanner || !cookieOverlay || !acceptAllBtn || !onlyEssentialBtn || !saveSettingsBtn || !rejectAllBtn || 
-        !closeBtn || !analyticsCheckbox || !showSettingsBtn || 
-        !backToSimpleBtn || !simpleView || !advancedView) {
-      console.error('Cookie-Banner-Elemente konnten nicht gefunden werden');
+    if (
+      !cookieBanner ||
+      !cookieOverlay ||
+      !acceptAllBtn ||
+      !onlyEssentialBtn ||
+      !saveSettingsBtn ||
+      !rejectAllBtn ||
+      !closeBtn ||
+      !analyticsCheckbox ||
+      !showSettingsBtn ||
+      !backToSimpleBtn ||
+      !simpleView ||
+      !advancedView
+    ) {
+      console.error("Cookie-Banner-Elemente konnten nicht gefunden werden");
       return;
     }
-    
+
     // Wechsel zwischen einfacher und erweiterter Ansicht
-    showSettingsBtn.addEventListener('click', () => {
-      simpleView.classList.remove('active');
-      advancedView.classList.add('active');
+    showSettingsBtn.addEventListener("click", () => {
+      simpleView.classList.remove("active");
+      advancedView.classList.add("active");
     });
-    
-    backToSimpleBtn.addEventListener('click', () => {
-      advancedView.classList.remove('active');
-      simpleView.classList.add('active');
+
+    backToSimpleBtn.addEventListener("click", () => {
+      advancedView.classList.remove("active");
+      simpleView.classList.add("active");
     });
-    
+
     // Cookie-Banner und Overlay anzeigen, wenn keine Einstellungen gespeichert sind
-    const consentSaved = localStorage.getItem('cookie-consent');
+    const consentSaved = localStorage.getItem("cookie-consent");
     if (!consentSaved) {
       setTimeout(() => {
         // Sicherstellen, dass die Elemente existieren, bevor wir sie nutzen
         if (cookieBanner) {
-          cookieBanner.classList.add('visible');
-          
+          cookieBanner.classList.add("visible");
+
           // Overlay nur auf Desktop anzeigen
           const isMobile = window.matchMedia("(max-width: 768px)").matches;
           if (!isMobile && cookieOverlay) {
-            cookieOverlay.classList.add('visible');
+            cookieOverlay.classList.add("visible");
           }
         }
       }, 800); // Verzögerung, damit Benutzer zuerst die Seite sehen können
@@ -495,108 +524,104 @@
           initializeAnalytics();
         }
       } catch (e) {
-        console.error('Fehler beim Parsen der Cookie-Einstellungen:', e);
+        console.error("Fehler beim Parsen der Cookie-Einstellungen:", e);
       }
     }
-    
+
     // Funktion zum Schließen des Banners und Entfernen des Overlays
     function hideBannerAndOverlay() {
       // Null-Check hinzugefügt, um sicherzustellen, dass die Elemente existieren
       if (cookieBanner) {
-        cookieBanner.classList.remove('visible');
+        cookieBanner.classList.remove("visible");
       }
-      
+
       // Overlay nur entfernen wenn es existiert (auf Desktop)
       const isMobile = window.matchMedia("(max-width: 768px)").matches;
       if (!isMobile && cookieOverlay) {
-        cookieOverlay.classList.remove('visible');
+        cookieOverlay.classList.remove("visible");
       }
     }
-    
+
     // Event-Handler für alle Buttons
-    acceptAllBtn.addEventListener('click', (e) => {
+    acceptAllBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log('Alle Cookies akzeptiert');
       saveConsent(true);
       hideBannerAndOverlay();
       initializeAnalytics();
     });
-    
-    onlyEssentialBtn.addEventListener('click', (e) => {
+
+    onlyEssentialBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log('Nur notwendige Cookies akzeptiert');
       saveConsent(false);
       hideBannerAndOverlay();
     });
-    
-    saveSettingsBtn.addEventListener('click', (e) => {
+
+    saveSettingsBtn.addEventListener("click", (e) => {
       e.preventDefault();
       const analyticsEnabled = analyticsCheckbox.checked;
-      console.log('Cookie-Einstellungen gespeichert:', analyticsEnabled);
       saveConsent(analyticsEnabled);
       hideBannerAndOverlay();
-      
+
       if (analyticsEnabled) {
         initializeAnalytics();
       }
     });
-    
-    rejectAllBtn.addEventListener('click', (e) => {
+
+    rejectAllBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log('Alle Cookies abgelehnt');
       saveConsent(false);
       hideBannerAndOverlay();
     });
-    
+
     // Das Schließen-X entfernen, da der Benutzer eine Entscheidung treffen muss
-    closeBtn.style.display = 'none';
-    
+    closeBtn.style.display = "none";
+
     // Funktionen zum Speichern der Einwilligung und Initialisieren von Analytics
-    function saveConsent(analyticsEnabled){
+    function saveConsent(analyticsEnabled) {
       const consentData = {
         essential: true,
         analytics: analyticsEnabled,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
-      localStorage.setItem('cookie-consent', JSON.stringify(consentData));
+      localStorage.setItem("cookie-consent", JSON.stringify(consentData));
     }
-    
-    function initializeAnalytics(){
+
+    function initializeAnalytics() {
       // Sicherstellen, dass dataLayer existiert
       if (!window.dataLayer) {
         window.dataLayer = [];
       }
-      
+
       // Funktion zur Ausführung von GA4-Befehlen definieren
-      window.gtag = function() {
+      window.gtag = function () {
         window.dataLayer.push(arguments);
       };
-      
+
       // GA4 initialisieren
-      window.gtag('js', new Date());
-      
+      window.gtag("js", new Date());
+
       // Cookiearme Konfiguration
-      window.gtag('config', 'G-DPXY96XYN3', {
-        'anonymize_ip': true,
-        'cookie_flags': 'SameSite=None;Secure',
-        'cookie_expires': 28 * 24 * 60 * 60, // 28 Tage in Sekunden
-        'client_storage': 'none', // Für cookielose Implementierung
-        'allow_google_signals': false,
-        'allow_ad_personalization_signals': false
+      window.gtag("config", "G-DPXY96XYN3", {
+        anonymize_ip: true,
+        cookie_flags: "SameSite=None;Secure",
+        cookie_expires: 28 * 24 * 60 * 60, // 28 Tage in Sekunden
+        client_storage: "none", // Für cookielose Implementierung
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
       });
-      
+
       // Google Tag Manager (falls verwendet)
       if (!window.gtmDidInit) {
         window.gtmDidInit = true;
-        const scriptGTM = document.createElement('script');
-        scriptGTM.type = 'text/javascript';
+        const scriptGTM = document.createElement("script");
+        scriptGTM.type = "text/javascript";
         scriptGTM.async = true;
         scriptGTM.src = `https://www.googletagmanager.com/gtm.js?id=GTM-WFG6LFSX`;
         document.head.appendChild(scriptGTM);
       }
-      
+
       // GA4 Script laden
-      const scriptGA = document.createElement('script');
+      const scriptGA = document.createElement("script");
       scriptGA.async = true;
       scriptGA.src = `https://www.googletagmanager.com/gtag/js?id=G-DPXY96XYN3`;
       document.head.appendChild(scriptGA);

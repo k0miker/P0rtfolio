@@ -41,8 +41,6 @@ class PerformanceMonitor {
     document.body.setAttribute('data-performance', isLowPerformance ? 'low' : 'high');
     localStorage.setItem('performance-mode', isLowPerformance ? 'low' : 'high');
     
-    console.log(`Performance mode set to: ${isLowPerformance ? 'low' : 'high'}`);
-    
     this.notifyListeners();
   }
   
@@ -97,7 +95,6 @@ const performanceMonitor = new PerformanceMonitor();
 // Globale Debug-Funktion zur manuellen Steuerung
 window.togglePerformance = () => {
   const isLow = performanceMonitor.togglePerformanceMode();
-  console.log(`Performance mode toggled to: ${isLow ? 'low' : 'high'}`);
   return isLow ? 'Low Performance Mode' : 'High Performance Mode';
 };
 
