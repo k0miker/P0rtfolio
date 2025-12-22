@@ -8,17 +8,18 @@ import p10 from "../assets/images/p10-2.gif";
 import p11 from "../assets/images/p11.gif";
 import p12 from "../assets/images/p12.png";
 import p13 from "../assets/images/p13.png";
+import p14 from "../assets/images/p14.png";
 
 export const projects = [
   {
     id: "1",
     title: "Bonsai World",
     description: 
-       "A website for bonsai enthusiasts with modern design and user-friendly navigation.",
+       "Die erste Website, die ich erstellt habe - für Bonsai-Enthusiasten mit modernem Design.",
     technologies: ["HTML", "CSS", "JavaScript"],
     image: "p1",
-    modalDescriptionDe: "Mein erstes reines HTML/CSS-Projekt ohne Baukasten oder Frameworks. Im Rahmen des DCI Kurses entstanden, konnte ich hierbei meine Leidenschaft für die Bonsai-Kunst zum Ausdruck bringen. Das Projekt hat mir geholfen, grundlegende Webentwicklungsprinzipien zu verstehen und meine Coding-Fähigkeiten zu verbessern.",
-    modalDescriptionEn: "My first pure HTML/CSS project without any builders or frameworks. Created during the DCI course, I was able to express my passion for the art of bonsai. This project helped me understand basic web development principles and improve my coding skills.",
+    modalDescriptionDe: "Die allererste Website, die ich komplett selbst erstellt habe! Ein reines HTML/CSS-Projekt ohne Baukasten oder Frameworks. Im Rahmen des DCI Kurses entstanden, konnte ich hierbei meine Leidenschaft für die Bonsai-Kunst zum Ausdruck bringen. Das Projekt hat mir geholfen, grundlegende Webentwicklungsprinzipien zu verstehen und meine Coding-Fähigkeiten zu verbessern.",
+    modalDescriptionEn: "The very first website I ever created completely by myself! A pure HTML/CSS project without any builders or frameworks. Created during the DCI course, I was able to express my passion for the art of bonsai. This project helped me understand basic web development principles and improve my coding skills.",
     website: "https://bonsaiworld.netlify.app/",
     github: "https://github.com/k0miker/bonsaiworld",
     iframe: true,
@@ -67,21 +68,21 @@ export const projects = [
     category: "Business",
     badges: ["Astro", "Typo3","Business"]
   },
-  {
-    id: "7",
-    title: "Starfield canvas",
-    description: "A small canvas excurse witch let to this",
-    image: "p7",
-    technologies: ["Canvas", "Animation"],
-    modalDescriptionDe: "Eine faszinierende Erkundung der Canvas-API, die zu dieser hypnotisierenden Animation führte. Nutze die Tasten W und S, um zu beschleunigen und zu verlangsamen, und drücke Num+, um die Anzahl der Sterne zu erhöhen. Dieses Projekt war ein wichtiger Schritt beim Erlernen von Echtzeit-Animationen und interaktiven Elementen und hat mein Verständnis für die leistungsfähigen grafischen Fähigkeiten moderner Browser vertieft.",
-    modalDescriptionEn: "A fascinating exploration of the Canvas API, which led to this hypnotic animation. Use the W and S keys to accelerate and decelerate, and press Num+ to increase the number of stars. This project was an important step in learning real-time animations and interactive elements and deepened my understanding of the powerful graphical capabilities of modern browsers.",
-    website: "https://starfield-cb.netlify.app/",
-    github: "https://github.com/k0miker/",
-    codepen: "https://codepen.io/k0miker/pen/wvLoevE",
-    iframe: false,
-    category: "Animation",
-    badges: ["Canvas"]
-  },
+  // {
+  //   id: "7",
+  //   title: "Starfield canvas",
+  //   description: "A small canvas excurse witch let to this",
+  //   image: "p7",
+  //   technologies: ["Canvas", "Animation"],
+  //   modalDescriptionDe: "Eine faszinierende Erkundung der Canvas-API, die zu dieser hypnotisierenden Animation führte. Nutze die Tasten W und S, um zu beschleunigen und zu verlangsamen, und drücke Num+, um die Anzahl der Sterne zu erhöhen. Dieses Projekt war ein wichtiger Schritt beim Erlernen von Echtzeit-Animationen und interaktiven Elementen und hat mein Verständnis für die leistungsfähigen grafischen Fähigkeiten moderner Browser vertieft.",
+  //   modalDescriptionEn: "A fascinating exploration of the Canvas API, which led to this hypnotic animation. Use the W and S keys to accelerate and decelerate, and press Num+ to increase the number of stars. This project was an important step in learning real-time animations and interactive elements and deepened my understanding of the powerful graphical capabilities of modern browsers.",
+  //   website: "https://starfield-cb.netlify.app/",
+  //   github: "https://github.com/k0miker/",
+  //   codepen: "https://codepen.io/k0miker/pen/wvLoevE",
+  //   iframe: false,
+  //   category: "Animation",
+  //   badges: ["Canvas"]
+  // },
   {
     id: "8",
     title: "Starfieldclash",
@@ -173,5 +174,20 @@ export const projects = [
     iframeUrl: "https://www.pizzeria-la-bellezza.de",
     category: "Restaurant",
     badges: ["Astro", "Restaurant", "Business", "Professional"]
+  },
+  {
+    id: "14",
+    title: "Grumbach Entsorgung",
+    description: "Professionelle Website für ein Entsorgungsunternehmen mit umfassenden Serviceinformationen",
+    image: "p14",
+    technologies: ["Astro", "CSS", "JavaScript", "Business"],
+    modalDescriptionDe: "Eine professionelle Website für das Entsorgungsunternehmen Grumbach, die im Rahmen meiner Selbstständigkeit entwickelt wurde. Die Seite präsentiert das umfassende Dienstleistungsspektrum des Unternehmens, von Containerservice über Schrottentsorgung bis hin zu Abriss- und Erdarbeiten. Das klare, moderne Design vermittelt Professionalität und Zuverlässigkeit. Die Website bietet eine intuitive Navigation mit detaillierten Informationen zu allen Services, Kontaktmöglichkeiten und Standortinformationen. Vollständig responsiv und optimiert für alle Endgeräte.",
+    modalDescriptionEn: "A professional website for the waste disposal company Grumbach, developed as part of my freelance work. The site presents the company's comprehensive range of services, from container services and scrap disposal to demolition and earthworks. The clear, modern design conveys professionalism and reliability. The website offers intuitive navigation with detailed information about all services, contact options, and location information. Fully responsive and optimized for all devices.",
+    website: "https://grumbach-demo.netlify.app",
+    github: null,
+    iframe: true,
+    iframeUrl: "https://grumbach-demo.netlify.app",
+    category: "Business",
+    badges: ["Astro", "Business", "Professional", "Responsive Design", "Freelance"]
   }
 ];
