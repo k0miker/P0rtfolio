@@ -173,7 +173,7 @@ export const projects = [
     iframe: true,
     iframeUrl: "https://www.pizzeria-la-bellezza.de",
     category: "Restaurant",
-    badges: ["Astro", "Restaurant", "Business", "Professional"]
+    badges: ["Astro", "Restaurant", "Business", "Responsive Design"]
   },
   {
     id: "14",
@@ -188,6 +188,6 @@ export const projects = [
     iframe: true,
     iframeUrl: "https://grumbach-demo.netlify.app",
     category: "Business",
-    badges: ["Astro", "Business", "Professional", "Responsive Design", "Freelance"]
+    badges: ["Astro", "Business", "Responsive Design", "Freelance"]
   }
 ];
