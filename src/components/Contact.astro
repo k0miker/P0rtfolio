@@ -96,20 +96,16 @@ import contactBg from "../assets/images/contact.webp";
     justify-content: center;
     min-height: 95vh;
     padding: 5vw;
-    background-size: cover;
+    background-size: cover !important;
     box-shadow: inset 0px -2vh 10vw 10px var(--shadow-strong);
-    background-attachment: fixed;
-    transition: animation-play-state 0.3s;
+    background-attachment: fixed !important;
+    background-position: center !important;
   }
 
   @media (max-width: 768px) {
     section {
       padding: 2rem 1rem;
     }
-  }
-
-  section.animate {
-    animation: slidein linear 25s infinite alternate;
   }
 
   section.static-background {
@@ -289,28 +285,6 @@ import contactBg from "../assets/images/contact.webp";
   100% {
     background-color: #33333391;
   }
-}
-
-/* Stil für deaktivierte Animationen */
-#contact-background.no-animation {
-  animation: none !important;
-  transition: none !important;
-}
-
-:global([data-performance="low"]) #contact-section {
-  background-attachment: scroll !important;
- 
-}
-
-/* Performance-bezogene Styles - überarbeitete und verstärkte Version */
-:global([data-performance="low"]) section,
-:global([data-performance="low"]) #contact-section,
-:global(body[data-performance="low"]) section,
-:global(body[data-performance="low"]) #contact-section {
-  animation: none !important;
-  background-attachment: scroll !important;
-  background-position: center center !important;
-  background-size: cover !important;
 }
 
 /* Direkte Kontaktmöglichkeiten */
@@ -507,64 +481,6 @@ import contactBg from "../assets/images/contact.webp";
     }
   });
 
-  // Animation nur starten, wenn Sektion im Viewport ist
-  document.addEventListener("DOMContentLoaded", () => {
-    const contactSection = document.getElementById("contact-section");
-    if (!contactSection) return;
-    
-    // Funktion zum Aktualisieren des Animationsstatus
-    function updateAnimation(isLowPerformance) {
-      if (isLowPerformance) {
-        console.log("Deaktiviere Contact-Animation (Low-Performance)");
-        contactSection.classList.remove("animate");
-        contactSection.classList.add("static-background");
-        contactSection.style.backgroundAttachment = "scroll";
-        contactSection.style.backgroundPosition = "center center";
-      } else {
-        console.log("Aktiviere Contact-Animation (High-Performance)");
-        contactSection.classList.remove("static-background");
-        contactSection.style.backgroundAttachment = "fixed";
-        
-        // Nur aktivieren, wenn im Viewport
-        if (isElementInViewport(contactSection)) {
-          contactSection.classList.add("animate");
-        }
-      }
-    }
-    
-    // Performance-Monitor für Animationssteuerung laden
-    import('../utils/performanceMonitor.js').then(({ performanceMonitor }) => {
-      performanceMonitor.addListener(updateAnimation);
-    }).catch(err => console.error("Fehler beim Laden des Performance-Monitors:", err));
-    
-    // Sichtbarkeits-Observer für verzögerte Animation
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        // Performance-Modus bei jedem Intersect-Event neu prüfen
-        const currentMode = document.body.getAttribute('data-performance') || 
-                          document.documentElement.getAttribute('data-performance') || 'high';
-        
-        if (entry.isIntersecting && currentMode !== 'low') {
-          console.log("Contact-Sektion sichtbar, aktiviere Animation");
-          entry.target.classList.add("animate");
-        } else {
-          entry.target.classList.remove("animate");
-        }
-      });
-    }, { threshold: 0.1 });
-    
-    observer.observe(contactSection);
-    
-    // Hilfsfunktion zur Prüfung, ob Element im Viewport ist
-    function isElementInViewport(el) {
-      const rect = el.getBoundingClientRect();
-      return (
-        rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.bottom >= 0
-      );
-    }
-  });
-  
   document.addEventListener("DOMContentLoaded", () => {
     // Kontaktoptionen Interaktivität
     const contactOptions = document.querySelectorAll('.contact-option');

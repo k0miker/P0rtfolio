@@ -93,11 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   const animatables = [
     ...document.querySelectorAll(".offscreen"),
-    ...document.querySelectorAll(".animate-on-scroll"),
-    document.getElementById("home-section"),
-    document.getElementById("skills"),
-    document.getElementById("contact-section"),
-    document.getElementById("projects")
+    ...document.querySelectorAll(".animate-on-scroll")
   ].filter(el => el !== null);
   
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

@@ -7,7 +7,7 @@ import "../css/darkmode.css";
   <div class="footer-content">
     <!-- Adaptiver Scroll-Button, der sich je nach Position ändert -->
     <div class="scroll-button">
-      <a href="#contact" id="scroll-action" class="">
+      <a href="#contact" id="scroll-action" class="scrollbutton">
         <div id="scroll-text">/down</div>
         <div id="scroll-icon"><i class="fa-solid fa-arrow-down"></i></div>
       </a>
@@ -175,7 +175,7 @@ import "../css/darkmode.css";
     font-size: 1rem;
     transition: all 0.3s ease;
   }
-  
+
   .contact-button:hover {
    color: var(--text-titel);
     background-color: var(--bg-secondary);
@@ -284,12 +284,13 @@ import "../css/darkmode.css";
     justify-content: center;
     z-index: 10;
     position: absolute;
-    top: -30px;
+    top: -40px;
     left: 50%;
     transform: translateX(-50%);
     transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    
   }
-  
+ 
   .footer.expanded .scroll-button {
     top: -30px;
     transform: translateX(-50%) scale(1.1);
@@ -312,7 +313,7 @@ import "../css/darkmode.css";
     cursor: pointer;
     transition: all .3s;
     flex-direction: column;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px 20px;
   }
 
   .scroll-button a div {

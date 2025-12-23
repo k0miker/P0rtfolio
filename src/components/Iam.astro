@@ -74,15 +74,11 @@ import inkBg from "../assets/images/ink_2.png";
   }
 
   .bg-container {
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    transition: animation-play-state 0.3s;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-position: center !important;
     min-height: 100vh;
-  }
-
-  .bg-container.animate {
-    animation: slidein linear 25s infinite alternate;
   }
 
   .console-container {
@@ -136,15 +132,6 @@ import inkBg from "../assets/images/ink_2.png";
     left: 10px;
     z-index: 3;
     text-shadow: 0 0 10px rgba(255, 99, 71, 0.7); /* Glow-Effekt für den Cursor */
-  }
-
-  /* Performance-bezogene Styles - überarbeitete Version */
-  :global([data-performance="low"]) .bg-container,
-  :global(body[data-performance="low"]) #home-section {
-    animation: none !important;
-    background-attachment: scroll !important;
-    background-position: center center !important;
-    background-size: cover !important;
   }
 
   /* Responsive Anpassungen für verschiedene Bildschirmgrößen */
@@ -223,64 +210,4 @@ import inkBg from "../assets/images/ink_2.png";
       }
     }, 80);
   }
-
-  // Animation nur starten, wenn Sektion im Viewport ist und Performance-Modus es erlaubt
-  document.addEventListener("DOMContentLoaded", () => {
-    const homeSection = document.getElementById("home-section");
-    if (!homeSection) return;
-
-    // Prüfen, ob Animationen deaktiviert werden sollen
-    function updateAnimation(isLowPerformance) {
-      if (isLowPerformance) {
-        homeSection.classList.remove("animate");
-        homeSection.style.backgroundAttachment = "scroll";
-        homeSection.style.backgroundPosition = "center center";
-      } else {
-        // Nur aktivieren, wenn sichtbar
-        if (isElementInViewport(homeSection)) {
-          homeSection.classList.add("animate");
-          homeSection.style.backgroundAttachment = "fixed";
-        }
-      }
-    }
-
-    // Performance-Monitor für Animationssteuerung
-    import("../utils/performanceMonitor.js")
-      .then(({ performanceMonitor }) => {
-        performanceMonitor.addListener(updateAnimation);
-      })
-      .catch((err) =>
-        console.error("Fehler beim Laden des Performance-Monitors:", err),
-      );
-
-    // Sichtbarkeits-Observer für verzögerte Animation
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // Nur animieren wenn High-Performance AND sichtbar
-          const currentMode =
-            document.documentElement.getAttribute("data-performance") || "high";
-
-          if (entry.isIntersecting && currentMode !== "low") {
-            entry.target.classList.add("animate");
-          } else {
-            entry.target.classList.remove("animate");
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    observer.observe(homeSection);
-
-    // Hilfsfunktion zur Prüfung, ob Element im Viewport ist
-    function isElementInViewport(el) {
-      const rect = el.getBoundingClientRect();
-      return (
-        rect.top <=
-          (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.bottom >= 0
-      );
-    }
-  });
 </script>

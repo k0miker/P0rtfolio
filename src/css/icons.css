@@ -39,6 +39,7 @@
 .fa-gauge-high::before { content: "\f625"; }
 .fa-cookie-bite::before { content: "\f564"; }
 .fa-xmark::before { content: "\f00d"; }
+.fa-rocket::before { content: "\f135"; }
 
 /* Verwendete Brand Icons */
 .fa-facebook-f::before { content: "\f39e"; }
