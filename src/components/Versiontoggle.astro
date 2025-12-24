@@ -1,0 +1,160 @@
+---
+import { Image } from 'astro:assets';
+import port1 from "../assets/images/portfolio1.png";
+import port2 from "../assets/images/portfolio2.png";
+import port3 from "../assets/images/portfolio3.png";
+
+const { active = 1 } = Astro.props;
+
+const portfolios = [
+  { id: 1, img: port1, url: "https://colinblome.dev", name: "Version 1  (Aktuell)" },
+  { id: 2, img: port2, url: "https://portfolio2.colinblome.dev", name: "Version 2" },
+  { id: 3, img: port3, url: "https://portfolio3.colinblome.dev", name: "Version 3" },
+];
+---
+
+<!-- Toggle Button -->
+<button
+  id="version-toggle-btn"
+  class="version-toggle"
+  aria-label="Portfolio-Version wählen"
+  title="Portfolio-Version wählen"
+>
+  <span class="font-bold text-lg">V{active}</span>
+</button>
+
+<style>
+  .version-toggle {
+    position: fixed;
+    bottom: 120px;
+    right: 20px;
+    padding: 0.9rem;
+    width: 55px;
+    height: 55px;
+    background-color: var(--bg-secondary);
+    color: var(--accent);
+    transition: all 0.3s ease;
+    text-decoration: none;
+    animation: pulseShadow 5s infinite;
+    z-index: 9990;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    border: none;
+  }
+
+  .version-toggle:hover {
+    box-shadow: 0 0 10px 2px var(--pulse-shadow-mid);
+    color: var(--accent);
+    background-color: var(--bg-secondary);
+    transform: scale(1.1);
+  }
+  
+  @media (max-width: 768px) {
+    .version-toggle {
+      bottom: 125px;
+      right: 15px;
+      padding: 0;
+      width: 45px;
+      height: 45px;
+    }
+  }
+</style>
+
+<!-- Modal Backdrop (Invisible) -->
+<div 
+  id="version-modal-backdrop"
+  class="fixed inset-0 z-[9998] hidden"
+></div>
+
+<!-- Modal -->
+<div 
+  id="version-modal"
+  class="fixed bottom-40 right-8 z-[9999] w-72 bg-white rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ease-out transform origin-bottom-right scale-95 opacity-0 translate-x-8 pointer-events-none"
+>
+  <div class="p-4 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
+      <h3 class="font-bold text-gray-700 text-sm uppercase tracking-wider">Version wählen</h3>
+      <button 
+      id="version-modal-close"
+      class="text-gray-400 hover:text-gray-600 w-6 h-6 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
+      >
+        &times;
+      </button>
+  </div>
+  
+  <div class="p-2 flex flex-col gap-2">
+    {portfolios.map(p => (
+      <a
+        href={p.url}
+        class:list={[
+          "flex items-center gap-3 p-2 rounded-xl transition-all duration-200",
+          active === p.id 
+            ? "bg-blue-50 border border-blue-100 shadow-sm" 
+            : "hover:bg-gray-50 border border-transparent hover:border-gray-100"
+        ]}
+        title={p.name}
+        aria-current={active === p.id ? "page" : undefined}
+      >
+        <Image
+          src={p.img}
+          alt={p.name}
+          class="w-16 h-16 rounded-lg object-cover shadow-sm bg-gray-100"
+        />
+        <div class="flex-1 min-w-0">
+          <div class="font-semibold text-gray-800 text-sm truncate">{p.name}</div>
+          {active === p.id ? (
+            <div class="text-xs text-blue-600 font-medium flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+              Aktuell
+            </div>
+          ) : (
+            <div class="text-xs text-gray-400 group-hover:text-gray-500">
+              Ansehen
+            </div>
+          )}
+        </div>
+      </a>
+    ))}
+  </div>
+</div>
+
+<script>
+  const btn = document.getElementById('version-toggle-btn');
+  const modal = document.getElementById('version-modal');
+  const backdrop = document.getElementById('version-modal-backdrop');
+  const closeBtn = document.getElementById('version-modal-close');
+  let isOpen = false;
+
+  function toggleModal() {
+    isOpen = !isOpen;
+    updateModalState();
+  }
+
+  function closeModal() {
+    isOpen = false;
+    updateModalState();
+  }
+
+  function updateModalState() {
+    if (isOpen) {
+      modal?.classList.remove('scale-95', 'opacity-0', 'translate-x-8', 'pointer-events-none');
+      modal?.classList.add('scale-100', 'opacity-100', 'translate-x-0');
+      backdrop?.classList.remove('hidden');
+    } else {
+      modal?.classList.add('scale-95', 'opacity-0', 'translate-x-8', 'pointer-events-none');
+      modal?.classList.remove('scale-100', 'opacity-100', 'translate-x-0');
+      backdrop?.classList.add('hidden');
+    }
+  }
+
+  btn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleModal();
+  });
+
+  closeBtn?.addEventListener('click', closeModal);
+  backdrop?.addEventListener('click', closeModal);
+</script>
