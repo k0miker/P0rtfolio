@@ -97,7 +97,7 @@ const portfolios = [
       </button>
   </div>
   
-  <div class="p-2 flex flex-col gap-2">
+  <div class="p-2 flex flex-col gap-2 border border-[var(--accent)] rounded-b-2xl bg-[var(--bg-secondary)]">
     {portfolios.map(p => (
       <a
         href={p.url}
@@ -105,7 +105,7 @@ const portfolios = [
           "flex items-center flex-col gap-3 p-2 rounded-xl transition-all duration-200",
           active === p.id 
             ? "bg-[var(--accent)] border border-[var(--accent)] shadow-sm" 
-            : "hover:bg-gray-50 border border-transparent hover:border-gray-100"
+            : "hover:bg-[var(--accent)] "
         ]}
         title={p.name}
         aria-current={active === p.id ? "page" : undefined}
@@ -113,17 +113,17 @@ const portfolios = [
         <Image
           src={p.img}
           alt={p.name}
-          class="w-64 h-32 rounded-lg object-contain shadow-sm bg-transparent"
+          class="w-64 h-32 rounded-lg object-cover shadow-sm bg-transparent"
         />
-        <div class="flex-1 min-w-0">
-          <div class={`font-semibold ${active === p.id ? "text-gray-300" : "text-red-600"} text-sm truncate`}>{p.name}</div>
+        <div class="flex-1 min-w-0 hover:text-gray-200">
+          <div class={`font-semibold ${active === p.id ? "text-gray-300" : "text-gray-200"} text-sm truncate`}>{p.name}</div>
           {active === p.id ? (
-            <div class="text-xs text-blue-600 font-medium flex items-center gap-1">
+            <div class="text-xs text-blue-800 font-medium flex items-center gap-1">
               <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
               Aktuell
             </div>
           ) : (
-            <div class="text-xs text-gray-400 group-hover:text-gray-500">
+            <div class="text-xs text-gray-200 group-hover:text-gray-100">
               Ansehen
             </div>
           )}

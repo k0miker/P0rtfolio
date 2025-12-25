@@ -9,6 +9,9 @@ import p11 from "../assets/images/p11.gif";
 import p12 from "../assets/images/p12.png";
 import p13 from "../assets/images/p13.png";
 import p14 from "../assets/images/p14.png";
+import port1 from "../assets/images/portfolio1.png";
+import port2 from "../assets/images/portfolio2.png";
+import port3 from "../assets/images/portfolio3.png";
 
 export const projects = [
   {
@@ -189,5 +192,50 @@ export const projects = [
     iframeUrl: "https://grumbach-demo.netlify.app",
     category: "Business",
     badges: ["Astro", "Business", "Responsive Design", "Freelance"]
+  },
+  {
+    id: "15",
+    title: "Portfolio v1 (Aktuell)",
+    description: "Meine aktuelle Haupt-Portfolio-Website mit Fokus auf Performance und klarem Design.",
+    image: "port1",
+    technologies: ["Astro", "Tailwind", "JavaScript"],
+    modalDescriptionDe: "Meine aktuelle Haupt-Portfolio-Website. Entwickelt mit Astro für maximale Performance und Tailwind CSS für ein modernes, responsives Design. Der Fokus liegt auf einer klaren Präsentation meiner Projekte und Fähigkeiten sowie einer schnellen Ladezeit.",
+    modalDescriptionEn: "My current main portfolio website. Developed with Astro for maximum performance and Tailwind CSS for a modern, responsive design. The focus is on a clear presentation of my projects and skills as well as fast loading times.",
+    website: "https://colinblome.dev",
+    github: "https://github.com/k0miker/portfolio-v1",
+    iframe: true,
+    iframeUrl: "https://colinblome.dev",
+    category: "Portfolio",
+    badges: ["Astro", "Tailwind", "Portfolio"]
+  },
+  {
+    id: "16",
+    title: "Portfolio v2",
+    description: "Die zweite Version meines Portfolios, die verschiedene Design-Konzepte erforscht.",
+    image: "port2",
+    technologies: ["React", "CSS", "Animation"],
+    modalDescriptionDe: "Die zweite Version meines Portfolios. Hier habe ich mit verschiedenen Design-Konzepten und Animationen experimentiert. Diese Version nutzt React und legt mehr Wert auf interaktive Elemente und visuelles Storytelling.",
+    modalDescriptionEn: "The second version of my portfolio. Here I experimented with different design concepts and animations. This version uses React and places more emphasis on interactive elements and visual storytelling.",
+    website: "https://portfolio2.colinblome.dev",
+    github: "https://github.com/k0miker/portfolio-v2",
+    iframe: true,
+    iframeUrl: "https://portfolio2.colinblome.dev",
+    category: "Portfolio",
+    badges: ["React", "Portfolio", "Animation"]
+  },
+   {
+    id: "17",
+    title: "Portfolio v3",
+    description: "Die dritte Iteration meines Portfolios mit Framer Motion und GSAP Animationen.",
+    image: "port3",
+    technologies: ["React", "Framer Motion", "GSAP", "Three.js"],
+    modalDescriptionDe: "Die dritte Iteration meines Portfolios. Diese Version nutzt Framer Motion und GSAP für komplexe Animationen und Interaktionen. Ein Experimentierfeld für modernes Web-Design und Motion Graphics.",
+    modalDescriptionEn: "The third iteration of my portfolio. This version uses Framer Motion and GSAP for complex animations and interactions. A testing ground for modern web design and motion graphics.",
+    website: "https://portfolio3.colinblome.dev",
+    github: "https://github.com/k0miker/portfolio-v3",
+    iframe: true,
+    iframeUrl: "https://portfolio3.colinblome.dev",
+    category: "Portfolio",
+    badges: ["React", "Astro", "Framer Motion", "GSAP", "Portfolio"]
   }
 ];
