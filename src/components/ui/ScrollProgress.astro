@@ -166,7 +166,7 @@
       // Wir brauchen keinen Versatz mehr, da die Elemente bereits über die volle Höhe verteilt sind
       // Die Elemente bleiben an ihrer Position, wir ändern nur ihr Erscheinungsbild
       
-      sectionIndicators.forEach((indicator, index) => {
+      Array.from(sectionIndicators).forEach((indicator, index) => {
         // Entferne alle Klassen
         indicator.classList.remove('active', 'nearby', 'distant', 'hide');
         

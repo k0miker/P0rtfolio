@@ -41,71 +41,92 @@ document.addEventListener("DOMContentLoaded", () => {
   const sections = document.querySelectorAll("div[id]");
   const navLinks = document.querySelectorAll("nav a");
 
-  const navObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navLinks.forEach((link) => {
-            if (link.getAttribute("href") === "#" + entry.target.id) {
-              link.classList.add("active");
-            } else {
-              link.classList.remove("active");
-            }
-          });
-        }
-      });
-    },
-    {
-      threshold: 0.1, 
-      rootMargin: "0px 0px -60% 0px", 
-    }
-  );
+  if ("IntersectionObserver" in window) {
+    const navObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            Array.from(navLinks).forEach((link) => {
+              if (link.getAttribute("href") === "#" + entry.target.id) {
+                link.classList.add("active");
+              } else {
+                link.classList.remove("active");
+              }
+            });
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -60% 0px",
+      }
+    );
 
-  sections.forEach((section) => {
-    navObserver.observe(section);
-  });
+    Array.from(sections).forEach((section) => {
+      navObserver.observe(section);
+    });
+  }
 
   // --- General Animation Observer ---
   const observerOptions = {
     rootMargin: "50px",
     threshold: 0.1,
   };
-  
-  const animationObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !entry.target.classList.contains("in-view")) {
-        entry.target.classList.add("in-view");
-        if (entry.target.hasAttribute("data-stagger-children")) {
-          const children = entry.target.querySelectorAll(".stagger-item");
-          children.forEach((child, index) => {
-            const isMobile = window.innerWidth < 768;
-            const delay = isMobile ? index * 0.05 : index * 0.1;
-            child.style.transitionDelay = `${delay}s`;
-          });
+
+  if ("IntersectionObserver" in window) {
+    const animationObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (
+          entry.isIntersecting &&
+          !entry.target.classList.contains("in-view")
+        ) {
+          entry.target.classList.add("in-view");
+          if (entry.target.hasAttribute("data-stagger-children")) {
+            const children = entry.target.querySelectorAll(".stagger-item");
+            Array.from(children).forEach((child, index) => {
+              const isMobile = window.innerWidth < 768;
+              const delay = isMobile ? index * 0.05 : index * 0.1;
+              child.style.transitionDelay = `${delay}s`;
+            });
+          }
+        } else if (
+          !entry.isIntersecting &&
+          entry.target.classList.contains("in-view")
+        ) {
+          if (window.innerWidth >= 768) {
+            entry.target.classList.remove("in-view");
+          }
         }
-      } else if (!entry.isIntersecting && entry.target.classList.contains("in-view")) {
-        if (window.innerWidth >= 768) {
-          entry.target.classList.remove("in-view");
-        }
-      }
-    });
-  }, observerOptions);
-  
-  const animatables = [
-    ...document.querySelectorAll(".offscreen"),
-    ...document.querySelectorAll(".animate-on-scroll")
-  ].filter(el => el !== null);
-  
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const hasDeviceMemory = 'deviceMemory' in navigator;
-  const isMobileWithLowMemory = window.innerWidth < 768 && hasDeviceMemory && navigator.deviceMemory < 4;
-  
-  if (!prefersReducedMotion && !isMobileWithLowMemory) {
-    animatables.forEach(element => {
-      animationObserver.observe(element);
-    });
+      });
+    }, observerOptions);
+
+    const animatables = [
+      ...document.querySelectorAll(".offscreen"),
+      ...document.querySelectorAll(".animate-on-scroll"),
+    ].filter((el) => el !== null);
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const hasDeviceMemory = "deviceMemory" in navigator;
+    const isMobileWithLowMemory =
+      window.innerWidth < 768 && hasDeviceMemory && navigator.deviceMemory < 4;
+
+    if (!prefersReducedMotion && !isMobileWithLowMemory) {
+      animatables.forEach((element) => {
+        animationObserver.observe(element);
+      });
+    } else {
+      animatables.forEach((element) => {
+        element.classList.add("in-view");
+      });
+    }
   } else {
-    animatables.forEach(element => {
+    const animatables = [
+      ...document.querySelectorAll(".offscreen"),
+      ...document.querySelectorAll(".animate-on-scroll"),
+    ].filter((el) => el !== null);
+    animatables.forEach((element) => {
       element.classList.add("in-view");
     });
   }
