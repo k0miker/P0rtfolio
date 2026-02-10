@@ -186,10 +186,10 @@ export const projects = [
     technologies: ["Astro", "CSS", "JavaScript", "Business"],
     modalDescriptionDe: "Eine professionelle Website für das Entsorgungsunternehmen Grumbach, die im Rahmen meiner Selbstständigkeit entwickelt wurde. Die Seite präsentiert das umfassende Dienstleistungsspektrum des Unternehmens, von Containerservice über Schrottentsorgung bis hin zu Abriss- und Erdarbeiten. Das klare, moderne Design vermittelt Professionalität und Zuverlässigkeit. Die Website bietet eine intuitive Navigation mit detaillierten Informationen zu allen Services, Kontaktmöglichkeiten und Standortinformationen. Vollständig responsiv und optimiert für alle Endgeräte.",
     modalDescriptionEn: "A professional website for the waste disposal company Grumbach, developed as part of my freelance work. The site presents the company's comprehensive range of services, from container services and scrap disposal to demolition and earthworks. The clear, modern design conveys professionalism and reliability. The website offers intuitive navigation with detailed information about all services, contact options, and location information. Fully responsive and optimized for all devices.",
-    website: "https://grumbach-demo.netlify.app",
+    website: "https://web3.agrumbach.com/",
     github: null,
     iframe: true,
-    iframeUrl: "https://grumbach-demo.netlify.app",
+    iframeUrl: "https://web3.agrumbach.com/",
     category: "Business",
     badges: ["Astro", "Business", "Responsive Design", "Freelance"]
   },
