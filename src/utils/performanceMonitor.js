@@ -31,6 +31,9 @@ class PerformanceMonitor {
         console.error("Error in performance listener:", e);
       }
     });
+    document.dispatchEvent(new CustomEvent('performanceModeChange', {
+      detail: { mode: this.lowPerformanceMode ? 'low' : 'high' }
+    }));
   }
   
   setPerformanceMode(isLowPerformance) {
