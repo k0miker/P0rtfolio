@@ -12,6 +12,7 @@ import p14 from "../assets/images/p14.png";
 import port1 from "../assets/images/portfolio1.png";
 import port2 from "../assets/images/portfolio2.png";
 import port3 from "../assets/images/portfolio3.png";
+import p15 from "../assets/images/p15.png";
 
 export const projects = [
   {
@@ -237,5 +238,20 @@ export const projects = [
     iframeUrl: "https://portfolio3.colinblome.dev",
     category: "Portfolio",
     badges: ["React", "Astro", "Framer Motion", "GSAP", "Portfolio"]
+  },
+  {
+    id: "18",
+    title: "AI Podcast",
+    description: "Eine Plattform für interaktive KI-Podcasts und Debatten.",
+    image: "p15",
+    technologies: ["AI", "Web", "Audio"],
+    modalDescriptionDe: "Ein innovatives Projekt, das KI-Technologien nutzt, um dynamische Podcast-Debatten zu generieren. Fünf verschiedene KI-Charaktere streiten, analysieren und reflektieren über vielfältige Themen – moderiert, mit Audioausgabe und Quellenangaben. Benutzer können sofort und ohne Anmeldung zuhören oder mit einem Creator-Konto eigene Episoden erstellen.",
+    modalDescriptionEn: "An innovative project that leverages AI technologies to generate dynamic podcast debates. Five different AI characters argue, analyze, and reflect on diverse topics – moderated, complete with audio output and source citations. Users can listen immediately without registration or create their own episodes with a Creator account.",
+    website: "https://podcast.cb-web.space/",
+    github: null,
+    iframe: true,
+    iframeUrl: "https://podcast.cb-web.space/",
+    category: "AI",
+    badges: ["AI", "Podcast", "Audio"]
   }
 ];
