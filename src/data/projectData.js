@@ -13,6 +13,7 @@ import port1 from "../assets/images/portfolio1.png";
 import port2 from "../assets/images/portfolio2.png";
 import port3 from "../assets/images/portfolio3.png";
 import p15 from "../assets/images/p15.png";
+import p16 from "../assets/images/p16.png";
 
 export const projects = [
   // {
@@ -253,5 +254,20 @@ export const projects = [
     iframeUrl: "https://portfolio3.colinblome.dev",
     category: "Portfolio",
     badges: ["React", "Astro", "Framer Motion", "GSAP", "Portfolio"]
+    },
+    {
+      id: "19",
+      title: "Portfolio B2B",
+      description: "Eine seriöse Portfolio-Variante mit Fokus auf Business-Kommunikation und Vertrauen.",
+      image: "p16",
+      technologies: ["Astro", "Tailwind", "JavaScript", "Business"],
+      modalDescriptionDe: "Eine zusätzliche Portfolio-Variante mit stärkerem B2B-Fokus. Ziel ist ein seriöser Auftritt für Geschäftskunden mit klarer Struktur, professioneller Tonalität und einer direkten Darstellung von Leistungen und Referenzen.",
+      modalDescriptionEn: "An additional portfolio variant with a stronger B2B focus. The goal is a more professional presence for business clients with a clear structure, professional tone, and direct presentation of services and references.",
+      website: "https://b2b.colinblome.dev/",
+      github: null,
+      iframe: true,
+      iframeUrl: "https://b2b.colinblome.dev/",
+      category: "Portfolio",
+      badges: ["Astro", "Tailwind", "Business", "Portfolio", "B2B"]
   }
 ];
