@@ -20,9 +20,11 @@ const portfolios = [
   id="version-toggle-btn"
   class="version-toggle"
   aria-label="Portfolio-Version wählen"
+  aria-expanded="false"
+  aria-controls="version-modal"
   title="Portfolio-Version wählen"
 >
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" width="20" height="20"> <path d="M156.6 384.9L125.7 354c-8.5-8.5-11.5-20.8-7.7-32.2c3-8.9 7-20.5 11.8-33.8L24 288c-8.6 0-16.6-4.6-20.9-12.1s-4.2-16.7 .2-24.1l52.5-88.5c13-21.9 36.5-35.3 61.9-35.3l82.3 0c2.4-4 4.8-7.7 7.2-11.3C289.1-4.1 411.1-8.1 483.9 5.3c11.6 2.1 20.6 11.2 22.8 22.8c13.4 72.9 9.3 194.8-111.4 276.7c-3.5 2.4-7.3 4.8-11.3 7.2v82.3c0 25.4-13.4 49-35.3 61.9l-88.5 52.5c-7.4 4.4-16.6 4.5-24.1 .2s-12.1-12.2-12.1-20.9l0-105.8c-13.2 4.8-24.8 8.8-33.8 11.8c-11.4 3.8-23.7 .8-32.2-7.7z"></path> </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" width="20" height="20"><path d="M156.6 384.9L125.7 354c-8.5-8.5-11.5-20.8-7.7-32.2c3-8.9 7-20.5 11.8-33.8L24 288c-8.6 0-16.6-4.6-20.9-12.1s-4.2-16.7 .2-24.1l52.5-88.5c13-21.9 36.5-35.3 61.9-35.3l82.3 0c2.4-4 4.8-7.7 7.2-11.3C289.1-4.1 411.1-8.1 483.9 5.3c11.6 2.1 20.6 11.2 22.8 22.8c13.4 72.9 9.3 194.8-111.4 276.7c-3.5 2.4-7.3 4.8-11.3 7.2v82.3c0 25.4-13.4 49-35.3 61.9l-88.5 52.5c-7.4 4.4-16.6 4.5-24.1 .2s-12.1-12.2-12.1-20.9l0-105.8c-13.2 4.8-24.8 8.8-33.8 11.8c-11.4 3.8-23.7 .8-32.2-7.7z"/></svg>
 </button>
 
 <!-- Hint Bubble -->
@@ -32,7 +34,6 @@ const portfolios = [
 >
   <div class="bg-white text-gray-900 px-3 py-1.5 rounded-lg shadow-xl text-sm font-bold relative">
     Klick mich!
-    <!-- Arrow pointing right -->
     <div class="absolute top-1/2 -right-1 -mt-1.5 w-3 h-3 bg-white transform rotate-45"></div>
   </div>
 </div>
@@ -66,7 +67,7 @@ const portfolios = [
     background-color: var(--bg-secondary);
     transform: scale(1.1);
   }
-  
+
   @media (max-width: 768px) {
     .version-toggle {
       bottom: 125px;
@@ -78,36 +79,40 @@ const portfolios = [
   }
 </style>
 
-<!-- Modal Backdrop (Invisible) -->
-<div 
+<!-- Modal Backdrop -->
+<div
   id="version-modal-backdrop"
   class="fixed inset-0 z-[9998] hidden"
 ></div>
 
 <!-- Modal -->
-<div 
+<div
   id="version-modal"
-  class="fixed bottom-40 right-8 z-[9999] w-72 bg-[var(--bg-primary)] rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ease-out transform origin-bottom-right scale-95 opacity-0 translate-x-8 pointer-events-none"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="version-modal-title"
+  class="fixed bottom-40 right-8 z-[9999] w-72 bg-[var(--bg-primary)] rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ease-out transform origin-bottom-right scale-95 opacity-0 translate-y-2 pointer-events-none"
 >
-  <div class="p-4 bg-[var(--accent)]  flex justify-between items-center">
-      <h3 class="font-bold text-gray-700 text-sm uppercase tracking-wider">Version wählen</h3>
-      <button 
+  <div class="p-4 bg-[var(--accent)] flex justify-between items-center">
+    <h3 id="version-modal-title" class="font-bold text-gray-700 text-sm uppercase tracking-wider">Version wählen</h3>
+    <button
       id="version-modal-close"
       class="text-gray-400 hover:text-gray-100 w-6 h-6 flex items-center justify-center rounded-full bg-[var(--bg-primary)] hover:bg-[var(--bg-secondary)] transition-colors cursor-pointer"
-      >
-        &times;
-      </button>
+      aria-label="Schließen"
+    >
+      &times;
+    </button>
   </div>
-  
-  <div class="p-2 flex flex-col gap-2 border border-[var(--accent)] rounded-b-2xl bg-[var(--bg-secondary)]">
+
+  <div class="p-2 flex flex-col gap-2 border border-[var(--accent)] rounded-b-2xl bg-[var(--bg-secondary)] max-h-[60vh] overflow-y-auto">
     {portfolios.map(p => (
       <a
         href={p.url}
         class:list={[
-          "flex items-center flex-col gap-3 p-2 rounded-xl transition-all duration-200",
-          active === p.id 
-            ? "bg-[var(--accent)] border border-[var(--accent)] shadow-sm" 
-            : "hover:bg-[var(--accent)] "
+          "flex items-center flex-row gap-3 p-2 rounded-xl transition-all duration-200 group",
+          active === p.id
+            ? "bg-[var(--accent)] border border-[var(--accent)] shadow-sm"
+            : "hover:bg-[var(--bg-primary)]"
         ]}
         title={p.name}
         aria-current={active === p.id ? "page" : undefined}
@@ -115,18 +120,18 @@ const portfolios = [
         <Image
           src={p.img}
           alt={p.name}
-          class="w-64 h-32 rounded-lg object-cover shadow-sm bg-transparent"
+          class="w-20 h-12 rounded-md object-cover shadow-sm flex-shrink-0"
         />
-        <div class="flex-1 min-w-0 hover:text-gray-200">
-          <div class={`font-semibold ${active === p.id ? "text-gray-300" : "text-gray-200"} text-sm truncate`}>{p.name}</div>
+        <div class="flex-1 min-w-0">
+          <div class={`font-semibold ${active === p.id ? "text-gray-100" : "text-gray-200"} text-sm truncate`}>{p.name}</div>
           {active === p.id ? (
-            <div class="text-xs text-blue-800 font-medium flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+            <div class="text-xs text-gray-700 font-medium flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-gray-700"></span>
               Aktuell
             </div>
           ) : (
-            <div class="text-xs text-gray-200 group-hover:text-gray-100">
-              Ansehen
+            <div class="text-xs text-gray-400 group-hover:text-gray-200 transition-colors flex items-center gap-1">
+              Ansehen <span aria-hidden="true">→</span>
             </div>
           )}
         </div>
@@ -136,10 +141,10 @@ const portfolios = [
 </div>
 
 <script>
-  const btn = document.getElementById('version-toggle-btn');
+  const btn = document.getElementById('version-toggle-btn') as HTMLButtonElement | null;
   const modal = document.getElementById('version-modal');
   const backdrop = document.getElementById('version-modal-backdrop');
-  const closeBtn = document.getElementById('version-modal-close');
+  const closeBtn = document.getElementById('version-modal-close') as HTMLButtonElement | null;
   const hint = document.getElementById('version-hint');
   let isOpen = false;
 
@@ -154,33 +159,59 @@ const portfolios = [
     hint?.classList.add('opacity-0', 'translate-x-4');
   }, 7000);
 
-  function toggleModal() {
-    isOpen = !isOpen;
-    updateModalState();
+  function openModal() {
+    isOpen = true;
+    modal?.classList.remove('scale-95', 'opacity-0', 'translate-y-2', 'pointer-events-none');
+    modal?.classList.add('scale-100', 'opacity-100', 'translate-y-0');
+    backdrop?.classList.remove('hidden');
+    btn?.setAttribute('aria-expanded', 'true');
+    setTimeout(() => closeBtn?.focus(), 50);
   }
 
   function closeModal() {
     isOpen = false;
-    updateModalState();
+    modal?.classList.add('scale-95', 'opacity-0', 'translate-y-2', 'pointer-events-none');
+    modal?.classList.remove('scale-100', 'opacity-100', 'translate-y-0');
+    backdrop?.classList.add('hidden');
+    btn?.setAttribute('aria-expanded', 'false');
   }
 
-  function updateModalState() {
-    if (isOpen) {
-      modal?.classList.remove('scale-95', 'opacity-0', 'translate-x-8', 'pointer-events-none');
-      modal?.classList.add('scale-100', 'opacity-100', 'translate-x-0');
-      backdrop?.classList.remove('hidden');
-    } else {
-      modal?.classList.add('scale-95', 'opacity-0', 'translate-x-8', 'pointer-events-none');
-      modal?.classList.remove('scale-100', 'opacity-100', 'translate-x-0');
-      backdrop?.classList.add('hidden');
+  function trapFocus(e: KeyboardEvent) {
+    if (!isOpen || !modal) return;
+
+    if (e.key === 'Escape') {
+      closeModal();
+      btn?.focus();
+      return;
+    }
+
+    if (e.key !== 'Tab') return;
+
+    const focusable = Array.from(
+      modal.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')
+    );
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
     }
   }
 
   btn?.addEventListener('click', (e) => {
     e.stopPropagation();
-    toggleModal();
+    isOpen ? closeModal() : openModal();
   });
 
-  closeBtn?.addEventListener('click', closeModal);
+  closeBtn?.addEventListener('click', () => {
+    closeModal();
+    btn?.focus();
+  });
+
   backdrop?.addEventListener('click', closeModal);
+  document.addEventListener('keydown', trapFocus);
 </script>
