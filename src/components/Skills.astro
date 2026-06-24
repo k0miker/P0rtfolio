@@ -3,175 +3,117 @@ import "../css/fontawesome/css/fontawesome.css";
 import "../css/fontawesome/css/all.min.css";
 import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
 import skillsBg from "../assets/images/skills.webp";
+
+const skills = [
+  { name: "HTML", level: 79 },
+  { name: "CSS", level: 72 },
+  { name: "JavaScript", level: 60 },
+  { name: "TypeScript", level: 30 },
+  { name: "Astro", level: 63 },
+  { name: "React Native", level: 65 },
+  { name: "Tailwind", level: 55 },
+  { name: "GitHub", level: 75 },
+  { name: "SCSS", level: 40 },
+  { name: "Windows", level: 80 },
+  { name: "Linux", level: 75 },
+  { name: "Express", level: 52 },
+  { name: "NoSQL", level: 68 },
+];
+
+const stack = [
+  { icon: "fa-brands fa-html5", label: "HTML5" },
+  { icon: "fa-brands fa-css3", label: "CSS3" },
+  { icon: "fa-brands fa-react", label: "React" },
+  { icon: "fa-brands fa-js", label: "JavaScript" },
+  { icon: "fa-brands fa-sass", label: "Sass" },
+  { icon: "fa-brands fa-linux", label: "Linux" },
+  { icon: "fa-brands fa-windows", label: "Windows" },
+  { icon: "fa-brands fa-github", label: "Github" },
+  { icon: "fa-brands fa-node", label: "Node.js" },
+  { icon: "fa-solid fa-database", label: "Database" },
+  { icon: "fa-solid fa-server", label: "Server" },
+  { icon: "fa-brands fa-figma", label: "Figma" },
+  { icon: "fa-brands fa-android", label: "Android" },
+];
 ---
 
 <!-- Optimierter Hintergrund für mobile Geräte -->
-<div class="flex flex-col box justify-center items-center min-h-[100vh]" id="skills">
-
-  
-  <div class="card offscreen">
-    <div
-      class="header font-[mono] text-[1.5rem] hover:tracking-[1vw]  hover:text-[tomato] text-[var(--text-primary)] duration-500 "
-    >
-      My Skills<span class="animate-ping">_</span>
+<div
+  class="flex flex-col box justify-center items-center min-h-[100vh]"
+  id="skills"
+>
+  <div class="terminal-window skills-terminal offscreen">
+    <div class="terminal-titlebar">
+      <div class="terminal-dots" aria-hidden="true">
+        <span class="dot-red"></span>
+        <span class="dot-yellow"></span>
+        <span class="dot-green"></span>
+      </div>
+      <span class="terminal-title">skills.sh — colin@webdev</span>
     </div>
-    <div class="body form-bg">
-      <div class="skill">
-        <div class="skill-name html font-[mono]">HTML</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="79" aria-valuemin="0" aria-valuemax="100" aria-label="HTML: 79%">
-          <div style="width: 79%" class="skill-percent"></div>
-        </div>
+
+    <div class="terminal-body">
+      <p class="terminal-cmd">
+        <span class="usr">colin@webdev</span><span class="punct">:</span><span
+          class="pth">~</span
+        ><span class="punct">$</span> ./skills --list
+      </p>
+
+      <div class="skill-list">
+        {
+          skills.map((s) => (
+            <div class="skill">
+              <span class="skill-name">{s.name}</span>
+              <div
+                class="skill-level"
+                role="progressbar"
+                aria-valuenow={s.level}
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-label={`${s.name}: ${s.level}%`}
+              >
+                <div style={`width: ${s.level}%`} class="skill-percent" />
+              </div>
+              <span class="skill-val">{s.level}%</span>
+            </div>
+          ))
+        }
       </div>
-      <div class="skill">
-        <div class="skill-name css font-[mono]">CSS</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="CSS: 72%">
-          <div style="width: 72%" class="skill-percent"></div>
-        </div>
+
+      <p class="terminal-cmd terminal-cmd--stack">
+        <span class="usr">colin@webdev</span><span class="punct">:</span><span
+          class="pth">~</span
+        ><span class="punct">$</span> ./skills --stack
+      </p>
+
+      <div class="flex wrapper stack-icons">
+        {
+          stack.map((item) => (
+            <div class="icon-wrapper">
+              <i class={`${item.icon} text-gray-600`} />
+              <span class="icon-label">{item.label}</span>
+            </div>
+          ))
+        }
       </div>
-      <div class="skill">
-        <div class="skill-name js font-[mono]">JavaScript</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="JavaScript: 60%">
-          <div style="width: 60%" class="skill-percent"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name ts font-[mono]">TypeScript</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" aria-label="TypeScript: 30%">
-          <div style="width: 30%" class="skill-percent"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name astro font-[mono]">Astro</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" aria-label="Astro: 63%">
-          <div style="width: 63%" class="skill-percent"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name React font-[mono]">ReactNative</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="React Native: 65%">
-          <div style="width: 65%" class="skill-percent"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name tailwind font-[mono]">Tailwind</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" aria-label="Tailwind: 55%">
-          <div style="width: 55%" class="skill-percent"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name github font-[mono]">Github</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="GitHub: 75%">
-          <div style="width: 75%" class="skill-percent"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name scss font-[mono]">SCSS</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="SCSS: 40%">
-          <div style="width: 40%" class="skill-percent"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name windows font-[mono]">Windows</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Windows: 80%">
-          <div style="width: 80%" class="skill-percent"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name linux font-[mono]">Linux</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Linux: 75%">
-          <div style="width: 75%" class="skill-percent"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name tailwind font-[mono]">Express</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="52" aria-valuemin="0" aria-valuemax="100" aria-label="Express: 52%">
-          <div style="width: 52%" class="skill-percent"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name tailwind font-[mono]">NoSQL</div>
-        <div class="skill-level" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" aria-label="NoSQL: 68%">
-          <div style="width: 68%" class="skill-percent"></div>
-        </div>
-      </div>
-      <div class="flex wrapper mt-10">
-        <div class="icon-wrapper">
-          <i class="fa-brands text-gray-600 fa-html5"></i>
-          <span class="icon-label">HTML5</span>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-brands text-gray-600 fa-css3"></i>
-          <span class="icon-label">CSS3</span>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-brands text-gray-600 fa-react"></i>
-          <span class="icon-label">React</span>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-brands text-gray-600 fa-js"></i>
-          <span class="icon-label">JavaScript</span>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-brands text-gray-600 fa-sass"></i>
-          <span class="icon-label">Sass</span>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-brands text-gray-600 fa-linux"></i>
-          <span class="icon-label">Linux</span>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-brands text-gray-600 fa-windows"></i>
-          <span class="icon-label">Windows</span>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-brands text-gray-600 fa-github"></i>
-          <span class="icon-label">Github</span>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-brands text-gray-600 fa-node"></i>
-          <span class="icon-label">Node.js</span>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-solid text-gray-600 fa-database"></i>
-          <span class="icon-label">Database</span>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-solid text-gray-600 fa-server"></i>
-          <span class="icon-label">Server</span>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-brands text-gray-600 fa-figma"></i>
-          <span class="icon-label">Figma</span>
-        </div>
-        <div class="icon-wrapper">
-          <i class="fa-brands text-gray-600 fa-android"></i>
-          <span class="icon-label">Android</span>
-        </div>
-      </div>
+
+      <p class="terminal-cmd terminal-cmd--last">
+        <span class="usr">colin@webdev</span><span class="punct">:</span><span
+          class="pth">~</span
+        ><span class="punct">$</span> <span class="term-cursor">_</span>
+      </p>
     </div>
   </div>
+
   <a
     href={CV}
     target="_blank"
-    class="mt-[10vh] p-3 cv rounded-lg font-bold offscreen animate-cv text-lg"
-    >/Download CV</a
+    class="mt-[8vh] p-3 cv rounded-lg font-bold offscreen animate-cv text-lg"
+    >./download-cv.pdf</a
   >
 </div>
 
 <style define:vars={{ skillsBgUrl: `url(${skillsBg.src})` }}>
-  /* Optimierte Bilddarstellung */
-  .skills-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-  }
-  .form-bg {
-    background-color: var(--form-bg);
-  }
   .box {
     padding: 5vw;
     background-image: var(--skillsBgUrl);
@@ -187,369 +129,98 @@ import skillsBg from "../assets/images/skills.webp";
     }
   }
 
-  .wrapper {
-    justify-content: space-between;
-    flex-wrap: wrap;
+  .skills-terminal {
+    max-width: clamp(600px, 85vw, 1100px);
+    width: 90%;
   }
-  i {
-    font-size: 30px;
-    padding: 10px;
-  }
-  i:hover {
-    transform: scale(1.2);
-    transition: 0.5s;
-  }
-  .card {
+
+  /* ===== skills --list ===== */
+  .skill-list {
     display: flex;
     flex-direction: column;
-    max-width: clamp(600px, 85vw, 1600px);
-    width: 90%;
-    height: fit-content;
-    box-shadow: var(--card-shadow), var(--card-border-glow);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    transition: box-shadow 0.4s ease, transform 0.4s ease;
-    will-change: transform, box-shadow;
-  }
-  
-  /* .card:hover {
-    transform:  scale(1.01);
-    box-shadow: var(--card-shadow), 0 15px 30px rgba(0, 0, 0, 0.2), var(--card-border-glow);
-    transition: box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  } */
-
-  .header {
-    background-color: var(--bg-secondary);
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
-  }
-
-  .body {
-    padding: 20px;
-    background-color: var(--form-bg);
+    gap: 0.45rem;
+    margin: 0.4rem 0 0;
   }
 
   .skill {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 4px 8px;
+    gap: 0.85rem;
+    padding: 0.3rem 0.5rem;
     border-radius: 6px;
-    transition: all 0.3s ease;
+    transition: background-color 0.25s ease;
   }
-
   .skill:hover {
-    background-color: var(--bg-tertiary);
-    transform: translateX(5px);
-    box-shadow: -3px 0 0px var(--accent);
+    background: rgba(255, 255, 255, 0.05);
   }
 
   .skill-name {
-    width: 120px;
-    transition: 0.3s;
-    color: var(--text-primary);
+    flex: 0 0 7.5rem;
+    color: #e6e6e6;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    transition: color 0.25s ease;
+  }
+  .skill:hover .skill-name {
+    color: var(--accent);
   }
 
   .skill-level {
-    flex-grow: 1;
-    height: 10px;
-    background-color: var(--bg-tertiary);
-    box-shadow: 0 0 1px 1px var(--shadow);
-    border-radius: 10px;
-    overflow: hidden;
     position: relative;
-    z-index: 0;
-    display: flex;
-    animation: slidein 30s infinite linear;
+    flex: 1;
+    min-width: 80px;
+    height: 14px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    overflow: hidden;
   }
 
   .skill-percent {
     position: absolute;
-    z-index: 0;
-    border-radius: 5px;
+    inset: 0 auto 0 0;
     height: 100%;
-    background-color: var(--bg-secondary);
+    border-radius: 3px;
+    background: linear-gradient(90deg, #ff7a5c, var(--accent));
     opacity: 0;
-    transition: opacity 0.5s ease;
-    background-image: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.55) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.55) 50%,
-      rgba(255, 255, 255, 0.55) 65%,
-      transparent 65%,
-      transparent
-    );
-    background-size: 20px 20px;
+    transition:
+      opacity 0.5s ease,
+      width 0.8s ease;
   }
-
   .animate .skill-percent {
     opacity: 1;
-    animation: skill-stripe 2s linear infinite;
-    transform: translateZ(0); 
   }
 
-  @keyframes skill-stripe {
-    0% { background-position: 0 0; }
-    100% { background-position: 20px 0; }
+  .skill-val {
+    flex: 0 0 auto;
+    min-width: 3.4ch;
+    text-align: right;
+    color: #9a9a9a;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    transition: color 0.25s ease;
+  }
+  .skill:hover .skill-val {
+    color: var(--accent);
   }
 
-  /* Low-Performance-Modus: Animationen für Skill-Leisten deaktivieren */
+  /* Low-Performance-Modus: Balken sofort sichtbar, keine Animation */
   [data-performance="low"] .skill-percent {
-    opacity: 1; /* Skill-Leisten sofort sichtbar machen */
-    animation: none !important; /* Alle Animationen deaktivieren */
-    background-image: none !important; /* Animiertes Streifenmuster entfernen */
-    background-color: var(--bg-secondary) !important; /* Statisches Design beibehalten */
-  }
-
-  /* Spezifischere Regel, um sicherzustellen, dass im Low-Performance-Modus keine Animation stattfindet */
-  [data-performance="low"] .animate .skill-percent {
+    opacity: 1;
     animation: none !important;
     transition: none !important;
   }
 
-  /* Zusätzliche Regel mit höherer Spezifität, um sicherzustellen, dass keine Animation läuft */
-  html[data-performance="low"] body .skill-percent {
-    animation: none !important;
-    transition: none !important;
+  /* ===== skills --stack (Icon-Grid) ===== */
+  .terminal-cmd--stack {
+    margin-top: 1.6rem;
   }
 
-  /* Vereinfachte Hover-Effekte für den Low-Performance-Modus */
-  [data-performance="low"] .skill:hover {
-    background-color: var(--bg-tertiary); /* Einfacher Hintergrund */
-    transform: translateX(3px); /* Kleinere Transformation */
-    box-shadow: -2px 0 0px var(--accent); /* Einfacherer Schatten */
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Optimierte Transition */
-  }
-
-  [data-performance="low"] .skill:hover .skill-name {
-    color: var(--accent); /* Einheitliche Akzentfarbe verwenden */
-    transform: translateX(5px); /* Reduzierte Transformation */
-    text-shadow: none; /* Kein Textschatten */
-  }
-
-  [data-performance="low"] .skill:hover .skill-percent {
-    background-color: var(--accent) !important; /* Einheitliche Akzentfarbe */
-    opacity: 1;
-    /* Vereinfachte Hintergrund-Darstellung im Low-Performance-Modus */
-    background-image: none !important;
-  }
-
-  /* Hover-Effekte im normalen Modus beibehalten */
-  .skill:hover .skill-percent {
-    animation-duration: 0.8s, 2s;
-    background-image: linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.3) 25%,
-      transparent 25%,
-      transparent 50%,
-      rgba(255, 255, 255, 0.3) 50%,
-      rgba(255, 255, 255, 0.3) 75%,
-      transparent 75%,
-      transparent
-    );
-    animation-delay: 0s, 0s;
-    animation-fill-mode: forwards;
-    animation-play-state: running;
-  }
-
-  /* Spezifische Hover-Effekte für jeden Skill */
-  .skill:nth-of-type(1):hover {
-    box-shadow: -3px 0 0px rgba(0, 0, 147, 0.982);
-    background-color: rgba(0, 0, 147, 0.1);
-  }
-  .skill:nth-of-type(1):hover .skill-name {
-    color: rgba(65, 65, 255, 0.982);
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(0, 0, 147, 0.3);
-  }
-  .skill:nth-of-type(1):hover .skill-percent {
-    background-color: rgb(0, 0, 147) ;
-    opacity: 1;
-  }
-  
-  .skill:nth-of-type(2):hover {
-    box-shadow: -3px 0 0px rgba(128, 0, 128, 0.976);
-    background-color: rgba(128, 0, 128, 0.337);
-  }
-  .skill:nth-of-type(2):hover .skill-name {
-    color: rgba(128, 0, 128, 0.976);
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(128, 0, 128, 0.3);
-  }
-  .skill:nth-of-type(2):hover .skill-percent {
-    background-color: rgba(128, 0, 128, 0.976) ;
-    opacity: 1;
-  }
-  
-  .skill:nth-of-type(3):hover {
-    box-shadow: -3px 0 0px tomato;
-    background-color: rgba(255, 99, 71, 0.1);
-  }
-  .skill:nth-of-type(3):hover .skill-name {
-    color: tomato;
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(255, 99, 71, 0.3);
-  }
-  .skill:nth-of-type(3):hover .skill-percent {
-    background-color: tomato ;
-    opacity: 1;
-  }
-  
-  .skill:nth-of-type(4):hover {
-    box-shadow: -3px 0 0px rgb(94, 171, 230);
-    background-color: rgba(94, 171, 230, 0.1);
-  }
-  .skill:nth-of-type(4):hover .skill-name {
-    color: rgb(94, 171, 230);
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(94, 171, 230, 0.3);
-  }
-  .skill:nth-of-type(4):hover .skill-percent {
-    background-color: rgb(94, 171, 230) ;
-    opacity: 1;
-  }
-  
-  .skill:nth-of-type(5):hover {
-    box-shadow: -3px 0 0px palevioletred;
-    background-color: rgba(216, 112, 147, 0.1);
-  }
-  .skill:nth-of-type(5):hover .skill-name {
-    color: palevioletred;
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(216, 112, 147, 0.3);
-  }
-  .skill:nth-of-type(5):hover .skill-percent {
-    background-color: palevioletred ;
-    opacity: 1;
-  }
-  
-  .skill:nth-of-type(6):hover {
-    box-shadow: -3px 0 0px rgb(0, 159, 180);
-    background-color: rgba(0, 159, 180, 0.1);
-  }
-  .skill:nth-of-type(6):hover .skill-name {
-    color: rgb(0, 159, 180);
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(0, 159, 180, 0.3);
-  }
-  .skill:nth-of-type(6):hover .skill-percent {
-    background-color: rgb(0, 159, 180) ;
-    opacity: 1;
-  }
-  
-  .skill:nth-of-type(7):hover {
-    box-shadow: -3px 0 0px rgb(0, 159, 180);
-    background-color: rgba(0, 159, 180, 0.1);
-  }
-  .skill:nth-of-type(7):hover .skill-name {
-    color: rgb(0, 159, 180);
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(0, 159, 180, 0.3);
-  }
-  .skill:nth-of-type(7):hover .skill-percent {
-    background-color: rgb(0, 159, 180) ;
-    opacity: 1;
-  }
-  
-  .skill:nth-of-type(8):hover {
-    box-shadow: -3px 0 0px rgb(0, 145, 12);
-    background-color: rgba(0, 145, 12, 0.1);
-  }
-  .skill:nth-of-type(8):hover .skill-name {
-    color: rgb(0, 145, 12);
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(0, 145, 12, 0.3);
-  }
-  .skill:nth-of-type(8):hover .skill-percent {
-    background-color: rgb(0, 145, 12) ;
-    opacity: 1;
-  }
-  
-  .skill:nth-of-type(9):hover {
-    box-shadow: -3px 0 0px purple;
-    background-color: rgba(128, 0, 128, 0.1);
-  }
-  .skill:nth-of-type(9):hover .skill-name {
-    color: purple;
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(128, 0, 128, 0.3);
-  }
-  .skill:nth-of-type(9):hover .skill-percent {
-    background-color: purple ;
-    opacity: 1;
-  }
-  
-  .skill:nth-of-type(10):hover {
-    box-shadow: -3px 0 0px rgb(0, 149, 255);
-    background-color: rgba(0, 149, 255, 0.1);
-  }
-  .skill:nth-of-type(10):hover .skill-name {
-    color: rgb(0, 149, 255);
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(0, 149, 255, 0.3);
-  }
-  .skill:nth-of-type(10):hover .skill-percent {
-    background-color: rgb(0, 149, 255) ;
-    opacity: 1;
-  }
-  
-  .skill:nth-of-type(11):hover {
-    box-shadow: -3px 0 0px purple;
-    background-color: rgba(128, 0, 128, 0.1);
-  }
-  .skill:nth-of-type(11):hover .skill-name {
-    color: purple;
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(128, 0, 128, 0.3);
-  }
-  .skill:nth-of-type(11):hover .skill-percent {
-    background-color: purple ;
-    opacity: 1;
-  }
-  
-  .skill:nth-of-type(12):hover {
-    box-shadow: -3px 0 0px rgb(211, 211, 0);
-    background-color: rgba(211, 211, 0, 0.1);
-  }
-  .skill:nth-of-type(12):hover .skill-name {
-    color: rgb(211, 211, 0);
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(211, 211, 0, 0.3);
-  }
-  .skill:nth-of-type(12):hover .skill-percent {
-    background-color: rgb(211, 211, 0) ;
-    opacity: 1;
-  }
-  
-  .skill:nth-of-type(13):hover {
-    box-shadow: -3px 0 0px rgb(0, 161, 201);
-    background-color: rgba(0, 161, 201, 0.1);
-  }
-  .skill:nth-of-type(13):hover .skill-name {
-    color: rgb(0, 161, 201);
-    transform: translateX(10px) scale(1.2);
-    text-shadow: 0 0 5px rgba(0, 161, 201, 0.3);
-  }
-  .skill:nth-of-type(13):hover .skill-percent {
-    background-color: rgb(0, 161, 201) ;
-    opacity: 1;
-  }
-
-  .skill-percent-number {
-    margin-left: 20px;
-    font-size: 16px;
-    color: var(--text-primary);
-  }
-
-  i:hover {
-    transition: 0.5s;
-    color: tomato;
+  .wrapper {
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem 0;
+    margin-top: 0.6rem;
   }
 
   .icon-wrapper {
@@ -559,31 +230,34 @@ import skillsBg from "../assets/images/skills.webp";
   }
   .icon-wrapper i {
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    font-size: 35px;
+    font-size: 32px;
+    padding: 10px;
+    color: #9a9a9a;
     will-change: transform, color;
-    backface-visibility: hidden; /* GPU acceleration */
+    backface-visibility: hidden;
   }
   .icon-label {
     opacity: 0;
-    transform: translate(0, -5px) scale(.7);
-    transition:  0.5s;
+    transform: translate(0, -5px) scale(0.7);
+    transition: 0.5s;
     font-size: 10px;
     margin-top: 5px;
-    color: var(--text-primary);
+    color: #cccccc;
+    font-family: var(--font-mono);
   }
   .icon-wrapper:hover i {
     transform: scale(1.2) translate(0, -5px);
+    color: var(--accent);
   }
-
   .icon-wrapper:hover .icon-label {
-    color: tomato;
+    color: var(--accent);
     opacity: 1;
     transform: translate(0, -5px) scale(1.2);
-    transition: .5;
   }
 
+  /* ===== Download CV ===== */
   .cv {
-    box-shadow: var(--card-shadow);
+    box-shadow: var(--elev-2);
     transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
     background-color: var(--bg-primary);
     color: var(--text-primary);
@@ -591,25 +265,28 @@ import skillsBg from "../assets/images/skills.webp";
     border: 2px solid transparent;
     padding: 0.75rem 1.5rem;
     overflow: hidden;
+    font-family: var(--font-mono);
   }
-  
   .cv:hover {
     color: var(--accent);
     transform: scale(1.05);
     animation: border-glow 3s infinite;
   }
-
   .cv::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
     transition: left 0.7s;
   }
-  
   .cv:hover::before {
     left: 100%;
   }
@@ -619,13 +296,14 @@ import skillsBg from "../assets/images/skills.webp";
       box-shadow: 0 0 5px transparent;
     }
     50% {
-      box-shadow: 0 0 35px var(--accent), inset 0 0 15px 0px var(--bg-secondary);
+      box-shadow:
+        0 0 35px var(--accent),
+        inset 0 0 15px 0px var(--bg-secondary);
     }
     100% {
       box-shadow: 0 0 5px transparent;
     }
   }
-
   @keyframes border-glow {
     0% {
       border-color: transparent;
@@ -637,43 +315,21 @@ import skillsBg from "../assets/images/skills.webp";
       border-color: transparent;
     }
   }
-
   .animate-cv {
     animation: pulse-shadow 3s infinite;
-
   }
 
-  @media (min-width: 1280px) {
-    .body {
-      display: grid;
-      grid-template-columns: 1fr;
-      column-gap: 2rem;
-    }
-    .body > .flex {
-      grid-column: 1 / -1;
-    }
-  }
-
-  /* Medienabfragen für bessere mobile Performance */
   @media (max-width: 768px) {
-    .card {
+    .skills-terminal {
       width: 100%;
     }
     .skill-name {
-      font-size: 14px;
-    }
-    .skill-percent {
-      width: 200px;
-      transition: none; /* Entferne Übergänge auf mobilen Geräten */
-    }
-    .skill-percent-number {
-      font-size: 14px;
+      flex-basis: 5.5rem;
+      font-size: 0.8rem;
     }
     .icon-wrapper i {
-      transition: transform 0.3s ease; /* Vereinfachte Transition */
+      font-size: 26px;
     }
-    
-    /* Reduzierte Animationen auf mobilen Geräten */
     @supports (content-visibility: auto) {
       .icon-wrapper {
         content-visibility: auto;
@@ -681,26 +337,24 @@ import skillsBg from "../assets/images/skills.webp";
       }
     }
   }
-
- 
 </style>
 
 <script>
   import { performanceMonitor } from '../utils/performanceMonitor.js';
-  
+
   document.addEventListener("DOMContentLoaded", () => {
     const skillsSection = document.getElementById("skills");
     const skillPercents = document.querySelectorAll(".skill-percent");
-    
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           // Im Low-Performance-Modus keine "animate"-Klasse hinzufügen
           const isLowPerformance = document.documentElement.getAttribute('data-performance') === 'low';
-          
+
           if (!isLowPerformance) {
             entry.target.classList.add("animate");
-            
+
             skillPercents.forEach((skillBar, index) => {
               (skillBar as HTMLElement).style.transitionDelay = `${index * 0.1}s`;
             });
@@ -715,10 +369,10 @@ import skillsBg from "../assets/images/skills.webp";
         }
       });
     }, { threshold: 0.1 });
-    
+
     if (skillsSection) {
       observer.observe(skillsSection);
-      
+
       // Original-Hintergrund speichern
       if (!skillsSection.hasAttribute('data-original-background')) {
         const computedStyle = window.getComputedStyle(skillsSection);
@@ -727,23 +381,23 @@ import skillsBg from "../assets/images/skills.webp";
           skillsSection.setAttribute('data-original-background', backgroundImage);
         }
       }
-      
+
       // Performance-Modus prüfen
-      const currentMode = document.documentElement.getAttribute('data-performance') || 
+      const currentMode = document.documentElement.getAttribute('data-performance') ||
                           localStorage.getItem('performance-mode') || 'high';
-      
+
       // Im Low-Performance-Modus Animationen deaktivieren, aber Hintergrund behalten
       if (currentMode === 'low') {
         skillsSection.style.backgroundAttachment = 'scroll';
         skillsSection.classList.add('static-background');
-        
+
         // Animation entfernen, aber Hintergrund behalten
         const animations = skillsSection.getAnimations();
         animations.forEach(animation => {
           animation.cancel();
         });
       }
-      
+
       // Auf Performance-Modus-Änderungen reagieren
       if (performanceMonitor) {
         // Initialen Zustand basierend auf dem aktuellen Performance-Modus setzen
@@ -752,7 +406,7 @@ import skillsBg from "../assets/images/skills.webp";
           skillsSection.style.backgroundAttachment = 'scroll';
           skillsSection.classList.add('static-background');
         }
-        
+
         // Event-Listener für Performance-Mode-Änderungen
         document.addEventListener('performanceModeChange', (event) => {
           const mode = (event as CustomEvent).detail.mode;
@@ -771,7 +425,7 @@ import skillsBg from "../assets/images/skills.webp";
             }
           }
         });
-        
+
         // Initialen Performance-Modus beachten
         if (performanceMonitor && performanceMonitor.lowPerformanceMode) {
           skillPercents.forEach((skillBar) => {

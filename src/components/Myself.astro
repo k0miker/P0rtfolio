@@ -36,12 +36,14 @@ if (!hasHadBirthdayThisYear) {
     </div>
 
     <div class="content-section">
-      <div class="content-box">
-        <div class="language-switcher">
-          <h3 class="content-header2">
-            Who am I
-            <span class="animate-ping"> ?</span>
-          </h3>
+      <div class="terminal-window">
+        <div class="terminal-titlebar">
+          <div class="terminal-dots" aria-hidden="true">
+            <span class="dot-red"></span>
+            <span class="dot-yellow"></span>
+            <span class="dot-green"></span>
+          </div>
+          <span class="terminal-title">about.md — colin@webdev</span>
           <div class="lang-buttons">
             <button type="button" class="lang-btn active" data-lang="en"
               >EN</button
@@ -50,60 +52,97 @@ if (!hasHadBirthdayThisYear) {
           </div>
         </div>
 
-        <div class="language-content active" id="content-en">
-          <p class="p-6">
-            Hello! <br />
-            I'm Colin, a {age}-year-old passionate web developer. Since my
-            youth, I've been a true PC nerd with a strong affinity for
-            technology. Besides my work as a web developer, I'm also an avid
-            gamer who loves spending my free time on challenging games.
-            Additionally, I have a special passion for bonsai art, which helps
-            me find calm and balance in my daily life. With my diverse
-            experience and wide-ranging interests, I bring creative and
-            functional solutions to my projects. Whether it's developing a
-            user-friendly website or tackling complex technical challenges – I'm
-            always motivated to achieve the best results and help my clients
-            reach their goals.
+        <div class="terminal-body">
+          <p class="terminal-cmd">
+            <span class="usr">colin@webdev</span><span class="punct">:</span><span
+              class="pth">~</span
+            ><span class="punct">$</span> cat about.md
           </p>
-        </div>
 
-        <div class="language-content" id="content-de">
-          <p class="p-6">
-            Hallo! <br />
-            Ich bin Colin, ein {age}-jähriger leidenschaftlicher Webentwickler.
-            Seit meiner Jugend bin ich ein echter PC-Nerd mit einer starken
-            Affinität für Technologie. Neben meiner Arbeit als Webentwickler bin
-            ich auch ein begeisterter Gamer und verbringe gerne meine Freizeit
-            mit anspruchsvollen Spielen. Zusätzlich habe ich eine besondere
-            Leidenschaft für die Bonsai-Kunst, die mir hilft, Ruhe und Ausgleich
-            in meinen Alltag zu bringen. Mit meiner vielfältigen Erfahrung und
-            meinen breitgefächerten Interessen bringe ich kreative und
-            funktionale Lösungen in meine Projekte ein. Egal ob es darum geht,
-            eine benutzerfreundliche Webseite zu entwickeln oder komplexe
-            technische Herausforderungen zu lösen – ich bin immer motiviert, die
-            besten Ergebnisse zu erzielen und meinen Kunden zu helfen, ihre
-            Ziele zu erreichen.
+          <div class="language-content active" id="content-en">
+            <p>
+              Hello! <br />
+              I'm Colin, a {age}-year-old passionate web developer. Since my
+              youth, I've been a true PC nerd with a strong affinity for
+              technology. Besides my work as a web developer, I'm also an avid
+              gamer who loves spending my free time on challenging games.
+              Additionally, I have a special passion for bonsai art, which helps
+              me find calm and balance in my daily life. With my diverse
+              experience and wide-ranging interests, I bring creative and
+              functional solutions to my projects. Whether it's developing a
+              user-friendly website or tackling complex technical challenges –
+              I'm always motivated to achieve the best results and help my
+              clients reach their goals.
+            </p>
+          </div>
+
+          <div class="language-content" id="content-de">
+            <p>
+              Hallo! <br />
+              Ich bin Colin, ein {age}-jähriger leidenschaftlicher
+              Webentwickler. Seit meiner Jugend bin ich ein echter PC-Nerd mit
+              einer starken Affinität für Technologie. Neben meiner Arbeit als
+              Webentwickler bin ich auch ein begeisterter Gamer und verbringe
+              gerne meine Freizeit mit anspruchsvollen Spielen. Zusätzlich habe
+              ich eine besondere Leidenschaft für die Bonsai-Kunst, die mir
+              hilft, Ruhe und Ausgleich in meinen Alltag zu bringen. Mit meiner
+              vielfältigen Erfahrung und meinen breitgefächerten Interessen
+              bringe ich kreative und funktionale Lösungen in meine Projekte
+              ein. Egal ob es darum geht, eine benutzerfreundliche Webseite zu
+              entwickeln oder komplexe technische Herausforderungen zu lösen –
+              ich bin immer motiviert, die besten Ergebnisse zu erzielen und
+              meinen Kunden zu helfen, ihre Ziele zu erreichen.
+            </p>
+          </div>
+
+          <p class="terminal-cmd terminal-cmd--last">
+            <span class="usr">colin@webdev</span><span class="punct">:</span><span
+              class="pth">~</span
+            ><span class="punct">$</span> <span class="term-cursor">_</span>
           </p>
         </div>
       </div>
 
-      <div class="content-box">
-        <h3 class="content-header">
-          Self Proclamations<span class="animate-ping">_</span>
-        </h3>
-        <div class="skills-container">
-          <div class="skill-item">
-            <i class="fa-solid fa-keyboard"></i>
-            <span>Web Developer</span>
+      <div class="terminal-window">
+        <div class="terminal-titlebar">
+          <div class="terminal-dots" aria-hidden="true">
+            <span class="dot-red"></span>
+            <span class="dot-yellow"></span>
+            <span class="dot-green"></span>
           </div>
-          <div class="skill-item">
-            <i class="fa-solid fa-user"></i>
-            <span>UI/UX Enthusiast</span>
-          </div>
-          <div class="skill-item">
-            <i class="fa-solid fa-leaf"></i>
-            <span>Bonsai Enthusiast</span>
-          </div>
+          <span class="terminal-title">whoami — colin@webdev</span>
+        </div>
+
+        <div class="terminal-body">
+          <p class="terminal-cmd">
+            <span class="usr">colin@webdev</span><span class="punct">:</span><span
+              class="pth">~</span
+            ><span class="punct">$</span> whoami --tags
+          </p>
+
+          <ul class="term-tags">
+            <li>
+              <span class="term-arrow">&gt;</span>
+              <i class="fa-solid fa-keyboard"></i>
+              <span>Web Developer</span>
+            </li>
+            <li>
+              <span class="term-arrow">&gt;</span>
+              <i class="fa-solid fa-user"></i>
+              <span>UI/UX Enthusiast</span>
+            </li>
+            <li>
+              <span class="term-arrow">&gt;</span>
+              <i class="fa-solid fa-leaf"></i>
+              <span>Bonsai Enthusiast</span>
+            </li>
+          </ul>
+
+          <p class="terminal-cmd terminal-cmd--last">
+            <span class="usr">colin@webdev</span><span class="punct">:</span><span
+              class="pth">~</span
+            ><span class="punct">$</span> <span class="term-cursor">_</span>
+          </p>
         </div>
       </div>
     </div>
@@ -237,6 +276,86 @@ if (!hasHadBirthdayThisYear) {
     display: block;
     opacity: 1;
     transform: translateY(0);
+  }
+
+  /* ===== Terminal-Fenster (Bio) ===== */
+  /* Basis-Chrome (.terminal-window/-titlebar/-dots/-title/-body/-cmd/-cursor)
+     liegt jetzt global in css/terminal.css. Hier nur About-Spezifisches. */
+
+  /* EN/DE als Terminal-Tabs auf der dunklen Leiste */
+  .terminal-titlebar .lang-buttons {
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+  .terminal-titlebar .lang-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: rgba(235, 235, 235, 0.65);
+    padding: 0.15rem 0.6rem;
+    margin: 0;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .terminal-titlebar .lang-btn:hover {
+    color: var(--accent);
+    border-color: rgba(255, 99, 71, 0.5);
+  }
+  .terminal-titlebar .lang-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* Bio-Output: lesbar, aber im Terminal-Kontext */
+  .terminal-body .language-content p {
+    font-family: var(--font-body);
+    color: #e6e6e6;
+    line-height: 1.7;
+    /* max-width: 70ch; */
+    text-align: left;
+    padding: 0;
+  }
+
+  /* whoami --tags Liste */
+  .term-tags {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+  }
+  .term-tags li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: #e6e6e6;
+    width: fit-content;
+    transition:
+      color 0.25s ease,
+      transform 0.25s ease;
+  }
+  .term-tags li:hover {
+    color: var(--accent);
+    transform: translateX(5px);
+  }
+  .term-tags .term-arrow {
+    color: var(--accent);
+  }
+  .term-tags i {
+    width: 1.4em;
+    text-align: center;
+    color: #9a9a9a;
+    transition: color 0.25s ease;
+  }
+  .term-tags li:hover i {
+    color: var(--accent);
   }
 
   .content-header {

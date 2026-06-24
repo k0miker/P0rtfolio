@@ -14,6 +14,7 @@ import port2 from "../assets/images/portfolio2.png";
 import port3 from "../assets/images/portfolio3.png";
 import p15 from "../assets/images/p15.png";
 import p16 from "../assets/images/p16.png";
+import p17 from "../assets/images/p17.png";
 
 export const projects = [
   // {
@@ -60,6 +61,38 @@ export const projects = [
   //   badges: ["Design", "Marketing", "Canva"]
   // },
   {
+    id: "14",
+    title: "Grumbach Entsorgung",
+    description: "Professionelle Website für ein Entsorgungsunternehmen mit umfassenden Serviceinformationen",
+    image: "p14",
+    technologies: ["Astro", "CSS", "JavaScript", "Business"],
+    modalDescriptionDe: "Eine professionelle Website für das Entsorgungsunternehmen Grumbach, die im Rahmen meiner Selbstständigkeit entwickelt wurde. Die Seite präsentiert das umfassende Dienstleistungsspektrum des Unternehmens, von Containerservice über Schrottentsorgung bis hin zu Abriss- und Erdarbeiten. Das klare, moderne Design vermittelt Professionalität und Zuverlässigkeit. Die Website bietet eine intuitive Navigation mit detaillierten Informationen zu allen Services, Kontaktmöglichkeiten und Standortinformationen. Vollständig responsiv und optimiert für alle Endgeräte.",
+    modalDescriptionEn: "A professional website for the waste disposal company Grumbach, developed as part of my freelance work. The site presents the company's comprehensive range of services, from container services and scrap disposal to demolition and earthworks. The clear, modern design conveys professionalism and reliability. The website offers intuitive navigation with detailed information about all services, contact options, and location information. Fully responsive and optimized for all devices.",
+    website: "https://www.altpapier.de/",
+    github: null,
+    iframe: true,
+    iframeUrl: "https://www.altpapier.de/",
+    category: "Business",
+    tile: "wide",
+    badges: ["Astro", "Business", "Responsive Design", "Freelance"]
+  },
+  {
+    id: "20",
+    title: "ConnectAI – KI für Myfactory ERP",
+    description: "KI-Agenten direkt im Myfactory-ERP: Geschäftsprozesse automatisieren ohne Systemwechsel.",
+    image: "p17",
+    technologies: ["HTML", "CSS", "JavaScript", "AI", "ERP", "Business"],
+    modalDescriptionDe: "ConnectAI ist eine KI-Integration für das Myfactory-ERP-System – ein Produkt der NETFACTORY GmbH. Statt das gewohnte ERP zu wechseln, bringen KI-Agenten Automatisierung direkt dorthin, wo die Daten liegen: automatische Angebotserstellung aus E-Mails, Adressprüfung, Chat-basierte Datenabfragen und Reporting, Sprachsteuerung sowie Marketing-Automation. Die Lösung ist DSGVO-konform (EU-Hosting bzw. eigene Infrastruktur möglich), in einem Tag einsatzbereit und reduziert manuelle Aufwände um bis zu 80 %. Im Hintergrund kommen je nach Anwendungsfall führende KI-Modelle wie OpenAI (GPT-5) oder Anthropic (Claude) zum Einsatz. Zielgruppe sind mittelständische Unternehmen aus Handel, Industrie und Abfallwirtschaft.",
+    modalDescriptionEn: "ConnectAI is an AI integration for the Myfactory ERP system – a product by NETFACTORY GmbH. Instead of switching the familiar ERP, AI agents bring automation right where the data already lives: automatic quote generation from emails, address validation, chat-based data queries and reporting, voice control, and marketing automation. The solution is GDPR-compliant (EU hosting or your own infrastructure possible), ready to use in a single day, and cuts manual effort by up to 80%. Under the hood it leverages leading AI models such as OpenAI (GPT-5) or Anthropic (Claude) depending on the use case. The target audience is mid-sized companies in trade, industry, and the waste-management sector.",
+    website: "https://www.connectai-erp.de/",
+    github: null,
+    iframe: true,
+    iframeUrl: "https://www.connectai-erp.de/",
+    category: "AI",
+    tile: "wide",
+    badges: ["AI", "ERP", "HTML", "CSS", "JavaScript", "Automation"]
+  },
+  {
     id: "5",
     title: "Industrieboden Meyer",
     description: "A webproject i have translated from Typo3 into an Astro Project",
@@ -72,21 +105,6 @@ export const projects = [
     iframe: false,
     category: "Business",
     badges: ["Astro", "Typo3","Business"]
-  },
-  {
-    id: "14",
-    title: "Grumbach Entsorgung",
-    description: "Professionelle Website für ein Entsorgungsunternehmen mit umfassenden Serviceinformationen",
-    image: "p14",
-    technologies: ["Astro", "CSS", "JavaScript", "Business"],
-    modalDescriptionDe: "Eine professionelle Website für das Entsorgungsunternehmen Grumbach, die im Rahmen meiner Selbstständigkeit entwickelt wurde. Die Seite präsentiert das umfassende Dienstleistungsspektrum des Unternehmens, von Containerservice über Schrottentsorgung bis hin zu Abriss- und Erdarbeiten. Das klare, moderne Design vermittelt Professionalität und Zuverlässigkeit. Die Website bietet eine intuitive Navigation mit detaillierten Informationen zu allen Services, Kontaktmöglichkeiten und Standortinformationen. Vollständig responsiv und optimiert für alle Endgeräte.",
-    modalDescriptionEn: "A professional website for the waste disposal company Grumbach, developed as part of my freelance work. The site presents the company's comprehensive range of services, from container services and scrap disposal to demolition and earthworks. The clear, modern design conveys professionalism and reliability. The website offers intuitive navigation with detailed information about all services, contact options, and location information. Fully responsive and optimized for all devices.",
-    website: "https://web3.agrumbach.com/",
-    github: null,
-    iframe: true,
-    iframeUrl: "https://web3.agrumbach.com/",
-    category: "Business",
-    badges: ["Astro", "Business", "Responsive Design", "Freelance"]
   },
   {
     id: "13",
@@ -178,6 +196,7 @@ export const projects = [
     isVideo: true,
     videoSrc: "/globe30-collon-480.mov",
     category: "Data Visualization",
+    tile: "large",
     badges: ["React", "Three.js","Data Visualization","3D","WebGL",]
   },
   {
@@ -193,6 +212,7 @@ export const projects = [
     iframeUrl: "http://brokechain.cb-web.space/",
     responsiveIframe: true,
     category: "Finance",
+    tile: "tall",
     badges: ["React Native", "TypeScript", "Mobile App", "Crypto", "AI"]
   },
   {
@@ -208,6 +228,7 @@ export const projects = [
     iframe: true,
     iframeUrl: "https://podcast.cb-web.space/",
     category: "AI",
+    tile: "wide",
     badges: ["AI", "Podcast", "Audio"]
   },
   {

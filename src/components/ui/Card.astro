@@ -15,7 +15,10 @@ const cardDescription =
 const category = project.category || "Other";
 ---
 
-<div class="card-wrapper" data-category={category}>
+<div
+  class:list={["card-wrapper", project.tile && `tile-${project.tile}`]}
+  data-category={category}
+>
   <div class="box card-3d offscreen" data-modal-target={`modal-${project.id}`}>
     <div class="card-content">
       <Image
@@ -51,6 +54,7 @@ const category = project.category || "Other";
     position: relative;
     z-index: 5;
     perspective: 1000px;
+    height: 100%;
   }
 
   .box {
@@ -58,12 +62,14 @@ const category = project.category || "Other";
     overflow: hidden;
     border-radius: 15px;
     cursor: pointer;
+    height: 100%;
     transform-style: preserve-3d;
     transform: translateZ(0);
-    transition: transform 0.5s ease-out;
+    transition:
+      transform 0.5s ease-out,
+      box-shadow 0.4s ease;
     background-color: var(--bg-card);
-    border-radius: 15px;
-    animation: cardGlow 4s ease-in-out infinite alternate;
+    box-shadow: var(--elev-2);
   }
 
   /* @keyframes cardGlow {
@@ -87,7 +93,8 @@ const category = project.category || "Other";
 
   .card-image {
     width: 100%;
-    height: 300px;
+    height: 100%;
+    min-height: 220px;
     object-fit: cover;
     object-position: top;
     transition:
@@ -167,22 +174,9 @@ const category = project.category || "Other";
 
   /* Hover Effekte */
   .box:hover {
-    transform: rotateX(8deg) rotateY(8deg);
-    animation: cardGlowIntense 1s ease-in-out infinite alternate;
-    transition: 0.5s;
-  }
-
-  @keyframes cardGlowIntense {
-    0% {
-      box-shadow:
-        0 0 15px 0px var(--accent),
-        0 0 10px 0px var(--accent);
-    }
-    100% {
-      box-shadow:
-        0 0 5px 0px var(--accent),
-        0 0 1px 0px var(--accent);
-    }
+    box-shadow:
+      var(--elev-4),
+      0 0 0 1px rgba(255, 99, 71, 0.55);
   }
 
   .box:hover .card-image {
@@ -222,34 +216,3 @@ const category = project.category || "Other";
   }
 </style>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Nur 3D-Effekte aktivieren, wenn nicht auf einem mobilen Gerät
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-
-    if (!isMobile) {
-      const cards = document.querySelectorAll(".card-3d");
-
-      cards.forEach((card) => {
-        card.addEventListener("mousemove", (e: MouseEvent) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-
-          const rotateX = (y - centerY) / 15;
-          const rotateY = (centerX - x) / 15;
-
-          (card as HTMLElement).style.transform =
-            `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-
-        card.addEventListener("mouseleave", () => {
-          (card as HTMLElement).style.transform = "rotateX(0) rotateY(0)";
-        });
-      });
-    }
-  });
-</script>

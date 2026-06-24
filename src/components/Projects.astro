@@ -21,6 +21,7 @@ import port2 from "../assets/images/portfolio2.png";
 import port3 from "../assets/images/portfolio3.png";
 import p15 from "../assets/images/p15.png";
 import p16 from "../assets/images/p16.png";
+import p17 from "../assets/images/p17.png";
 
 // Map der Bildimporte zu Projekten
 const imageMap = {
@@ -41,6 +42,7 @@ const imageMap = {
   port3,
   p15,
   p16,
+  p17,
 };
 
 // Verbesserung der Filterlogik mit zusätzlicher Prüfung
@@ -122,8 +124,7 @@ const categories = [
   .filter-container {
     display: flex;
     justify-content: center;
-    margin-bottom: 2rem;
-    perspective: 1000px;
+    margin-bottom: 2.5rem;
     position: relative;
     z-index: 10; /* Erhöhter z-index für bessere Klickbarkeit */
   }
@@ -133,20 +134,24 @@ const categories = [
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
-    transform-style: preserve-3d;
-    transform: rotateX(5deg);
     position: relative;
     z-index: 11; /* Erhöhter z-index für die Buttons */
   }
 
   .filter-btn {
-    padding: 0.3rem 0.5rem;
-    border-radius: 25px;
-    background-color: var(--bg-secondary);
-    color: var(--text-titel);
-    font-family: mono;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background-color: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition:
+      color 0.25s ease,
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      transform 0.25s ease;
     position: relative;
     z-index: 12;
     white-space: nowrap;
@@ -167,22 +172,74 @@ const categories = [
 
   .projects-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2rem;
-    /* padding: 2vw 8vw; */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 260px;
+    grid-auto-flow: row dense;
+    gap: 1.5rem;
     max-width: 1624px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
   }
 
-  /* Masonry Layout mit unterschiedlichen Kartengrößen */
-  .projects-container > :global(.card-wrapper:nth-child(3n)) {
-    grid-row: span 1.2;
+  /* Bento: gemischte Kachelgrößen für lockeren Rhythmus */
+  .projects-container > :global(.card-wrapper.tile-large) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .projects-container > :global(.card-wrapper.tile-wide) {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+  .projects-container > :global(.card-wrapper.tile-tall) {
+    grid-column: span 1;
+    grid-row: span 2;
   }
 
-  .projects-container > :global(.card-wrapper:nth-child(4n)) {
-    grid-row: span 0.8;
+  /* Gefilterter Zustand: sichtbare Kacheln füllen den Platz gleichmäßig
+     (1 → volle Breite, 2 → 1fr 1fr, usw.). Tile-Spans werden aufgehoben. */
+  .projects-container.is-filtered {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    grid-auto-rows: 22rem;
+  }
+  .projects-container.is-filtered > :global(.card-wrapper.tile-large),
+  .projects-container.is-filtered > :global(.card-wrapper.tile-wide),
+  .projects-container.is-filtered > :global(.card-wrapper.tile-tall) {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  /* Genau eine sichtbare Kachel: volle Breite, mind. 2 Reihen hoch */
+  .projects-container.is-filtered.is-single > :global(.card-wrapper) {
+    grid-row: span 2;
+  }
+
+  /* Animiertes Bento: festes 5x4-Flächenraster (immer lückenlos gefüllt).
+     Die Karten werden per JS rotierend auf die benannten Slots verteilt. */
+  @media (min-width: 1024px) {
+    .projects-container.bento-fixed:not(.is-filtered) {
+      grid-template-columns: repeat(5, 1fr);
+      grid-template-rows: repeat(4, 15rem);
+      grid-auto-rows: 15rem;
+      /* grid-template-areas werden per JS dynamisch gesetzt (animiertes Bento) */
+    }
+  }
+
+  /* Bei nur ~2 Spalten Platz: große Kacheln auf 2x1 reduzieren */
+  @media (max-width: 1000px) {
+    .projects-container > :global(.card-wrapper.tile-large) {
+      grid-row: span 1;
+    }
+  }
+
+  /* Einspaltig: alle Kacheln auf Standardgröße */
+  @media (max-width: 700px) {
+    .projects-container > :global(.card-wrapper.tile-large),
+    .projects-container > :global(.card-wrapper.tile-wide),
+    .projects-container > :global(.card-wrapper.tile-tall) {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
   }
 
   /* Animation für Karten beim Erscheinen */
@@ -370,9 +427,10 @@ const categories = [
     const filterBtns = document.querySelectorAll(".filter-btn");
     const cards = document.querySelectorAll(".card-wrapper");
 
-    // Setze Animation-Order für jede Karte
+    // Setze Animation-Order für jede Karte (setProperty statt setAttribute,
+    // damit andere Inline-Styles wie grid-area nicht überschrieben werden)
     cards.forEach((card, index) => {
-      card.setAttribute("style", `--order: ${index}`);
+      (card as HTMLElement).style.setProperty("--order", String(index));
     });
 
     function handleFilterClick(event) {
@@ -383,6 +441,23 @@ const categories = [
       btn.classList.add("active");
 
       const category = btn.getAttribute("data-category");
+
+      // Gefilterten Zustand am Container markieren (füllt den Platz gleichmäßig)
+      const projectsContainer = document.querySelector(".projects-container");
+      if (projectsContainer) {
+        const visibleCount =
+          category === "All"
+            ? cards.length
+            : Array.from(cards).filter(
+                (c) => c.getAttribute("data-category") === category,
+              ).length;
+        projectsContainer.classList.toggle("is-filtered", category !== "All");
+        // Einzelne Kachel: über volle Breite und mind. 2 Reihen hoch
+        projectsContainer.classList.toggle(
+          "is-single",
+          category !== "All" && visibleCount === 1,
+        );
+      }
 
       // Filter-Animation für die Karten
       cards.forEach((card) => {
@@ -449,5 +524,335 @@ const categories = [
 
     // Initial Scroll zum aktiven Filter
     setTimeout(scrollToActiveFilter, 800);
+  });
+</script>
+
+<script>
+  // ===== Animiertes Bento (Mutations-Engine) =====
+  // Jede Karte hat einen festen Flächen-Namen (p1..p12). Pro Tick wird EIN
+  // zufälliger kleiner Bereich neu aufgeteilt (Domino-Flip, Grenzverschiebung,
+  // 2x2 entsteht/verschwindet). So ändern sich nur wenige Kacheln gleichzeitig,
+  // aber über die Zeit kommt jede dran – und das 5x4-Raster bleibt immer voll.
+  document.addEventListener("DOMContentLoaded", () => {
+    const grid = document.querySelector(
+      ".projects-container",
+    ) as HTMLElement | null;
+    if (!grid) return;
+
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let timer: number | null = null;
+
+    // Anzahl der Karten bestimmt das Raster dynamisch – funktioniert für jede
+    // Projektanzahl. COLS bleibt 5 (Desktop-Look), ROWS wird so gewählt, dass das
+    // Raster die Karten lückenlos aufnimmt und etwas Spielraum für größere Kacheln
+    // bietet (C zwischen N und 2N).
+    const COUNT = grid.querySelectorAll(".card-wrapper").length;
+    const COLS = 5;
+    let ROWS = Math.max(2, Math.ceil((COUNT * 1.4) / COLS));
+    while (COLS * ROWS < COUNT) ROWS++;
+    while (COLS * ROWS > 2 * COUNT && COLS * (ROWS - 1) >= COUNT) ROWS--;
+
+    const adjacent = (a: number[], b: number[]) =>
+      (a[0] === b[0] && Math.abs(a[1] - b[1]) === 1) ||
+      (a[1] === b[1] && Math.abs(a[0] - b[0]) === 1);
+
+    // Erzeugt ein lückenloses Start-Layout aus genau n Regionen (max. 2x2):
+    // ein 2x2-„Hero" oben links (Highlight) + Dominosteine + 1x1-Felder.
+    // Trick: über die Zellen läuft eine Schlangen-Reihenfolge (Boustrophedon),
+    // in der aufeinanderfolgende freie Zellen immer benachbart sind – jede
+    // Paarung ist damit ein gültiger Domino. Gibt null zurück, wenn kein gültiges
+    // Layout möglich ist (dann fällt das Grid auf den statischen Fallback zurück).
+    function genLayout(n: number, cols: number, rows: number) {
+      const C = cols * rows;
+      if (n < 1 || n > C) return null;
+      const occ: boolean[][] = Array.from({ length: rows }, () =>
+        Array(cols).fill(false),
+      );
+      const regs: any[] = [];
+      const excess = C - n;
+      const useHero =
+        rows >= 2 && cols >= 2 && excess >= 3 && n >= 5 && 2 * n - C + 2 >= 0;
+      if (useHero) {
+        regs.push({ c: 0, r: 0, w: 2, h: 2 });
+        [[0, 0], [0, 1], [1, 0], [1, 1]].forEach(([r, c]) => (occ[r][c] = true));
+      }
+
+      const path: number[][] = [];
+      for (let r = 0; r < rows; r++) {
+        if (r % 2 === 0) for (let c = 0; c < cols; c++) path.push([r, c]);
+        else for (let c = cols - 1; c >= 0; c--) path.push([r, c]);
+      }
+
+      // Freie Zellen in zusammenhängende (benachbarte) Segmente aufteilen.
+      const segments: number[][][] = [];
+      let seg: number[][] = [];
+      let prev: number[] | null = null;
+      for (const cell of path) {
+        if (occ[cell[0]][cell[1]]) {
+          if (seg.length) segments.push(seg);
+          seg = [];
+          prev = null;
+          continue;
+        }
+        if (prev && !adjacent(prev, cell)) {
+          if (seg.length) segments.push(seg);
+          seg = [];
+        }
+        seg.push(cell);
+        prev = cell;
+      }
+      if (seg.length) segments.push(seg);
+
+      let dominoes = useHero ? excess - 3 : excess;
+      const capTotal = segments.reduce(
+        (s, sg) => s + Math.floor(sg.length / 2),
+        0,
+      );
+      if (dominoes > capTotal) return null;
+
+      for (const cells of segments) {
+        let d = Math.min(Math.floor(cells.length / 2), dominoes);
+        dominoes -= d;
+        let k = 0;
+        while (k < cells.length) {
+          if (d > 0 && k + 1 < cells.length) {
+            const a = cells[k];
+            const b = cells[k + 1];
+            if (a[0] === b[0])
+              regs.push({ c: Math.min(a[1], b[1]), r: a[0], w: 2, h: 1 });
+            else regs.push({ c: a[1], r: Math.min(a[0], b[0]), w: 1, h: 2 });
+            k += 2;
+            d--;
+          } else {
+            const a = cells[k];
+            regs.push({ c: a[1], r: a[0], w: 1, h: 1 });
+            k++;
+          }
+        }
+      }
+
+      if (regs.length !== n) return null;
+      // Verifikation: jede Zelle genau einmal belegt, ids = 0..n-1
+      const check = Array.from({ length: rows }, () => Array(cols).fill(0));
+      regs.forEach((g, i) => {
+        g.id = i;
+        for (let dr = 0; dr < g.h; dr++)
+          for (let dc = 0; dc < g.w; dc++) check[g.r + dr][g.c + dc]++;
+      });
+      for (let r = 0; r < rows; r++)
+        for (let c = 0; c < cols; c++) if (check[r][c] !== 1) return null;
+      return regs;
+    }
+
+    const INITIAL = genLayout(COUNT, COLS, ROWS);
+    const bentoOk = !!INITIAL;
+    let regions = (INITIAL || []).map((o) => ({ ...o }));
+
+    // Tiling-Vorlagen je Fenster `${w}x${h}:${Regionenzahl}` -> [ [dc,dr,w,h], ... ]
+    const TPL: Record<string, number[][][]> = {
+        "2x2:2": [
+          [[0, 0, 2, 1], [0, 1, 2, 1]],
+          [[0, 0, 1, 2], [1, 0, 1, 2]],
+        ],
+        "2x2:3": [
+          [[0, 0, 2, 1], [0, 1, 1, 1], [1, 1, 1, 1]],
+          [[0, 0, 1, 1], [1, 0, 1, 1], [0, 1, 2, 1]],
+          [[0, 0, 1, 2], [1, 0, 1, 1], [1, 1, 1, 1]],
+          [[0, 0, 1, 1], [0, 1, 1, 1], [1, 0, 1, 2]],
+        ],
+        "3x1:2": [
+          [[0, 0, 1, 1], [1, 0, 2, 1]],
+          [[0, 0, 2, 1], [2, 0, 1, 1]],
+        ],
+        "1x3:2": [
+          [[0, 0, 1, 1], [0, 1, 1, 2]],
+          [[0, 0, 1, 2], [0, 2, 1, 1]],
+        ],
+        "2x3:3": [
+          [[0, 0, 2, 2], [0, 2, 1, 1], [1, 2, 1, 1]],
+          [[0, 0, 1, 1], [1, 0, 1, 1], [0, 1, 2, 2]],
+          [[0, 0, 2, 1], [0, 1, 2, 1], [0, 2, 2, 1]],
+        ],
+        "3x2:3": [
+          [[0, 0, 2, 2], [2, 0, 1, 1], [2, 1, 1, 1]],
+          [[0, 0, 1, 1], [0, 1, 1, 1], [1, 0, 2, 2]],
+          [[0, 0, 1, 2], [1, 0, 1, 2], [2, 0, 1, 2]],
+        ],
+      };
+    const WINDOWS = [
+      [2, 2],
+      [3, 1],
+      [1, 3],
+      [2, 3],
+      [3, 2],
+    ];
+
+    const wrappers = () =>
+      Array.from(grid.querySelectorAll(".card-wrapper")) as HTMLElement[];
+    const isVisible = () => {
+      const r = grid.getBoundingClientRect();
+      return r.bottom > 0 && r.top < window.innerHeight;
+    };
+    const canRun = () =>
+      bentoOk &&
+      mq.matches &&
+      !grid.classList.contains("is-filtered") &&
+      wrappers().length === COUNT;
+
+    function buildOcc(rs) {
+      const occ = Array.from({ length: ROWS }, () => Array(COLS).fill(-1));
+      rs.forEach((reg) => {
+        for (let dr = 0; dr < reg.h; dr++)
+          for (let dc = 0; dc < reg.w; dc++) occ[reg.r + dr][reg.c + dc] = reg.id;
+      });
+      return occ;
+    }
+    function areasString(rs) {
+      return buildOcc(rs)
+        .map((row) => '"' + row.map((id) => `p${id + 1}`).join(" ") + '"')
+        .join(" ");
+    }
+    function shuffle(a) {
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+    const sig = (rects) => rects.map((t) => t.join(",")).sort().join("|");
+
+    // Fenster prüfen: enthält es nur vollständig innenliegende Regionen?
+    function windowIds(occ, r, c, w, h) {
+      const ids = new Set<number>();
+      for (let dr = 0; dr < h; dr++)
+        for (let dc = 0; dc < w; dc++) ids.add(occ[r + dr][c + dc]);
+      for (const id of ids) {
+        const g = regions[id];
+        if (g.c < c || g.r < r || g.c + g.w > c + w || g.r + g.h > r + h)
+          return null;
+      }
+      return [...ids];
+    }
+
+    function mutate() {
+      const occ = buildOcc(regions);
+      const wins: any[] = [];
+      for (const [w, h] of WINDOWS)
+        for (let r = 0; r + h <= ROWS; r++)
+          for (let c = 0; c + w <= COLS; c++) {
+            const ids = windowIds(occ, r, c, w, h);
+            if (ids) {
+              const key = `${w}x${h}:${ids.length}`;
+              if (TPL[key]) wins.push({ r, c, w, h, ids, key });
+            }
+          }
+      shuffle(wins);
+      for (const win of wins) {
+        const cur = sig(
+          win.ids.map((id) => {
+            const g = regions[id];
+            return [g.c - win.c, g.r - win.r, g.w, g.h];
+          }),
+        );
+        const alts = TPL[win.key].filter((t) => sig(t) !== cur);
+        if (!alts.length) continue;
+        const tpl = alts[Math.floor(Math.random() * alts.length)];
+        const idsSorted = win.ids
+          .slice()
+          .sort((a, b) => regions[a].r - regions[b].r || regions[a].c - regions[b].c);
+        const tplSorted = tpl.slice().sort((a, b) => a[1] - b[1] || a[0] - b[0]);
+        idsSorted.forEach((id, k) => {
+          const [dc, dr, w, h] = tplSorted[k];
+          regions[id] = { id, c: win.c + dc, r: win.r + dr, w, h };
+        });
+        return true;
+      }
+      return false;
+    }
+
+    function setNames() {
+      wrappers().forEach((w, i) => {
+        w.style.gridArea = `p${i + 1}`;
+      });
+    }
+
+    function render(animate: boolean) {
+      const ws = wrappers();
+      const firsts = animate ? ws.map((w) => w.getBoundingClientRect()) : null;
+      grid.style.gridTemplateAreas = areasString(regions);
+      if (animate && firsts && !reduce.matches) {
+        ws.forEach((w, i) => {
+          const last = w.getBoundingClientRect();
+          const f = firsts[i];
+          const dx = f.left - last.left;
+          const dy = f.top - last.top;
+          const sx = last.width ? f.width / last.width : 1;
+          const sy = last.height ? f.height / last.height : 1;
+          if (
+            Math.abs(dx) < 1 &&
+            Math.abs(dy) < 1 &&
+            Math.abs(sx - 1) < 0.01 &&
+            Math.abs(sy - 1) < 0.01
+          )
+            return;
+          w.animate(
+            [
+              {
+                transformOrigin: "top left",
+                transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`,
+              },
+              { transformOrigin: "top left", transform: "none" },
+            ],
+            { duration: 700, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+          );
+        });
+      }
+    }
+
+    function startTimer() {
+      stopTimer();
+      if (reduce.matches) return;
+      timer = window.setInterval(() => {
+        if (!canRun() || !isVisible()) return;
+        if (mutate()) render(true);
+      }, 4000);
+    }
+    function stopTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }
+
+    function refresh() {
+      if (canRun()) {
+        grid.classList.add("bento-fixed");
+        grid.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
+        grid.style.gridTemplateRows = `repeat(${ROWS}, 15rem)`;
+        setNames();
+        render(false);
+        startTimer();
+      } else {
+        grid.classList.remove("bento-fixed");
+        grid.style.gridTemplateAreas = "";
+        grid.style.gridTemplateColumns = "";
+        grid.style.gridTemplateRows = "";
+        wrappers().forEach((w) => {
+          w.style.gridArea = "";
+        });
+        stopTimer();
+      }
+    }
+
+    mq.addEventListener("change", refresh);
+    window.addEventListener("resize", () => {
+      if (grid.classList.contains("bento-fixed")) render(false);
+    });
+    document.querySelectorAll(".filter-btn").forEach((btn) => {
+      btn.addEventListener("click", () => setTimeout(refresh, 400));
+    });
+
+    refresh();
   });
 </script>

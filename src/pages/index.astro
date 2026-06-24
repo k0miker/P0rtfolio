@@ -2,6 +2,7 @@
 import "../css/fonts.css";
 import "../css/keyframes.css";
 import "../css/darkmode.css";
+import "../css/terminal.css";
 import "../css/fontawesome/css/fontawesome.css";
 import "../css/fontawesome/css/all.min.css";
 import Nav from "../components/Nav.astro";
@@ -612,9 +613,21 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
   }
 
   * {
-    font-family: mono;
     padding: 0;
     margin: 0;
+  }
+
+  /* Editorial-Basis: Body in Sans (Inter), Mono nur noch als gezielter Akzent
+     (Headlines-Suffixe, Labels, Cursor — via .font-[mono] / font-family: mono). */
+  html {
+    font-family: var(--font-body);
+  }
+  body {
+    font-family: var(--font-body);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   @media (prefers-reduced-motion: no-preference) {

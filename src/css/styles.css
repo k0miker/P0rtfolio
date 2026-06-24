@@ -23,7 +23,36 @@
   --font-size-xl: 1.5rem;
   --font-size-xxl: 2rem;
   --font-size-xxxl: 3rem;
-  
+
+  /* ----- Font Families: Editorial-Basis + Terminal-Akzente ----- */
+  /* Body/Fließtext: Sans (Inter) — der seriöse Unterbau */
+  --font-body: "inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Akzent: Monospace (Space Mono) — Headlines-Suffixe, Labels, Cursor, Code-Tags */
+  --font-mono: "mono", "SF Mono", "JetBrains Mono", ui-monospace, monospace;
+  /* Handschrift: nur für den Hero-Schriftzug */
+  --font-marker: "marker", cursive;
+
+  /* ----- Fluid Display-Skala (clamp: min, fluid, max) ----- */
+  /* Ersetzt feste Breakpoint-Sprünge — skaliert weich mit der Viewport-Breite */
+  --step--1: clamp(0.85rem, 0.80rem + 0.20vw, 1.05rem);
+  --step-0:  clamp(1.00rem, 0.92rem + 0.32vw, 1.30rem);
+  --step-1:  clamp(1.25rem, 1.05rem + 0.65vw, 1.85rem);
+  --step-2:  clamp(1.55rem, 1.25rem + 1.05vw, 2.60rem);
+  --step-3:  clamp(1.90rem, 1.45rem + 1.80vw, 3.60rem);
+  --step-4:  clamp(2.35rem, 1.65rem + 2.80vw, 5.00rem);
+  --step-5:  clamp(2.90rem, 1.80rem + 4.60vw, 7.50rem);
+
+  /* ----- Fluid Section-Spacing ----- */
+  --space-section: clamp(4rem, 2.5rem + 7.5vw, 9rem);
+  --space-block:   clamp(1.5rem, 1rem + 2.5vw, 3rem);
+  --content-max:   1280px;
+
+  /* ----- Elevation-Skala: konsistente Schatten statt Dauer-Glows ----- */
+  --elev-1: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.10);
+  --elev-2: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.08);
+  --elev-3: 0 10px 15px -3px rgba(0, 0, 0, 0.10), 0 4px 6px -4px rgba(0, 0, 0, 0.10);
+  --elev-4: 0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.10);
+
   /* Z-index layers */
   --z-below: -1;
   --z-normal: 0;
