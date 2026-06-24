@@ -186,7 +186,7 @@ if (!hasHadBirthdayThisYear) {
 
   .content-box {
     width: 90%;
-    max-width: 768px;
+    max-width: 1200px;
     background-color: var(--form-bg);
     border-radius: 12px;
     border: 1px solid var(--border);
@@ -317,6 +317,17 @@ if (!hasHadBirthdayThisYear) {
 
   .foto-swich img:nth-of-type(1) {
     transform: translateX(50%);
+  }
+
+  @media (min-width: 1280px) {
+    .wrap {
+      min-height: unset;
+      padding-bottom: 60px;
+    }
+    .content-box {
+      max-width: 1600px;
+      width: 90%;
+    }
   }
 
   @media (max-width: 768px) {

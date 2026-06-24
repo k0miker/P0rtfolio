@@ -334,7 +334,31 @@
 /* ========== 6. DARK MODE SPEZIFISCHE STILE ========== */
 /* Die Dark-Mode-spezifischen Stile wurden in darkmode.css verschoben */
 
-/* ========== 7. RESPONSIVE DESIGN & CONTAINER QUERIES ========== */
+/* ========== 7. ACCESSIBILITY ========== */
+
+/* Keyboard-Focus-Ringe: sichtbar für Tab-Navigation, unsichtbar bei Mausklick */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid tomato !important;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Globale prefers-reduced-motion Regel */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========== 8. RESPONSIVE DESIGN & CONTAINER QUERIES ========== */
 
 /* Container-basiertes responsives Design */
 @container (min-width: 400px) {

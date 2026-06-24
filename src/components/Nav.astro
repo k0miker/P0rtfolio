@@ -13,7 +13,7 @@ const navProjects = projects;
   id="navbar"
 >
   <div
-    class="flex flex-col h-full max-w-screen-2xl items-center md:justify-center mx-auto md:flex-row md:px-6 mg:px-2"
+    class="flex flex-col h-full max-w-[2800px] items-center md:justify-center mx-auto md:flex-row md:px-6 mg:px-2"
     id="nav-container"
   >
     <!-- HEADER: Logo und Hamburger-Menü -->
@@ -21,7 +21,8 @@ const navProjects = projects;
       <!-- Logo / Brand -->
       <a
         href="/"
-        class="name lg:text-lg font-semibold duration-200 flex items-center justify-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-none focus:shadow-outline"
+        aria-label="CB-WebDev – Startseite"
+        class="name lg:text-lg font-semibold duration-200 flex items-center justify-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-none"
         ><img class="logo" src={logo.src} alt="" /><i>C</i><span>olin</span>
         <i>B</i><span>lome </span><span class="dev">
           Webdev<i class="dash animate-ping">_</i></span
@@ -76,25 +77,32 @@ const navProjects = projects;
 
         <!-- PROJEKT DROPDOWN: Eigener Bereich mit Dropdown-Funktionalität -->
         <div class="relative group" id="project-dropdown-container">
-          <button
-            id="nav-projects"
-            class="px-0 w-[100%] text-left project-dropdown hover:text-[tomato] focus:text-gray-900 focus:outline-none focus:shadow-outline rounded-lg md:ml-2"
-            aria-haspopup="true"
-            aria-expanded="false"
-            ><a
-              class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-600 focus:outline-none focus:shadow-outline min-w-16"
+          <div class="flex items-center project-nav-group md:ml-2">
+            <a
+              class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none min-w-16"
               href="/#projects"
-              >/Projects<svg
+              id="nav-projects-link"
+              >/Projects</a
+            >
+            <button
+              id="nav-projects"
+              class="project-dropdown p-1 mt-2 md:mt-0 rounded hover:text-[tomato] focus:outline-none"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-label="Projektliste öffnen"
+            >
+              <svg
                 fill="currentColor"
                 viewBox="0 0 20 20"
-                class="w-6 h-6 mt-0 ml-1 transition-transform duration-200 transform dropdown-arrow"
+                class="w-5 h-5 transition-transform duration-200 transform dropdown-arrow"
+                aria-hidden="true"
                 ><path
                   fill-rule="evenodd"
                   d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                   clip-rule="evenodd"></path></svg
-              ></a
-            >
-          </button>
+              >
+            </button>
+          </div>
 
           <!-- Projekt-Modal Dropdown -->
           <div
@@ -141,7 +149,7 @@ const navProjects = projects;
 
   /* Kopfzeile/Navbar Styling */
   .head {
-    transition: all 1s;
+    transition: all 0.3s;
     height: 10vh;
     background-color: rgb(0, 0, 0);
     background: var(--nav-bg);
@@ -169,18 +177,18 @@ const navProjects = projects;
   }
 
   /* Anpassung für das Project-Dropdown */
+  .project-nav-group {
+    border-radius: 0.5rem;
+  }
+
   .project-dropdown {
-    transition: all 0.3s ease;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    display: flex;
+    align-items: center;
   }
 
   .project-dropdown:hover {
-    background-color: var(--bg-secondary); /* Konsistentes Hover-Styling */
     color: tomato;
-  }
-
-  .project-dropdown:focus {
-    background-color: var(--bg-secondary);
-    outline: none;
   }
 
   .project-list {

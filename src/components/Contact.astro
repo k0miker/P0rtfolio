@@ -53,7 +53,7 @@ import contactBg from "../assets/images/contact.webp";
         </div>
         <div class="mt-4">
           <div class="toggle-switch">
-            <input type="checkbox" required id="toggle" class="toggle-input checkbox" />
+            <input type="checkbox" required id="toggle" class="toggle-input checkbox" aria-describedby="privacy-error" />
             <label for="toggle" class="toggle-label"></label>
           </div>
           I agree to the <a
@@ -61,6 +61,7 @@ import contactBg from "../assets/images/contact.webp";
             target="_blank"
             class="underline text-base toggle-switch-label">privacy policy.</a
           >
+          <p id="privacy-error" class="privacy-error" role="alert" aria-live="polite"></p>
         </div>
         <Button class="button" disabled />
         <div class="direct-contact">
@@ -102,6 +103,13 @@ import contactBg from "../assets/images/contact.webp";
     background-position: center !important;
   }
 
+  /* iOS Safari unterstützt background-attachment: fixed nicht korrekt */
+  @media (hover: none) and (pointer: coarse) {
+    section {
+      background-attachment: scroll !important;
+    }
+  }
+
   @media (max-width: 768px) {
     section {
       padding: 2rem 1rem;
@@ -115,7 +123,7 @@ import contactBg from "../assets/images/contact.webp";
   .card {
     display: flex;
     flex-direction: column;
-    max-width: 768px;
+    max-width: clamp(600px, 75vw, 1600px);
     width: 90%;
     height: fit-content;
     box-shadow: var(--card-shadow), var(--card-border-glow);
@@ -170,7 +178,7 @@ import contactBg from "../assets/images/contact.webp";
     position: relative;
     padding: 12px;
     width: 100%;
-    max-width: 450px;
+    max-width: clamp(450px, 60%, 700px);
   }
 
   .input {
@@ -237,6 +245,19 @@ import contactBg from "../assets/images/contact.webp";
 .toggle-switch-label {
   padding-bottom: 15px;
   color: var(--text-primary);
+}
+
+.privacy-error {
+  display: none;
+  color: #e53e3e;
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+  margin-left: 0;
+  font-family: mono, monospace;
+}
+
+.privacy-error.visible {
+  display: block;
 }
   
 .toggle-switch .toggle-label {
@@ -468,16 +489,28 @@ import contactBg from "../assets/images/contact.webp";
   const input = document.querySelector(".checkbox") as HTMLInputElement;
   const toggle = document.querySelector(".toggle-switch");
   const toggleLabel = document.querySelector(".toggle-label");
+  const privacyError = document.getElementById("privacy-error");
 
   form.addEventListener("submit", (event) => {
     if (!input.checked) {
       event.preventDefault();
       toggle.classList.add("highlight");
       toggleLabel.classList.add("highlight");
+      if (privacyError) {
+        privacyError.textContent = "Bitte stimme der Datenschutzerklärung zu.";
+        privacyError.classList.add("visible");
+      }
       setTimeout(() => {
         toggle.classList.remove("highlight");
         toggleLabel.classList.remove("highlight");
       }, 500);
+    }
+  });
+
+  input?.addEventListener("change", () => {
+    if (input.checked && privacyError) {
+      privacyError.classList.remove("visible");
+      privacyError.textContent = "";
     }
   });
 

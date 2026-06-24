@@ -18,80 +18,80 @@ import skillsBg from "../assets/images/skills.webp";
     <div class="body form-bg">
       <div class="skill">
         <div class="skill-name html font-[mono]">HTML</div>
-        <div class="skill-level">
-          <div style="width: 69%" class="skill-percent"></div>
+        <div class="skill-level" role="progressbar" aria-valuenow="79" aria-valuemin="0" aria-valuemax="100" aria-label="HTML: 79%">
+          <div style="width: 79%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
         <div class="skill-name css font-[mono]">CSS</div>
-        <div class="skill-level">
-          <div style="width: 62%" class="skill-percent"></div>
+        <div class="skill-level" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="CSS: 72%">
+          <div style="width: 72%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
         <div class="skill-name js font-[mono]">JavaScript</div>
-        <div class="skill-level">
-          <div style="width: 50%" class="skill-percent"></div>
+        <div class="skill-level" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="JavaScript: 60%">
+          <div style="width: 60%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
         <div class="skill-name ts font-[mono]">TypeScript</div>
-        <div class="skill-level">
-          <div style="width: 20%" class="skill-percent"></div>
+        <div class="skill-level" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" aria-label="TypeScript: 30%">
+          <div style="width: 30%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
         <div class="skill-name astro font-[mono]">Astro</div>
-        <div class="skill-level">
-          <div style="width: 43%" class="skill-percent"></div>
+        <div class="skill-level" role="progressbar" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" aria-label="Astro: 63%">
+          <div style="width: 63%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
         <div class="skill-name React font-[mono]">ReactNative</div>
-        <div class="skill-level">
-          <div style="width: 45%" class="skill-percent"></div>
+        <div class="skill-level" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="React Native: 65%">
+          <div style="width: 65%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
         <div class="skill-name tailwind font-[mono]">Tailwind</div>
-        <div class="skill-level">
-          <div style="width: 35%" class="skill-percent"></div>
-        </div>
-      </div>
-      <div class="skill">
-        <div class="skill-name github font-[mono]">Github</div>
-        <div class="skill-level">
+        <div class="skill-level" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" aria-label="Tailwind: 55%">
           <div style="width: 55%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
+        <div class="skill-name github font-[mono]">Github</div>
+        <div class="skill-level" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="GitHub: 75%">
+          <div style="width: 75%" class="skill-percent"></div>
+        </div>
+      </div>
+      <div class="skill">
         <div class="skill-name scss font-[mono]">SCSS</div>
-        <div class="skill-level">
-          <div style="width: 20%" class="skill-percent"></div>
+        <div class="skill-level" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="SCSS: 40%">
+          <div style="width: 40%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
         <div class="skill-name windows font-[mono]">Windows</div>
-        <div class="skill-level">
+        <div class="skill-level" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Windows: 80%">
           <div style="width: 80%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
         <div class="skill-name linux font-[mono]">Linux</div>
-        <div class="skill-level">
-          <div style="width: 60%" class="skill-percent"></div>
+        <div class="skill-level" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Linux: 75%">
+          <div style="width: 75%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
         <div class="skill-name tailwind font-[mono]">Express</div>
-        <div class="skill-level">
-          <div style="width: 30%" class="skill-percent"></div>
+        <div class="skill-level" role="progressbar" aria-valuenow="52" aria-valuemin="0" aria-valuemax="100" aria-label="Express: 52%">
+          <div style="width: 52%" class="skill-percent"></div>
         </div>
       </div>
       <div class="skill">
         <div class="skill-name tailwind font-[mono]">NoSQL</div>
-        <div class="skill-level">
-          <div style="width: 45%" class="skill-percent"></div>
+        <div class="skill-level" role="progressbar" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100" aria-label="NoSQL: 68%">
+          <div style="width: 68%" class="skill-percent"></div>
         </div>
       </div>
       <div class="flex wrapper mt-10">
@@ -180,6 +180,13 @@ import skillsBg from "../assets/images/skills.webp";
     background-position: center !important;
   }
 
+  /* iOS Safari unterstützt background-attachment: fixed nicht korrekt */
+  @media (hover: none) and (pointer: coarse) {
+    .box {
+      background-attachment: scroll !important;
+    }
+  }
+
   .wrapper {
     justify-content: space-between;
     flex-wrap: wrap;
@@ -195,7 +202,7 @@ import skillsBg from "../assets/images/skills.webp";
   .card {
     display: flex;
     flex-direction: column;
-    max-width: 768px;
+    max-width: clamp(600px, 85vw, 1600px);
     width: 90%;
     height: fit-content;
     box-shadow: var(--card-shadow), var(--card-border-glow);
@@ -634,6 +641,17 @@ import skillsBg from "../assets/images/skills.webp";
   .animate-cv {
     animation: pulse-shadow 3s infinite;
 
+  }
+
+  @media (min-width: 1280px) {
+    .body {
+      display: grid;
+      grid-template-columns: 1fr;
+      column-gap: 2rem;
+    }
+    .body > .flex {
+      grid-column: 1 / -1;
+    }
   }
 
   /* Medienabfragen für bessere mobile Performance */

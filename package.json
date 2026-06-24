@@ -17,5 +17,8 @@
     "caniuse-lite": "^1.0.30001761",
     "sass": "^1.77.6",
     "tailwindcss": "^3.4.4"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
   }
 }

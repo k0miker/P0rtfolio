@@ -54,7 +54,7 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
 
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>
       CB-WebDev | Webentwicklung Fürstenau | Webseite kaufen Bersenbrück
@@ -597,16 +597,30 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
 </html>
 
 <style>
-  /* Global base font-size reduction for more compact layout */
+  /* Global base font-size — scales up for wide screens */
   html {
-    font-size: 85%; /* Makes all rem-based sizing 85% of default (16px -> 13.6px) */
+    font-size: 85%;
+  }
+  @media (min-width: 2000px) {
+    html { font-size: 93%; }
+  }
+  @media (min-width: 2560px) {
+    html { font-size: 100%; }
+  }
+  @media (min-width: 3200px) {
+    html { font-size: 107%; }
   }
 
   * {
-    scroll-behavior: smooth;
     font-family: mono;
     padding: 0;
     margin: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    * {
+      scroll-behavior: smooth;
+    }
   }
 
   /* Styles nur anwenden, wenn keine Scroll-Blockierung aktiv ist */
@@ -624,6 +638,12 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
     position: relative;
     min-height: 100vh;
     z-index: 0;
+  }
+
+  @media (min-width: 1280px) {
+    #about {
+      min-height: unset;
+    }
   }
   #skills {
     min-height: 100vh;
