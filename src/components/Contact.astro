@@ -4,8 +4,8 @@ import contactBg from "../assets/images/contact.webp";
 
 ---
 
-<section 
-  class="flex flex-col items-center content-center min-h-[70vh] p-2" 
+<section
+  class="flex flex-col items-center content-center min-h-[70vh] p-2"
   id="contact-section"
   style={`background-image: url(${contactBg.src})`}
 >
@@ -33,27 +33,17 @@ import contactBg from "../assets/images/contact.webp";
         method="POST"
       >
         <input type="hidden" name="bot-field" />
+
         <div class="input-group">
-          <input
-            required
-            type="text"
-            name="name"
-            class="input"
-            id="name"
-          />
-          <label class="user-label" for="name">First Name</label>
+          <label class="user-label" for="name">--name</label>
+          <input required type="text" name="name" class="input" id="name" />
         </div>
         <div class="input-group">
-          <input
-            required
-            type="email"
-            name="email"
-            class="input"
-            id="mail"
-          />
-          <label class="user-label" for="mail">E-Mail</label>
+          <label class="user-label" for="mail">--email</label>
+          <input required type="email" name="email" class="input" id="mail" />
         </div>
         <div class="input-group">
+          <label class="user-label" for="message">--message</label>
           <textarea
             required
             name="text"
@@ -61,42 +51,41 @@ import contactBg from "../assets/images/contact.webp";
             autocomplete="off"
             class="textarea input"
             id="message"></textarea>
-          <label class="user-label" for="message">Message</label>
         </div>
-        <div class="mt-4">
+
+        <div class="privacy-line">
+          <span class="privacy-prompt">[?]</span>
           <div class="toggle-switch">
             <input type="checkbox" required id="toggle" class="toggle-input checkbox" aria-describedby="privacy-error" />
             <label for="toggle" class="toggle-label"></label>
           </div>
-          I agree to the <a
+          <span class="privacy-text">I accept the <a
             href="/datenschutz"
             target="_blank"
-            class="underline text-base toggle-switch-label">privacy policy.</a
-          >
+            class="toggle-switch-label">privacy policy</a></span>
+          <span class="privacy-yn">[y/N]</span>
           <p id="privacy-error" class="privacy-error" role="alert" aria-live="polite"></p>
         </div>
+
         <Button class="button" disabled />
+
         <div class="direct-contact">
-          <hr class="contact-divider" />
-          <p class="contact-option-text">Oder kontaktieren Sie mich jetzt direkt:</p>
-          <div class="contact-options">
-            <div class="contact-option email-option">
-              <i class="fas fa-envelope"></i>
-              <div class="contact-info-reveal">
-                <span class="email-text">info@colinblome.dev</span>
-                <button class="copy-btn" data-copy="info@colinblome.dev">
-                  <i class="fas fa-copy"></i>
-                </button>
-              </div>
+          <p class="list-cmd"><span class="usr">colin@webdev</span><span class="punct">:</span><span class="pth">~</span><span class="punct">$</span><span class="cmdtext">./contact --list </span><span class="term-cursor"> _</span></p>
+          <div class="flag-output">
+            <div class="flag-row">
+              <span class="flag-name">--email</span>
+              <span class="flag-value email-text">info@colinblome.dev</span>
+              <button class="copy-btn" data-copy="info@colinblome.dev">
+                <i class="fas fa-copy"></i>
+              </button>
             </div>
-            <div class="contact-option phone-option">
-              <i class="fas fa-phone"></i>
-              <div class="contact-info-reveal">
-                <span class="phone-text">0173-609-8320</span>
-                <button class="copy-btn" data-copy="017360983320">
-                  <i class="fas fa-copy"></i>
-                </button>
-              </div>
+            <div class="flag-row">
+              <span class="flag-name">--phone</span>
+              <span class="flag-value phone-text" data-real="0173-609-8320">···········</span>
+              <button class="reveal-btn" aria-label="Telefonnummer anzeigen">[reveal]</button>
+              <button class="copy-btn" data-copy="017360983320">
+                <i class="fas fa-copy"></i>
+              </button>
             </div>
           </div>
         </div>
@@ -109,7 +98,9 @@ import contactBg from "../assets/images/contact.webp";
       </p>
     </div>
   </div>
-</section><style>
+</section>
+
+<style>
   section {
     align-items: center;
     justify-content: center;
@@ -121,358 +112,303 @@ import contactBg from "../assets/images/contact.webp";
     background-position: center !important;
   }
 
-  /* iOS Safari unterstützt background-attachment: fixed nicht korrekt */
   @media (hover: none) and (pointer: coarse) {
-    section {
-      background-attachment: scroll !important;
-    }
+    section { background-attachment: scroll !important; }
   }
 
   @media (max-width: 768px) {
-    section {
-      padding: 2rem 1rem;
-    }
+    section { padding: 2rem 1rem; }
   }
 
   section.static-background {
     background-attachment: scroll;
   }
 
-  /* Terminal-Fenster (geteiltes Chrome aus terminal.css) – Breite/Elevation */
   .contact-terminal {
     max-width: clamp(600px, 75vw, 1100px);
     box-shadow: var(--elev-3);
   }
-  /* Formular ist der „Output" des Terminals */
+
   .contact-terminal form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 100%;
-    color: #d6d6d6;
+    color: var(--term-cmd-color);
     margin-top: 0.4rem;
+    gap: 0;
   }
-  /* Terminal-Body ist immer dunkel -> Texte hell erzwingen (auch im Light-Mode) */
-  .contact-terminal .contact-option-text,
-  .contact-terminal .email-text,
-  .contact-terminal .phone-text {
-    color: #e6e6e6;
-  }
+
+  /* ── Input groups ── */
   .input-group {
     position: relative;
-    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 12px 10px;
     width: 100%;
     max-width: clamp(450px, 60%, 700px);
   }
 
-  /* Inputs auf dunklem Terminal-Grund: heller Text, dezente Border, Akzent-Fokus */
-  .input {
-    border: solid 1.5px rgba(255, 255, 255, 0.12);
-    border-radius: 0.5rem;
-    background: rgba(255, 255, 255, 0.04);
-    padding: 0.45rem;
-    padding-left: 1rem;
-    font-family: var(--font-body);
-    font-size: var(--step--1);
-    color: #ececec;
-    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    width: 100%;
-  }
-  .textarea {
-    border-radius: 1rem;
-    resize: vertical;
-  }
-  .user-label {
+  /* > prefix aligned with label */
+  .input-group::before {
+    content: ">";
     position: absolute;
-    left: 35px;
+    left: 14px;
     top: 8px;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-weight: bold;
+    font-size: 0.88rem;
+    pointer-events: none;
+  }
+
+  .user-label {
     font-family: var(--font-mono);
     font-size: 0.8rem;
     font-weight: 700;
-    color: rgba(235, 235, 235, 0.55);
+    color: var(--term-punct-color);
+    padding-left: 22px;
     pointer-events: none;
-    transform: translateY(1rem);
-    transition: 550ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color 0.2s;
   }
-  .user-label:hover {
+
+  .input-group:focus-within .user-label {
     color: var(--accent);
   }
 
-  .input:focus,
-  .input:valid {
+  .input {
+    border: solid 1px var(--term-input-border);
+    border-radius: 4px;
+    background: var(--term-input-bg);
+    padding: 0.4rem 0.6rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--term-text);
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease;
+    width: 100%;
+  }
+
+  .textarea {
+    resize: vertical;
+    border-radius: 4px;
+  }
+
+  .input:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 0 0 2px rgba(239, 91, 45, 0.25);
+    box-shadow: 0 0 0 1px rgba(239, 91, 45, 0.2);
   }
-  .input:focus ~ label,
-  .input:valid ~ label {
-    left: 15px;
-    top: -26px;
-    background-color: transparent;
-    padding: 0 0.2em;
-    color: var(--accent);
-  }
-  
-  .toggle-switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  top:5px;
-  height: 25px;
-}
 
-.toggle-switch .toggle-input {
-  display: none;
-}
-.toggle-switch-label {
-  padding-bottom: 15px;
-  color: var(--accent);
-}
-
-.privacy-error {
-  display: none;
-  color: #e53e3e;
-  font-size: 0.8rem;
-  margin-top: 0.4rem;
-  margin-left: 0;
-  font-family: mono, monospace;
-}
-
-.privacy-error.visible {
-  display: block;
-}
-  
-.toggle-switch .toggle-label {
-
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 24px;
-  background-color: var(--toggle-off-bg);
-  border-radius: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.toggle-switch .toggle-label::before {
-  content: "";
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  top: 2px;
-  left: 2px;
-  background-color: #fff;
-  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s;
-}
-
-.toggle-switch .toggle-input:checked + .toggle-label {
-  background-color: var(--toggle-on-bg);
-}
-
-.toggle-switch .toggle-input:checked + .toggle-label::before {
-  transform: translateX(16px);
-}
-.highlight {
-  animation: highlight 0.5s;
-}
-@keyframes highlight {
-  0% {
-    scale: 1;
-  }
-  50% {
-    scale: 1.1;
-  }
-  100% {
-    background-color: #33333391;
-  }
-}
-
-/* Direkte Kontaktmöglichkeiten */
-.direct-contact {
+  /* ── Privacy line ── */
+  .privacy-line {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--term-cmd-color);
+    max-width: clamp(450px, 60%, 700px);
     width: 100%;
-    max-width: 668px;
-    margin-top: 1.5rem;
+    padding: 8px 12px 4px;
+  }
+
+  .privacy-prompt {
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  .privacy-yn {
+    color: var(--term-punct-color);
+    transition: color 0.2s;
+  }
+
+  .privacy-yn.accepted {
+    color: #4caf50;
+  }
+
+  .privacy-text a.toggle-switch-label {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  .privacy-error {
+    display: none;
+    width: 100%;
+    color: #e53e3e;
+    font-size: 0.78rem;
+    margin-top: 0.15rem;
+    font-family: var(--font-mono);
+  }
+
+  .privacy-error.visible {
+    display: block;
+  }
+
+  /* ── Toggle switch ── */
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 25px;
+    flex-shrink: 0;
+  }
+
+  .toggle-switch .toggle-input {
+    display: none;
+  }
+
+  .toggle-switch .toggle-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 24px;
+    background-color: var(--toggle-off-bg);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .toggle-switch .toggle-label::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s;
+  }
+
+  .toggle-switch .toggle-input:checked + .toggle-label {
+    background-color: var(--toggle-on-bg);
+  }
+
+  .toggle-switch .toggle-input:checked + .toggle-label::before {
+    transform: translateX(16px);
+  }
+
+  /* ── Direct contact — flag-output style ── */
+  .direct-contact {
+    width: 100%;
+    max-width: clamp(450px, 60%, 700px);
+    margin-top: 1.25rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 0.4rem;
+    padding: 0 12px;
   }
-  
-  .contact-divider {
-    width: 80%;
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, transparent, var(--accent), transparent);
-    margin-bottom: 1.5rem;
+
+  .list-cmd {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    margin-bottom: 0.15rem;
+      .punct,
+      .pth,
+      .cmdtext {
+        opacity: 0.65;
+      }
   }
-  
-  .contact-option-text {
-    color: var(--text-primary);
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    font-weight: 500;
-    font-family: 'mono', monospace;
-    letter-spacing: 0.5px;
-  }
-  
-  .contact-options {
+
+
+  .flag-output {
     display: flex;
-    gap: 2rem;
-    justify-content: center;
-    width: 100%;
+    flex-direction: column;
+    gap: 0.25rem;
   }
-  
-  .contact-option {
+
+  .flag-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.25rem;
-    background-color: var(--bg-secondary);
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: 1px solid rgba(255, 99, 71, 0.1);
-    position: relative;
+    gap: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
   }
-  
-  .contact-option i {
-    font-size: 1.2rem;
+
+  .flag-name {
+    color: var(--term-path-color);
+    min-width: 72px;
+  }
+
+  .flag-value {
     color: var(--accent);
-    transition: all 0.3s ease;
+    transition: color 0.2s;
   }
-  
-  .contact-option:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    border-color: rgba(255, 99, 71, 0.3);
+
+  .email-text {
+    cursor: pointer;
   }
-  
-  .contact-info-reveal {
-    display: none;
-    position: absolute;
-    top: -45px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--bg-secondary);
-    padding: 0.5rem 0.75rem;
-    border-radius: 6px;
-    white-space: nowrap;
-    align-items: center;
-    gap: 0.5rem;
-    border: 1px solid rgba(255, 99, 71, 0.2);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 5;
+
+  .email-text:hover {
+    color: color-mix(in srgb, var(--accent) 70%, white);
   }
-  
-  .contact-option.active .contact-info-reveal {
-    display: flex;
-    opacity: 1;
-    visibility: visible;
+
+  .phone-text {
+    letter-spacing: 0.05em;
   }
-  
-  .contact-info-reveal::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    width: 10px;
-    height: 10px;
-    background-color: var(--bg-secondary);
-    border-right: 1px solid rgba(255, 99, 71, 0.2);
-    border-bottom: 1px solid rgba(255, 99, 71, 0.2);
+
+  .reveal-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--term-punct-color);
+    padding: 0;
+    transition: color 0.2s;
   }
-  
-  .email-text, .phone-text {
-    font-family: 'mono', monospace;
-    letter-spacing: 0.5px;
-    color: var(--text-primary);
-    font-size: 0.9rem;
+
+  .reveal-btn:hover {
+    color: var(--accent);
   }
-  
+
   .copy-btn {
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    padding: 0.2rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
+    color: var(--term-punct-color);
+    font-size: 0.78rem;
+    padding: 0.15rem;
+    border-radius: 3px;
+    transition: color 0.2s;
   }
-  
+
   .copy-btn:hover {
     color: var(--accent);
   }
-  
+
   .copy-btn.copied {
-    color: #4CAF50;
+    color: #4caf50;
   }
-  
-  @media (max-width: 768px) {
-    .direct-contact {
-      margin-top: 1rem;
-    }
-    
-    .contact-divider {
-      margin-bottom: 0.75rem;
-    }
-    
-    .contact-options {
-      flex-direction: column;
-      gap: 0.75rem;
-      align-items: center;
-    }
-    
-    .contact-option {
-      width: 80%;
-      padding: 0.6rem 1rem;
-    }
+
+  .highlight {
+    animation: highlight 0.5s;
   }
-  
+
+  @keyframes highlight {
+    0% { scale: 1; }
+    50% { scale: 1.05; }
+    100% { background-color: #33333391; }
+  }
+
   @media (max-width: 480px) {
-    section {
-      padding: 1.5rem 0.75rem;
-    }
-    
-    .body {
-      padding: 10px 8px;
-    }
-    
-    .direct-contact {
-      margin-top: 0.75rem;
-    }
-    
-    .contact-divider {
-      margin-bottom: 0.5rem;
-    }
-    
-    .contact-option-text {
-      font-size: 0.85rem;
-      margin-bottom: 0.75rem;
-    }
-    
-    .contact-option {
-      padding: 0.5rem 0.75rem;
-    }
-    
+    section { padding: 1.5rem 0.75rem; }
   }
 </style>
 
-<script>  
+<script>
   const form = document.querySelector("form");
   const input = document.querySelector(".checkbox") as HTMLInputElement;
   const toggle = document.querySelector(".toggle-switch");
   const toggleLabel = document.querySelector(".toggle-label");
   const privacyError = document.getElementById("privacy-error");
+  const privacyYN = document.querySelector(".privacy-yn");
 
   form.addEventListener("submit", (event) => {
     if (!input.checked) {
@@ -491,75 +427,65 @@ import contactBg from "../assets/images/contact.webp";
   });
 
   input?.addEventListener("change", () => {
-    if (input.checked && privacyError) {
-      privacyError.classList.remove("visible");
-      privacyError.textContent = "";
+    if (input.checked) {
+      if (privacyError) {
+        privacyError.classList.remove("visible");
+        privacyError.textContent = "";
+      }
+      if (privacyYN) {
+        privacyYN.textContent = "[Y/n]";
+        privacyYN.classList.add("accepted");
+      }
+    } else {
+      if (privacyYN) {
+        privacyYN.textContent = "[y/N]";
+        privacyYN.classList.remove("accepted");
+      }
     }
   });
 
   document.addEventListener("DOMContentLoaded", () => {
-    // Kontaktoptionen Interaktivität
-    const contactOptions = document.querySelectorAll('.contact-option');
-    contactOptions.forEach(option => {
-      option.addEventListener('click', function() {
-        // Andere offene Optionen schließen
-        contactOptions.forEach(otherOption => {
-          if (otherOption !== option) {
-            otherOption.classList.remove('active');
-          }
-        });
-        
-        // Toggle für aktiven Zustand
-        this.classList.toggle('active');
-      });
-    });
-    
-    // Außerhalb klicken, um zu schließen
-    document.addEventListener('click', function(e) {
-      const target = e.target as HTMLElement;
-      const isOutsideContact = !target.closest('.contact-option');
-      if (isOutsideContact) {
-        contactOptions.forEach(option => {
-          option.classList.remove('active');
-        });
-      }
-    });
-    
-    // Kopieren-Funktionalität
-    const copyButtons = document.querySelectorAll('.copy-btn');
-    copyButtons.forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.stopPropagation(); // Verhindern, dass der Kontaktbutton-Click ausgelöst wird
-        
-        const textToCopy = this.getAttribute('data-copy');
+    const copyButtons = document.querySelectorAll(".copy-btn");
+    copyButtons.forEach((button) => {
+      button.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const textToCopy = this.getAttribute("data-copy");
         navigator.clipboard.writeText(textToCopy).then(() => {
-          // Visuelle Bestätigung
-          this.classList.add('copied');
+          this.classList.add("copied");
           const originalIcon = this.innerHTML;
           this.innerHTML = '<i class="fas fa-check"></i>';
-          
           setTimeout(() => {
-            this.classList.remove('copied');
+            this.classList.remove("copied");
             this.innerHTML = originalIcon;
           }, 2000);
         });
       });
     });
-    
-    // E-Mail und Telefon Links öffnen bei Klick auf die Inhalte
-    const emailText = document.querySelector('.email-text');
-    if (emailText) {
-      emailText.addEventListener('click', (e) => {
-        e.stopPropagation();
-        window.location.href = 'mailto:info@colinblome.dev';
+
+    const revealBtn = document.querySelector(".reveal-btn");
+    const phoneText = document.querySelector(".phone-text") as HTMLElement;
+    if (revealBtn && phoneText) {
+      revealBtn.addEventListener("click", () => {
+        const isHidden = phoneText.textContent === "···········";
+        phoneText.textContent = isHidden ? phoneText.dataset.real : "···········";
+        revealBtn.textContent = isHidden ? "[hide]" : "[reveal]";
       });
     }
-    
-    const phoneText = document.querySelector('.phone-text');
-    if (phoneText) {
-      phoneText.addEventListener('click', (e) => {
+
+    const emailText = document.querySelector(".email-text");
+    if (emailText) {
+      emailText.addEventListener("click", (e) => {
         e.stopPropagation();
-        window.location.href = 'tel:+4917360983320';
+        window.location.href = "mailto:info@colinblome.dev";
+      });
+    }
+
+    if (phoneText) {
+      phoneText.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (phoneText.dataset.real && phoneText.textContent !== "···········") {
+          window.location.href = "tel:+4917360983320";
+        }
       });
     }
   });

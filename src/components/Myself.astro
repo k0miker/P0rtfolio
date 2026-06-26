@@ -289,9 +289,9 @@ if (!hasHadBirthdayThisYear) {
     flex-shrink: 0;
   }
   .terminal-titlebar .lang-btn {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(235, 235, 235, 0.65);
+    background: var(--term-input-bg);
+    border: 1px solid var(--term-input-border);
+    color: var(--term-cmd-color);
     padding: 0.15rem 0.6rem;
     margin: 0;
     border-radius: 6px;
@@ -312,8 +312,8 @@ if (!hasHadBirthdayThisYear) {
 
   /* Bio-Output: lesbar, aber im Terminal-Kontext */
   .terminal-body .language-content p {
-    font-family: var(--font-body);
-    color: #e6e6e6;
+    font-family: var(--font-mono);
+    color: var(--term-text);
     line-height: 1.7;
     /* max-width: 70ch; */
     text-align: left;
@@ -335,7 +335,7 @@ if (!hasHadBirthdayThisYear) {
     display: flex;
     align-items: center;
     gap: 0.7rem;
-    color: #e6e6e6;
+    color: var(--term-text);
     width: fit-content;
     transition:
       color 0.25s ease,
@@ -351,7 +351,7 @@ if (!hasHadBirthdayThisYear) {
   .term-tags i {
     width: 1.4em;
     text-align: center;
-    color: #9a9a9a;
+    color: var(--term-path-color);
     transition: color 0.25s ease;
   }
   .term-tags li:hover i {

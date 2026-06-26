@@ -1,4 +1,8 @@
 :root {
+    --font-body: "inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "mono", "SF Mono", "JetBrains Mono", ui-monospace, monospace;
+    --font-marker: "marker", cursive;
+
     --gray1: #1c1c1c;
     --gray2: #383838;
     --gray3: #545454;

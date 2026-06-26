@@ -17,49 +17,7 @@ import p16 from "../assets/images/p16.png";
 import p17 from "../assets/images/p17.png";
 
 export const projects = [
-  // {
-  //   id: "1",
-  //   title: "Bonsai World",
-  //   description: 
-  //      "Die erste Website, die ich erstellt habe - für Bonsai-Enthusiasten mit modernem Design.",
-  //   technologies: ["HTML", "CSS", "JavaScript"],
-  //   image: p1,
-  //   modalDescriptionDe: "Die allererste Website, die ich komplett selbst erstellt habe! Ein reines HTML/CSS-Projekt ohne Baukasten oder Frameworks. Im Rahmen des DCI Kurses entstanden, konnte ich hierbei meine Leidenschaft für die Bonsai-Kunst zum Ausdruck bringen. Das Projekt hat mir geholfen, grundlegende Webentwicklungsprinzipien zu verstehen und meine Coding-Fähigkeiten zu verbessern.",
-  //   modalDescriptionEn: "The very first website I ever created completely by myself! A pure HTML/CSS project without any builders or frameworks. Created during the DCI course, I was able to express my passion for the art of bonsai. This project helped me understand basic web development principles and improve my coding skills.",
-  //   website: "https://bonsaiworld.netlify.app/",
-  //   github: "https://github.com/k0miker/bonsaiworld",
-  //   iframe: true,
-  //   iframeUrl: "https://bonsaiworld.netlify.app/",
-  //   badges: ["HTML", "CSS", "JavaScript"],
-  // },
-  // {
-  //   id: "2",
-  //   title: "Firma Blome",
-  //   description: "A small web project for our family business at the time, created with WIX without significant prior knowledge.",
-  //   image: "p2",
-  //   technologies: ["HTML", "CSS"],
-  //   modalDescriptionDe: "Eine uralte Website, auf die ich nicht ganz so stolz bin, da sie mit Wix erstellt wurde. Es war mein erster Versuch, eine Website für das Familienunternehmen zu erstellen, ohne wirkliche Vorkenntnisse im Web-Design. Trotz der Einschränkungen von Wix hat es mir grundlegende Konzepte der Website-Gestaltung vermittelt und meinen Weg in die Webentwicklung eingeleitet.",
-  //   modalDescriptionEn: "An old website that I'm not particularly proud of as it was created with Wix. It was my first attempt to create a website for the family business without any real prior knowledge in web design. Despite Wix's limitations, it taught me basic concepts of website design and initiated my path into web development.",
-  //   website: "https://k0mikerhdf.wixsite.com/blome",
-  //   github: null,
-  //   iframe: false,
-  //   category: "Business",
-  //   badges: ["Wixx", "Business"]
-  // },
-  // {
-  //   id: "4",
-  //   title: "Marketing Campagne",
-  //   description: "A small layout example for a marketing campagne refered to the Bonasiworld",
-  //   image: "p4",
-  //   technologies: ["Canva", "Design", "Marketing"],
-  //   modalDescriptionDe: "Ein Marketing-Konzept, das ich für die Bonsaiworld-Webseite entwickelt habe. Hierbei konnte ich meine Design-Fähigkeiten erweitern und lernen, wie man eine kohärente Markenidentität über verschiedene Medien hinweg schafft. Das Projekt umfasste die Erstellung von visuellen Inhalten, Slogans und einer Strategie zur Zielgruppenansprache.",
-  //   modalDescriptionEn: "A marketing concept I developed for the Bonsaiworld website. This allowed me to expand my design skills and learn how to create a coherent brand identity across different media. The project included creating visual content, slogans, and a strategy for target audience engagement.",
-  //   website: "https://www.canva.com/design/DAGBc48w39w/bc-CJ_qwSN3KxtlTtbQlmg/view?utm_content=DAGBc48w39w&utm_campaign=designshare&utm_medium=link&utm_source=editor",
-  //   github: "https://github.com/k0miker/",
-  //   iframe: false,
-  //   category: "Marketing",
-  //   badges: ["Design", "Marketing", "Canva"]
-  // },
+
   {
     id: "14",
     title: "Grumbach Entsorgung",
@@ -74,7 +32,8 @@ export const projects = [
     iframeUrl: "https://www.altpapier.de/",
     category: "Business",
     tile: "wide",
-    badges: ["Astro", "Business", "Responsive Design", "Freelance"]
+    badges: ["Astro", "Business", "Responsive Design", "Freelance"],
+    grid: ["2 x 2", "2 x 1", "1 x 1"]
   },
   {
     id: "20",
@@ -90,7 +49,8 @@ export const projects = [
     iframeUrl: "https://www.connectai-erp.de/",
     category: "AI",
     tile: "wide",
-    badges: ["AI", "ERP", "HTML", "CSS", "JavaScript", "Automation"]
+    badges: ["AI", "ERP", "HTML", "CSS", "JavaScript", "Automation"],
+    grid: ["2 x 2", "2 x 1", "1 x 1"]
   },
   {
     id: "5",
@@ -104,7 +64,8 @@ export const projects = [
     github: "https://github.com/k0miker/",
     iframe: false,
     category: "Business",
-    badges: ["Astro", "Typo3","Business"]
+    badges: ["Astro", "Typo3","Business"],
+    grid: ["2 x 2", "2 x 1", "1 x 1"]
   },
   {
     id: "13",
@@ -119,7 +80,8 @@ export const projects = [
     iframe: true,
     iframeUrl: "https://bella-ciao-fuerstenau.netlify.app/",
     category: "Restaurant",
-    badges: ["Astro", "Restaurant", "Business", "Responsive Design"]
+    badges: ["Astro", "Restaurant", "Business", "Responsive Design"],
+    grid: ["2 x 2", "2 x 1", "1 x 1"]
   },
   {
     id: "12",
@@ -134,37 +96,10 @@ export const projects = [
     iframe: true,
     iframeUrl: "https://www.pizzeria-la-bellezza.de",
     category: "Restaurant",
-    badges: ["Astro", "Restaurant", "Business", "Responsive Design"]
+    badges: ["Astro", "Restaurant", "Business", "Responsive Design"],
+    grid: ["2 x 2", "2 x 1", "1 x 1"]
   },
-  // {
-  //   id: "7",
-  //   title: "Starfield canvas",
-  //   description: "A small canvas excurse witch let to this",
-  //   image: "p7",
-  //   technologies: ["Canvas", "Animation"],
-  //   modalDescriptionDe: "Eine faszinierende Erkundung der Canvas-API, die zu dieser hypnotisierenden Animation führte. Nutze die Tasten W und S, um zu beschleunigen und zu verlangsamen, und drücke Num+, um die Anzahl der Sterne zu erhöhen. Dieses Projekt war ein wichtiger Schritt beim Erlernen von Echtzeit-Animationen und interaktiven Elementen und hat mein Verständnis für die leistungsfähigen grafischen Fähigkeiten moderner Browser vertieft.",
-  //   modalDescriptionEn: "A fascinating exploration of the Canvas API, which led to this hypnotic animation. Use the W and S keys to accelerate and decelerate, and press Num+ to increase the number of stars. This project was an important step in learning real-time animations and interactive elements and deepened my understanding of the powerful graphical capabilities of modern browsers.",
-  //   website: "https://starfield-cb.netlify.app/",
-  //   github: "https://github.com/k0miker/",
-  //   codepen: "https://codepen.io/k0miker/pen/wvLoevE",
-  //   iframe: false,
-  //   category: "Animation",
-  //   badges: ["Canvas"]
-  // },
-  // {
-  //   id: "8",
-  //   title: "Starfieldclash",
-  //   description: "A small canvas excurse witch let to this Game",
-  //   image: p8,
-  //   technologies: ["Canvas", "Game", "Animation"],
-  //   modalDescriptionDe: "Ein interaktives Spiel, das auf meinen Erfahrungen mit dem Starfield-Canvas-Projekt aufbaut. Diese Weiterentwicklung integriert Spielmechaniken, Kollisionserkennung und Punktesysteme. Die Herausforderung bestand darin, eine reibungslose Spielerfahrung zu schaffen und gleichzeitig die visuellen Effekte des ursprünglichen Projekts zu erhalten. Die Arbeit an diesem Projekt hat meine JavaScript-Kenntnisse erheblich verbessert und mir ein tiefes Verständnis für Spieleentwicklung im Browser vermittelt.",
-  //   modalDescriptionEn: "An interactive game built on my experiences with the Starfield Canvas project. This evolution integrates game mechanics, collision detection, and scoring systems. The challenge was to create a smooth gaming experience while maintaining the visual effects of the original project. Working on this project significantly improved my JavaScript skills and gave me a deep understanding of game development in the browser.",
-  //   website: "https://k0miker.github.io/starfieldclash/",
-  //   github: "https://github.com/k0miker/starfieldclash",
-  //   iframe: false,
-  //   category: "Game",
-  //   badges: ["Canvas", "Game"]
-  // },
+ 
   {
     id: "9",
     title: "Zombiland",
@@ -179,7 +114,8 @@ export const projects = [
     isVideo: true,
     videoSrc: "/zombi-island.mp4",
     category: "Game",
-    badges: ["Canvas", "Game", "kollision detection", "AI"]
+    badges: ["Canvas", "Game", "kollision detection", "AI"],
+    grid: ["2 x 2", "2 x 1", "1 x 1"]
   },
   {
     id: "10",
@@ -197,7 +133,8 @@ export const projects = [
     videoSrc: "/globe30-collon-480.mov",
     category: "Data Visualization",
     tile: "large",
-    badges: ["React", "Three.js","Data Visualization","3D","WebGL",]
+    badges: ["React", "Three.js","Data Visualization","3D","WebGL",],
+        grid: ["2 x 2", "1 x 2", "1 x 1"]
   },
   {
     id: "11",
@@ -213,7 +150,8 @@ export const projects = [
     responsiveIframe: true,
     category: "Finance",
     tile: "tall",
-    badges: ["React Native", "TypeScript", "Mobile App", "Crypto", "AI"]
+    badges: ["React Native", "TypeScript", "Mobile App", "Crypto", "AI"],
+    grid: ["2 x 2", "1 x 2", "1 x 1", "2 x 1"]
   },
   {
     id: "18",
@@ -229,7 +167,8 @@ export const projects = [
     iframeUrl: "https://podcast.cb-web.space/",
     category: "AI",
     tile: "wide",
-    badges: ["AI", "Podcast", "Audio"]
+    badges: ["AI", "Podcast", "Audio"],
+    grid: ["2 x 2", "1 x 2", "1 x 1", "2 x 1"]
   },
   {
     id: "15",
@@ -244,7 +183,8 @@ export const projects = [
     iframe: true,
     iframeUrl: "https://colinblome.dev",
     category: "Portfolio",
-    badges: ["Astro", "Tailwind", "Portfolio"]
+    badges: ["Astro", "Tailwind", "Portfolio"],
+    grid: ["2 x 2", "2 x 1", "1 x 1"]
   },
   {
     id: "16",
@@ -259,7 +199,8 @@ export const projects = [
     iframe: true,
     iframeUrl: "https://portfolio2.colinblome.dev",
     category: "Portfolio",
-    badges: ["React", "Portfolio", "Animation"]
+    badges: ["React", "Portfolio", "Animation"],
+    grid: ["2 x 2", "2 x 1", "1 x 1"]
   },
    {
     id: "17",
@@ -274,7 +215,8 @@ export const projects = [
     iframe: true,
     iframeUrl: "https://portfolio3.colinblome.dev",
     category: "Portfolio",
-    badges: ["React", "Astro", "Framer Motion", "GSAP", "Portfolio"]
+    badges: ["React", "Astro", "Framer Motion", "GSAP", "Portfolio"],
+    grid: ["2 x 2", "2 x 1", "1 x 1"]
     },
     {
       id: "19",
@@ -289,6 +231,7 @@ export const projects = [
       iframe: true,
       iframeUrl: "https://b2b.colinblome.dev/",
       category: "Portfolio",
-      badges: ["Astro", "Tailwind", "Business", "Portfolio", "B2B"]
+      badges: ["Astro", "Tailwind", "Business", "Portfolio", "B2B"],
+      grid: ["2 x 2", "2 x 1", "1 x 1"]
   }
 ];

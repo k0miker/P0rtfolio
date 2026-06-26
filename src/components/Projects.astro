@@ -176,7 +176,7 @@ const categories = [
     grid-auto-rows: 260px;
     grid-auto-flow: row dense;
     gap: 1.5rem;
-    max-width: 1624px;
+    max-width: clamp(300px, 90%, 1100px);
     margin: 0 auto;
     position: relative;
     z-index: 1;
@@ -214,15 +214,32 @@ const categories = [
     grid-row: span 2;
   }
 
-  /* Animiertes Bento: festes 5x4-Flächenraster (immer lückenlos gefüllt).
+  /* Animiertes Bento: festes 5x5-Flächenraster (immer lückenlos gefüllt).
      Die Karten werden per JS rotierend auf die benannten Slots verteilt. */
   @media (min-width: 1024px) {
     .projects-container.bento-fixed:not(.is-filtered) {
       grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: repeat(4, 15rem);
+      grid-template-rows: repeat(5, 15rem);
       grid-auto-rows: 15rem;
       /* grid-template-areas werden per JS dynamisch gesetzt (animiertes Bento) */
     }
+  }
+
+  /* Hover-Spotlight: alle anderen Kacheln abdunkeln, gehoverte leuchtet */
+  :global(.projects-container.has-hover .card-wrapper) {
+    filter: brightness(0.25) saturate(0.3);
+  }
+  :global(.projects-container.has-hover .card-wrapper.is-hovered) {
+    filter: brightness(1) saturate(1);
+    z-index: 20;
+  }
+  :global(.projects-container.has-hover .card-wrapper.is-hovered .box) {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    box-shadow:
+      0 0 0 1px var(--accent),
+      0 0 30px color-mix(in srgb, var(--accent) 50%, transparent),
+      0 20px 60px rgba(0, 0, 0, 0.5);
   }
 
   /* Bei nur ~2 Spalten Platz: große Kacheln auf 2x1 reduzieren */
@@ -248,9 +265,14 @@ const categories = [
     transform: translateY(30px);
     animation: fadeInUp 0.6s forwards;
     animation-delay: calc(var(--order) * 0.1s);
+    /* filter hier mit aufnehmen: diese Regel hat höhere Spezifität als die
+       Basis-Transition in Card.astro und würde sie sonst komplett ersetzen,
+       wodurch das Spotlight-Dimmen instant springt. */
     transition:
       opacity 0.3s ease,
-      transform 0.3s ease;
+      transform 0.3s ease,
+      filter 0.3s ease,
+      box-shadow 0.4s ease;
   }
 
   /* Animation für das Einblenden */
@@ -514,6 +536,19 @@ const categories = [
       }
     }
 
+    // --- Hover-Spotlight ---
+    const projectsContainer = document.querySelector(".projects-container");
+    document.querySelectorAll(".card-wrapper").forEach((card) => {
+      card.addEventListener("mouseenter", () => {
+        projectsContainer?.classList.add("has-hover");
+        card.classList.add("is-hovered");
+      });
+      card.addEventListener("mouseleave", () => {
+        projectsContainer?.classList.remove("has-hover");
+        card.classList.remove("is-hovered");
+      });
+    });
+
     // Initial den 'All' Button aktivieren
     const allButton = document.querySelector(
       '.filter-btn[data-category="All"]',
@@ -549,7 +584,7 @@ const categories = [
     // bietet (C zwischen N und 2N).
     const COUNT = grid.querySelectorAll(".card-wrapper").length;
     const COLS = 5;
-    let ROWS = Math.max(2, Math.ceil((COUNT * 1.4) / COLS));
+    let ROWS = Math.max(5, Math.ceil((COUNT * 1.4) / COLS));
     while (COLS * ROWS < COUNT) ROWS++;
     while (COLS * ROWS > 2 * COUNT && COLS * (ROWS - 1) >= COUNT) ROWS--;
 
@@ -700,6 +735,15 @@ const categories = [
       !grid.classList.contains("is-filtered") &&
       wrappers().length === COUNT;
 
+    // Erlaubte Größen pro Karte aus data-allowed-sizes lesen
+    const allowedSizes: Set<string>[] = wrappers().map((w) => {
+      const raw = w.dataset.allowedSizes || "";
+      if (!raw) return new Set<string>(["1x1", "2x1", "1x2", "2x2"]);
+      return new Set<string>(raw.split("|"));
+    });
+    const isAllowed = (id: number, w: number, h: number) =>
+      !allowedSizes[id] || allowedSizes[id].has(`${w}x${h}`);
+
     function buildOcc(rs) {
       const occ = Array.from({ length: ROWS }, () => Array(COLS).fill(-1));
       rs.forEach((reg) => {
@@ -755,12 +799,16 @@ const categories = [
             return [g.c - win.c, g.r - win.r, g.w, g.h];
           }),
         );
-        const alts = TPL[win.key].filter((t) => sig(t) !== cur);
-        if (!alts.length) continue;
-        const tpl = alts[Math.floor(Math.random() * alts.length)];
         const idsSorted = win.ids
           .slice()
           .sort((a, b) => regions[a].r - regions[b].r || regions[a].c - regions[b].c);
+        const alts = TPL[win.key].filter((t) => {
+          if (sig(t) === cur) return false;
+          const tplS = t.slice().sort((a, b) => a[1] - b[1] || a[0] - b[0]);
+          return idsSorted.every((id, k) => isAllowed(id, tplS[k][2], tplS[k][3]));
+        });
+        if (!alts.length) continue;
+        const tpl = alts[Math.floor(Math.random() * alts.length)];
         const tplSorted = tpl.slice().sort((a, b) => a[1] - b[1] || a[0] - b[0]);
         idsSorted.forEach((id, k) => {
           const [dc, dr, w, h] = tplSorted[k];

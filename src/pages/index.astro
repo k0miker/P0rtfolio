@@ -1,4 +1,5 @@
 ---
+import "../css/styles.css";
 import "../css/fonts.css";
 import "../css/keyframes.css";
 import "../css/darkmode.css";
@@ -620,10 +621,10 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
   /* Editorial-Basis: Body in Sans (Inter), Mono nur noch als gezielter Akzent
      (Headlines-Suffixe, Labels, Cursor — via .font-[mono] / font-family: mono). */
   html {
-    font-family: var(--font-body);
+    font-family: var(--font-mono);
   }
   body {
-    font-family: var(--font-body);
+    font-family: var(--font-mono);
     font-size: var(--step-0);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -651,6 +652,7 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
     position: relative;
     min-height: 100vh;
     z-index: 0;
+    padding-bottom: 70px;
   }
 
   @media (min-width: 1280px) {

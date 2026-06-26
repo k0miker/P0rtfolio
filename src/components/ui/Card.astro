@@ -18,6 +18,7 @@ const category = project.category || "Other";
 <div
   class:list={["card-wrapper", project.tile && `tile-${project.tile}`]}
   data-category={category}
+  data-allowed-sizes={project.grid?.map((s: string) => s.replace(/\s/g, "")).join("|")}
 >
   <div class="box card-3d offscreen" data-modal-target={`modal-${project.id}`}>
     <div class="card-content">
@@ -55,6 +56,18 @@ const category = project.category || "Other";
     z-index: 5;
     perspective: 1000px;
     height: 100%;
+    border-radius: 15px;
+    box-shadow: var(--card-elev);
+    /* Expliziter Basis-Filter, damit das Spotlight-Dimmen (.has-hover)
+       in beide Richtungen weich animiert – nicht nur beim Verdunkeln. */
+    filter: brightness(1) saturate(1);
+    transition:
+      box-shadow 0.4s ease,
+      filter 0.3s ease;
+  }
+
+  .card-wrapper:hover {
+    box-shadow: var(--card-elev-hover);
   }
 
   .box {
@@ -69,7 +82,7 @@ const category = project.category || "Other";
       transform 0.5s ease-out,
       box-shadow 0.4s ease;
     background-color: var(--bg-card);
-    box-shadow: var(--elev-2);
+    /* box-shadow: var(--elev-3); */
   }
 
   /* @keyframes cardGlow {
@@ -89,6 +102,22 @@ const category = project.category || "Other";
     position: relative;
     width: 100%;
     height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  /* Akzent-Rahmen über dem Bild – ein inset-Shadow direkt auf .card-content
+     würde vom darüber liegenden .card-image verdeckt. */
+  .card-content::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 15px;
+    box-shadow: inset 0 0 0 1px
+      color-mix(in srgb, var(--accent) 25%, transparent);
+    pointer-events: none;
+    z-index: 2;
+    transition: box-shadow 0.4s ease;
   }
 
   .card-image {
@@ -115,7 +144,7 @@ const category = project.category || "Other";
       transparent
     );
     color: white;
-    transform: translateY(85%);
+    transform: translateY(100%);
     transition: transform 0.4s ease-out;
     max-height: 90%;
     overflow-y: auto;
@@ -172,11 +201,10 @@ const category = project.category || "Other";
     font-weight: bold;
   }
 
-  /* Hover Effekte */
-  .box:hover {
-    box-shadow:
-      var(--elev-4),
-      0 0 0 1px rgba(255, 99, 71, 0.55);
+  /* Hover Effekte (Elevation liegt auf .card-wrapper) */
+  .box:hover .card-content::after {
+    box-shadow: inset 0 0 0 1px
+      color-mix(in srgb, var(--accent) 60%, transparent);
   }
 
   .box:hover .card-image {
@@ -185,7 +213,7 @@ const category = project.category || "Other";
   }
 
   .box:hover .card-overlay {
-    transform: translateY(0);
+    transform: translateY(-5%);
   }
 
   .box:hover .card-description {
@@ -194,6 +222,29 @@ const category = project.category || "Other";
 
   .box:hover .card-badges {
     opacity: 1;
+  }
+
+  /* Elegante schmale Scrollbar für card-overlay */
+  .card-overlay {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 99, 71, 0.5) transparent;
+  }
+
+  .card-overlay::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .card-overlay::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .card-overlay::-webkit-scrollbar-thumb {
+    background: rgba(255, 99, 71, 0.5);
+    border-radius: 999px;
+  }
+
+  .card-overlay::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 99, 71, 0.8);
   }
 
   /* Touch-Screen Geräte */
