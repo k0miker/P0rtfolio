@@ -4,55 +4,8 @@ import Modal from "./ui/Modal.astro";
 import { projects } from "../data/projectData.js";
 import "../css/keyframes.css";
 
-import p1 from "../assets/images/bonsaiworld.jpg";
-import p2 from "../assets/images/blome.jpg";
-import p5 from "../assets/images/p5.png";
-import p4 from "../assets/images/p4.png";
-import p7 from "../assets/images/p7.2.png";
-import p8 from "../assets/images/p8.png";
-import p9 from "../assets/images/p9.png";
-import p10 from "../assets/images/p10.png";
-import p11 from "../assets/images/p11.png";
-import p12 from "../assets/images/p12.png";
-import p13 from "../assets/images/p13.png";
-import p14 from "../assets/images/p14.png";
-import port1 from "../assets/images/portfolio1.png";
-import port2 from "../assets/images/portfolio2.png";
-import port3 from "../assets/images/portfolio3.png";
-import p15 from "../assets/images/p15.png";
-import p16 from "../assets/images/p16.png";
-import p17 from "../assets/images/p17.png";
-
-// Map der Bildimporte zu Projekten
-const imageMap = {
-  p1,
-  p2,
-  p4,
-  p5,
-  p7,
-  p8,
-  p9,
-  p10,
-  p11,
-  p12,
-  p13,
-  p14,
-  port1,
-  port2,
-  port3,
-  p15,
-  p16,
-  p17,
-};
-
-// Verbesserung der Filterlogik mit zusätzlicher Prüfung
-const filteredProjects = projects.filter((project) => {
-  const hasImage = !!imageMap[project.image];
-  if (!hasImage) {
-    console.warn(`Bild für Projekt ${project.title} (${project.image}) fehlt!`);
-  }
-  return hasImage;
-});
+// Bilder sind Public-URL-Strings (project.image), keine Imports nötig.
+const filteredProjects = projects.filter((project) => !!project.image);
 
 // Extrahiere alle einzigartigen Kategorien
 const categories = [
@@ -93,14 +46,14 @@ const categories = [
   <div class="projects-container">
     {
       filteredProjects.map((project) => (
-        <Card project={project} image={imageMap[project.image]} />
+        <Card project={project} image={project.image} />
       ))
     }
   </div>
 
   {
     filteredProjects.map((project) => (
-      <Modal project={project} image={imageMap[project.image]} />
+      <Modal project={project} image={project.image} />
     ))
   }
 </section>

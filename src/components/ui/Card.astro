@@ -1,6 +1,4 @@
 ---
-import { Image } from "astro:assets";
-
 const { project, image } = Astro.props;
 
 // Verwende cardDescriptionEN mit Fallback-Optionen
@@ -22,12 +20,11 @@ const category = project.category || "Other";
 >
   <div class="box card-3d offscreen" data-modal-target={`modal-${project.id}`}>
     <div class="card-content">
-      <Image
+      <img
         src={image}
         alt={project.title}
         width={600}
         height={400}
-        format="webp"
         loading="lazy"
         class="card-image"
       />
