@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import port1 from "../assets/images/portfolio1.png";
 import port2 from "../assets/images/portfolio2.png";
 import port3 from "../assets/images/portfolio3.png";
+import port4 from "../assets/images/portfolio4.png";
 import p16 from "../assets/images/p16.png";
 
 const { active = 1 } = Astro.props;
@@ -11,7 +12,8 @@ const portfolios = [
   { id: 1, img: port1, url: "https://colinblome.dev", name: "Version 1" },
   { id: 2, img: port2, url: "https://portfolio2.colinblome.dev", name: "Version 2" },
   { id: 3, img: port3, url: "https://portfolio3.colinblome.dev", name: "Version 3" },
-  { id: 4, img: p16, url: "https://b2b.colinblome.dev/", name: "Version 4 (B2B)" },
+  { id: 4, img: port4, url: "https://portfolio4.colinblome.dev", name: "Version 4" },
+  { id: 5, img: p16, url: "https://b2b.colinblome.dev/", name: "B2B Version" },
 ];
 ---
 
