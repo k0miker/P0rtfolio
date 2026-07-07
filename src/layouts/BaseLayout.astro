@@ -1,5 +1,6 @@
 ---
 const { title, description, image } = Astro.props;
+const ogImage = image || new URL("/logo.png", Astro.url).toString();
 
 // Lokale Geschäftsdaten
 const businessData = {
@@ -116,7 +117,7 @@ const businessData = {
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title || 'CB-WebDevelopment | Webentwicklung Fürstenau | Ihr lokaler Webentwickler'} />
     <meta property="og:description" content={description || 'CB-WebDevelopment - Professionelle Webentwicklung in Fürstenau, Bersenbrück und Umgebung. Moderne Webseiten, Online-Shops und SEO-Optimierung.'} />
-    <meta property="og:image" content={image || 'https://i.imgur.com/ELVyRRc.jpeg'} />
+    <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:site_name" content="CB-WebDevelopment" />
     
@@ -126,7 +127,7 @@ const businessData = {
     <meta property="twitter:url" content={Astro.url} />
     <meta name="twitter:title" content={title || 'CB-WebDevelopment | Webentwicklung Fürstenau | Ihr lokaler Webentwickler'} />
     <meta name="twitter:description" content={description || 'CB-WebDevelopment - Professionelle Webentwicklung in Fürstenau, Bersenbrück und Umgebung.'} />
-    <meta name="twitter:image" content={image || 'https://i.imgur.com/ELVyRRc.jpeg'} />
+    <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:creator" content="@CB_WebDevelopment" />
 
     <!-- Google Business Verknüpfung -->
