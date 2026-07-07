@@ -56,10 +56,16 @@ class PerformanceMonitor {
   // FPS messen und automatisch umschalten
   start() {
     if (!this.measuring) {
-      this.frames = 0;
-      this.lastTime = performance.now();
       this.measuring = true;
-      this.measureFPS();
+      this.lowFpsStreak = 0;
+      // Warmup: beim Seitenladen (Bild-Dekodierung, Hydration) bricht die
+      // Framerate kurz ein – das darf nicht sofort auf Low schalten
+      setTimeout(() => {
+        if (!this.measuring) return;
+        this.frames = 0;
+        this.lastTime = performance.now();
+        this.measureFPS();
+      }, 4000);
     }
   }
   
@@ -81,9 +87,16 @@ class PerformanceMonitor {
       this.frames = 0;
       this.lastTime = now;
       
-      // Automatisch auf Low-Performance umschalten bei niedrigen FPS
-      if (fps < 40 && !this.lowPerformanceMode) {
-        this.setPerformanceMode(true);
+      // Erst nach mehreren schlechten Sekunden in Folge auf Low schalten,
+      // damit ein einzelner Ruckler (Tab-Wechsel, Lazy-Load) nicht dauerhaft
+      // die Animationen deaktiviert
+      if (fps < 40) {
+        this.lowFpsStreak++;
+        if (this.lowFpsStreak >= 3 && !this.lowPerformanceMode) {
+          this.setPerformanceMode(true);
+        }
+      } else {
+        this.lowFpsStreak = 0;
       }
       // Bei hohen FPS nicht automatisch zurückschalten - das sollte manuell erfolgen
     }

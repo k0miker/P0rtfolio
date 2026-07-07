@@ -622,6 +622,9 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
      (Headlines-Suffixe, Labels, Cursor — via .font-[mono] / font-family: mono). */
   html {
     font-family: var(--font-mono);
+    /* Sicherheitsnetz gegen horizontales Panning auf Mobile:
+       clip statt hidden, damit kein Scroll-Container entsteht */
+    overflow-x: clip;
   }
   body {
     font-family: var(--font-mono);

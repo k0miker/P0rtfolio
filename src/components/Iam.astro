@@ -91,6 +91,9 @@ import inkBg from "../assets/images/ink_2.png";
   .console-container {
     color: white;
     box-shadow: inset 0px -2vh 5vw 10px #0000006f;
+    /* skalierter .text-backdrop (95% × scale 1.1) ragt sonst über den Viewport
+       und macht die Seite mobil horizontal scrollbar */
+    overflow-x: clip;
 
     min-height: 100vh;
     display: flex;

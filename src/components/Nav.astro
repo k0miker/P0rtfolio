@@ -208,78 +208,103 @@ const navProjects = projects;
     border-color: var(--border);
   }
 
-  /* Mobile Navigation Styling - Verbessert */
+  /* Mobile Navigation: Fullscreen-Overlay im Terminal-Look */
   @media (max-width: 768px) {
-    /* Mindesthöhe für die Navigationsleiste festlegen */
-    .head {
+    /* Mindesthöhe für die Navigationsleiste festlegen –
+       auch im .colored-Zustand (Desktop: 7vh), sonst wird das Logo abgeschnitten */
+    .head,
+    .head.colored {
       min-height: 60px !important;
       height: auto;
     }
 
-    /* Von der Seite einfliegendes Menü */
-    nav {
+    /* Bei offenem Menü über Floating-Buttons (Versiontoggle z-9990, Toggles z-50) heben */
+    .head.menu-open {
+      z-index: 9995;
+    }
+
+    /* Logo + Hamburger bleiben über dem Overlay sichtbar */
+    #nav-container > .name {
+      position: relative;
+      z-index: 101;
+      padding-inline: 0.5rem;
+    }
+
+    /* Fullscreen-Overlay */
+    nav.mobile-menu {
+      display: flex !important;
       position: fixed;
-      right: -100%;
+      inset: 0;
       width: 100%;
-      background-color: var(
-        --bg-transparent
-      ); /* Halbtransparenter Hintergrund */
+      height: 100vh;
+      height: 100dvh;
+      padding: 70px 0 2.5rem;
+      background: var(--bg-primary);
       z-index: 100;
-      /* box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2); */
+      flex-direction: column;
+      justify-content: center;
       overflow-y: auto;
-      padding: 0px 0;
-      border-radius: 0 0 0 10px;
-      transition: right 0.3s ease-in-out;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        visibility 0s linear 0.25s;
     }
 
-    nav.open {
-      right: 0;
+    nav.mobile-menu.open {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
     }
 
-    .dark-mode nav {
-      background-color: rgba(
-        37,
-        37,
-        37,
-        0.9
-      ) !important; /* Dunklere Variante mit Transparenz */
+    /* Linkliste: zentrierter Block, linksbündige Terminal-Zeilen */
+    .nav-links {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.35rem;
+      width: min(78vw, 320px);
+      margin-inline: auto;
     }
 
-    /* Project-Dropdown für Mobile anpassen */
-    .project-modal {
-      position: relative !important;
-      width: 100% !important;
-      top: 0;
-      margin-top: 10px;
-      box-shadow: none;
-      display: none; /* Standardmäßig versteckt */
-    }
-
-    .project-modal.open {
-      display: block;
-    }
-
-    /* Projektlinks im Mobile-Menü */
-    .project-list {
-      width: 100%;
-      margin-left: 0;
-      padding: 5px 0;
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      gap: 12px;
-      background-color: var(--bg-secondary);
+    .nav-links a {
+      justify-content: flex-start;
+      margin: 0;
+      padding: 0.9rem 0.75rem;
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      color: var(--text-primary);
+      background: transparent;
       border-radius: 8px;
     }
 
-    .project-list a {
-      margin: 3px;
-      padding: 5px 10px;
-      border-radius: 6px;
-      text-align: center;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .nav-links a::before {
+      content: ">";
+      color: var(--accent);
+      margin-right: 0.75rem;
+    }
+
+    .nav-links a:active {
+      background: var(--bg-secondary);
+    }
+
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    /* Projekt-Dropdown mobil komplett ausblenden – /Projects scrollt zur Sektion */
+    #project-dropdown-container,
+    .project-nav-group {
+      display: contents;
+    }
+
+    #nav-projects,
+    #project-dropdown-menu {
+      display: none !important;
     }
 
     /* Hamburger-Menü immer im Vordergrund */
@@ -314,42 +339,6 @@ const navProjects = projects;
       padding: 12px 15px;
       text-align: center;
       height: 100%;
-    }
-  }
-
-  /* Mobile Navigation Styling */
-  @media (max-width: 768px) {
-    nav {
-      background-color: transparent;
-      color: var(--bg-secondary);
-      top: 59px;
-      width: 80%;
-      a {
-        color: var(--text-secondary);
-        background-color: var(--bg-primary);
-        margin-bottom: 2px;
-      }
-
-      &:hover {
-        background-color: var(--bg-primary);
-      }
-    }
-    .colored {
-      color: var(--text-primary);
-    }
-
-    .dark-mode nav {
-      background-color: var(--bg-card) !important;
-    }
-
-    .project-modal {
-      position: static;
-      width: 90% !important;
-    }
-
-    .project-list {
-      width: 100%;
-      margin-left: 20px;
     }
   }
 
@@ -542,24 +531,36 @@ const navProjects = projects;
       updateActiveNav();
     });
 
-    // Mobile Menu Toggle
+    // Mobile Menu öffnen/schließen
+    const openMenu = () => {
+      mobileMenu.classList.add("open");
+      mobileMenu.classList.remove("hidden");
+      mobileMenu.classList.add("flex");
+      menuIconClosed.classList.add("hidden");
+      menuIconOpen.classList.remove("hidden");
+      navbar.classList.add("menu-open");
+      document.body.style.overflow = "hidden"; // Seite hinter dem Overlay nicht scrollen
+      mobileMenuBtn.setAttribute("aria-label", "Menü schließen");
+    };
+
+    const closeMenu = () => {
+      mobileMenu.classList.remove("open");
+      mobileMenu.classList.add("hidden");
+      mobileMenu.classList.remove("flex");
+      menuIconClosed.classList.remove("hidden");
+      menuIconOpen.classList.add("hidden");
+      navbar.classList.remove("menu-open");
+      document.body.style.overflow = "";
+      mobileMenuBtn.setAttribute("aria-label", "Menü öffnen");
+    };
+
     if (mobileMenuBtn && mobileMenu) {
       mobileMenuBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        const isOpen = mobileMenu.classList.contains("open");
-
-        if (isOpen) {
-          mobileMenu.classList.remove("open");
-          mobileMenu.classList.add("hidden"); // Ensure hidden is added back for layout
-          mobileMenu.classList.remove("flex"); // Remove flex
-          menuIconClosed.classList.remove("hidden");
-          menuIconOpen.classList.add("hidden");
+        if (mobileMenu.classList.contains("open")) {
+          closeMenu();
         } else {
-          mobileMenu.classList.add("open");
-          mobileMenu.classList.remove("hidden");
-          mobileMenu.classList.add("flex"); // Add flex for layout
-          menuIconClosed.classList.add("hidden");
-          menuIconOpen.classList.remove("hidden");
+          openMenu();
         }
       });
 
@@ -570,11 +571,14 @@ const navProjects = projects;
           !mobileMenu.contains(e.target as Node) &&
           !mobileMenuBtn.contains(e.target as Node)
         ) {
-          mobileMenu.classList.remove("open");
-          mobileMenu.classList.add("hidden");
-          mobileMenu.classList.remove("flex");
-          menuIconClosed.classList.remove("hidden");
-          menuIconOpen.classList.add("hidden");
+          closeMenu();
+        }
+      });
+
+      // Menü mit Escape schließen
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && mobileMenu.classList.contains("open")) {
+          closeMenu();
         }
       });
     }
@@ -670,11 +674,7 @@ const navProjects = projects;
     navLinks.forEach((link) => {
       link.addEventListener("click", () => {
         if (mobileMenu && mobileMenu.classList.contains("open")) {
-          mobileMenu.classList.remove("open");
-          mobileMenu.classList.add("hidden");
-          mobileMenu.classList.remove("flex");
-          menuIconClosed.classList.remove("hidden");
-          menuIconOpen.classList.add("hidden");
+          closeMenu();
         }
       });
     });

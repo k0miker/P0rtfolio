@@ -1,4 +1,5 @@
 // Main script file for global interactions
+import { setupParallax } from "../utils/parallax.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   // --- Dark Mode Logic ---
@@ -134,7 +135,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Performance Monitor Integration ---
   import('../utils/performanceMonitor.js').then(({ performanceMonitor }) => {
     performanceMonitor.start();
-    
+
+    // Scroll-Parallax nur im High-Performance-Modus (baut sich bei low selbst ab)
+    setupParallax();
+
     const performanceToggle = document.getElementById('performanceToggle');
 
     if (performanceToggle) { 

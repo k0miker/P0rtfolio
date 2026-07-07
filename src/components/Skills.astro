@@ -166,7 +166,8 @@ const stack = [
     flex: 0 0 7.5rem;
     color: var(--term-text);
     font-family: var(--font-mono);
-    font-size: var(--step--1);
+    font-size: clamp(0.8rem, 0.75rem + 0.15vw, 0.9rem);
+    white-space: nowrap;
     transition: color 0.25s ease;
     width: fit-content;
   }
@@ -333,8 +334,8 @@ const stack = [
       width: 100%;
     }
     .skill-name {
-      flex-basis: 5.5rem;
-      font-size: 0.8rem;
+      flex-basis: 5.75rem;
+      font-size: 0.75rem;
     }
     .icon-wrapper i {
       font-size: 26px;
