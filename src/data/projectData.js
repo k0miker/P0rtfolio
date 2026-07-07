@@ -222,10 +222,10 @@ const rawProjects = [
     technologies: ["Astro", "JavaScript", "CSS"],
     modalDescriptionDe: "Die vierte Iteration meines Portfolios mit einem Developer-/Terminal-Konzept. Projekte werden über einen interaktiven Datei-Browser im ls-Stil präsentiert: links die Dateiliste, rechts eine große Live-Vorschau, dazu ein Terminal-Modal für Details. Fokus auf Performance, Tastatur-Navigation und ein eigenständiges, technisches Erscheinungsbild.",
     modalDescriptionEn: "The fourth iteration of my portfolio with a developer/terminal concept. Projects are presented through an interactive ls-style file browser: a file list on the left, a large live preview on the right, plus a terminal modal for details. Focus on performance, keyboard navigation, and a distinctive, technical look.",
-    website: "https://colinblome.dev",
+    website: "https://portfolio4.colinblome.dev/",
     github: "https://github.com/k0miker/",
     iframe: true,
-    iframeUrl: "https://portfolio4.colinblome.dev",
+    iframeUrl: "https://portfolio4.colinblome.dev/",
     category: "Portfolio",
     badges: ["Astro", "Terminal", "Portfolio"],
     grid: ["2 x 2", "2 x 1", "1 x 1"]
