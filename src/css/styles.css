@@ -338,11 +338,6 @@
 
 /* ========== 5. KOMPONENTEN ========== */
 
-/* Card-Komponente */
-.card-container {
-  container-type: inline-size;
-}
-
 .project {
   border-radius: 8px;
   
@@ -388,14 +383,6 @@ select:focus-visible,
 }
 
 /* ========== 8. RESPONSIVE DESIGN & CONTAINER QUERIES ========== */
-
-/* Container-basiertes responsives Design */
-@container (min-width: 400px) {
-  .card-content {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-  }
-}
 
 /* Optimierungen für mobile Performance - Grundlegende Regeln für alle Modi */
 @media (max-width: 768px) {

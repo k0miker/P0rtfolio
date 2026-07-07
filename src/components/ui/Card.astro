@@ -55,6 +55,10 @@ const category = project.category || "Other";
     height: 100%;
     border-radius: 15px;
     box-shadow: var(--card-elev);
+    /* Benannter Container für größenabhängiges Overlay (kleine
+       Bento-Kacheln) – benannt, damit keine fremde @container-Regel
+       versehentlich auf diese Karte matcht. */
+    container: project-card / size;
     /* Expliziter Basis-Filter, damit das Spotlight-Dimmen (.has-hover)
        in beide Richtungen weich animiert – nicht nur beim Verdunkeln. */
     filter: brightness(1) saturate(1);
@@ -134,28 +138,38 @@ const category = project.category || "Other";
     left: 0;
     right: 0;
     padding: 1.5rem;
+    /* Mehrstufiger Verlauf: unten kräftig, oben weich auslaufend –
+       vermeidet die sichtbare Kante eines 2-Stopp-Gradients. */
     background: linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.528),
-      rgba(0, 0, 0, 0.306) 70%,
+      rgba(0, 0, 0, 0.85),
+      rgba(0, 0, 0, 0.62) 55%,
+      rgba(0, 0, 0, 0.3) 82%,
       transparent
     );
     color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
     transform: translateY(100%);
     transition: transform 0.4s ease-out;
     max-height: 90%;
-    overflow-y: auto;
+    /* x fest zu: lange Wörter sollen umbrechen, nie horizontal scrollen */
+    overflow: hidden auto;
   }
 
   .card-title {
     font-size: 1.5rem;
+    /* Skaliert mit der Kachelbreite – 1,5rem nur wenn Platz da ist */
+    font-size: clamp(1rem, 7.5cqi, 1.5rem);
     font-weight: bold;
     margin-bottom: 0.5rem;
+    overflow-wrap: break-word;
   }
 
   .card-tech {
-    font-size: 0.875rem;
-    opacity: 0.8;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: color-mix(in srgb, var(--accent) 65%, white);
     margin-bottom: 0.75rem;
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -206,11 +220,11 @@ const category = project.category || "Other";
 
   .box:hover .card-image {
     transform: scale(1.05);
-    filter: blur(5px);
+    filter: blur(5px) brightness(0.55) saturate(1.1);
   }
 
   .box:hover .card-overlay {
-    transform: translateY(-5%);
+    transform: translateY(0%);
   }
 
   .box:hover .card-description {
@@ -244,22 +258,90 @@ const category = project.category || "Other";
     background: rgba(255, 99, 71, 0.8);
   }
 
-  /* Touch-Screen Geräte */
+  /* Touch-Geräte: Overlay als Frosted-Glass-Panel, immer sichtbar.
+     backdrop-filter macht den Text unabhängig vom Bildmotiv lesbar. */
   @media (hover: none) {
-    .card-description {
-      max-height: 80px;
+    .card-overlay {
+      transform: none;
+      max-height: 75%;
+      padding: 0.9rem 1rem 1rem;
+      background: linear-gradient(
+        to top,
+        rgba(8, 8, 10, 0.78),
+        rgba(8, 8, 10, 0.55)
+      );
+      backdrop-filter: blur(14px) saturate(1.35);
+      -webkit-backdrop-filter: blur(14px) saturate(1.35);
+      border-top: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
     }
 
-    .card-overlay {
-      .card-title {
-        font-size: 0.9rem;
+    /* Browser ohne backdrop-filter: kräftigere Abdunklung als Ersatz */
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .card-overlay {
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.92),
+          rgba(0, 0, 0, 0.78)
+        );
       }
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .card-tech {
+      font-size: 0.7rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .card-description {
+      max-height: none;
+      margin: 0.25rem 0 0.6rem;
       font-size: 0.8rem;
-      line-height: 1.4;
-      transform: translateY(0%);
-      .card-badges {
-        opacity: 0.8;
-      }
+    }
+
+    .card-description p {
+      line-height: 1.45;
+    }
+
+    .card-badges {
+      opacity: 1;
+    }
+
+    .badge {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
+    }
+  }
+
+  /* Größenabhängiges Overlay: kleine Kacheln zeigen weniger, statt zu
+     scrollen. Details stehen ohnehin im Modal. */
+
+  /* Flache Kacheln (2x1 im Bento, Mobile-Karten): kompakter,
+     Beschreibung auf 2 Zeilen begrenzt */
+  @container project-card (max-height: 300px) {
+    .card-overlay {
+      padding: 1rem 1.1rem;
+    }
+
+    .card-description p {
+      -webkit-line-clamp: 2;
+    }
+  }
+
+  /* Schmale Kacheln (1x1 / 1x2 im Bento): nur Titel + Tech-Zeile,
+     kein Scrollbalken im Overlay */
+  @container project-card (max-width: 270px) {
+    .card-overlay {
+      overflow-y: hidden;
+      padding: 0.9rem 1rem;
+    }
+
+    .card-description,
+    .card-badges {
+      display: none;
     }
   }
 </style>
