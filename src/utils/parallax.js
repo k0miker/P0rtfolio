@@ -1,36 +1,57 @@
 /**
- * Scroll-Parallax für Sektions-Hintergründe — läuft nur im High-Performance-Modus.
+ * Fixierter Parallax-Hintergrund + Ken-Burns-Drift — nur im High-Performance-Modus.
  *
- * Statt background-attachment: fixed bekommt jede Sektion eine eigene, leicht
- * überhohe Hintergrund-Ebene, die per translate3d dem Scroll "hinterherhinkt".
- * Transforms laufen auf dem Compositor (keine Repaints) und funktionieren damit
- * auch auf iOS, wo fixed-Attachment nicht unterstützt wird.
+ * Komplett CSS-gerendert, kein Scroll-JavaScript (das läuft immer einen Frame
+ * hinter dem nativen Scrollen her und ruckelt):
+ *
+ * 1. Jede Sektion bekommt `clip-path: inset(0)` und eine Hintergrund-Ebene mit
+ *    `position: fixed; inset: 0`. Die Ebene klebt am Viewport (exakt der Look
+ *    von background-attachment: fixed), wird aber auf die Sektion geclippt —
+ *    das funktioniert im Gegensatz zu fixed-Attachment auch auf iOS und läuft
+ *    butterweich, weil der Browser alles nativ auf dem Compositor rendert.
+ * 2. Obendrauf zoomt/driftet die Ebene per Keyframe-Animation ganz langsam
+ *    (Ken-Burns-Effekt) — zeitgesteuert, unabhängig vom Scrollen.
  *
  * Beim Wechsel auf Low-Performance wird alles rückstandsfrei abgebaut und die
  * ursprünglichen Hintergründe wiederhergestellt.
  */
 
-// Wie stark der Hintergrund am Viewport "klebt":
-// 1 = exakt wie background-attachment: fixed (Bild steht, Inhalt schiebt drüber),
-// 0 = Bild scrollt normal mit. 0.85 = fixed-Look mit leichter Drift.
-const STICKINESS = 0.85;
+// Dauer eines Drift-Durchlaufs (hin und zurück via alternate)
+const DRIFT_DURATION_S = 15;
 
-class SectionParallax {
+const STYLE_ID = "parallax-keyframes";
+
+// Zoom bleibt immer ≥ 1.05 (2.5% Rand), Translate max 1.5% → nie sichtbare Kanten
+const KEYFRAMES = `
+@keyframes parallax-drift {
+  from { transform: scale(1.15) translate(1.2%, 0.8%); }
+  to   { transform: scale(1.05) translate(-1.2%, -0.8%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .parallax-layer { animation: none !important; }
+}
+`;
+
+class FixedParallax {
   constructor(selectors) {
     this.selectors = selectors;
     this.entries = [];
     this.active = false;
-    this.ticking = false;
-    this.onScroll = this.onScroll.bind(this);
-    this.onResize = this.onResize.bind(this);
-    this.update = this.update.bind(this);
+  }
+
+  injectKeyframes() {
+    if (document.getElementById(STYLE_ID)) return;
+    const style = document.createElement("style");
+    style.id = STYLE_ID;
+    style.textContent = KEYFRAMES;
+    document.head.appendChild(style);
   }
 
   init() {
     if (this.active) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    this.injectKeyframes();
 
-    this.selectors.forEach((selector) => {
+    this.selectors.forEach((selector, index) => {
       const section = document.querySelector(selector);
       if (!section) return;
 
@@ -41,7 +62,7 @@ class SectionParallax {
       const original = {
         backgroundImage: section.style.backgroundImage,
         position: section.style.position,
-        overflow: section.style.overflow,
+        clipPath: section.style.clipPath,
         zIndex: section.style.zIndex,
       };
 
@@ -49,24 +70,29 @@ class SectionParallax {
       layer.className = "parallax-layer";
       layer.setAttribute("aria-hidden", "true");
       Object.assign(layer.style, {
-        position: "absolute",
-        left: "0",
-        right: "0",
+        position: "fixed",
+        inset: "0",
         backgroundImage: bg,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         zIndex: "-1",
         pointerEvents: "none",
+        // Ken-Burns-Drift; versetzt gestartet und abwechselnd gegenläufig,
+        // damit nicht alle Sektionen synchron in dieselbe Richtung ziehen
+        animation: `parallax-drift ${DRIFT_DURATION_S}s ease-in-out infinite alternate`,
+        animationDelay: `${-index * (DRIFT_DURATION_S / 2)}s`,
+        animationDirection: index % 2 ? "alternate-reverse" : "alternate",
         willChange: "transform",
       });
 
-      // Sektion vorbereiten: eigenes Bild aus, Ebene dahinter einhängen
+      // Sektion vorbereiten: eigenes Bild aus, Ebene per clip-path einfangen
+      // (overflow clippt position: fixed nicht — clip-path schon)
       section.style.backgroundImage = "none";
       if (getComputedStyle(section).position === "static") {
         section.style.position = "relative";
       }
-      section.style.overflow = "clip";
+      section.style.clipPath = "inset(0)";
       if (getComputedStyle(section).zIndex === "auto") {
         section.style.zIndex = "0";
       }
@@ -75,68 +101,20 @@ class SectionParallax {
       this.entries.push({ section, layer, original });
     });
 
-    if (!this.entries.length) return;
-
-    this.active = true;
-    this.measure();
-    window.addEventListener("scroll", this.onScroll, { passive: true });
-    window.addEventListener("resize", this.onResize);
-    this.update();
+    this.active = this.entries.length > 0;
   }
 
   destroy() {
-    if (!this.active && !this.entries.length) return;
-    window.removeEventListener("scroll", this.onScroll);
-    window.removeEventListener("resize", this.onResize);
-
+    if (!this.entries.length) return;
     this.entries.forEach(({ section, layer, original }) => {
       layer.remove();
       section.style.backgroundImage = original.backgroundImage;
       section.style.position = original.position;
-      section.style.overflow = original.overflow;
+      section.style.clipPath = original.clipPath;
       section.style.zIndex = original.zIndex;
     });
     this.entries = [];
     this.active = false;
-    this.ticking = false;
-  }
-
-  // Ebene viewport-hoch bemessen (wie es background-attachment: fixed rendert);
-  // bei STICKINESS < 1 zusätzlich Drift-Spielraum einrechnen, damit keine Lücke entsteht
-  measure() {
-    const vh = window.innerHeight;
-    this.entries.forEach((entry) => {
-      const sh = entry.section.offsetHeight;
-      // Grundhöhe = Viewport (wie fixed rendert); ist die Sektion höher,
-      // driftet die Ebene um (sh - vh) · (1 - STICKINESS) und braucht Reserve
-      const height = vh + Math.max(0, sh - vh) * (1 - STICKINESS) + 4;
-      entry.layer.style.top = "0";
-      entry.layer.style.height = `${Math.ceil(height)}px`;
-    });
-  }
-
-  onScroll() {
-    if (!this.ticking) {
-      this.ticking = true;
-      requestAnimationFrame(this.update);
-    }
-  }
-
-  onResize() {
-    this.measure();
-    this.onScroll();
-  }
-
-  update() {
-    this.ticking = false;
-    const vh = window.innerHeight;
-    this.entries.forEach(({ section, layer }) => {
-      const rect = section.getBoundingClientRect();
-      if (rect.bottom < 0 || rect.top > vh) return; // nicht im Viewport
-      // Gegenläufig zur Sektionsbewegung verschieben → Bild bleibt (fast) am Viewport
-      const offset = -rect.top * STICKINESS;
-      layer.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
-    });
   }
 }
 
@@ -145,7 +123,7 @@ class SectionParallax {
  * high → aktiv, low → abgebaut. Reagiert live auf performanceModeChange.
  */
 export function setupParallax() {
-  const parallax = new SectionParallax([
+  const parallax = new FixedParallax([
     "#home-section",
     "#skills",
     "#contact-section",
