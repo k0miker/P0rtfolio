@@ -6,8 +6,8 @@ const ogImage = image || new URL("/og-image.png", Astro.url).toString();
 const businessData = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  "name": "CB-WebDevelopment - Webentwicklung Fürstenau",
-  "alternateName": "Colin Blome - CB-WebDevelopment",
+  "name": "CB-Webdevelopment - Webentwicklung Fürstenau",
+  "alternateName": ["CB-Webdevelopment", "CB-WebDev", "Colin Blome"],
   "description": "Professionelle Webentwicklung in Fürstenau, Samtgemeinde Bersenbrück & Landkreis Osnabrück. Moderne, responsive Webseiten die Kunden gewinnen.",
   "url": Astro.url.toString(),
   "logo": "https://i.imgur.com/ELVyRRc.jpeg",
@@ -101,8 +101,8 @@ const businessData = {
     <meta name="generator" content={Astro.generator} />
     
     <!-- SEO Meta Tags -->
-    <title>{title || 'CB-WebDevelopment | Webentwicklung Fürstenau | Ihr lokaler Webentwickler'}</title>
-    <meta name="description" content={description || 'CB-WebDevelopment - Professionelle Webentwicklung in Fürstenau, Bersenbrück und Umgebung. Moderne, responsive Webseiten die Kunden gewinnen. Lokaler Service mit persönlicher Betreuung.'} />
+    <title>{title || 'CB-Webdevelopment | Webentwicklung Fürstenau | Ihr lokaler Webentwickler'}</title>
+    <meta name="description" content={description || 'CB-Webdevelopment von Colin Blome: professionelle Webentwicklung in Fürstenau, Bersenbrück und Umgebung.'} />
     
     <!-- Lokale SEO Tags -->
     <meta name="geo.region" content="DE-NI" />
@@ -115,11 +115,11 @@ const businessData = {
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url} />
-    <meta property="og:title" content={title || 'CB-WebDevelopment | Webentwicklung Fürstenau | Ihr lokaler Webentwickler'} />
-    <meta property="og:description" content={description || 'CB-WebDevelopment - Professionelle Webentwicklung in Fürstenau, Bersenbrück und Umgebung. Moderne Webseiten, Online-Shops und SEO-Optimierung.'} />
+    <meta property="og:title" content={title || 'CB-Webdevelopment | Webentwicklung Fürstenau | Ihr lokaler Webentwickler'} />
+    <meta property="og:description" content={description || 'CB-Webdevelopment von Colin Blome: professionelle Webentwicklung in Fürstenau, Bersenbrück und Umgebung.'} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="de_DE" />
-    <meta property="og:site_name" content="CB-WebDevelopment" />
+    <meta property="og:site_name" content="CB-Webdevelopment" />
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
