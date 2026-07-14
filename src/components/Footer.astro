@@ -56,10 +56,12 @@ import "../css/darkmode.css";
       <p class="text-[mono]">© 2024 Colin Blome</p>
     </div>
       
-    <div class="impressum-container footer-item">
-      <a href="/impressum" class="impressum-link">Impressum</a>
-      <a href="/datenschutz" class="impressum-link">Datenschutz</a>
-      <button type="button" id="cookie-settings" class="impressum-link">Cookie-Einstellungen</button>
+    <div class="impressum-container footer-item" aria-label="Rechtliches">
+      <div class="legal-links">
+        <a href="/impressum" class="impressum-link">Impressum</a>
+        <a href="/datenschutz" class="impressum-link">Datenschutz</a>
+      </div>
+      <button type="button" id="cookie-settings" class="impressum-link cookie-settings-link">Cookie-Einstellungen</button>
     </div>
   </div>
 </footer>
@@ -269,7 +271,18 @@ import "../css/darkmode.css";
     flex-grow: 1;
   }
 
-  /* Impressum Link */
+  /* Rechtliches */
+  .impressum-container {
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .legal-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .impressum-link {
     appearance: none;
     border: 0;
@@ -281,10 +294,53 @@ import "../css/darkmode.css";
     text-decoration: none;
     transition: color 0.3s ease;
     padding: 0 0.75rem;
+    white-space: nowrap;
   }
 
   .impressum-link:hover {
     color: var(--accent);
+  }
+
+  .cookie-settings-link {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    padding: 0.25rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .cookie-settings-link::before {
+    content: ">";
+    margin-right: 0.45rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .cookie-settings-link:hover {
+    color: var(--text-titel);
+    border-color: var(--accent);
+    background-color: var(--bg-secondary);
+    transform: translateY(-1px);
+  }
+
+  .footer.expanded .impressum-container {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .footer.expanded .cookie-settings-link {
+    display: inline-flex;
   }
 
   /* Adaptiver Scroll-Button */
@@ -366,6 +422,10 @@ import "../css/darkmode.css";
 
     .impressum-link {
       font-size: 0.7rem;
+    }
+
+    .cookie-settings-link {
+      font-size: 0.68rem;
     }
 
     .scroll-button a {
