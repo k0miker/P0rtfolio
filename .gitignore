@@ -25,3 +25,7 @@ pnpm-debug.log*
 
 
 .claude/
+.impeccable/
+
+design.md
+product.md
