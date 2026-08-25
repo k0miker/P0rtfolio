@@ -20,5 +20,8 @@
   },
   "devDependencies": {
     "playwright": "^1.61.1"
+  },
+  "overrides": {
+    "sharp": "^0.35.3"
   }
 }
