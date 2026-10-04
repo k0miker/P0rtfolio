@@ -402,6 +402,8 @@ select:focus-visible,
   [data-performance="low"] * {
     animation-duration: 0.001ms !important;
     animation-delay: 0ms !important;
+    /* sonst flackern Endlos-Animationen bei 0.001ms jeden Frame */
+    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
 }
