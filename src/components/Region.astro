@@ -46,7 +46,7 @@ import { business, serviceArea, faq } from "../data/seo.js";
         {business.services.map((s) => <li>{s}</li>)}
       </ul>
 
-      <h3>Häufige Fragen</h3>
+      <h3 id="faq">Häufige Fragen</h3>
       <div class="region-faq">
         {
           faq.map(({ q, a }) => (
@@ -84,6 +84,7 @@ import { business, serviceArea, faq } from "../data/seo.js";
     font-size: var(--step-0, 1rem);
     color: var(--accent);
     margin: 1.75rem 0 0.75rem;
+    scroll-margin-top: 96px; /* fixer Header */
   }
   h3::before {
     content: "## ";
