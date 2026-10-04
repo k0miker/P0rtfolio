@@ -496,7 +496,27 @@ import "../css/darkmode.css";
     const scrollText = document.getElementById('scroll-text');
     const scrollIcon = document.querySelector('#scroll-icon i');
     let isExpanded = false;
-    
+
+    // Der Footer ist fixed und klappt am Seitenende auf. Damit er dann keinen
+    // Inhalt überdeckt, reserviert der body unten genau die aufgeklappte Höhe
+    // (--footer-expanded-h). Gemessen wird einmalig/bei Resize unsichtbar im
+    // selben Frame – nicht erst beim Aufklappen, sonst würde die wachsende
+    // Seitenhöhe den Footer sofort wieder zuklappen lassen.
+    function measureExpandedHeight() {
+      if (!footer) return;
+      const wasExpanded = footer.classList.contains('expanded');
+      const prevTransition = footer.style.transition;
+      footer.style.transition = 'none';
+      footer.classList.add('expanded');
+      const height = footer.offsetHeight;
+      if (!wasExpanded) footer.classList.remove('expanded');
+      void footer.offsetHeight; // Layout ohne Transition festschreiben
+      footer.style.transition = prevTransition;
+      document.documentElement.style.setProperty('--footer-expanded-h', `${height}px`);
+    }
+    measureExpandedHeight();
+    window.addEventListener('resize', measureExpandedHeight);
+
     // Funktion zur Anpassung des Scroll-Buttons basierend auf der Scroll-Position
     function updateScrollButton() {
       const scrollY = window.scrollY || window.pageYOffset;
