@@ -31,6 +31,7 @@
   --nav-shadow: 0 0 50px 10px #0000004b;
   --nav-shadow-solid: 0 0px 15px 2px #0000004d;
   --nav-mobile-bg: rgba(255, 255, 255, 0.8); /* Halbtransparenter Hintergrund für mobiles Menü im Light Mode */
+  --footer-bg: #ededed; /* eigene Fläche, hebt sich von der letzten Sektion ab */
   --modal-overlay: rgba(0, 0, 0, 0.685);
   --modal-bg: #fefefe;
   --modal-border: #888;
@@ -116,6 +117,7 @@
   --nav-shadow: 0 0 50px 10px #00000028;
   --nav-shadow-solid: 0 0px 15px 2px #000000;
   --nav-mobile-bg: rgba(25, 25, 25, 0.85); /* Halbtransparenter Hintergrund für mobiles Menü im Dark Mode */
+  --footer-bg: #1b1b1b;
   --modal-overlay: rgba(0, 0, 0, 0.8);
   --modal-bg: #252525eb;
   --modal-border: #404040;
@@ -283,7 +285,7 @@
 }
 
 .dark-mode .footer {
-  background-color: var(--bg-primary);
+  background-color: var(--footer-bg);
 }
 
 /* .dark-mode form {

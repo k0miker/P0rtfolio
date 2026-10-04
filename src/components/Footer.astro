@@ -68,7 +68,9 @@ import "../css/darkmode.css";
 
 <style>
   .footer {
-    background-color: var(--bg-primary);
+    --footer-line: color-mix(in srgb, var(--accent) 65%, transparent);
+    background-color: var(--footer-bg, var(--bg-primary));
+    border-top: 1px solid var(--footer-line);
     color: var(--text-primary);
     padding: 0.75rem 1rem;
     width: 100%;
@@ -78,7 +80,7 @@ import "../css/darkmode.css";
     left: 0;
     z-index: 2;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);    
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.18);    
   }
   
   /* Expandierter Footer - bleibt jetzt fixed */
@@ -86,7 +88,7 @@ import "../css/darkmode.css";
     position: fixed; /* Wichtig: bleibt fixed statt relative */
     height: auto;
     padding: 0.75rem 1rem;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.18);
     /* Setzt den Footer ans Ende vom Viewport ohne den Inhalt zu überlagern */
     bottom: 0;
     z-index: 10; /* Höherer z-index für bessere Sichtbarkeit */
@@ -363,7 +365,9 @@ import "../css/darkmode.css";
 
   .scroll-button a {
     color: var(--text-secondary);
-    background-color: var(--bg-primary);
+    background-color: var(--footer-bg, var(--bg-primary));
+    border: 1px solid var(--footer-line);
+    border-bottom: 0;
     height: 20px;
     width: 75px;
     font-family: inter;
