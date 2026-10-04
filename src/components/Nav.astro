@@ -1,249 +1,554 @@
 ---
 import logo from "../assets/images/logo.webp";
 import { projects } from "../data/projectData.js";
+import { navSections } from "../data/navSections.js";
 
-// Filter projects that should be shown in the dropdown (e.g. featured ones or all)
-// For now, we'll show all projects, but you could filter by `project.featured` if you add that property
-const navProjects = projects;
+// Home übernimmt das Logo, Contact ist der CTA rechts außen
+const byId = Object.fromEntries(navSections.map((s) => [s.id, s]));
+const links = [byId.about, byId.skills];
+const afterProjects = [byId.region];
+const contact = byId.contact;
 ---
 
-<!-- Hauptnavigationskomponente -->
-<div
-  class="head w-full justify-center items-center fixed z-50 text-gray-200 sm:bg-transparent dark-mode:text-gray-200 dark-mode:bg-gray-800"
-  id="navbar"
->
-  <div
-    class="flex flex-col h-full max-w-[2800px] items-center md:justify-center mx-auto md:flex-row md:px-6 mg:px-2"
-    id="nav-container"
-  >
-    <!-- HEADER: Logo und Hamburger-Menü -->
+<!-- Hauptnavigation -->
+<header class="head" id="navbar">
+  <div id="nav-container">
+    <!-- Logo + Hamburger -->
     <div class="name flex flex-row items-center w-full justify-between">
-      <!-- Logo / Brand -->
       <a
         href="/"
         aria-label="CB-WebDev – Startseite"
-        class="name lg:text-lg font-semibold duration-200 flex items-center justify-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-hidden"
+        class="name lg:text-lg font-semibold duration-200 flex items-center justify-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg focus:outline-hidden"
         ><img class="logo" src={logo.src} alt="" /><i>C</i><span>olin</span>
         <i>B</i><span>lome </span><span class="dev">
           Webdev<i class="dash animate-ping">_</i></span
         ><span>elopment</span><span class="animate-ping">_</span></a
       >
 
-      <!-- Hamburger-Menü für Mobile -->
-      <div class="flex items-center">
-        <button
-          class="md:hidden rounded-lg focus:outline-hidden focus:shadow-outline mobile-menu-button"
-          aria-label="Menü öffnen"
-          id="mobile-menu-btn"
-        >
-          <svg fill="currentColor" viewBox="0 0 20 20" class="w-14 h-12">
-            <path
-              class="menu-icon-closed"
-              fill-rule="evenodd"
-              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
-              clip-rule="evenodd"></path>
-            <path
-              class="menu-icon-open hidden"
-              fill-rule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </button>
-      </div>
+      <button
+        class="mobile-menu-button"
+        id="mobile-menu-btn"
+        aria-label="Menü öffnen"
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
+        <span class="burger" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
     </div>
 
-    <!-- NAVIGATION: Links mit responsivem Verhalten -->
-    <nav
-      id="main-nav"
-      class="flex-col grow pb-4 max-w-200px w-full md:pb-0 hidden md:flex md:justify-end md:flex-row md:bg-transparent md:text-gray-200 text-gray-600 mobile-menu"
-    >
-      <!-- Standard Navigation Links -->
-      <div class="nav-links flex flex-col md:flex-row">
-        <a
-          class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden focus:shadow-outline active"
-          href="/#home"
-          id="nav-home">/Home</a
-        >
-        <a
-          class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden focus:shadow-outline"
-          href="/#about"
-          id="nav-about">/About</a
-        >
-        <a
-          class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden focus:shadow-outline"
-          href="/#skills"
-          id="nav-skills">/Skills</a
-        >
+    <nav id="main-nav" class="mobile-menu" aria-label="Hauptnavigation">
+      <ul class="nav-links">
+        {
+          links.map((s) => (
+            <li>
+              <a class="nav-link" href={s.href} data-section={s.id}>
+                /{s.label}
+              </a>
+            </li>
+          ))
+        }
 
-        <!-- PROJEKT DROPDOWN: Eigener Bereich mit Dropdown-Funktionalität -->
-        <div class="relative group" id="project-dropdown-container">
-          <div class="flex items-center project-nav-group md:ml-2">
-            <a
-              class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden min-w-16"
-              href="/#projects"
-              id="nav-projects-link"
-              >/Projects</a
-            >
-            <button
-              id="nav-projects"
-              class="project-dropdown p-1 mt-2 md:mt-0 rounded-sm hover:text-[tomato] focus:outline-hidden"
-              aria-haspopup="true"
-              aria-expanded="false"
-              aria-label="Projektliste öffnen"
-            >
-              <svg
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                class="w-5 h-5 transition-transform duration-200 transform dropdown-arrow"
-                aria-hidden="true"
-                ><path
-                  fill-rule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clip-rule="evenodd"></path></svg
-              >
-            </button>
-          </div>
-
-          <!-- Projekt-Modal Dropdown -->
-          <div
-            id="project-dropdown-menu"
-            class="absolute right-0 mt-2 origin-top-right rounded-md shadow-lg w-48 project-modal hidden group-hover:block"
+        <!-- Projekte: Mega-Panel (Desktop) bzw. einfacher Link (Mobile) -->
+        <li class="nav-projects" id="nav-projects-item">
+          <button
+            class="nav-link nav-projects-trigger"
+            id="nav-projects"
+            data-section="projects"
+            aria-expanded="false"
+            aria-controls="projects-panel"
           >
-            <div
-              class="px-2 py-2 rounded-md shadow-sm dark-mode:bg-gray-800 project-list"
-            >
-              <!-- Projekt-Links dynamisch generiert -->
-              {
-                navProjects.map((project) => (
-                  <a
-                    class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden focus:shadow-outline"
-                    href={project.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {project.title}
-                  </a>
-                ))
-              }
+            /{byId.projects.label}
+            <svg class="chevron" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M5.5 7.5 10 12l4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </button>
+          <a class="nav-link nav-projects-mobile" href={byId.projects.href} data-section="projects">
+            /{byId.projects.label}
+          </a>
+
+          <div class="projects-panel" id="projects-panel">
+            <div class="panel-card">
+              <div class="panel-head">
+                <span class="panel-kicker">~/projects <span class="panel-count">{projects.length}</span></span>
+                <a class="panel-all" href={byId.projects.href}>
+                  Alle Projekte mit Details <span aria-hidden="true">→</span>
+                </a>
+              </div>
+              <ul class="panel-grid">
+                {
+                  projects.map((p) => (
+                    <li>
+                      <a class="panel-item" href={p.website} target="_blank" rel="noopener noreferrer">
+                        <img src={p.image} alt="" width="64" height="40" loading="lazy" decoding="async" />
+                        <span class="panel-text">
+                          <span class="panel-title">{p.title}</span>
+                          {p.category && <span class="panel-cat">{p.category}</span>}
+                        </span>
+                        <svg class="panel-ext" viewBox="0 0 20 20" aria-hidden="true">
+                          <path d="M8 5h7v7M15 5l-9 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span class="sr-only">(öffnet in neuem Tab)</span>
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
             </div>
           </div>
-        </div>
+        </li>
 
-        <!-- Kontakt-Link -->
-        <a
-          class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden focus:shadow-outline"
-          href="/#contact"
-          id="nav-contact">/Contact</a
-        >
-      </div>
+        {
+          afterProjects.map((s) => (
+            <li>
+              <a class="nav-link" href={s.href} data-section={s.id}>
+                /{s.label}
+              </a>
+            </li>
+          ))
+        }
+
+        <li class="nav-cta-item">
+          <a class="nav-cta" href={contact.href} data-section={contact.id}>
+            /{contact.label}
+          </a>
+        </li>
+      </ul>
     </nav>
   </div>
-</div>
+  <div class="nav-progress" aria-hidden="true"></div>
+</header>
 
 <style>
-  /* Grundlegende Navigationsstile */
-  nav * {
-    font-family: mono;
-    text-transform: uppercase;
-  }
-
-  /* Kopfzeile/Navbar Styling */
+  /* ---------- Header ---------- */
   .head {
-    transition: all 0.3s;
-    height: 10vh;
-    background-color: rgb(0, 0, 0);
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    height: clamp(64px, 10vh, 110px);
+    color: #e8e8e8;
     background: var(--nav-bg);
     box-shadow: var(--nav-shadow);
+    transition:
+      height 0.4s ease,
+      background-color 0.4s ease,
+      box-shadow 0.4s ease;
   }
 
-  /* Aktiver Link Styling */
-  .flex .active {
-    /* background: var(--bg-secondary); */
-    color: var(--accent);
+  .head.colored {
+    height: clamp(56px, 7vh, 80px);
+    color: var(--text-secondary);
+    background: color-mix(in srgb, var(--bg-primary) 88%, transparent);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    box-shadow: var(--nav-shadow-solid);
   }
 
-  /* Logo Styling */
-  .logo {
-    width: 45px;
-    translate: 0 5px;
-    transition: 1s;
-  }
-
-  /* Projekt-Modal spezifische Stile */
-  .project-modal {
-    z-index: 100;
-    position: absolute;
-    top: 6vh;
-  }
-
-  /* Anpassung für das Project-Dropdown */
-  .project-nav-group {
-    border-radius: 0.5rem;
-  }
-
-  .project-dropdown {
-    transition: color 0.2s ease, background-color 0.2s ease;
+  #nav-container {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    height: 100%;
+    max-width: 2800px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
   }
 
-  .project-dropdown:hover {
-    color: tomato;
+  /* Scroll-Fortschritt als Linie unter dem Header (nur ohne Seitenleiste) */
+  .nav-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(var(--scroll-progress, 0));
+    transform-origin: left;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
-
-  .project-list {
-    a {
-      color: var(--text-secondary);
-      background-color: var(--bg-primary);
-      margin-bottom: 2px;
-      &:hover {
-        color: tomato;
-        background-color: var(--bg-secondary);
-      }
+  .head.colored .nav-progress {
+    opacity: 1;
+  }
+  @media (min-width: 1100px) {
+    .nav-progress {
+      display: none;
     }
   }
 
-  .dark-mode .project-list {
-    background-color: var(--bg-card);
-    border-color: var(--border);
+  /* ---------- Desktop-Links ---------- */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    height: 100%;
+    list-style: none;
   }
 
-  /* Mobile Navigation: Fullscreen-Overlay im Terminal-Look */
-  @media (max-width: 768px) {
-    /* Mindesthöhe für die Navigationsleiste festlegen –
-       auch im .colored-Zustand (Desktop: 7vh), sonst wird das Logo abgeschnitten */
-    .head,
-    .head.colored {
-      min-height: 60px !important;
-      height: auto;
+  .nav-links > li {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 0.75rem;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: inherit;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  /* Aktiv-Markierung: kurzer Strich unter dem Link */
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.2rem;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .head.colored .nav-link:hover {
+    color: var(--text-primary);
+    background: color-mix(in srgb, var(--text-primary) 7%, transparent);
+  }
+
+  .nav-link[aria-current="true"] {
+    color: var(--accent);
+  }
+  .nav-link[aria-current="true"]::after {
+    transform: scaleX(1);
+  }
+
+  .nav-link:focus-visible,
+  .nav-cta:focus-visible,
+  .panel-item:focus-visible,
+  .panel-all:focus-visible,
+  .mobile-menu-button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .chevron {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.25s ease;
+  }
+  .nav-projects[data-open] .chevron {
+    transform: rotate(180deg);
+  }
+  .nav-projects-trigger::after {
+    right: 1.95rem;
+  }
+
+  .nav-projects-mobile {
+    display: none;
+  }
+
+  /* CTA */
+  .nav-cta-item {
+    margin-left: 0.75rem;
+  }
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1.1rem;
+    border: 1.5px solid var(--accent);
+    border-radius: 999px;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  /* Über dem Hero-Bild: helle Schrift für Kontrast */
+  .head:not(.colored) .nav-cta {
+    color: #fff;
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+  .nav-cta:hover,
+  .head .nav-cta[aria-current="true"],
+  .head:not(.colored) .nav-cta:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* ---------- Projekte-Panel ---------- */
+  /* Hängt am Header-Container (nicht am Link), damit es bündig unter der Leiste sitzt.
+     Das <li> ist so hoch wie der Header → keine Hover-Lücke zum Panel. */
+  .projects-panel {
+    position: absolute;
+    top: 100%;
+    right: 1.5rem;
+    width: min(780px, calc(100vw - 3rem));
+    padding-top: 0.5rem;
+    display: none;
+    opacity: 0;
+    translate: 0 -6px;
+    transition:
+      opacity 0.18s ease,
+      translate 0.18s ease,
+      display 0.18s allow-discrete;
+  }
+
+  .nav-projects[data-open] .projects-panel {
+    display: block;
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  @starting-style {
+    .nav-projects[data-open] .projects-panel {
+      opacity: 0;
+      translate: 0 -6px;
+    }
+  }
+
+  .panel-card {
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    box-shadow: var(--card-elev, 0 20px 40px rgba(0, 0, 0, 0.25));
+    overscroll-behavior: contain;
+  }
+
+  .panel-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.25rem 0.5rem 0.75rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .panel-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+  .panel-count {
+    margin-left: 0.25rem;
+    padding: 0.05rem 0.45rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .panel-all {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    border-radius: 6px;
+  }
+  .panel-all:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .panel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.25rem;
+    list-style: none;
+  }
+  @media (min-width: 1280px) {
+    .panel-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .projects-panel {
+      width: min(980px, calc(100vw - 3rem));
+    }
+  }
+
+  .panel-item {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr) 1rem;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    color: var(--text-primary);
+    transition: background-color 0.15s ease;
+  }
+  .panel-item:hover {
+    background: color-mix(in srgb, var(--accent) 9%, transparent);
+  }
+
+  .panel-item img {
+    width: 64px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: var(--bg-tertiary);
+  }
+
+  .panel-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .panel-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .panel-cat {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .panel-ext {
+    width: 1rem;
+    height: 1rem;
+    color: var(--accent);
+    opacity: 0;
+    translate: -3px 3px;
+    transition:
+      opacity 0.15s ease,
+      translate 0.15s ease;
+  }
+  .panel-item:hover .panel-ext,
+  .panel-item:focus-visible .panel-ext {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* ---------- Hamburger ---------- */
+  .mobile-menu-button {
+    display: none;
+    position: relative;
+    z-index: 101;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+  .head.colored .mobile-menu-button {
+    color: var(--text-primary);
+  }
+
+  .burger {
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 16px;
+    margin: auto;
+  }
+  .burger span {
+    position: absolute;
+    left: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transition:
+      transform 0.25s ease,
+      opacity 0.2s ease,
+      width 0.25s ease;
+  }
+  .burger span:nth-child(1) {
+    top: 0;
+    width: 100%;
+  }
+  .burger span:nth-child(2) {
+    top: 7px;
+    width: 100%;
+  }
+  .burger span:nth-child(3) {
+    top: 14px;
+    width: 60%;
+    left: 40%;
+  }
+  .head.menu-open .burger span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .head.menu-open .burger span:nth-child(2) {
+    opacity: 0;
+  }
+  .head.menu-open .burger span:nth-child(3) {
+    left: 0;
+    width: 100%;
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ---------- Mobile: Fullscreen-Overlay im Terminal-Look ---------- */
+  @media (max-width: 899px) {
+    #nav-container {
+      padding-inline: 0.75rem;
     }
 
-    /* Bei offenem Menü über Floating-Buttons (Versiontoggle z-9990, Toggles z-50) heben */
+    .mobile-menu-button {
+      display: block;
+    }
+
+    /* Bei offenem Menü über Floating-Buttons (Versiontoggle z-9990) heben */
     .head.menu-open {
       z-index: 9995;
     }
+    .head.menu-open .mobile-menu-button {
+      color: var(--text-primary);
+    }
 
-    /* Logo + Hamburger bleiben über dem Overlay sichtbar */
     #nav-container > .name {
       position: relative;
       z-index: 101;
-      padding-inline: 0.5rem;
     }
 
-    /* Fullscreen-Overlay */
     nav.mobile-menu {
-      display: flex !important;
       position: fixed;
       inset: 0;
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      padding: 70px 0 2.5rem;
-      background: var(--bg-primary);
       z-index: 100;
+      display: flex;
       flex-direction: column;
       justify-content: center;
+      height: 100dvh;
+      padding: 70px 0 2.5rem;
       overflow-y: auto;
+      background: var(--bg-primary);
       opacity: 0;
       visibility: hidden;
       transform: translateY(-10px);
@@ -262,56 +567,73 @@ const navProjects = projects;
         transform 0.25s ease;
     }
 
-    /* Linkliste: zentrierter Block, linksbündige Terminal-Zeilen */
     .nav-links {
       flex-direction: column;
       align-items: stretch;
       gap: 0.35rem;
       width: min(78vw, 320px);
+      height: auto;
       margin-inline: auto;
     }
 
-    .nav-links a {
-      justify-content: flex-start;
-      margin: 0;
+    .nav-links > li {
+      display: block;
+      height: auto;
+    }
+
+    .nav-link {
+      display: flex;
+      width: 100%;
       padding: 0.9rem 0.75rem;
       font-size: 1.1rem;
-      letter-spacing: 0.05em;
       color: var(--text-primary);
-      background: transparent;
-      border-radius: 8px;
     }
-
-    .nav-links a::before {
+    .nav-link::before {
       content: ">";
       color: var(--accent);
-      margin-right: 0.75rem;
+      margin-right: 0.5rem;
     }
-
-    .nav-links a:active {
-      background: var(--bg-secondary);
+    .nav-link::after {
+      display: none;
     }
-
-    .nav-links a.active {
+    .nav-link:active,
+    .nav-link:hover,
+    .head.colored .nav-link:hover {
+      color: var(--text-primary);
+      background: color-mix(in srgb, var(--text-primary) 7%, transparent);
+    }
+    /* Touch: kein "klebender" Hover nach dem Tippen */
+    @media (hover: none) {
+      .nav-link:hover,
+      .head.colored .nav-link:hover {
+        background: transparent;
+      }
+    }
+    .nav-link[aria-current="true"] {
       color: var(--accent);
     }
 
-    /* Projekt-Dropdown mobil komplett ausblenden – /Projects scrollt zur Sektion */
-    #project-dropdown-container,
-    .project-nav-group {
-      display: contents;
-    }
-
-    #nav-projects,
-    #project-dropdown-menu {
+    .nav-projects-trigger,
+    .projects-panel {
       display: none !important;
     }
-
-    /* Hamburger-Menü immer im Vordergrund */
-    #mobile-menu-btn {
-      position: relative;
-      z-index: 101;
+    .nav-projects-mobile {
+      display: flex;
     }
+
+    .nav-cta-item {
+      margin: 1.25rem 0 0;
+    }
+    .head .nav-cta,
+    .head:not(.colored) .nav-cta {
+      justify-content: center;
+      width: 100%;
+      padding: 0.9rem 1rem;
+      font-size: 1.05rem;
+      background: var(--accent);
+      color: #fff;
+    }
+
     .logo {
       width: 35px;
       translate: 0 0;
@@ -320,26 +642,22 @@ const navProjects = projects;
     }
   }
 
-  /* Tablet-spezifische Anpassungen für Projekte */
-  @media (min-width: 769px) and (max-width: 1024px) {
-    .project-modal {
-      width: 400px !important;
-      right: -50px;
+  @media (prefers-reduced-motion: reduce) {
+    .head,
+    .nav-link,
+    .nav-link::after,
+    .projects-panel,
+    nav.mobile-menu,
+    .burger span {
+      transition: none !important;
     }
+  }
 
-    .project-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      padding: 10px;
-    }
-
-    .project-list a {
-      margin: 0;
-      padding: 12px 15px;
-      text-align: center;
-      height: 100%;
-    }
+  /* ---------- Logo (Markenzeichen, aus der alten Nav übernommen) ---------- */
+  .logo {
+    width: 45px;
+    translate: 0 5px;
+    transition: 1s;
   }
 
   .name {
@@ -398,11 +716,6 @@ const navProjects = projects;
     }
   }
   .colored {
-    height: 7vh;
-    transition: all 1s;
-    background: var(--bg-primary);
-    box-shadow: var(--nav-shadow-solid);
-
     .name {
       letter-spacing: normal;
       color: tomato;
@@ -413,9 +726,6 @@ const navProjects = projects;
       .dev {
         font-size: 24px;
         color: tomato;
-        @media screen and (min-width: 768px) {
-          translate: 0 5px;
-        }
       }
       span {
         color: #ababab;
@@ -426,30 +736,6 @@ const navProjects = projects;
       .dash {
         font-size: 0;
       }
-    }
-    nav {
-      color: var(--text-primary);
-      transition: all 1s;
-      a {
-        color: var(--text-secondary);
-        margin-bottom: 2px;
-        &:hover {
-          color: tomato;
-          background-color: var(--bg-secondary);
-        }
-      }
-    }
-    @media screen and (max-width: 700px) {
-      nav {
-        background-color: var(--bg-primary);
-        color: var(--text-primary);
-        /* box-shadow: 0px 0 0px rgba(0,0,0,0.2); */
-        transition: all 1s;
-      }
-    }
-
-    a {
-      color: var(--text-secondary);
       img {
         scale: 0.8;
         translate: 2px 2px;
@@ -457,7 +743,7 @@ const navProjects = projects;
     }
   }
 
-  .colored:hover {
+  .colored .name:hover {
     .logo {
       transform: translateX(10px) translateY(3px);
       scale: 0.7;
@@ -488,195 +774,114 @@ const navProjects = projects;
     }
   }
 
-  /* Korrigiere Farben für Dark Mode */
-  .dark-mode .colored a,
-  .dark-mode .colored button {
-    color: var(--text-primary);
-  }
-
-  .dark-mode .name span {
-    color: var(--text-primary);
-  }
-
+  .dark-mode .name span,
   .dark-mode .name:hover span {
     color: var(--text-primary);
   }
-
-  .dark-mode nav.bg-white {
-    background-color: var(--bg-secondary) !important;
-  }
 </style>
+
 <script>
-  // Vanilla JS Navigation Logic
-  document.addEventListener("DOMContentLoaded", () => {
-    const navbar = document.getElementById("navbar");
-    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-    const mobileMenu = document.getElementById("main-nav");
-    const menuIconClosed = document.querySelector(".menu-icon-closed");
-    const menuIconOpen = document.querySelector(".menu-icon-open");
-    const navLinks = document.querySelectorAll("nav a");
-    const projectDropdownBtn = document.getElementById("nav-projects");
-    const projectDropdownMenu = document.getElementById(
-      "project-dropdown-menu",
-    );
-    const projectDropdownArrow = document.querySelector(".dropdown-arrow");
+  import { onSectionChange } from "../scripts/sectionSpy";
 
-    // Scroll Handler
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > navbar.offsetTop) {
-        navbar.classList.add("colored");
-      } else {
-        navbar.classList.remove("colored");
-      }
-      updateActiveNav();
-    });
+  const navbar = document.getElementById("navbar")!;
+  const menuBtn = document.getElementById("mobile-menu-btn")!;
+  const menu = document.getElementById("main-nav")!;
+  const projectsItem = document.getElementById("nav-projects-item")!;
+  const projectsBtn = document.getElementById("nav-projects")!;
 
-    // Mobile Menu öffnen/schließen
-    const openMenu = () => {
-      mobileMenu.classList.add("open");
-      mobileMenu.classList.remove("hidden");
-      mobileMenu.classList.add("flex");
-      menuIconClosed.classList.add("hidden");
-      menuIconOpen.classList.remove("hidden");
-      navbar.classList.add("menu-open");
-      document.body.style.overflow = "hidden"; // Seite hinter dem Overlay nicht scrollen
-      mobileMenuBtn.setAttribute("aria-label", "Menü schließen");
-    };
+  // ---------- Header-Zustand beim Scrollen ----------
+  const updateColored = () =>
+    navbar.classList.toggle("colored", window.scrollY > 10);
+  window.addEventListener("scroll", updateColored, { passive: true });
+  updateColored();
 
-    const closeMenu = () => {
-      mobileMenu.classList.remove("open");
-      mobileMenu.classList.add("hidden");
-      mobileMenu.classList.remove("flex");
-      menuIconClosed.classList.remove("hidden");
-      menuIconOpen.classList.add("hidden");
-      navbar.classList.remove("menu-open");
-      document.body.style.overflow = "";
-      mobileMenuBtn.setAttribute("aria-label", "Menü öffnen");
-    };
-
-    if (mobileMenuBtn && mobileMenu) {
-      mobileMenuBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (mobileMenu.classList.contains("open")) {
-          closeMenu();
-        } else {
-          openMenu();
-        }
-      });
-
-      // Close menu when clicking outside
-      document.addEventListener("click", (e) => {
-        if (
-          mobileMenu.classList.contains("open") &&
-          !mobileMenu.contains(e.target as Node) &&
-          !mobileMenuBtn.contains(e.target as Node)
-        ) {
-          closeMenu();
-        }
-      });
-
-      // Menü mit Escape schließen
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && mobileMenu.classList.contains("open")) {
-          closeMenu();
-        }
-      });
-    }
-
-    // Project Dropdown Toggle (Mobile & Desktop Click)
-    if (projectDropdownBtn && projectDropdownMenu) {
-      projectDropdownBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        // Toggle visibility
-        projectDropdownMenu.classList.toggle("hidden");
-        projectDropdownMenu.classList.toggle("open"); // For mobile specific styles
-
-        // Rotate arrow
-        if (projectDropdownArrow) {
-          projectDropdownArrow.classList.toggle("rotate-180");
-        }
-
-        // Update aria attributes
-        const isExpanded = projectDropdownMenu.classList.contains("open");
-        projectDropdownBtn.setAttribute("aria-expanded", isExpanded.toString());
-      });
-
-      // Close dropdown when clicking outside
-      document.addEventListener("click", (e) => {
-        if (
-          !projectDropdownMenu.classList.contains("hidden") &&
-          !projectDropdownMenu.contains(e.target as Node) &&
-          !projectDropdownBtn.contains(e.target as Node)
-        ) {
-          projectDropdownMenu.classList.add("hidden");
-          projectDropdownMenu.classList.remove("open");
-          if (projectDropdownArrow) {
-            projectDropdownArrow.classList.remove("rotate-180");
-          }
-          projectDropdownBtn.setAttribute("aria-expanded", "false");
-        }
-      });
-    }
-
-    // Navigation Highlight Logic
-    function updateActiveNav() {
-      // Prüfen, ob wir auf der Hauptseite sind (mit Sektionen) oder auf einer separaten Seite
-      const isMainPage =
-        window.location.pathname === "/" ||
-        window.location.pathname === "/index.html";
-
-      if (!isMainPage) {
-        navLinks.forEach((link) => link.classList.remove("active"));
-        return;
-      }
-
-      const scrollPosition = window.scrollY + 100;
-      const sections = ["home", "about", "skills", "projects", "contact"];
-      let currentSection = sections[0];
-
-      sections.forEach((sectionId) => {
-        const section = document.getElementById(sectionId);
-        if (!section) return;
-
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-
-        if (
-          scrollPosition >= sectionTop &&
-          scrollPosition < sectionTop + sectionHeight
-        ) {
-          currentSection = sectionId;
-        }
-      });
-
-      navLinks.forEach((link) => {
-        const href = link.getAttribute("href");
-        if (!href) return;
-
-        const linkTargetId = href.startsWith("#")
-          ? href.substring(1)
-          : href.includes("#")
-            ? href.split("#")[1]
-            : null;
-
-        if (linkTargetId === currentSection) {
-          link.classList.add("active");
-        } else {
-          link.classList.remove("active");
-        }
-      });
-    }
-
-    // Initial call
-    updateActiveNav();
-
-    // Close mobile menu when a link is clicked
-    navLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        if (mobileMenu && mobileMenu.classList.contains("open")) {
-          closeMenu();
-        }
-      });
+  // ---------- Aktive Sektion ----------
+  const sectionLinks = navbar.querySelectorAll<HTMLElement>("[data-section]");
+  onSectionChange((id) => {
+    sectionLinks.forEach((el) => {
+      if (el.dataset.section === id) el.setAttribute("aria-current", "true");
+      else el.removeAttribute("aria-current");
     });
   });
+
+  // ---------- Mobile-Menü ----------
+  const setMenu = (open: boolean) => {
+    menu.classList.toggle("open", open);
+    navbar.classList.toggle("menu-open", open);
+    document.body.style.overflow = open ? "hidden" : "";
+    menuBtn.setAttribute("aria-expanded", String(open));
+    menuBtn.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
+  };
+  const menuIsOpen = () => menu.classList.contains("open");
+
+  menuBtn.addEventListener("click", () => setMenu(!menuIsOpen()));
+  menu.querySelectorAll("a").forEach((a) =>
+    a.addEventListener("click", () => menuIsOpen() && setMenu(false)),
+  );
+  // Beim Wechsel auf Desktop-Breite nicht im gesperrten Zustand hängen bleiben
+  matchMedia("(min-width: 900px)").addEventListener("change", (e) => {
+    if (e.matches && menuIsOpen()) setMenu(false);
+  });
+
+  // ---------- Projekte-Panel ----------
+  // Maus: öffnet bei Hover, schließt mit Verzögerung (verzeiht kurzes Verlassen).
+  // Klick/Tastatur/Touch: Toggle. Esc, Klick außerhalb oder Fokus-Verlust schließen.
+  let closeTimer: number | undefined;
+  let pinned = false; // per Klick geöffnet → Hover-Verlassen schließt nicht
+
+  const isOpen = () => projectsItem.hasAttribute("data-open");
+  const openPanel = () => {
+    clearTimeout(closeTimer);
+    projectsItem.setAttribute("data-open", "");
+    projectsBtn.setAttribute("aria-expanded", "true");
+  };
+  const closePanel = () => {
+    clearTimeout(closeTimer);
+    pinned = false;
+    projectsItem.removeAttribute("data-open");
+    projectsBtn.setAttribute("aria-expanded", "false");
+  };
+
+  projectsItem.addEventListener("pointerenter", (e) => {
+    if (e.pointerType === "mouse") openPanel();
+  });
+  projectsItem.addEventListener("pointerleave", (e) => {
+    if (e.pointerType !== "mouse" || pinned) return;
+    closeTimer = window.setTimeout(closePanel, 250);
+  });
+
+  projectsBtn.addEventListener("click", () => {
+    if (!isOpen()) {
+      openPanel();
+      pinned = true;
+    } else if (!pinned) {
+      // per Hover offen → Klick hält es offen statt es zu schließen
+      pinned = true;
+    } else {
+      closePanel();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    if (isOpen()) {
+      closePanel();
+      projectsBtn.focus();
+    } else if (menuIsOpen()) {
+      setMenu(false);
+      menuBtn.focus();
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if (isOpen() && !projectsItem.contains(e.target as Node)) closePanel();
+  });
+
+  projectsItem.addEventListener("focusout", (e) => {
+    if (!projectsItem.contains(e.relatedTarget as Node)) closePanel();
+  });
+
+  projectsItem
+    .querySelectorAll(".projects-panel a")
+    .forEach((a) => a.addEventListener("click", closePanel));
 </script>

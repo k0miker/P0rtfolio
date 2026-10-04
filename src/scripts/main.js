@@ -38,35 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Intersection Observer for Navigation ---
-  const sections = document.querySelectorAll("div[id]");
-  const navLinks = document.querySelectorAll("nav a");
-
-  if ("IntersectionObserver" in window) {
-    const navObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            Array.from(navLinks).forEach((link) => {
-              if (link.getAttribute("href") === "#" + entry.target.id) {
-                link.classList.add("active");
-              } else {
-                link.classList.remove("active");
-              }
-            });
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: "0px 0px -60% 0px",
-      }
-    );
-
-    Array.from(sections).forEach((section) => {
-      navObserver.observe(section);
-    });
-  }
+  // Aktive Sektion in Nav & Seitenleiste: src/scripts/sectionSpy.ts
 
   // --- General Animation Observer ---
   const observerOptions = {
