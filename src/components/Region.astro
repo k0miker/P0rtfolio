@@ -1,0 +1,152 @@
+---
+// Sichtbare Region- & FAQ-Sektion (ersetzt die früher versteckten SEO-Texte).
+// Inhalte kommen aus ../data/seo.js – dieselben Daten speisen JSON-LD und llms.txt.
+import { business, serviceArea, faq } from "../data/seo.js";
+---
+
+<section id="region" class="region-section" aria-labelledby="region-title">
+  <div class="terminal-window offscreen">
+    <div class="terminal-titlebar">
+      <div class="terminal-dots" aria-hidden="true">
+        <span class="dot-red"></span>
+        <span class="dot-yellow"></span>
+        <span class="dot-green"></span>
+      </div>
+      <span class="terminal-title">region.md — colin@webdev</span>
+    </div>
+
+    <div class="terminal-body">
+      <p class="terminal-cmd">
+        <span class="usr">colin@webdev</span><span class="punct">:</span><span
+          class="pth">~</span
+        ><span class="punct">$</span> cat region.md
+      </p>
+
+      <h2 id="region-title">Webentwicklung aus Fürstenau</h2>
+      <p>
+        {business.name} ist die freiberufliche Webentwicklung von Colin Blome.
+        Ich entwickle moderne, schnelle Websites und Webanwendungen für kleine
+        und mittlere Unternehmen – vom Handwerksbetrieb bis zur Praxis. Ohne
+        Agentur-Overhead, mit einem festen Ansprechpartner und kurzen Wegen.
+      </p>
+
+      <h3>Servicegebiet</h3>
+      <ul class="region-list">
+        {
+          serviceArea.map(([place, note]) => (
+            <li>
+              <strong>{place}</strong> – {note}
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3>Leistungen</h3>
+      <ul class="region-tags">
+        {business.services.map((s) => <li>{s}</li>)}
+      </ul>
+
+      <h3>Häufige Fragen</h3>
+      <div class="region-faq">
+        {
+          faq.map(({ q, a }) => (
+            <details>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))
+        }
+      </div>
+
+      <p class="terminal-cmd terminal-cmd--last">
+        <span class="usr">colin@webdev</span><span class="punct">:</span><span
+          class="pth">~</span
+        ><span class="punct">$</span> <span class="term-cursor">_</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .region-section {
+    padding: 4rem 0 2rem;
+  }
+
+  h2 {
+    font-family: var(--font-mono);
+    font-size: var(--step-2, 1.6rem);
+    color: var(--text-primary);
+    margin: 0.5rem 0 1rem;
+  }
+
+  h3 {
+    font-family: var(--font-mono);
+    font-size: var(--step-0, 1rem);
+    color: var(--accent);
+    margin: 1.75rem 0 0.75rem;
+  }
+  h3::before {
+    content: "## ";
+    color: var(--term-punct-color);
+  }
+
+  p,
+  li,
+  summary {
+    font-family: "Inter", sans-serif;
+    color: var(--text-primary);
+    line-height: 1.7;
+  }
+
+  .region-list {
+    list-style: none;
+    display: grid;
+    gap: 0.35rem;
+  }
+  .region-list li::before {
+    content: "- ";
+    color: var(--accent);
+  }
+
+  .region-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .region-tags li {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    padding: 0.2rem 0.65rem;
+    border: 1px solid var(--term-window-border);
+    border-radius: 999px;
+  }
+
+  .region-faq details {
+    border-top: 1px solid var(--term-window-border);
+    padding: 0.6rem 0;
+  }
+  .region-faq details:last-child {
+    border-bottom: 1px solid var(--term-window-border);
+  }
+  .region-faq summary {
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+  }
+  .region-faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .region-faq summary::before {
+    content: "> ";
+    font-family: var(--font-mono);
+    color: var(--accent);
+  }
+  .region-faq details[open] summary::before {
+    content: "v ";
+  }
+  .region-faq details p {
+    margin-top: 0.4rem;
+    padding-left: 1.2rem;
+  }
+</style>

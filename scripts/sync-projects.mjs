@@ -6,6 +6,8 @@
 //   - referenzierte Videos               (p.videoSrc -> public/..., nur wenn das
 //                                          Ziel-Portfolio videoSrc überhaupt nutzt)
 //   - räumt nicht mehr referenzierte Dateien in public/projects/ auf
+//   - public/llms.txt + llms-full.txt (aus src/data/llms.js, mit der URL des Ziels)
+//     – auch fürs B2B-Portfolio, das sonst seine eigene Projektliste pflegt
 // portfolioConfig.js bleibt pro Repo unangetastet.
 //
 //   npm run sync:projects          -> kopieren
@@ -15,6 +17,7 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, readd
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { projects } from "../src/data/projectData.js";
+import { buildLlmsTxt, buildLlmsFullTxt, SITES } from "../src/data/llms.js";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const TARGETS = ["../P0rtfolio2", "../portfolio3", "../Portfolio4"];
@@ -79,6 +82,15 @@ for (const rel of TARGETS) {
     if (syncFile(from, join(target, "public", url))) changed.push(`public${url}`);
   }
 
+  // llms.txt / llms-full.txt mit der eigenen URL des Ziel-Portfolios
+  const siteKey = readFileSync(join(target, "src/data/portfolioConfig.js"), "utf8").match(/export default "([^"]+)"/)?.[1];
+  if (SITES[siteKey]) {
+    if (syncFile(null, join(target, "public/llms.txt"), buildLlmsTxt(siteKey))) changed.push("public/llms.txt");
+    if (syncFile(null, join(target, "public/llms-full.txt"), buildLlmsFullTxt(siteKey))) changed.push("public/llms-full.txt");
+  } else {
+    console.warn(`  ! ${rel}: unbekannter portfolioConfig-Wert "${siteKey}" – llms.txt übersprungen`);
+  }
+
   // public/projects/ gehört komplett der Projektliste: nicht mehr referenzierte
   // Dateien (z. B. alte .png nach Umstellung auf .webp) entfernen.
   const projDir = join(target, "public/projects");
@@ -96,6 +108,20 @@ for (const rel of TARGETS) {
       ? `${DRY ? "~" : "✓"} ${rel}: ${changed.length} Datei(en) ${DRY ? "würden aktualisiert" : "aktualisiert"}\n    ${changed.join("\n    ")}`
       : `= ${rel}: schon aktuell`
   );
+}
+
+// Portfolios mit eigener (kuratierter) Projektliste bekommen nur llms.txt
+const LLMS_ONLY = [["../Portfolio-B2B", "b2b"]];
+for (const [rel, siteKey] of LLMS_ONLY) {
+  const target = resolve(ROOT, rel);
+  if (!existsSync(join(target, "public"))) {
+    console.warn(`✗ ${rel}: nicht gefunden – übersprungen`);
+    continue;
+  }
+  const changed = [];
+  if (syncFile(null, join(target, "public/llms.txt"), buildLlmsTxt(siteKey))) changed.push("public/llms.txt");
+  if (syncFile(null, join(target, "public/llms-full.txt"), buildLlmsFullTxt(siteKey))) changed.push("public/llms-full.txt");
+  console.log(changed.length ? `${DRY ? "~" : "✓"} ${rel}: ${changed.join(", ")}` : `= ${rel}: schon aktuell`);
 }
 
 if (missing) process.exitCode = 1;

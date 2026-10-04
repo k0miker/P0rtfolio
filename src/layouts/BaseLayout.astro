@@ -1,144 +1,35 @@
 ---
 import "../css/tailwind.css";
+import { SITE_URL, pageGraph } from "../data/seo.js";
 const { title, description, image } = Astro.props;
-const ogImage = image || new URL("/og-image.png", Astro.url).toString();
-
-// Lokale Geschäftsdaten
-const businessData = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "CB-Webdevelopment - Webentwicklung Fürstenau",
-  "alternateName": ["CB-Webdevelopment", "CB-WebDev", "Colin Blome"],
-  "description": "Professionelle Webentwicklung in Fürstenau, Samtgemeinde Bersenbrück & Landkreis Osnabrück. Moderne, responsive Webseiten die Kunden gewinnen.",
-  "url": Astro.url.toString(),
-  "logo": "https://i.imgur.com/ELVyRRc.jpeg",
-  "image": image || "https://i.imgur.com/ELVyRRc.jpeg",
-  "telephone": "+49XXXXXXXXXX", // Ihre Telefonnummer hier einfügen
-  "email": "kontakt@colinblome.de", // Ihre E-Mail hier einfügen
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Fürstenau",
-    "addressRegion": "Niedersachsen",
-    "postalCode": "49584",
-    "addressCountry": "DE"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "52.5438", // Koordinaten für Fürstenau
-    "longitude": "7.6722"
-  },
-  "priceRange": "€€",
-  "areaServed": [
-    {
-      "@type": "City",
-      "name": "Fürstenau"
-    },
-    {
-      "@type": "City",
-      "name": "Bersenbrück"
-    },
-    {
-      "@type": "City",
-      "name": "Ankum"
-    },
-    {
-      "@type": "City",
-      "name": "Kettenkamp"
-    },
-    {
-      "@type": "City",
-      "name": "Eggermühlen"
-    }
-  ],
-  "serviceArea": {
-    "@type": "GeoCircle", 
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": "52.5438",
-      "longitude": "7.6722"
-    },
-    "geoRadius": "30000"
-  },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    "opens": "16:00",
-    "closes": "21:00"
-  },
-  "sameAs": [
-    "https://www.linkedin.com/in/colinblome/", 
-    "https://github.com/colinblome",
-    "https://g.page/cb-webdevelopment"
-  ],
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "CB-WebDevelopment Dienstleistungen",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "name": "Webseite kaufen - Komplett-Pakete",
-        "description": "Professionelle Webseiten für lokale Unternehmen in Fürstenau und Umgebung von CB-WebDevelopment"
-      },
-      {
-        "@type": "Offer",
-        "name": "Online-Shops & E-Commerce",
-        "description": "E-Commerce Lösungen für Unternehmen im Landkreis Osnabrück"
-      },
-      {
-        "@type": "Offer",
-        "name": "SEO-Optimierung",
-        "description": "Lokale Suchmaschinenoptimierung für bessere Sichtbarkeit in Fürstenau und Umgebung"
-      }
-    ]
-  }
-};
+const pageTitle = title || "CB-Webdevelopment | Webentwicklung Fürstenau | Colin Blome";
+const pageDescription = description || "CB-Webdevelopment von Colin Blome: Webentwicklung aus Fürstenau für Unternehmen in Bersenbrück und im Landkreis Osnabrück.";
+const canonical = new URL(Astro.url.pathname, SITE_URL).toString();
+const ogImage = image || `${SITE_URL}/og-image.png`;
 ---
 
 <html lang="de" class="w-full">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     
-    <!-- SEO Meta Tags -->
-    <title>{title || 'CB-Webdevelopment | Webentwicklung Fürstenau | Ihr lokaler Webentwickler'}</title>
-    <meta name="description" content={description || 'CB-Webdevelopment von Colin Blome: professionelle Webentwicklung in Fürstenau, Bersenbrück und Umgebung.'} />
-    
-    <!-- Lokale SEO Tags -->
-    <meta name="geo.region" content="DE-NI" />
-    <meta name="geo.placename" content="Fürstenau" />
-    <meta name="geo.position" content="52.5438;7.6722" />
-    <meta name="ICBM" content="52.5438, 7.6722" />
-    <meta name="author" content="CB-WebDevelopment" />
-    <meta name="copyright" content="CB-WebDevelopment" />
-    
-    <!-- Open Graph / Social Media -->
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    <meta name="author" content="Colin Blome" />
+
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url} />
-    <meta property="og:title" content={title || 'CB-Webdevelopment | Webentwicklung Fürstenau | Ihr lokaler Webentwickler'} />
-    <meta property="og:description" content={description || 'CB-Webdevelopment von Colin Blome: professionelle Webentwicklung in Fürstenau, Bersenbrück und Umgebung.'} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:site_name" content="CB-Webdevelopment" />
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:domain" content={new URL(Astro.url).hostname} />
-    <meta property="twitter:url" content={Astro.url} />
-    <meta name="twitter:title" content={title || 'CB-WebDevelopment | Webentwicklung Fürstenau | Ihr lokaler Webentwickler'} />
-    <meta name="twitter:description" content={description || 'CB-WebDevelopment - Professionelle Webentwicklung in Fürstenau, Bersenbrück und Umgebung.'} />
-    <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:creator" content="@CB_WebDevelopment" />
+    <meta name="twitter:card" content="summary" />
 
-    <!-- Google Business Verknüpfung -->
-    <link rel="publisher" href="https://g.page/cb-webdevelopment" />
-
-    <!-- Strukturierte Daten für lokales Geschäft -->
-    <script type="application/ld+json" set:html={JSON.stringify(businessData)}></script>
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href={Astro.url} />
+    <script type="application/ld+json" set:html={JSON.stringify(pageGraph({ url: canonical, name: pageTitle }))} />
   </head>
   <body class="w-full flex-col items-center content-center fadein2 custom-scrollbar">
     <slot />
