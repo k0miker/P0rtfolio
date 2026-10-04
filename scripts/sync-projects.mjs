@@ -10,11 +10,18 @@
 //     – auch fürs B2B-Portfolio, das sonst seine eigene Projektliste pflegt
 // portfolioConfig.js bleibt pro Repo unangetastet.
 //
-//   npm run sync:projects          -> kopieren
-//   npm run sync:projects -- --dry -> nur anzeigen, was sich ändern würde
+// Danach werden die geteilten Dateien in JEDEM Repo (auch diesem) committet
+// und auf den aktuellen Branch gepusht (= Netlify-Deploy). Committet werden
+// nur die Sync-Pfade (SYNC_PATHS / MAIN_PATHS), andere lokale Änderungen
+// bleiben unberührt.
+//
+//   npm run sync:projects              -> kopieren + committen + pushen
+//   npm run sync:projects -- --no-push -> kopieren + committen, nicht pushen
+//   npm run sync:projects -- --dry     -> nur anzeigen, was sich ändern würde
 // =============================================================================
 import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, readdirSync, statSync, rmSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { projects } from "../src/data/projectData.js";
 import { buildLlmsTxt, buildLlmsFullTxt, SITES } from "../src/data/llms.js";
@@ -22,6 +29,11 @@ import { buildLlmsTxt, buildLlmsFullTxt, SITES } from "../src/data/llms.js";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const TARGETS = ["../P0rtfolio2", "../portfolio3", "../Portfolio4"];
 const DRY = process.argv.includes("--dry");
+const PUSH = !process.argv.includes("--no-push");
+const COMMIT_MSG = "chore(sync): Projektdaten aus Haupt-Portfolio aktualisiert";
+const SYNC_PATHS = ["src/data/projectData.js", "public/projects", "public/llms.txt", "public/llms-full.txt"];
+const MAIN_PATHS = ["src/data/projectData.js", "src/data/llms.js", "src/data/seo.js", "public/projects"];
+const repos = [[ROOT, ".", MAIN_PATHS]]; // [Pfad, Anzeigename, zu committende Pfade]
 
 const SOURCE_DATA = join(ROOT, "src/data/projectData.js");
 const COPY_NOTICE =
@@ -68,6 +80,7 @@ for (const rel of TARGETS) {
     continue;
   }
 
+  repos.push([target, rel, SYNC_PATHS]);
   const changed = [];
   if (syncFile(SOURCE_DATA, join(target, "src/data/projectData.js"), dataContent)) changed.push("src/data/projectData.js");
 
@@ -118,10 +131,38 @@ for (const [rel, siteKey] of LLMS_ONLY) {
     console.warn(`✗ ${rel}: nicht gefunden – übersprungen`);
     continue;
   }
+  repos.push([target, rel, ["public/llms.txt", "public/llms-full.txt"]]);
   const changed = [];
   if (syncFile(null, join(target, "public/llms.txt"), buildLlmsTxt(siteKey))) changed.push("public/llms.txt");
   if (syncFile(null, join(target, "public/llms-full.txt"), buildLlmsFullTxt(siteKey))) changed.push("public/llms-full.txt");
   console.log(changed.length ? `${DRY ? "~" : "✓"} ${rel}: ${changed.join(", ")}` : `= ${rel}: schon aktuell`);
+}
+
+// ---- committen + pushen ----------------------------------------------------
+const git = (cwd, ...args) => execFileSync("git", args, { cwd, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] }).trim();
+
+if (missing) {
+  console.warn("\n✗ Es fehlen Dateien – kein Commit/Push.");
+} else if (!DRY) {
+  console.log("");
+  for (const [dir, name, paths] of repos) {
+    try {
+      const existing = paths.filter((p) => existsSync(join(dir, p)) || git(dir, "ls-files", "--", p));
+      if (git(dir, "status", "--porcelain", "--", ...existing)) {
+        git(dir, "add", "-A", "--", ...existing);
+        git(dir, "commit", "-m", COMMIT_MSG, "--", ...existing);
+      }
+      const branch = git(dir, "branch", "--show-current");
+      const ahead = Number(git(dir, "rev-list", "--count", `@{u}..HEAD`));
+      if (!ahead) { console.log(`= ${name}: nichts zu pushen`); continue; }
+      if (!PUSH) { console.log(`✓ ${name}: committet (${ahead} Commit(s) nicht gepusht)`); continue; }
+      git(dir, "push", "origin", branch);
+      console.log(`↑ ${name}: ${ahead} Commit(s) nach origin/${branch} gepusht`);
+    } catch (err) {
+      console.warn(`✗ ${name}: git fehlgeschlagen – ${(err.stderr || err.message).toString().trim().split("\n")[0]}`);
+      process.exitCode = 1;
+    }
+  }
 }
 
 if (missing) process.exitCode = 1;
