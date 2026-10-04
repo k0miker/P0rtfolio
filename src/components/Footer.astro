@@ -481,6 +481,7 @@ import "../css/darkmode.css";
 </style>
 
 <script>
+  import { revokeConsent } from "../utils/consent.js";
   // Extend Window interface to include lastScrollY
   declare global {
     interface Window {
@@ -491,7 +492,8 @@ import "../css/darkmode.css";
   document.addEventListener('DOMContentLoaded', () => {
     const cookieSettings = document.getElementById('cookie-settings');
     cookieSettings?.addEventListener('click', () => {
-      localStorage.removeItem('cookie-consent');
+      // Einwilligung zurücknehmen, GA-Cookies löschen, Banner auf der Startseite neu zeigen
+      revokeConsent();
       window.location.href = '/';
     });
 
