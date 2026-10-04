@@ -22,7 +22,7 @@ const navProjects = projects;
       <a
         href="/"
         aria-label="CB-WebDev – Startseite"
-        class="name lg:text-lg font-semibold duration-200 flex items-center justify-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-none"
+        class="name lg:text-lg font-semibold duration-200 flex items-center justify-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg dark-mode:text-white text-gray-200 focus:outline-hidden"
         ><img class="logo" src={logo.src} alt="" /><i>C</i><span>olin</span>
         <i>B</i><span>lome </span><span class="dev">
           Webdev<i class="dash animate-ping">_</i></span
@@ -32,7 +32,7 @@ const navProjects = projects;
       <!-- Hamburger-Menü für Mobile -->
       <div class="flex items-center">
         <button
-          class="md:hidden rounded-lg focus:outline-none focus:shadow-outline mobile-menu-button"
+          class="md:hidden rounded-lg focus:outline-hidden focus:shadow-outline mobile-menu-button"
           aria-label="Menü öffnen"
           id="mobile-menu-btn"
         >
@@ -55,22 +55,22 @@ const navProjects = projects;
     <!-- NAVIGATION: Links mit responsivem Verhalten -->
     <nav
       id="main-nav"
-      class="flex-col flex-grow pb-4 max-w-200px w-full md:pb-0 hidden md:flex md:justify-end md:flex-row md:bg-transparent md:text-gray-200 text-gray-600 mobile-menu"
+      class="flex-col grow pb-4 max-w-200px w-full md:pb-0 hidden md:flex md:justify-end md:flex-row md:bg-transparent md:text-gray-200 text-gray-600 mobile-menu"
     >
       <!-- Standard Navigation Links -->
       <div class="nav-links flex flex-col md:flex-row">
         <a
-          class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline active"
+          class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden focus:shadow-outline active"
           href="/#home"
           id="nav-home">/Home</a
         >
         <a
-          class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden focus:shadow-outline"
           href="/#about"
           id="nav-about">/About</a
         >
         <a
-          class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden focus:shadow-outline"
           href="/#skills"
           id="nav-skills">/Skills</a
         >
@@ -79,14 +79,14 @@ const navProjects = projects;
         <div class="relative group" id="project-dropdown-container">
           <div class="flex items-center project-nav-group md:ml-2">
             <a
-              class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none min-w-16"
+              class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden min-w-16"
               href="/#projects"
               id="nav-projects-link"
               >/Projects</a
             >
             <button
               id="nav-projects"
-              class="project-dropdown p-1 mt-2 md:mt-0 rounded hover:text-[tomato] focus:outline-none"
+              class="project-dropdown p-1 mt-2 md:mt-0 rounded-sm hover:text-[tomato] focus:outline-hidden"
               aria-haspopup="true"
               aria-expanded="false"
               aria-label="Projektliste öffnen"
@@ -110,13 +110,13 @@ const navProjects = projects;
             class="absolute right-0 mt-2 origin-top-right rounded-md shadow-lg w-48 project-modal hidden group-hover:block"
           >
             <div
-              class="px-2 py-2 rounded-md shadow dark-mode:bg-gray-800 project-list"
+              class="px-2 py-2 rounded-md shadow-sm dark-mode:bg-gray-800 project-list"
             >
               <!-- Projekt-Links dynamisch generiert -->
               {
                 navProjects.map((project) => (
                   <a
-                    class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                    class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden focus:shadow-outline"
                     href={project.website}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -131,7 +131,7 @@ const navProjects = projects;
 
         <!-- Kontakt-Link -->
         <a
-          class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+          class="flex justify-center items-center px-2 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg md:mt-0 md:ml-4 hover:text-[tomato] focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-hidden focus:shadow-outline"
           href="/#contact"
           id="nav-contact">/Contact</a
         >
