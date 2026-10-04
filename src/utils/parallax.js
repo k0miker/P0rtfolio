@@ -85,6 +85,13 @@ class FixedParallax {
         animationDirection: index % 2 ? "alternate-reverse" : "alternate",
         willChange: "transform",
       });
+      // Mobile: Mit inset:0 wächst/schrumpft die Ebene, sobald die Adressleiste
+      // ein-/ausfährt, und "cover" skaliert das Bild dabei sichtbar neu.
+      // 100lvh = größter Viewport → bleibt beim Scrollen konstant.
+      if (CSS.supports("height", "100lvh")) {
+        layer.style.bottom = "auto";
+        layer.style.height = "100lvh";
+      }
 
       // Sektion vorbereiten: eigenes Bild aus, Ebene per clip-path einfangen
       // (overflow clippt position: fixed nicht — clip-path schon)

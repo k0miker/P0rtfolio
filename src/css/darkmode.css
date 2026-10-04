@@ -326,10 +326,15 @@
     contain: content;
   }
   
-  /* Reduziere allgemeine Animationen */
-  * {
+  /* Reduziere allgemeine Animationen.
+     iteration-count: 1 ist Pflicht: ohne springen Endlos-Animationen
+     (v. a. "alternate") bei 0.001ms jeden Frame hin und her = Flackern.
+     Die Parallax-Ebene ist ausgenommen – ihr Ken-Burns-Drift läuft rein auf
+     dem Compositor und wird im Low-Modus ohnehin komplett abgebaut. */
+  *:not(.parallax-layer) {
     animation-duration: 0.001ms !important;
     animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
 }
