@@ -2,7 +2,7 @@
 import "../css/tailwind.css";
 import { SITE_URL, pageGraph } from "../data/seo.js";
 const { title, description, image } = Astro.props;
-const pageTitle = title || "CB-Webdevelopment | Webentwicklung Fürstenau | Colin Blome";
+const pageTitle = title || "Webdesign & Webentwicklung in Fürstenau | Colin Blome";
 const pageDescription = description || "CB-Webdevelopment von Colin Blome: Webentwicklung aus Fürstenau für Unternehmen in Bersenbrück und im Landkreis Osnabrück.";
 const canonical = new URL(Astro.url.pathname, SITE_URL).toString();
 const ogImage = image || `${SITE_URL}/og-image.png`;
