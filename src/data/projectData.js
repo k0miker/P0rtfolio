@@ -234,7 +234,7 @@ const rawProjects = [
   },
   {
     id: "21",
-    title: "Portfolio v4 (Terminal)",
+    title: "Portfolio v4",
     key: "terminal",
     description: "Portfolio im Developer-/Terminal-Look mit interaktivem Datei-Browser für die Projekte.",
     image: "/projects/portfolio4.webp",
