@@ -122,7 +122,8 @@ try {
       }
     }
   }
-  await walkRemote(remoteRoot, '');
+  // Beim Probelauf vor dem allerersten Upload gibt es den Zielordner noch nicht
+  if (await sftp.exists(remoteRoot)) await walkRemote(remoteRoot, '');
   if (foreign.length) {
     const risky = foreign.filter((rel) => RISKY.test(rel));
     console.warn(`⚠ ${foreign.length} Datei(en) auf dem Server stammen nicht aus dem Build (veraltet oder fremd):`);
