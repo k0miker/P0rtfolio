@@ -159,6 +159,15 @@ if (missing) {
         git(dir, "commit", "-m", COMMIT_MSG, "--", ...existing);
       }
       const branch = git(dir, "branch", "--show-current");
+      let hasUpstream = true;
+      try { git(dir, "rev-parse", "--abbrev-ref", "@{u}"); } catch { hasUpstream = false; }
+      if (!hasUpstream) {
+        // Neuer Branch ohne Gegenstück auf GitHub (z. B. strato-umzug): erst beim Pushen anlegen
+        if (!PUSH) { console.log(`✓ ${name}: committet (Branch ${branch} noch nicht auf GitHub)`); continue; }
+        git(dir, "push", "-u", "origin", branch);
+        console.log(`↑ ${name}: Branch ${branch} nach origin gepusht`);
+        continue;
+      }
       const ahead = Number(git(dir, "rev-list", "--count", `@{u}..HEAD`));
       if (!ahead) { console.log(`= ${name}: nichts zu pushen`); continue; }
       if (!PUSH) { console.log(`✓ ${name}: committet (${ahead} Commit(s) nicht gepusht)`); continue; }
