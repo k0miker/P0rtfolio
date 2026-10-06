@@ -1,25 +1,25 @@
 # Portfolios zu STRATO umziehen
 
-Alle 6 Portfolios laufen danach auf **einem** STRATO-Paket unter **cb-webdevelopment.de**.
-Der Code liegt fertig in jedem Repo auf dem Branch `strato-umzug` (noch nicht live).
+Alle 6 Portfolios laufen auf **einem** STRATO-Paket unter **www.cb-webdevelopment.de** –
+die Varianten als Unterordner, damit ein (kostenloses) SSL-Zertifikat für alles reicht.
 
 | Portfolio | Repo | Adresse | Ordner auf STRATO |
 |---|---|---|---|
 | Haupt-Portfolio | P0rtfolio | www.cb-webdevelopment.de | `/portfolio` |
-| v2 | P0rtfolio2 | v2.cb-webdevelopment.de | `/portfolio2` |
-| v3 | portfolio3 | v3.cb-webdevelopment.de | `/portfolio3` |
-| v4 (Terminal) | Portfolio4 | v4.cb-webdevelopment.de | `/portfolio4` |
-| v5 (Modernist) | P0rtfolio5 | v5.cb-webdevelopment.de | `/portfolio5` |
-| B2B | Portfolio-B2B | b2b.cb-webdevelopment.de | `/b2b` |
+| v2 | P0rtfolio2 | www.cb-webdevelopment.de/v2/ | `/portfolio/v2` |
+| v3 | portfolio3 | …/v3/ | `/portfolio/v3` |
+| v4 (Terminal) | Portfolio4 | …/v4/ | `/portfolio/v4` |
+| v5 (Modernist) | P0rtfolio5 | …/v5/ | `/portfolio/v5` |
+| B2B | Portfolio-B2B | …/b2b/ | `/portfolio/b2b` |
 
 Die Ordner legt das Deploy-Skript beim ersten Hochladen selbst an.
 
 ## 1. Im STRATO-Kundenlogin (einmalig)
 - [ ] Domain **cb-webdevelopment.de** im Paket aktiv
-- [ ] **Subdomains** anlegen: `v2`, `v3`, `v4`, `v5`, `b2b` (www gibt es schon)
-- [ ] Domains verwalten → Zahnrad → Ziel **„intern“** → Ordner laut Tabelle
-      (`cb-webdevelopment.de` und `www` → `/portfolio`)
-- [ ] **SSL** für die Domain und **jede** Subdomain aktivieren (inkl. www)
+- [ ] Domains verwalten → Zahnrad → Ziel **„intern“** → Ordner `/portfolio`
+      (für `cb-webdevelopment.de` und `www`)
+- [ ] **SSL** für die Domain inkl. www aktivieren (im Paket enthalten).
+      Subdomains werden nicht gebraucht – ein Zertifikat pro Subdomain würde extra kosten.
 - [ ] **SFTP-Zugang:** Ihr Paket → Datenbanken und Webspace → SFTP & SSH
       → Server + Benutzername notieren, SFTP-Passwort setzen
 - [ ] **PHP-Version** auf 8.1 oder neuer
@@ -53,7 +53,7 @@ Dann im Browser prüfen – siehe Schritt 5.
 
 ## 5. Testen
 - [ ] `http://cb-webdevelopment.de` → leitet auf `https://www.cb-webdevelopment.de` um
-- [ ] Alle 5 Subdomains laden per HTTPS, Versions-Umschalter springt korrekt
+- [ ] /v2/ … /v5/ und /b2b/ laden, Versions-Umschalter springt korrekt
 - [ ] Live-Vorschauen der Varianten im Haupt-Portfolio werden angezeigt (iframes)
 - [ ] **Kontaktformular** auf jeder Seite (außer v5) einmal abschicken → Mail an info@ kommt an
 - [ ] Google Analytics nach Einwilligung (Haupt-Portfolio) → in GA4 „Echtzeit“ sichtbar
@@ -64,8 +64,8 @@ Dann im Browser prüfen – siehe Schritt 5.
       Nameserver bei Porkbun wieder auf Porkbun stellen (aktuell Netlify/NS1), dann
       URL-Weiterleitung **301, mit Pfad** einrichten:
       `colinblome.dev` + `www` → `https://www.cb-webdevelopment.de`,
-      `portfolio2…5.colinblome.dev` → `v2…v5.cb-webdevelopment.de`,
-      `b2b.colinblome.dev` → `b2b.cb-webdevelopment.de`.
+      `portfolio2…5.colinblome.dev` → `www.cb-webdevelopment.de/v2/` … `/v5/`,
+      `b2b.colinblome.dev` → `www.cb-webdevelopment.de/b2b/`.
       ⚠ .dev-Domains funktionieren nur per HTTPS – prüfen, dass die Weiterleitung
       `https://colinblome.dev` ohne Zertifikatsfehler umleitet.
 - [ ] Mail: info@colinblome.dev (Zoho) ggf. noch eine Weile an info@cb-webdevelopment.de weiterleiten
@@ -81,11 +81,13 @@ Dann im Browser prüfen – siehe Schritt 5.
 ## Wie es technisch funktioniert
 Alle STRATO-Dateien sind für alle Portfolios identisch und werden wie die Projektdaten
 per `npm run sync:projects` aus diesem Repo verteilt – nur hier bearbeiten:
-- `scripts/deploy.mjs` – SFTP-Upload; Zielordner ergibt sich aus `site` in astro.config.mjs
+- `scripts/deploy.mjs` – SFTP-Upload; Zielordner = `/portfolio` + `base` aus astro.config.mjs
 - `.github/workflows/deploy.yml` – Action bei Push auf main/master
 - `public/.htaccess` – HTTPS, www-Umleitung, Sicherheits-Header (CSP), Caching
-- `public/kontakt.php` + `public/kontakt.js` – Kontaktformular mit Spam-Schutz ohne Captcha,
-  Versand per Mail an info@; der Schlüssel liegt in `/portfolio-private/` außerhalb der Webroots
+- `public/kontakt.php` + `public/kontakt.js` – **nur im Haupt-Portfolio**; alle Varianten senden
+  dorthin. Spam-Schutz ohne Captcha, Versand per Mail an info@, danach zurück auf die Ursprungsseite.
+  Der Schlüssel liegt in `/portfolio-private/` außerhalb des Webroots.
+- Projektbilder (`/projects/…`) sind in allen Varianten identisch und kommen aus dem Haupt-Portfolio.
 
 ---
 Hilfe: [STRATO SFTP-FAQ](https://www.strato.de/faq/hosting/so-nutzen-sie-ihren-ssh-sftp-zugang/) ·
