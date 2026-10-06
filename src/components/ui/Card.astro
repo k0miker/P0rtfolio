@@ -1,5 +1,13 @@
 ---
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
 const { project, image } = Astro.props;
+
+// Handy-Screenshot (z. B. /projects/p14-m.webp, erzeugt von `npm run screenshots`):
+// wird in hohen, schmalen Bento-Kacheln statt des Desktop-Bilds gezeigt.
+const mobileImage = image?.replace(/.webp$/, "-m.webp");
+const hasMobile = !!mobileImage && mobileImage !== image && existsSync(join(process.cwd(), "public", mobileImage));
 
 // Verwende cardDescriptionEN mit Fallback-Optionen
 const cardDescription =
@@ -26,8 +34,18 @@ const category = project.category || "Other";
         width={600}
         height={400}
         loading="lazy"
-        class="card-image"
+        class:list={["card-image", hasMobile && "card-image--desktop"]}
       />
+      {hasMobile && (
+        <img
+          src={mobileImage}
+          alt=""
+          width={390}
+          height={844}
+          loading="lazy"
+          class="card-image card-image--mobile"
+        />
+      )}
       <div class="card-overlay">
         <h3 class="card-title">{project.title}</h3>
         <p class="card-tech">
@@ -105,6 +123,22 @@ const category = project.category || "Other";
     height: 100%;
     border-radius: 15px;
     overflow: hidden;
+    /* Die Kachel kennt ihre eigene Form → passendes Bild (Desktop/Handy) */
+    container: card / size;
+  }
+
+  /* Handy-Ansicht nur in hohen, schmalen Kacheln. Versteckte Bilder lädt der
+     Browser dank loading="lazy" gar nicht erst. */
+  .card-image--mobile {
+    display: none;
+  }
+  @container card (aspect-ratio < 0.9) {
+    .card-image--desktop {
+      display: none;
+    }
+    .card-image--mobile {
+      display: block;
+    }
   }
 
   /* Akzent-Rahmen über dem Bild – ein inset-Shadow direkt auf .card-content

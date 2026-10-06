@@ -125,6 +125,7 @@ const rawProjects = [
   {
     id: "13",
     title: "Bella Ciao Bistro",
+    screenshot: false, // npm run screenshots überspringt das Projekt: Seite zeigt aktuell "macht eine Pause" – altes Bild behalten
     client: true, // Kundenprojekt -> Referenz im JSON-LD
     description: "Authentische italienische Restaurant-Website mit moderner Gestaltung und Online-Speisekarte",
     image: "/projects/p13.webp",
@@ -159,6 +160,7 @@ const rawProjects = [
   {
     id: "9",
     title: "Zombiland",
+    screenshot: false, // npm run screenshots überspringt das Projekt: Spielszene ist aussagekräftiger als der Startbildschirm
     description: "Browser-Spiel auf Canvas-Basis mit Gegner-KI und mehreren Levels, komplett in JavaScript",
     image: "/projects/p9.webp",
     technologies: ["Canvas", "Game", "Animation", "javascript"],
@@ -195,6 +197,7 @@ const rawProjects = [
   {
     id: "11",
     title: "BrokeChain",
+    screenshot: false, // npm run screenshots überspringt das Projekt: Seite ist offline – altes Bild behalten
     description: "Krypto-Trading-Demo als React-Native-App in TypeScript – mein erstes React-Native-Projekt",
     image: "/projects/p11.webp",
     technologies: ["React Native", "TypeScript", "Mobile App", "Crypto", "AI"],
@@ -252,10 +255,10 @@ const rawProjects = [
     technologies: ["React", "CSS", "Animation"],
     modalDescriptionDe: "Die zweite Version meines Portfolios. Hier habe ich mit verschiedenen Design-Konzepten und Animationen experimentiert. Diese Version nutzt React und legt mehr Wert auf interaktive Elemente und visuelles Storytelling.",
     modalDescriptionEn: "The second version of my portfolio. Here I experimented with different design concepts and animations. This version uses React and places more emphasis on interactive elements and visual storytelling.",
-    website: "https://www.cb-webdevelopment.de/v2",
+    website: "https://www.cb-webdevelopment.de/v2/",
     github: "https://github.com/k0miker/portfolio-v2",
     iframe: true,
-    iframeUrl: "https://www.cb-webdevelopment.de/v2",
+    iframeUrl: "https://www.cb-webdevelopment.de/v2/",
     category: "Portfolio",
     badges: ["React", "Portfolio", "Animation"],
     grid: ["2 x 2", "2 x 1", "1 x 1"]
@@ -269,10 +272,10 @@ const rawProjects = [
     technologies: ["React", "Framer Motion", "GSAP", "Three.js"],
     modalDescriptionDe: "Die dritte Iteration meines Portfolios. Diese Version nutzt Framer Motion und GSAP für komplexe Animationen und Interaktionen. Ein Experimentierfeld für modernes Web-Design und Motion Graphics.",
     modalDescriptionEn: "The third iteration of my portfolio. This version uses Framer Motion and GSAP for complex animations and interactions. A testing ground for modern web design and motion graphics.",
-    website: "https://www.cb-webdevelopment.de/v3",
+    website: "https://www.cb-webdevelopment.de/v3/",
     github: "https://github.com/k0miker/portfolio-v3",
     iframe: true,
-    iframeUrl: "https://www.cb-webdevelopment.de/v3",
+    iframeUrl: "https://www.cb-webdevelopment.de/v3/",
     category: "Portfolio",
     badges: ["React", "Astro", "Framer Motion", "GSAP", "Portfolio"],
     grid: ["2 x 2", "2 x 1", "1 x 1"]

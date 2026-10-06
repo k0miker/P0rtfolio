@@ -11,7 +11,8 @@
     "sync:projects": "node scripts/sync-projects.mjs",
     "deploy": "astro build && node scripts/deploy.mjs",
     "deploy:dry": "astro build && node scripts/deploy.mjs --dry",
-    "strato:secrets": "node scripts/strato-secrets.mjs"
+    "strato:secrets": "node scripts/strato-secrets.mjs",
+    "screenshots": "node scripts/screenshots.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

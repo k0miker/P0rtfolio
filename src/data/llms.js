@@ -10,11 +10,11 @@ import { SITE_URL, person, business, serviceArea, faq } from "./seo.js";
 // Alle Portfolio-Varianten: key = portfolioConfig-Wert
 export const SITES = {
   v1: { url: SITE_URL, label: "Haupt-Portfolio (v1)" },
-  v2: { url: "https://www.cb-webdevelopment.de/v2", label: "Portfolio v2" },
-  v3: { url: "https://www.cb-webdevelopment.de/v3", label: "Portfolio v3" },
-  terminal: { url: "https://www.cb-webdevelopment.de/v4", label: "Portfolio v4 (Terminal)" },
-  v5: { url: "https://www.cb-webdevelopment.de/v5", label: "Portfolio v5 (Modernist)" },
-  b2b: { url: "https://www.cb-webdevelopment.de/b2b", label: "B2B-Portfolio" },
+  v2: { url: "https://www.cb-webdevelopment.de/v2/", label: "Portfolio v2" },
+  v3: { url: "https://www.cb-webdevelopment.de/v3/", label: "Portfolio v3" },
+  terminal: { url: "https://www.cb-webdevelopment.de/v4/", label: "Portfolio v4 (Terminal)" },
+  v5: { url: "https://www.cb-webdevelopment.de/v5/", label: "Portfolio v5 (Modernist)" },
+  b2b: { url: "https://www.cb-webdevelopment.de/b2b/", label: "B2B-Portfolio" },
 };
 
 const clean = (t) => t.replace(/\s*\(Aktuell\)$/, "");
