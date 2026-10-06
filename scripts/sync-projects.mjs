@@ -27,7 +27,7 @@ import { projects } from "../src/data/projectData.js";
 import { buildLlmsTxt, buildLlmsFullTxt, SITES } from "../src/data/llms.js";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const TARGETS = ["../P0rtfolio2", "../portfolio3", "../Portfolio4"];
+const TARGETS = ["../P0rtfolio2", "../portfolio3", "../Portfolio4", "../P0rtfolio5"];
 const DRY = process.argv.includes("--dry");
 const PUSH = !process.argv.includes("--no-push");
 const COMMIT_MSG = "chore(sync): Projektdaten aus Haupt-Portfolio aktualisiert";
