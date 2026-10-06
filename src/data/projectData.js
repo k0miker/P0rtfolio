@@ -72,6 +72,7 @@ const rawProjects = [
     id: "20",
     title: "ConnectAI – KI für Myfactory ERP",
     client: true, // Kundenprojekt -> Referenz im JSON-LD
+    madeFor: "NETFACTORY GmbH", // als Angestellter entwickelt -> creator = Person
     description: "KI-Agenten direkt im Myfactory-ERP: Geschäftsprozesse automatisieren ohne Systemwechsel.",
     image: "/projects/p17.webp",
     technologies: ["HTML", "CSS", "JavaScript", "AI", "ERP", "Business"],
@@ -84,6 +85,25 @@ const rawProjects = [
     category: "AI",
     tile: "wide",
     badges: ["AI", "ERP", "HTML", "CSS", "JavaScript", "Automation"],
+    grid: ["2 x 2", "2 x 1", "1 x 1"]
+  },
+  {
+    id: "24",
+    title: "NETbrain – Wissensplattform",
+    client: true, // Kundenprojekt -> Referenz im JSON-LD
+    madeFor: "NETFACTORY GmbH", // als Angestellter entwickelt -> creator = Person
+    description: "Produkt-Website für eine selbst gehostete Wissensplattform mit KI-Suche und KI-Chat",
+    image: "/projects/p20.webp",
+    technologies: ["HTML", "CSS", "JavaScript", "AI", "Business"],
+    modalDescriptionDe: "Die Produkt-Website für NETbrain, die Wissensplattform der NETFACTORY GmbH aus Fürstenau – von mir allein entwickelt im Rahmen meiner Anstellung. NETbrain macht aus verstreuten Informationen einen geprüften Wissensbestand: Mitarbeitende halten Erfahrungen fest, Kuratoren geben sie frei, und das Team findet Antworten per Stichwortsuche oder KI-Chat. Die Seite erklärt das Konzept Schritt für Schritt – von den typischen Problemen mit verteiltem Wissen über die Lösung und Datenhoheit (Betrieb auf dem eigenen Server, frei wählbarer KI-Anbieter) bis zum Ablauf vom Demo-Termin bis zum Betrieb. Dazu kommen ein Produktfilm, eine Vorher-/Nachher-Gegenüberstellung, ein Bereich zum Selbst-Testen und eine Dokumentation für Installation und Einrichtung.",
+    modalDescriptionEn: "The product website for NETbrain, the knowledge platform by NETFACTORY GmbH from Fürstenau – developed single-handedly as part of my employment. NETbrain turns scattered information into a verified knowledge base: employees capture their experience, curators approve it, and the team finds answers via keyword search or AI chat. The site explains the concept step by step – from the typical problems of scattered knowledge to the solution and data sovereignty (runs on your own server, AI provider of your choice) through to the process from demo appointment to operation. It also features a product video, a before/after comparison, a self-trial section and documentation for installation and setup.",
+    website: "https://getnetbrain.netfactory.de/",
+    github: null,
+    iframe: true,
+    iframeUrl: "https://getnetbrain.netfactory.de/",
+    category: "AI",
+    tile: "wide",
+    badges: ["AI", "Wissensmanagement", "HTML", "CSS", "JavaScript", "Self-Hosted"],
     grid: ["2 x 2", "2 x 1", "1 x 1"]
   },
   {

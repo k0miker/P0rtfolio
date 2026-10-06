@@ -139,7 +139,9 @@ export function homeGraph() {
           name: p.title,
           url: p.website,
           description: p.description,
-          creator: { "@id": BUSINESS_ID },
+          // Im Angestelltenverhältnis entstanden -> Person als Urheber, Firma als Herausgeber
+          creator: { "@id": p.madeFor ? PERSON_ID : BUSINESS_ID },
+          ...(p.madeFor && { publisher: { "@type": "Organization", name: p.madeFor } }),
         })),
       {
         "@type": "FAQPage",
