@@ -5,7 +5,7 @@ const { title, description, image } = Astro.props;
 const pageTitle = title || "Webdesign & Webentwicklung in Fürstenau | Colin Blome";
 const pageDescription = description || "CB-Webdevelopment von Colin Blome: Webentwicklung aus Fürstenau für Unternehmen in Bersenbrück und im Landkreis Osnabrück.";
 const canonical = new URL(Astro.url.pathname, SITE_URL).toString();
-const ogImage = image || `${SITE_URL}/og-image.png`;
+const ogImage = image || `${SITE_URL}/og-image-wide.png`;
 ---
 
 <html lang="de" class="w-full">
@@ -27,7 +27,7 @@ const ogImage = image || `${SITE_URL}/og-image.png`;
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:site_name" content="CB-Webdevelopment" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <script type="application/ld+json" set:html={JSON.stringify(pageGraph({ url: canonical, name: pageTitle }))} />
   </head>
