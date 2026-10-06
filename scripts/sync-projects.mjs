@@ -33,9 +33,12 @@ const TARGETS = ["../P0rtfolio2", "../portfolio3", "../Portfolio4", "../P0rtfoli
 const DRY = process.argv.includes("--dry");
 const PUSH = !process.argv.includes("--no-push");
 const COMMIT_MSG = "chore(sync): Projektdaten aus Haupt-Portfolio aktualisiert";
-const STRATO_FILES = ["scripts/deploy.mjs", ".github/workflows/deploy.yml", "public/.htaccess", "public/kontakt.php", "public/kontakt.js"];
-const SYNC_PATHS = ["src/data/projectData.js", "public/projects", "public/llms.txt", "public/llms-full.txt", ...STRATO_FILES];
-const MAIN_PATHS = ["src/data/projectData.js", "src/data/llms.js", "src/data/seo.js", "public/projects", ...STRATO_FILES];
+const STRATO_FILES = ["scripts/deploy.mjs", ".github/workflows/deploy.yml", "public/.htaccess"];
+// Das Kontaktformular liegt nur hier im Haupt-Portfolio (/kontakt.php) – die Varianten laufen
+// als Unterordner derselben Domain und senden dorthin. Alte Kopien werden entfernt.
+const MAIN_ONLY = ["public/kontakt.php", "public/kontakt.js"];
+const SYNC_PATHS = ["src/data/projectData.js", "public/projects", "public/llms.txt", "public/llms-full.txt", ...STRATO_FILES, ...MAIN_ONLY];
+const MAIN_PATHS = ["src/data/projectData.js", "src/data/llms.js", "src/data/seo.js", "public/projects", ...STRATO_FILES, ...MAIN_ONLY];
 const repos = [[ROOT, ".", MAIN_PATHS]]; // [Pfad, Anzeigename, zu committende Pfade]
 
 const SOURCE_DATA = join(ROOT, "src/data/projectData.js");
@@ -73,6 +76,12 @@ function syncFile(from, to, content) {
   return true;
 }
 
+function removeFile(file) {
+  if (!existsSync(file)) return false;
+  if (!DRY) rmSync(file);
+  return true;
+}
+
 const dataContent = COPY_NOTICE + readFileSync(SOURCE_DATA, "utf8");
 let missing = false;
 
@@ -99,6 +108,7 @@ for (const rel of TARGETS) {
   }
 
   for (const p of STRATO_FILES) if (syncFile(join(ROOT, p), join(target, p))) changed.push(p);
+  for (const p of MAIN_ONLY) if (removeFile(join(target, p))) changed.push(`${p} (entfernt)`);
 
   // llms.txt / llms-full.txt mit der eigenen URL des Ziel-Portfolios
   const siteKey = readFileSync(join(target, "src/data/portfolioConfig.js"), "utf8").match(/export default "([^"]+)"/)?.[1];
@@ -136,9 +146,10 @@ for (const [rel, siteKey] of LLMS_ONLY) {
     console.warn(`✗ ${rel}: nicht gefunden – übersprungen`);
     continue;
   }
-  repos.push([target, rel, ["public/llms.txt", "public/llms-full.txt", ...STRATO_FILES]]);
+  repos.push([target, rel, ["public/llms.txt", "public/llms-full.txt", ...STRATO_FILES, ...MAIN_ONLY]]);
   const changed = [];
   for (const p of STRATO_FILES) if (syncFile(join(ROOT, p), join(target, p))) changed.push(p);
+  for (const p of MAIN_ONLY) if (removeFile(join(target, p))) changed.push(`${p} (entfernt)`);
   if (syncFile(null, join(target, "public/llms.txt"), buildLlmsTxt(siteKey))) changed.push("public/llms.txt");
   if (syncFile(null, join(target, "public/llms-full.txt"), buildLlmsFullTxt(siteKey))) changed.push("public/llms-full.txt");
   console.log(changed.length ? `${DRY ? "~" : "✓"} ${rel}: ${changed.join(", ")}` : `= ${rel}: schon aktuell`);
