@@ -17,6 +17,7 @@ const rawProjects = [
   {
     id: "14",
     title: "Grumbach Entsorgung",
+    client: true, // Kundenprojekt -> Referenz im JSON-LD
     description: "Professionelle Website für ein Entsorgungsunternehmen mit umfassenden Serviceinformationen",
     image: "/projects/p14.webp",
     technologies: ["Astro", "CSS", "JavaScript", "Business"],
@@ -34,6 +35,7 @@ const rawProjects = [
   {
     id: "22",
     title: "Dachdeckerei Nestroy",
+    client: true, // Kundenprojekt -> Referenz im JSON-LD
     description: "Schnelle, lokal optimierte Website für einen Dachdecker- und Bauklempner-Betrieb in Fürstenau",
     image: "/projects/p18.webp",
     technologies: ["Astro", "CSS", "PHP", "SEO", "Business"],
@@ -51,6 +53,7 @@ const rawProjects = [
   {
     id: "23",
     title: "Fliesen Richter",
+    client: true, // Kundenprojekt -> Referenz im JSON-LD
     description: "Lokal optimierte Website für einen Fliesenleger-Meisterbetrieb in Fürstenau",
     image: "/projects/p19.webp",
     technologies: ["Astro", "CSS", "SEO", "Business"],
@@ -68,6 +71,7 @@ const rawProjects = [
   {
     id: "20",
     title: "ConnectAI – KI für Myfactory ERP",
+    client: true, // Kundenprojekt -> Referenz im JSON-LD
     description: "KI-Agenten direkt im Myfactory-ERP: Geschäftsprozesse automatisieren ohne Systemwechsel.",
     image: "/projects/p17.webp",
     technologies: ["HTML", "CSS", "JavaScript", "AI", "ERP", "Business"],
@@ -85,6 +89,7 @@ const rawProjects = [
   {
     id: "5",
     title: "Industrieboden Meyer",
+    client: true, // Kundenprojekt -> Referenz im JSON-LD
     description: "Migration einer Typo3-Website nach Astro – schneller, wartungsarm und seitdem laufend betreut",
     image: "/projects/p5.webp",
     technologies: ["Astro", "Typo3", "javascript"],
@@ -100,6 +105,7 @@ const rawProjects = [
   {
     id: "13",
     title: "Bella Ciao Bistro",
+    client: true, // Kundenprojekt -> Referenz im JSON-LD
     description: "Authentische italienische Restaurant-Website mit moderner Gestaltung und Online-Speisekarte",
     image: "/projects/p13.webp",
     technologies: ["Astro", "CSS", "JavaScript", "Responsive Design"],
@@ -116,6 +122,7 @@ const rawProjects = [
   {
     id: "12",
     title: "Pizzeria La Bellezza",
+    client: true, // Kundenprojekt -> Referenz im JSON-LD
     description: "Professionelle Restaurant-Website mit eleganter Präsentation",
     image: "/projects/p12.webp",
     technologies: ["Astro", "CSS", "JavaScript", "Business"],

@@ -130,10 +130,9 @@ export function homeGraph() {
         knowsAbout: business.services,
         sameAs: [business.googleProfile, ...person.sameAs],
       },
-      // Referenzen: live geschaltete Kunden-Websites (keine Demos auf *.netlify.app),
-      // die auf der Seite als Projekte zu sehen sind
+      // Referenzen: Kunden-Websites (client: true), die auf der Seite als Projekte zu sehen sind
       ...projects
-        .filter((p) => ["Business", "Restaurant"].includes(p.category) && p.website && !p.website.includes(".netlify.app"))
+        .filter((p) => p.client && p.website)
         .map((p) => ({
           "@type": "WebSite",
           "@id": `${SITE_URL}/#projekt-${p.id}`,
