@@ -684,7 +684,7 @@ const contact = byId.contact;
       filter: blur(0);
       font-family: monospace;
     }
-    span {
+    > span { /* nur Logo-Buchstaben, nicht die Burger-Striche */
       transition: 1s;
       font-size: 0;
       filter: blur(1px);
@@ -701,7 +701,7 @@ const contact = byId.contact;
   .name:hover {
     color: tomato;
     font-size: 24px;
-    span {
+    > span { /* nur Logo-Buchstaben, nicht die Burger-Striche */
       transition: 1s;
       color: #ffffff;
       font-size: 16px;
@@ -742,7 +742,7 @@ const contact = byId.contact;
         color: tomato;
         translate: 0 0;
       }
-      span {
+      > span { /* nur Logo-Buchstaben, nicht die Burger-Striche */
         color: #ababab;
         font-size: 16px;
         translate: -1px 3px;
