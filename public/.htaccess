@@ -15,7 +15,7 @@ AddDefaultCharset UTF-8
   RewriteCond %{HTTP:X-Forwarded-Proto} !=https
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # Nur die nackte Hauptdomain – Subdomains (v2., b2b. …) bleiben, wie sie sind
+  # Nackte Domain → www (die Varianten liegen als Unterordner /v2/ … /b2b/ darunter)
   RewriteCond %{HTTP_HOST} ^cb-webdevelopment\.de$ [NC]
   RewriteRule ^ https://www.cb-webdevelopment.de%{REQUEST_URI} [L,R=301]
 </IfModule>

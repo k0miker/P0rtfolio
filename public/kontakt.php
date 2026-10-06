@@ -17,7 +17,11 @@
  *
  * Antwort:
  *  - Anfrage mit "Accept: application/json" (fetch)  → JSON {"ok": true|false}
- *  - normales Absenden                               → Weiterleitung auf /?kontakt=danke|fehler
+ *  - normales Absenden                               → zurück auf die Seite, von der das Formular kam
+ *                                                      (?kontakt=danke|fehler)
+ *
+ * Liegt NUR im Haupt-Portfolio (/kontakt.php) – die Varianten unter /v2/ … /b2b/
+ * senden ebenfalls hierher.
  */
 declare(strict_types=1);
 
@@ -41,16 +45,26 @@ date_default_timezone_set('Europe/Berlin');
 $wantsJson = str_contains((string) ($_SERVER['HTTP_ACCEPT'] ?? ''), 'application/json');
 $host = strtolower((string) preg_replace('/:\d+$/', '', (string) ($_SERVER['HTTP_HOST'] ?? '')));
 
+// Seite, von der das Formular kam (nur eigene Domain) – für Rücksprung und Mail-Betreff
+$referer = (string) ($_SERVER['HTTP_REFERER'] ?? '');
+$page = '/';
+if (strcasecmp((string) parse_url($referer, PHP_URL_HOST), $host) === 0) {
+    $path = (string) parse_url($referer, PHP_URL_PATH);
+    if (preg_match('~^/[A-Za-z0-9/_.-]*$~', $path)) {
+        $page = $path;
+    }
+}
+
 function respond(bool $ok): never
 {
-    global $wantsJson;
+    global $wantsJson, $page;
     if ($wantsJson) {
         http_response_code($ok ? 200 : 422);
         header('Content-Type: application/json; charset=UTF-8');
         header('Cache-Control: no-store');
         echo json_encode(['ok' => $ok]);
     } else {
-        header('Location: /?kontakt=' . ($ok ? 'danke' : 'fehler'), true, 303);
+        header('Location: ' . $page . '?kontakt=' . ($ok ? 'danke' : 'fehler'), true, 303);
     }
     exit;
 }
@@ -222,10 +236,10 @@ if (rate_limited()) {
     respond(false);
 }
 
-$mailSubject = "Anfrage über $host" . ($subject !== '' ? ": $subject" : '');
+$mailSubject = "Anfrage über $host$page" . ($subject !== '' ? ": $subject" : '');
 
 $body = implode("\n", [
-    "Neue Anfrage über das Kontaktformular von $host",
+    "Neue Anfrage über das Kontaktformular von $host$page",
     str_repeat('-', 50),
     "Name:     $name",
     "E-Mail:   $email",

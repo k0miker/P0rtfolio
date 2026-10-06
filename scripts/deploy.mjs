@@ -10,8 +10,8 @@
 //   - lokal: gemeinsame Datei ../.strato-portfolios.env (gilt für alle Portfolios),
 //            optional überschrieben durch eine eigene .env im Repo
 //   - GitHub Actions: Repository-Secrets SFTP_HOST, SFTP_USER, SFTP_PASSWORD
-// Der Zielordner ergibt sich aus `site` in astro.config.mjs (siehe FOLDERS),
-// kann aber mit SFTP_REMOTE_DIR überschrieben werden.
+// Zielordner: Haupt-Portfolio → /portfolio, Varianten laufen als Unterordner davon
+// (`base` in astro.config.mjs, z. B. /v2/ → /portfolio/v2). Überschreibbar mit SFTP_REMOTE_DIR.
 // =============================================================================
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { join, posix, relative, sep } from 'node:path';
@@ -20,15 +20,10 @@ import SftpClient from 'ssh2-sftp-client';
 const DIST = 'dist';
 const dry = process.argv.includes('--dry');
 
-// Domain → Ordner auf dem Webspace (die Domain muss bei STRATO auf diesen Ordner zeigen)
-const FOLDERS = {
-  'www.cb-webdevelopment.de': '/portfolio',
-  'v2.cb-webdevelopment.de': '/portfolio2',
-  'v3.cb-webdevelopment.de': '/portfolio3',
-  'v4.cb-webdevelopment.de': '/portfolio4',
-  'v5.cb-webdevelopment.de': '/portfolio5',
-  'b2b.cb-webdevelopment.de': '/b2b',
-};
+// Ordner, auf den www.cb-webdevelopment.de bei STRATO zeigt
+const WEBROOT = '/portfolio';
+// Unterordner der Varianten – gehören nicht zum Build des Haupt-Portfolios
+const VARIANT_DIRS = new Set(['v2', 'v3', 'v4', 'v5', 'b2b']);
 
 // Lokal: erst die gemeinsame Datei, dann die eigene .env (überschreibt). In GitHub Actions
 // kommen die Werte aus den Secrets – process.loadEnvFile überschreibt keine gesetzten Variablen.
@@ -36,10 +31,12 @@ for (const file of ['.env', '../.strato-portfolios.env']) {
   if (existsSync(file)) process.loadEnvFile(file);
 }
 
-const site = readFileSync('astro.config.mjs', 'utf8').match(/site:\s*["']([^"']+)["']/)?.[1];
-const host = site ? new URL(site).hostname : '';
+const config = readFileSync('astro.config.mjs', 'utf8');
+const site = config.match(/site:\s*["']([^"']+)["']/)?.[1];
+const base = (config.match(/base:\s*["']([^"']+)["']/)?.[1] || '/').replace(/\/+$/, '');
+const host = site ? new URL(site).hostname + base : '';
 const { SFTP_HOST, SFTP_USER, SFTP_PASSWORD, SFTP_PORT = '22' } = process.env;
-const SFTP_REMOTE_DIR = process.env.SFTP_REMOTE_DIR || FOLDERS[host] || '';
+const SFTP_REMOTE_DIR = process.env.SFTP_REMOTE_DIR || (site?.includes('cb-webdevelopment.de') ? WEBROOT + base : '');
 
 if (!SFTP_HOST || !SFTP_USER || !SFTP_PASSWORD) {
   console.error('✗ SFTP_HOST, SFTP_USER und SFTP_PASSWORD fehlen (lokal in ../.strato-portfolios.env, bei GitHub als Secrets).');
@@ -47,7 +44,7 @@ if (!SFTP_HOST || !SFTP_USER || !SFTP_PASSWORD) {
 }
 // Nie ins Hauptverzeichnis laden – dort liegt der private Ordner des Kontaktformulars
 if (!SFTP_REMOTE_DIR.replace(/\/+$/, '')) {
-  console.error(`✗ Kein Zielordner für "${host || 'unbekannte Domain'}" – FOLDERS in scripts/deploy.mjs ergänzen oder SFTP_REMOTE_DIR setzen. Abbruch.`);
+  console.error(`✗ Kein Zielordner für "${host || 'unbekannte Domain'}" – site in astro.config.mjs prüfen oder SFTP_REMOTE_DIR setzen. Abbruch.`);
   process.exit(1);
 }
 if (!existsSync(DIST)) {
@@ -116,7 +113,8 @@ try {
     for (const entry of await sftp.list(dir)) {
       const rel = prefix + entry.name;
       if (entry.type === 'd') {
-        if (rel !== '_astro' && rel !== '.well-known') await walkRemote(`${dir}/${entry.name}`, `${rel}/`);
+        const variant = !base && prefix === '' && VARIANT_DIRS.has(rel);
+        if (rel !== '_astro' && rel !== '.well-known' && !variant) await walkRemote(`${dir}/${entry.name}`, `${rel}/`);
       } else if (!built.has(rel)) {
         foreign.push(rel);
       }
