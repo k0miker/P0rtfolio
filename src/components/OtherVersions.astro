@@ -36,7 +36,7 @@ const versions = projects
           jeweils ein anderer Ansatz.
         </p>
 
-        <ul class="v-list">
+        <ul class="v-list v-row" style={`--count: ${versions.length}`}>
           {versions.map((v) => (
             <li>
               <a class="v-item" href={v.website}>
@@ -77,9 +77,20 @@ const versions = projects
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
     gap: 1.5rem 1.25rem;
+    padding-bottom: 0.5rem;
+  }
+
+  /* Alle Versionen in einer Reihe – zu eng wird gewischt statt umgebrochen */
+  .v-row {
+    display: grid;
+    grid-template-columns: repeat(var(--count, 5), minmax(190px, 1fr));
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+  }
+  .v-row > li {
+    scroll-snap-align: start;
   }
 
   .v-item {
@@ -105,12 +116,11 @@ const versions = projects
     object-position: top center;
     border-radius: 6px;
     background: var(--bg-card);
-    filter: grayscale(1) contrast(1.08);
-    transition: filter 0.25s ease;
+    transition: transform 0.4s ease;
   }
   .v-item:hover .v-img,
   .v-item:focus-visible .v-img {
-    filter: none;
+    transform: translateY(-3px);
   }
 
   .v-name {
@@ -151,16 +161,12 @@ const versions = projects
       transition: none;
     }
   }
-  @media (hover: none), (max-width: 720px) {
-    .v-img {
-      filter: none;
-    }
-  }
 
   /* Schmal: kompakte Zeilen – Vorschau links, Text rechts */
   @media (max-width: 720px) {
     .v-list {
       grid-template-columns: 1fr;
+      overflow: visible;
       gap: 0;
     }
     .v-item {
