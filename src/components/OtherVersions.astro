@@ -1,0 +1,190 @@
+---
+// Die anderen Gestaltungen dieses Portfolios – getrennt von den Kundenprojekten
+// (wie in v5). Ohne die aktuelle Seite (isCurrent aus projectData.js).
+import { projects } from "../data/projectData.js";
+
+// Kurzlabels wie im Versionstoggle
+const LABELS = { v1: "Classic", v2: "Story", v3: "Motion", terminal: "Codespace", v5: "Modernist", b2b: "Seriös" };
+
+const versions = projects
+  .filter((p) => p.category === "Portfolio" && !p.isCurrent)
+  .map((p) => ({ ...p, label: LABELS[p.key] ?? "" }));
+---
+
+{versions.length > 0 && (
+  <section id="versions" class="versions-section" aria-labelledby="versions-title">
+    <div class="terminal-window offscreen">
+      <div class="terminal-titlebar">
+        <div class="terminal-dots" aria-hidden="true">
+          <span class="dot-red"></span>
+          <span class="dot-yellow"></span>
+          <span class="dot-green"></span>
+        </div>
+        <span class="terminal-title">versions — colin@webdev</span>
+      </div>
+
+      <div class="terminal-body">
+        <p class="terminal-cmd">
+          <span class="usr">colin@webdev</span><span class="punct">:</span><span
+            class="pth">~/portfolio</span
+          ><span class="punct">$</span> ls versions/
+        </p>
+
+        <h2 id="versions-title">Weitere Versionen dieses Portfolios</h2>
+        <p class="intro">
+          Dieses Portfolio gibt es in mehreren Gestaltungen – dieselben Inhalte,
+          jeweils ein anderer Ansatz.
+        </p>
+
+        <ul class="v-list">
+          {versions.map((v) => (
+            <li>
+              <a class="v-item" href={v.website}>
+                <img class="v-img" src={v.image} alt="" width="1600" height="1000" loading="lazy" decoding="async" />
+                <span class="v-name">{v.title}</span>
+                {v.label && <span class="v-label">{v.label}</span>}
+                <span class="v-copy">{v.description}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .versions-section {
+    padding: 2rem 0 2rem;
+  }
+
+  h2 {
+    font-family: var(--font-mono);
+    font-size: var(--step-2, 1.6rem);
+    color: var(--text-primary);
+    margin: 0.5rem 0 0.5rem;
+  }
+
+  .intro {
+    font-family: "Inter", sans-serif;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+    max-width: 60ch;
+  }
+
+  .v-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 1.5rem 1.25rem;
+  }
+
+  .v-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: 0.75rem;
+    border-top: 2px solid var(--term-window-border, var(--border));
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.25s ease;
+  }
+  .v-item:hover,
+  .v-item:focus-visible {
+    border-top-color: var(--accent);
+  }
+
+  .v-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 6px;
+    background: var(--bg-card);
+    filter: grayscale(1) contrast(1.08);
+    transition: filter 0.25s ease;
+  }
+  .v-item:hover .v-img,
+  .v-item:focus-visible .v-img {
+    filter: none;
+  }
+
+  .v-name {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-top: 0.75rem;
+  }
+  .v-item:hover .v-name {
+    color: var(--accent);
+  }
+
+  .v-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 0.15rem;
+  }
+  .v-label::before {
+    content: "# ";
+    color: var(--term-punct-color);
+  }
+
+  .v-copy {
+    font-family: "Inter", sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin-top: 0.4rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .v-img,
+    .v-item {
+      transition: none;
+    }
+  }
+  @media (hover: none), (max-width: 720px) {
+    .v-img {
+      filter: none;
+    }
+  }
+
+  /* Schmal: kompakte Zeilen – Vorschau links, Text rechts */
+  @media (max-width: 720px) {
+    .v-list {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .v-item {
+      display: grid;
+      grid-template-columns: 104px minmax(0, 1fr);
+      grid-template-areas: "img name" "img label" "img copy";
+      column-gap: 1rem;
+      align-content: start;
+      padding: 1rem 0;
+    }
+    .v-img {
+      grid-area: img;
+      align-self: start;
+    }
+    .v-name {
+      grid-area: name;
+      margin-top: 0;
+    }
+    .v-label {
+      grid-area: label;
+    }
+    .v-copy {
+      grid-area: copy;
+      font-size: 0.84rem;
+    }
+  }
+</style>

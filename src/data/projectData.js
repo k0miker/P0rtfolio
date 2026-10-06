@@ -298,6 +298,23 @@ const rawProjects = [
     grid: ["2 x 2", "2 x 1", "1 x 1"]
   },
   {
+    id: "25",
+    title: "Portfolio v5",
+    key: "v5",
+    description: "Ruhiges, sehr cleanes Portfolio im Stil der Schweizer Moderne – Typografie statt Effekte.",
+    image: "/projects/portfolio5.webp",
+    technologies: ["Astro", "CSS"],
+    modalDescriptionDe: "Die fünfte Variante meines Portfolios, bewusst zurückhaltend gestaltet: ein klares Raster, eine einzige Schrift in drei Stärken und viel Weißraum im Stil der Schweizer Moderne. Statt Effekten tragen echte Projektbilder und gut lesbare Texte die Seite. Umgesetzt mit Astro und reinem CSS ohne Framework-JavaScript, mit lokal eingebundenen Schriften und ohne Cookies.",
+    modalDescriptionEn: "The fifth variant of my portfolio, deliberately understated: a clear grid, a single typeface in three weights and generous white space in the Swiss modernist style. Instead of effects, real project images and readable copy carry the page. Built with Astro and plain CSS without framework JavaScript, with self-hosted fonts and no cookies.",
+    website: "https://www.cb-webdevelopment.de/v5/",
+    github: "https://github.com/k0miker/P0rtfolio5",
+    iframe: true,
+    iframeUrl: "https://www.cb-webdevelopment.de/v5/",
+    category: "Portfolio",
+    badges: ["Astro", "CSS", "Portfolio", "Minimal"],
+    grid: ["2 x 2", "2 x 1", "1 x 1"]
+  },
+  {
     id: "19",
     title: "Portfolio B2B",
     key: "b2b",

@@ -5,7 +5,10 @@ import { projects } from "../data/projectData.js";
 import "../css/keyframes.css";
 
 // Bilder sind Public-URL-Strings (project.image), keine Imports nötig.
-const filteredProjects = projects.filter((project) => !!project.image);
+// Nur Kundenprojekte – die Portfolio-Varianten stehen separat in OtherVersions.astro.
+const filteredProjects = projects.filter(
+  (project) => !!project.image && project.category !== "Portfolio",
+);
 
 // Extrahiere alle einzigartigen Kategorien
 const categories = [

@@ -3,6 +3,9 @@ import logo from "../assets/images/logo.webp";
 import { projects } from "../data/projectData.js";
 import { navSections } from "../data/navSections.js";
 
+// Panel zeigt nur Kundenprojekte – die Portfolio-Varianten stehen in „Weitere Versionen“
+const clientProjects = projects.filter((p) => p.category !== "Portfolio");
+
 // Home übernimmt das Logo, Contact ist der CTA rechts außen
 const byId = Object.fromEntries(navSections.map((s) => [s.id, s]));
 const links = [byId.about, byId.skills];
@@ -69,14 +72,14 @@ const contact = byId.contact;
           <div class="projects-panel" id="projects-panel">
             <div class="panel-card">
               <div class="panel-head">
-                <span class="panel-kicker">~/projects <span class="panel-count">{projects.length}</span></span>
+                <span class="panel-kicker">~/projects <span class="panel-count">{clientProjects.length}</span></span>
                 <a class="panel-all" href={byId.projects.href}>
                   Alle Projekte mit Details <span aria-hidden="true">→</span>
                 </a>
               </div>
               <ul class="panel-grid">
                 {
-                  projects.map((p) => (
+                  clientProjects.map((p) => (
                     <li>
                       <a class="panel-item" href={p.website} target="_blank" rel="noopener noreferrer">
                         <img src={p.image} alt="" width="64" height="40" loading="lazy" decoding="async" />
@@ -141,7 +144,7 @@ const contact = byId.contact;
     height: clamp(56px, 7vh, 80px);
     color: var(--text-secondary);
     background: color-mix(in srgb, var(--bg-primary) 75%, transparent);
-    backdrop-filter: blur(5px) saturate(1.2);
+    backdrop-filter: blur(12px) saturate(1.2);
     -webkit-backdrop-filter: blur(5px) saturate(1.2);
     /* Akzentlinie unten – gleiche Linie wie oben am Footer; dient mobil als Spur der Fortschrittslinie */
     box-shadow:
