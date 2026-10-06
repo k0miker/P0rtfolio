@@ -1,6 +1,8 @@
 ---
 // Die anderen Gestaltungen dieses Portfolios – getrennt von den Kundenprojekten
 // (wie in v5). Ohne die aktuelle Seite (isCurrent aus projectData.js).
+// Desktop: Ziehharmonika – die Version unter Maus/Fokus klappt auf.
+// Touch & schmal: kompakte Liste.
 import { projects } from "../data/projectData.js";
 
 // Kurzlabels wie im Versionstoggle
@@ -36,14 +38,17 @@ const versions = projects
           jeweils ein anderer Ansatz.
         </p>
 
-        <ul class="v-list v-row" style={`--count: ${versions.length}`}>
+        <ul class="v-acc">
           {versions.map((v) => (
-            <li>
+            <li class="v-panel">
               <a class="v-item" href={v.website}>
                 <img class="v-img" src={v.image} alt="" width="1600" height="1000" loading="lazy" decoding="async" />
-                <span class="v-name">{v.title}</span>
-                {v.label && <span class="v-label">{v.label}</span>}
-                <span class="v-copy">{v.description}</span>
+                <span class="v-tab" aria-hidden="true">{v.title.replace("Portfolio ", "")}</span>
+                <span class="v-text">
+                  <span class="v-name">{v.title}</span>
+                  {v.label && <span class="v-label">{v.label}</span>}
+                  <span class="v-copy">{v.description}</span>
+                </span>
               </a>
             </li>
           ))}
@@ -73,54 +78,15 @@ const versions = projects
     max-width: 60ch;
   }
 
-  .v-list {
+  .v-acc {
     list-style: none;
     margin: 0;
     padding: 0;
-    gap: 1.5rem 1.25rem;
-    padding-bottom: 0.5rem;
-  }
-
-  /* Alle Versionen in einer Reihe – zu eng wird gewischt statt umgebrochen */
-  .v-row {
-    display: grid;
-    grid-template-columns: repeat(var(--count, 5), minmax(190px, 1fr));
-    overflow-x: auto;
-    scroll-snap-type: x proximity;
-    scrollbar-width: thin;
-  }
-  .v-row > li {
-    scroll-snap-align: start;
   }
 
   .v-item {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding-top: 0.75rem;
-    border-top: 2px solid var(--term-window-border, var(--border));
     color: inherit;
     text-decoration: none;
-    transition: border-color 0.25s ease;
-  }
-  .v-item:hover,
-  .v-item:focus-visible {
-    border-top-color: var(--accent);
-  }
-
-  .v-img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    object-position: top center;
-    border-radius: 6px;
-    background: var(--bg-card);
-    transition: transform 0.4s ease;
-  }
-  .v-item:hover .v-img,
-  .v-item:focus-visible .v-img {
-    transform: translateY(-3px);
   }
 
   .v-name {
@@ -128,68 +94,185 @@ const versions = projects
     font-weight: 600;
     font-size: 1rem;
     color: var(--text-primary);
-    margin-top: 0.75rem;
   }
-  .v-item:hover .v-name {
-    color: var(--accent);
-  }
-
   .v-label {
     font-family: var(--font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-top: 0.15rem;
   }
   .v-label::before {
     content: "# ";
     color: var(--term-punct-color);
   }
-
   .v-copy {
     font-family: "Inter", sans-serif;
     font-size: 0.875rem;
     line-height: 1.55;
     color: var(--text-secondary);
-    margin-top: 0.4rem;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .v-img,
+  /* ---------- Ziehharmonika (Desktop mit Maus) ---------- */
+  @media (hover: hover) and (min-width: 721px) {
+    .v-acc {
+      display: flex;
+      gap: 0.6rem;
+      height: clamp(320px, 34vw, 420px);
+    }
+
+    .v-panel {
+      flex: 1 1 0;
+      min-width: 0;
+      transition: flex-grow 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    /* Offen: unter Maus/Fokus – sonst die erste */
+    .v-panel:hover,
+    .v-panel:focus-within,
+    .v-acc:not(:hover):not(:focus-within) .v-panel:first-child {
+      flex-grow: 4.5;
+    }
+
     .v-item {
+      position: relative;
+      display: block;
+      height: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--term-window-border, var(--border));
+      background: var(--bg-card);
+    }
+    .v-item:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .v-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top left;
+    }
+
+    /* Verlauf unten, damit der Text auf jedem Bild lesbar bleibt */
+    .v-item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(15, 15, 15, 0.96) 0%,
+        rgba(15, 15, 15, 0.86) 28%,
+        rgba(15, 15, 15, 0.35) 52%,
+        rgba(15, 15, 15, 0) 72%
+      );
+      transition: opacity 0.4s ease;
+    }
+
+    /* Zugeklappt: senkrechter Kurzname */
+    .v-tab {
+      position: absolute;
+      left: 50%;
+      bottom: 1rem;
+      z-index: 1;
+      transform: translateX(-50%) rotate(180deg);
+      writing-mode: vertical-rl;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.06em;
+      color: #f5f5f5;
+      white-space: nowrap;
+      transition: opacity 0.3s ease;
+    }
+
+    .v-text {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 1.25rem 1.4rem;
+      min-width: 300px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9), 0 0 12px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      transform: translateY(8px);
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+      pointer-events: none;
+    }
+    .v-text .v-name {
+      color: #f5f5f5;
+      font-size: 1.1rem;
+    }
+    .v-text .v-copy {
+      color: #d6d6d6;
+      max-width: 46ch;
+    }
+
+    /* Aufgeklappt: Text ein, Kurzname aus */
+    .v-panel:hover .v-text,
+    .v-panel:focus-within .v-text,
+    .v-acc:not(:hover):not(:focus-within) .v-panel:first-child .v-text {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0.15s;
+    }
+    .v-panel:hover .v-tab,
+    .v-panel:focus-within .v-tab,
+    .v-acc:not(:hover):not(:focus-within) .v-panel:first-child .v-tab {
+      opacity: 0;
+    }
+    .v-panel:hover .v-item,
+    .v-panel:focus-within .v-item {
+      border-color: var(--accent);
+    }
+  }
+
+  @media (hover: hover) and (min-width: 721px) and (prefers-reduced-motion: reduce) {
+    .v-panel,
+    .v-text,
+    .v-tab {
       transition: none;
     }
   }
 
-  /* Schmal: kompakte Zeilen – Vorschau links, Text rechts */
-  @media (max-width: 720px) {
-    .v-list {
-      grid-template-columns: 1fr;
-      overflow: visible;
-      gap: 0;
+  /* ---------- Liste (Touch & schmal) ---------- */
+  @media (hover: none), (max-width: 720px) {
+    .v-tab {
+      display: none;
     }
     .v-item {
       display: grid;
       grid-template-columns: 104px minmax(0, 1fr);
-      grid-template-areas: "img name" "img label" "img copy";
       column-gap: 1rem;
-      align-content: start;
+      align-items: start;
       padding: 1rem 0;
+      border-top: 1px solid var(--term-window-border, var(--border));
+    }
+    .v-panel:last-child .v-item {
+      border-bottom: 1px solid var(--term-window-border, var(--border));
     }
     .v-img {
-      grid-area: img;
-      align-self: start;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 6px;
     }
-    .v-name {
-      grid-area: name;
-      margin-top: 0;
-    }
-    .v-label {
-      grid-area: label;
+    .v-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
     }
     .v-copy {
-      grid-area: copy;
       font-size: 0.84rem;
     }
   }
