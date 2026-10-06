@@ -85,7 +85,7 @@ const rawProjects = [
   {
     id: "5",
     title: "Industrieboden Meyer",
-    description: "A webproject i have translated from Typo3 into an Astro Project",
+    description: "Migration einer Typo3-Website nach Astro – schneller, wartungsarm und seitdem laufend betreut",
     image: "/projects/p5.webp",
     technologies: ["Astro", "Typo3", "javascript"],
     modalDescriptionDe: "Ein anspruchsvolles Projekt, bei dem ich eine bestehende Typo3-Website in ein modernes Astro-Framework übersetzt habe. Diese Transformation verbesserte signifikant die Performance und Wartbarkeit der Seite. Ich bin seitdem für die kontinuierliche Wartung und Aktualisierung der Website verantwortlich. Das Projekt hat mir tiefe Einblicke in Content-Management-Systeme und moderne Web-Frameworks vermittelt.",
@@ -132,7 +132,7 @@ const rawProjects = [
   {
     id: "9",
     title: "Zombiland",
-    description: "A canvas Game to become more comfortable with JavaScript",
+    description: "Browser-Spiel auf Canvas-Basis mit Gegner-KI und mehreren Levels, komplett in JavaScript",
     image: "/projects/p9.webp",
     technologies: ["Canvas", "Game", "Animation", "javascript"],
     modalDescriptionDe: "Ein umfangreiches Canvas-Spiel, das ich entwickelt habe, um meine JavaScript-Fähigkeiten zu verbessern. Zombi-Island bietet komplexe Spielmechaniken, Feindverhalten mit KI-Elementen und mehrere Spielebenen. Die Entwicklung dieses Projekts erforderte ein tiefes Verständnis von Objekt-orientierter Programmierung, State-Management und Optimierungstechniken für flüssige Animationen. Dieses Projekt markiert einen wichtigen Meilenstein in meiner Entwicklung als JavaScript-Programmierer.",
@@ -149,7 +149,7 @@ const rawProjects = [
   {
     id: "10",
     title: "DataGlobe",
-    description: "My first React Project also trying three.js and big Data-Visualization",
+    description: "Interaktiver 3D-Globus zur Visualisierung globaler Daten mit React und Three.js",
     image: "/projects/p10-2.webp",
     technologies: ["React", "Three.js", "Data Visualization", "WebGL"],
     modalDescriptionDe: "Mein erstes React-Projekt, das auch Three.js für 3D-Visualisierungen nutzt. DataGlobe ist eine interaktive Datenvisualisierungsanwendung, die globale Daten auf einem 3D-Globus darstellt. Dieses komplexe Projekt kombiniert moderne Frontend-Technologien mit Datenverarbeitung und 3D-Rendering. Die Entwicklung hat mir wertvolle Einblicke in die React-Architektur, State-Management und die Integration von 3D-Bibliotheken gegeben. Es stellt einen wichtigen Schritt in meiner Entwicklung als Frontend-Entwickler dar.",
@@ -168,7 +168,7 @@ const rawProjects = [
   {
     id: "11",
     title: "BrokeChain",
-    description: "My first React Narive Project in typescript. A small trading demo app for crypto currencies.",
+    description: "Krypto-Trading-Demo als React-Native-App in TypeScript – mein erstes React-Native-Projekt",
     image: "/projects/p11.webp",
     technologies: ["React Native", "TypeScript", "Mobile App", "Crypto", "AI"],
     modalDescriptionDe: "Mein erstes React Native-Projekt, entwickelt in TypeScript. BrokeChain ist eine Demo-App für Kryptowährungshandel, die Echtzeit-Daten von Krypto-APIs abruft und visualisiert. Die Entwicklung dieser App forderte mich heraus, die Konzepte von React auf die mobile Entwicklung zu übertragen und dabei die Vorteile von TypeScript zu nutzen. Das Projekt umfasst komplexe Funktionalitäten wie Benutzerauthentifizierung, Daten-Caching und responsive Layouts für verschiedene Gerätetypen. Die Arbeit an BrokeChain hat meine Fähigkeiten in der mobilen App-Entwicklung erheblich erweitert.",

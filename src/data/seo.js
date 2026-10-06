@@ -3,6 +3,7 @@
 // Daraus entstehen: sichtbare Region-&-FAQ-Sektion, JSON-LD und llms.txt.
 // Regel: Was im JSON-LD steht, muss auch sichtbar auf der Seite stehen.
 // =============================================================================
+import { projects } from "./projectData.js";
 
 export const SITE_URL = "https://colinblome.dev";
 
@@ -14,6 +15,7 @@ export const person = {
   name: "Colin Blome",
   jobTitle: "Webentwickler",
   email: "info@colinblome.dev",
+  telephone: "+49 173 6098320",
   sameAs: [
     "https://github.com/k0miker",
     "https://www.linkedin.com/in/k0miker",
@@ -107,6 +109,7 @@ export function homeGraph() {
         logo: `${SITE_URL}/logo.png`,
         image: `${SITE_URL}/logo.png`,
         email: person.email,
+        telephone: person.telephone,
         founder: { "@id": PERSON_ID },
         address: {
           "@type": "PostalAddress",
@@ -127,6 +130,18 @@ export function homeGraph() {
         knowsAbout: business.services,
         sameAs: [business.googleProfile, ...person.sameAs],
       },
+      // Referenzen: live geschaltete Kunden-Websites (keine Demos auf *.netlify.app),
+      // die auf der Seite als Projekte zu sehen sind
+      ...projects
+        .filter((p) => ["Business", "Restaurant"].includes(p.category) && p.website && !p.website.includes(".netlify.app"))
+        .map((p) => ({
+          "@type": "WebSite",
+          "@id": `${SITE_URL}/#projekt-${p.id}`,
+          name: p.title,
+          url: p.website,
+          description: p.description,
+          creator: { "@id": BUSINESS_ID },
+        })),
       {
         "@type": "FAQPage",
         "@id": `${SITE_URL}/#faq`,
