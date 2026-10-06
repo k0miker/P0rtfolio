@@ -1,0 +1,70 @@
+# ============================================================
+#  Apache-Konfiguration für STRATO Webhosting
+#  ⚠ Wird per `npm run sync:projects` aus dem Haupt-Portfolio in alle
+#  Portfolios kopiert – nur dort (P0rtfolio/public/.htaccess) bearbeiten!
+# ============================================================
+
+Options -Indexes
+AddDefaultCharset UTF-8
+
+# --- HTTPS erzwingen; Hauptdomain einheitlich auf www (SEO: keine Duplikate) ---
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Nur die nackte Hauptdomain – Subdomains (v2., b2b. …) bleiben, wie sie sind
+  RewriteCond %{HTTP_HOST} ^cb-webdevelopment\.de$ [NC]
+  RewriteRule ^ https://www.cb-webdevelopment.de%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# --- Dateitypen ---
+AddType text/plain .txt
+AddType application/manifest+json .webmanifest
+AddType image/avif .avif
+AddType image/webp .webp
+AddType video/mp4 .mp4
+AddType video/quicktime .mov
+AddCharset utf-8 .txt .xml .webmanifest .css .js
+
+# --- Sicherheits-Header ---
+# frame-src https:          → Live-Vorschauen der Kundenprojekte (iframes)
+# googletagmanager/analytics → Google Analytics im Haupt-Portfolio (nur nach Einwilligung geladen)
+# frame-ancestors           → die Portfolios dürfen sich gegenseitig einbetten, sonst niemand
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; media-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https:; form-action 'self'; frame-ancestors 'self' https://*.cb-webdevelopment.de; base-uri 'self'; object-src 'none'"
+  Header unset X-Powered-By
+</IfModule>
+
+# --- Komprimierung ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/javascript text/javascript application/json application/ld+json application/manifest+json image/svg+xml
+</IfModule>
+
+# --- Browser-Caching ---
+# CSS, JS und Schriften liegen gehasht unter /_astro/ und ändern bei Updates ihren Namen.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 week"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/plain "access plus 1 day"
+  ExpiresByType application/xml "access plus 1 day"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# kontakt.js ist NICHT gehasht → kurz cachen, damit Änderungen schnell ankommen
+<Files "kontakt.js">
+  <IfModule mod_expires.c>
+    ExpiresByType text/javascript "access plus 1 hour"
+    ExpiresByType application/javascript "access plus 1 hour"
+  </IfModule>
+</Files>

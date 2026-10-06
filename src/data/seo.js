@@ -5,7 +5,7 @@
 // =============================================================================
 import { projects } from "./projectData.js";
 
-export const SITE_URL = "https://colinblome.dev";
+export const SITE_URL = "https://www.cb-webdevelopment.de";
 
 // Feste IDs, damit alle Portfolios auf dieselbe Person/Firma verweisen
 export const PERSON_ID = `${SITE_URL}/#person`;
@@ -14,7 +14,7 @@ export const BUSINESS_ID = `${SITE_URL}/#business`;
 export const person = {
   name: "Colin Blome",
   jobTitle: "Webentwickler",
-  email: "info@colinblome.dev",
+  email: "info@cb-webdevelopment.de",
   telephone: "+49 173 6098320",
   sameAs: [
     "https://github.com/k0miker",

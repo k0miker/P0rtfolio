@@ -1,0 +1,42 @@
+# Baut die Website bei jeder Änderung auf dem Hauptbranch und lädt sie per SFTP zu STRATO hoch.
+# ⚠ Wird per `npm run sync:projects` aus dem Haupt-Portfolio in alle Portfolios kopiert.
+#
+# Benötigte Repository-Secrets (Settings → Secrets and variables → Actions):
+#   SFTP_HOST, SFTP_USER, SFTP_PASSWORD – setzt `npm run strato:secrets` im Haupt-Portfolio
+#   für alle Portfolios auf einmal. Der Zielordner ergibt sich aus der Domain (scripts/deploy.mjs).
+name: Website veröffentlichen
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+# Mehrere schnelle Änderungen hintereinander: nur der neueste Stand wird veröffentlicht
+concurrency:
+  group: deploy-strato
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Bauen und hochladen
+        run: npm run deploy
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_USER: ${{ secrets.SFTP_USER }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT || '22' }}
