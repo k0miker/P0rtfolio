@@ -31,9 +31,9 @@ import "../css/darkmode.css";
         <i class="fas fa-envelope"></i>
         <!-- <div class="contact-reveal email-reveal">
           <span class="email-parts">
-            <span class="e-part">info</span><span class="e-sep">@</span><span class="e-domain">colinblome.dev</span>
+            <span class="e-part">info</span><span class="e-sep">@</span><span class="e-domain">cb-webdevelopment.de</span>
           </span>
-          <button class="copy-btn" data-copy="info@colinblome.dev">
+          <button class="copy-btn" data-copy="info@cb-webdevelopment.de">
             <i class="fas fa-copy"></i>
           </button>
         </div> -->
@@ -640,7 +640,7 @@ import "../css/darkmode.css";
       button.addEventListener('click', function(e) {
         // Direkte Aktion beim Klick auf den Button
         if (this.classList.contains('email-button')) {
-          window.location.href = 'mailto:info@colinblome.dev';
+          window.location.href = 'mailto:info@cb-webdevelopment.de';
           return; // Früher zurückkehren, um das Popup nicht anzuzeigen
         } else if (this.classList.contains('phone-button')) {
           window.location.href = 'tel:+491736098320';
@@ -697,7 +697,7 @@ import "../css/darkmode.css";
     if (emailParts) {
       emailParts.addEventListener('click', (e) => {
         e.stopPropagation();
-        window.location.href = 'mailto:info@colinblome.dev';
+        window.location.href = 'mailto:info@cb-webdevelopment.de';
       });
     }
     

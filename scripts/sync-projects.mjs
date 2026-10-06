@@ -8,10 +8,12 @@
 //   - räumt nicht mehr referenzierte Dateien in public/projects/ auf
 //   - public/llms.txt + llms-full.txt (aus src/data/llms.js, mit der URL des Ziels)
 //     – auch fürs B2B-Portfolio, das sonst seine eigene Projektliste pflegt
+//   - STRATO-Dateien (STRATO_FILES: Deploy-Skript, GitHub Action, .htaccess,
+//     Kontaktformular) – für alle Portfolios identisch, auch fürs B2B-Portfolio
 // portfolioConfig.js bleibt pro Repo unangetastet.
 //
 // Danach werden die geteilten Dateien in JEDEM Repo (auch diesem) committet
-// und auf den aktuellen Branch gepusht (= Netlify-Deploy). Committet werden
+// und auf den aktuellen Branch gepusht (= GitHub Action → STRATO). Committet werden
 // nur die Sync-Pfade (SYNC_PATHS / MAIN_PATHS), andere lokale Änderungen
 // bleiben unberührt.
 //
@@ -31,8 +33,9 @@ const TARGETS = ["../P0rtfolio2", "../portfolio3", "../Portfolio4", "../P0rtfoli
 const DRY = process.argv.includes("--dry");
 const PUSH = !process.argv.includes("--no-push");
 const COMMIT_MSG = "chore(sync): Projektdaten aus Haupt-Portfolio aktualisiert";
-const SYNC_PATHS = ["src/data/projectData.js", "public/projects", "public/llms.txt", "public/llms-full.txt"];
-const MAIN_PATHS = ["src/data/projectData.js", "src/data/llms.js", "src/data/seo.js", "public/projects"];
+const STRATO_FILES = ["scripts/deploy.mjs", ".github/workflows/deploy.yml", "public/.htaccess", "public/kontakt.php", "public/kontakt.js"];
+const SYNC_PATHS = ["src/data/projectData.js", "public/projects", "public/llms.txt", "public/llms-full.txt", ...STRATO_FILES];
+const MAIN_PATHS = ["src/data/projectData.js", "src/data/llms.js", "src/data/seo.js", "public/projects", ...STRATO_FILES];
 const repos = [[ROOT, ".", MAIN_PATHS]]; // [Pfad, Anzeigename, zu committende Pfade]
 
 const SOURCE_DATA = join(ROOT, "src/data/projectData.js");
@@ -95,6 +98,8 @@ for (const rel of TARGETS) {
     if (syncFile(from, join(target, "public", url))) changed.push(`public${url}`);
   }
 
+  for (const p of STRATO_FILES) if (syncFile(join(ROOT, p), join(target, p))) changed.push(p);
+
   // llms.txt / llms-full.txt mit der eigenen URL des Ziel-Portfolios
   const siteKey = readFileSync(join(target, "src/data/portfolioConfig.js"), "utf8").match(/export default "([^"]+)"/)?.[1];
   if (SITES[siteKey]) {
@@ -131,8 +136,9 @@ for (const [rel, siteKey] of LLMS_ONLY) {
     console.warn(`✗ ${rel}: nicht gefunden – übersprungen`);
     continue;
   }
-  repos.push([target, rel, ["public/llms.txt", "public/llms-full.txt"]]);
+  repos.push([target, rel, ["public/llms.txt", "public/llms-full.txt", ...STRATO_FILES]]);
   const changed = [];
+  for (const p of STRATO_FILES) if (syncFile(join(ROOT, p), join(target, p))) changed.push(p);
   if (syncFile(null, join(target, "public/llms.txt"), buildLlmsTxt(siteKey))) changed.push("public/llms.txt");
   if (syncFile(null, join(target, "public/llms-full.txt"), buildLlmsFullTxt(siteKey))) changed.push("public/llms-full.txt");
   console.log(changed.length ? `${DRY ? "~" : "✓"} ${rel}: ${changed.join(", ")}` : `= ${rel}: schon aktuell`);

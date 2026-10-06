@@ -13,6 +13,7 @@ export const SITES = {
   v2: { url: "https://v2.cb-webdevelopment.de", label: "Portfolio v2" },
   v3: { url: "https://v3.cb-webdevelopment.de", label: "Portfolio v3" },
   terminal: { url: "https://v4.cb-webdevelopment.de", label: "Portfolio v4 (Terminal)" },
+  v5: { url: "https://v5.cb-webdevelopment.de", label: "Portfolio v5 (Modernist)" },
   b2b: { url: "https://b2b.cb-webdevelopment.de", label: "B2B-Portfolio" },
 };
 

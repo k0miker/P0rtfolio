@@ -1,6 +1,6 @@
  # Colin Blome - Personal Portfolio Website
 
-Welcome to the repository for my personal portfolio website, [colinblome.dev](https://colinblome.dev).
+Welcome to the repository for my personal portfolio website, [cb-webdevelopment.de](https://www.cb-webdevelopment.de).
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@ Welcome to the repository for my personal portfolio website, [colinblome.dev](ht
 
 ## About the Project
 
-[Colin Blome - Personal Portfolio](https://colinblome.dev) is a showcase of my work, skills, and projects as a freelance web developer based in Fürstenau, Germany. It serves as a digital resume and a way for potential clients, employers, and collaborators to learn more about me and my professional journey in web development.
+[Colin Blome - Personal Portfolio](https://www.cb-webdevelopment.de) is a showcase of my work, skills, and projects as a freelance web developer based in Fürstenau, Germany. It serves as a digital resume and a way for potential clients, employers, and collaborators to learn more about me and my professional journey in web development.
 
 ## Features
 
@@ -180,8 +180,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 Freelance Web Developer  
 Based in Fürstenau, Germany
 
-- **Email**: [info@colinblome.dev](mailto:info@colinblome.dev)
-- **Website**: [https://colinblome.dev](https://colinblome.dev)
+- **Email**: [info@cb-webdevelopment.de](mailto:info@cb-webdevelopment.de)
+- **Website**: [https://www.cb-webdevelopment.de](https://www.cb-webdevelopment.de)
 - **GitHub**: [https://github.com/k0miker](https://github.com/k0miker)
 
 **Service Areas**: Fürstenau, Samtgemeinde Bersenbrück, Landkreis Osnabrück

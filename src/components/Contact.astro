@@ -28,8 +28,8 @@ import contactBg from "../assets/images/contact.webp";
 
       <form
         name="contact"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
+        data-kontakt
+        action="/kontakt.php"
         method="POST"
       >
         <input type="hidden" name="bot-field" />
@@ -74,8 +74,8 @@ import contactBg from "../assets/images/contact.webp";
           <div class="flag-output">
             <div class="flag-row">
               <span class="flag-name">--email</span>
-              <span class="flag-value email-text">info@colinblome.dev</span>
-              <button class="copy-btn" data-copy="info@colinblome.dev">
+              <span class="flag-value email-text">info@cb-webdevelopment.de</span>
+              <button class="copy-btn" data-copy="info@cb-webdevelopment.de">
                 <i class="fas fa-copy"></i>
               </button>
             </div>
@@ -90,6 +90,7 @@ import contactBg from "../assets/images/contact.webp";
           </div>
         </div>
       </form>
+      <script is:inline src="/kontakt.js" defer></script>
 
       <p class="terminal-cmd terminal-cmd--last">
         <span class="usr">colin@webdev</span><span class="punct">:</span><span
@@ -476,7 +477,7 @@ import contactBg from "../assets/images/contact.webp";
     if (emailText) {
       emailText.addEventListener("click", (e) => {
         e.stopPropagation();
-        window.location.href = "mailto:info@colinblome.dev";
+        window.location.href = "mailto:info@cb-webdevelopment.de";
       });
     }
 

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://colinblome.dev/sitemap.xml
+Sitemap: https://www.cb-webdevelopment.de/sitemap.xml
