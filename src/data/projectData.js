@@ -1,6 +1,7 @@
 // =============================================================================
 // GETEILTE PROJEKTDATEN — DIESE Datei ist die einzige Quelle für alle Portfolios
-// (v1 = dieses Repo, v2 = ../P0rtfolio2, v3 = ../portfolio3, terminal = ../Portfolio4).
+// (v1 = dieses Repo, v2 = ../P0rtfolio2, v3 = ../portfolio3, terminal = ../Portfolio4,
+// v5 = ../P0rtfolio5).
 // Nur hier bearbeiten, Screenshot nach `public/projects/` legen, dann:
 //   npm run sync:projects
 // -> kopiert Datei + Bilder/Videos in die anderen Repos. Pro Seite wird nur
@@ -39,6 +40,23 @@ const rawProjects = [
     modalDescriptionDe: "Eine Website für die Dachdeckerei & Bauklempnerei Nestroy GmbH aus Fürstenau, entwickelt im Rahmen meiner Selbstständigkeit. Die statische Astro-Seite stellt alle Leistungen – von Neueindeckung und Dachsanierung über Flachdach und Dämmung bis zu Dachrinnen – auf eigenen Unterseiten vor und ist konsequent auf lokale Suche ausgerichtet: Schema.org-Daten, Sitemap und llms.txt entstehen automatisch beim Build. Datenschutz von Anfang an mitgedacht: keine Cookies, kein Tracking, lokal eingebundene Schriften – damit entfällt der Cookie-Banner komplett. Dazu kommen ein spamgeschütztes Kontaktformular ohne reCAPTCHA, ein eigener Verwaltungsbereich mit Passwort und 2FA, über den der Betrieb Projekte selbst pflegt, sowie flüssige Scroll-Animationen und Seitenübergänge mit nativem CSS.",
     modalDescriptionEn: "A website for the roofing and sheet-metal company Dachdeckerei Nestroy GmbH from Fürstenau, developed as part of my freelance work. The static Astro site presents every service – from new roofing and roof renovation to flat roofs, insulation and gutters – on dedicated subpages and is built for local search: Schema.org data, sitemap and llms.txt are generated automatically at build time. Privacy by design: no cookies, no tracking, self-hosted fonts – so no cookie banner is needed at all. It also includes a spam-protected contact form without reCAPTCHA, a custom admin area with password and 2FA where the company manages its projects itself, and smooth scroll animations and page transitions using native CSS.",
     website: "https://www.dachdeckerei-nestroy.de/",
+    github: null,
+    // Seite verbietet Einbettung (frame-ancestors 'none') -> nur Screenshot
+    iframe: false,
+    category: "Business",
+    tile: "wide",
+    badges: ["Astro", "Business", "Local SEO", "Freelance"],
+    grid: ["2 x 2", "2 x 1", "1 x 1"]
+  },
+  {
+    id: "23",
+    title: "Fliesen Richter",
+    description: "Lokal optimierte Website für einen Fliesenleger-Meisterbetrieb in Fürstenau",
+    image: "/projects/p19.webp",
+    technologies: ["Astro", "CSS", "SEO", "Business"],
+    modalDescriptionDe: "Eine Website für den Fliesenleger-Meisterbetrieb Fliesen Richter aus Fürstenau, entwickelt im Rahmen meiner Selbstständigkeit. Die statische Astro-Seite stellt alle acht Leistungen – von Badsanierung, bodengleicher Dusche und barrierefreiem Bad über Großformat- und Natursteinarbeiten bis zu Terrasse, Balkon und Fugensanierung – auf eigenen Unterseiten vor und ist auf lokale Suche in Fürstenau und Umgebung ausgerichtet. Dazu kommen eine Projektgalerie mit abgeschlossenen Arbeiten, ein Schritt-für-Schritt-Ablauf, FAQ und ein Kontaktformular für Anfragen. Datenschutz von Anfang an mitgedacht: keine Cookies, kein Tracking, lokal eingebundene Schriften und eine strenge Content-Security-Policy.",
+    modalDescriptionEn: "A website for the master tiling company Fliesen Richter from Fürstenau, developed as part of my freelance work. The static Astro site presents all eight services – from bathroom renovation, walk-in showers and accessible bathrooms to large-format and natural stone work, terraces, balconies and grout repair – on dedicated subpages and is built for local search in Fürstenau and the surrounding area. It also features a gallery of completed projects, a step-by-step process overview, an FAQ and a contact form for enquiries. Privacy by design: no cookies, no tracking, self-hosted fonts and a strict Content Security Policy.",
+    website: "https://www.richter-meisterbetrieb.de/",
     github: null,
     // Seite verbietet Einbettung (frame-ancestors 'none') -> nur Screenshot
     iframe: false,
