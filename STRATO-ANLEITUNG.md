@@ -1,0 +1,92 @@
+# Portfolios zu STRATO umziehen
+
+Alle 6 Portfolios laufen danach auf **einem** STRATO-Paket unter **cb-webdevelopment.de**.
+Der Code liegt fertig in jedem Repo auf dem Branch `strato-umzug` (noch nicht live).
+
+| Portfolio | Repo | Adresse | Ordner auf STRATO |
+|---|---|---|---|
+| Haupt-Portfolio | P0rtfolio | www.cb-webdevelopment.de | `/portfolio` |
+| v2 | P0rtfolio2 | v2.cb-webdevelopment.de | `/portfolio2` |
+| v3 | portfolio3 | v3.cb-webdevelopment.de | `/portfolio3` |
+| v4 (Terminal) | Portfolio4 | v4.cb-webdevelopment.de | `/portfolio4` |
+| v5 (Modernist) | P0rtfolio5 | v5.cb-webdevelopment.de | `/portfolio5` |
+| B2B | Portfolio-B2B | b2b.cb-webdevelopment.de | `/b2b` |
+
+Die Ordner legt das Deploy-Skript beim ersten Hochladen selbst an.
+
+## 1. Im STRATO-Kundenlogin (einmalig)
+- [ ] Domain **cb-webdevelopment.de** im Paket aktiv
+- [ ] **Subdomains** anlegen: `v2`, `v3`, `v4`, `v5`, `b2b` (www gibt es schon)
+- [ ] Domains verwalten → Zahnrad → Ziel **„intern“** → Ordner laut Tabelle
+      (`cb-webdevelopment.de` und `www` → `/portfolio`)
+- [ ] **SSL** für die Domain und **jede** Subdomain aktivieren (inkl. www)
+- [ ] **SFTP-Zugang:** Ihr Paket → Datenbanken und Webspace → SFTP & SSH
+      → Server + Benutzername notieren, SFTP-Passwort setzen
+- [ ] **PHP-Version** auf 8.1 oder neuer
+- [ ] **Postfächer** anlegen: `info@cb-webdevelopment.de` (Empfänger) und
+      `webseite@cb-webdevelopment.de` (Absender des Kontaktformulars)
+- [ ] **AVV** (Auftragsverarbeitungsvertrag) abschließen – steht so in der Datenschutzerklärung
+
+## 2. Zugangsdaten – einmal für alle Portfolios
+1. `K:\Work\.strato-portfolios.env` öffnen (liegt außerhalb aller Repos) und
+   `SFTP_HOST`, `SFTP_USER`, `SFTP_PASSWORD` eintragen.
+2. Im Haupt-Portfolio:
+   ```bash
+   npm run strato:secrets -- --dry   # zeigt, welche Repos was bekommen
+   npm run strato:secrets            # trägt die 3 Secrets in alle 6 GitHub-Repos ein
+   ```
+   Lokal lesen alle Deploy-Skripte dieselbe Datei – keine `.env` pro Repo nötig.
+   Passwort geändert? Datei anpassen, `npm run strato:secrets` erneut ausführen.
+
+## 3. Erster Upload (lokal testen)
+In jedem Portfolio-Ordner (auf Branch `strato-umzug`):
+```bash
+npm run deploy:dry   # Probelauf
+npm run deploy       # bauen + hochladen
+```
+Dann im Browser prüfen – siehe Schritt 5.
+
+## 4. Live schalten (Branch zusammenführen)
+`strato-umzug` in `main`/`master` mergen und pushen → die GitHub Action
+„Website veröffentlichen“ lädt ab dann bei jedem Push automatisch zu STRATO hoch.
+(Netlify baut zu dem Zeitpunkt auch noch – stört nicht, siehe Schritt 6.)
+
+## 5. Testen
+- [ ] `http://cb-webdevelopment.de` → leitet auf `https://www.cb-webdevelopment.de` um
+- [ ] Alle 5 Subdomains laden per HTTPS, Versions-Umschalter springt korrekt
+- [ ] Live-Vorschauen der Varianten im Haupt-Portfolio werden angezeigt (iframes)
+- [ ] **Kontaktformular** auf jeder Seite (außer v5) einmal abschicken → Mail an info@ kommt an
+- [ ] Google Analytics nach Einwilligung (Haupt-Portfolio) → in GA4 „Echtzeit“ sichtbar
+- [ ] `/robots.txt`, `/sitemap.xml`, `/llms.txt` erreichbar
+
+## 6. Alte Domain und Netlify abschalten
+- [ ] **colinblome.dev** bleibt bei Porkbun bis zum Ablauf und leitet weiter:
+      Nameserver bei Porkbun wieder auf Porkbun stellen (aktuell Netlify/NS1), dann
+      URL-Weiterleitung **301, mit Pfad** einrichten:
+      `colinblome.dev` + `www` → `https://www.cb-webdevelopment.de`,
+      `portfolio2…5.colinblome.dev` → `v2…v5.cb-webdevelopment.de`,
+      `b2b.colinblome.dev` → `b2b.cb-webdevelopment.de`.
+      ⚠ .dev-Domains funktionieren nur per HTTPS – prüfen, dass die Weiterleitung
+      `https://colinblome.dev` ohne Zertifikatsfehler umleitet.
+- [ ] Mail: info@colinblome.dev (Zoho) ggf. noch eine Weile an info@cb-webdevelopment.de weiterleiten
+- [ ] Erst wenn alles läuft: Netlify-Sites löschen
+
+## 7. Nach dem Livegang (SEO)
+- [ ] Google Search Console: neue Domain hinzufügen, Sitemap einreichen, bei
+      colinblome.dev das Tool **„Adressänderung“** nutzen
+- [ ] Google-Unternehmensprofil, LinkedIn, GitHub-Profil: Website-Link ändern
+- [ ] Footer-Links bei Nestroy, Richter und Grumbach auf cb-webdevelopment.de umstellen
+- [ ] Lebenslauf-PDF (`src/assets/doc/ColinBlome-WebDev-CV.pdf`) enthält noch colinblome.dev
+
+## Wie es technisch funktioniert
+Alle STRATO-Dateien sind für alle Portfolios identisch und werden wie die Projektdaten
+per `npm run sync:projects` aus diesem Repo verteilt – nur hier bearbeiten:
+- `scripts/deploy.mjs` – SFTP-Upload; Zielordner ergibt sich aus `site` in astro.config.mjs
+- `.github/workflows/deploy.yml` – Action bei Push auf main/master
+- `public/.htaccess` – HTTPS, www-Umleitung, Sicherheits-Header (CSP), Caching
+- `public/kontakt.php` + `public/kontakt.js` – Kontaktformular mit Spam-Schutz ohne Captcha,
+  Versand per Mail an info@; der Schlüssel liegt in `/portfolio-private/` außerhalb der Webroots
+
+---
+Hilfe: [STRATO SFTP-FAQ](https://www.strato.de/faq/hosting/so-nutzen-sie-ihren-ssh-sftp-zugang/) ·
+STRATO-Support 030 300 146 0
