@@ -15,9 +15,13 @@ AddDefaultCharset UTF-8
   RewriteCond %{HTTP:X-Forwarded-Proto} !=https
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # Nackte Domain → www (die Varianten liegen als Unterordner /v2/ … /b2b/ darunter)
+  # Nackte Domain → www (die Varianten liegen als Unterordner /v1/ … /b2b/ darunter)
   RewriteCond %{HTTP_HOST} ^cb-webdevelopment\.de$ [NC]
   RewriteRule ^ https://www.cb-webdevelopment.de%{REQUEST_URI} [L,R=301]
+
+  # v5 ist seit 2026-10-07 das Haupt-Portfolio im Webroot → alte /v5/-Links umleiten
+  # (greift nur, solange es auf dem Server keinen Ordner /portfolio/v5 mit eigener .htaccess gibt)
+  RewriteRule ^v5(?:/(.*))?$ /$1 [L,R=301]
 </IfModule>
 
 # --- Dateitypen ---

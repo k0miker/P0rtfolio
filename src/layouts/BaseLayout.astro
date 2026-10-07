@@ -5,7 +5,7 @@ const { title, description, image } = Astro.props;
 const pageTitle = title || "Webdesign & Webentwicklung in Fürstenau | Colin Blome";
 const pageDescription = description || "CB-Webdevelopment von Colin Blome: Webentwicklung aus Fürstenau für Unternehmen in Bersenbrück und im Landkreis Osnabrück.";
 const canonical = new URL(Astro.url.pathname, SITE_URL).toString();
-const ogImage = image || `${SITE_URL}/og-image-wide.png`;
+const ogImage = image || `${SITE_URL}/v1/og-image-wide.png`;
 ---
 
 <html lang="de" class="w-full">
@@ -22,6 +22,8 @@ const ogImage = image || `${SITE_URL}/og-image-wide.png`;
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <link rel="canonical" href={canonical} />
+    <!-- Design-Variante: Hauptseite ist v5 unter cb-webdevelopment.de/ -->
+    <meta name="robots" content="noindex, follow" />
     <meta name="author" content="Colin Blome" />
 
     <meta property="og:type" content="website" />

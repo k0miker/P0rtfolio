@@ -5,12 +5,16 @@ die Varianten als Unterordner, damit ein (kostenloses) SSL-Zertifikat für alles
 
 | Portfolio | Repo | Adresse | Ordner auf STRATO |
 |---|---|---|---|
-| Haupt-Portfolio | P0rtfolio | www.cb-webdevelopment.de | `/portfolio` |
-| v2 | P0rtfolio2 | www.cb-webdevelopment.de/v2/ | `/portfolio/v2` |
+| Haupt-Portfolio: v5 (Modernist) | P0rtfolio5 | www.cb-webdevelopment.de | `/portfolio` |
+| v1 (Classic) | P0rtfolio | www.cb-webdevelopment.de/v1/ | `/portfolio/v1` |
+| v2 | P0rtfolio2 | …/v2/ | `/portfolio/v2` |
 | v3 | portfolio3 | …/v3/ | `/portfolio/v3` |
 | v4 (Terminal) | Portfolio4 | …/v4/ | `/portfolio/v4` |
-| v5 (Modernist) | P0rtfolio5 | …/v5/ | `/portfolio/v5` |
 | B2B | Portfolio-B2B | …/b2b/ | `/portfolio/b2b` |
+
+Seit 2026-10-07 stellt **P0rtfolio5** die Startseite. **P0rtfolio** bleibt trotzdem die Zentrale
+für Projektdaten, SEO, llms.txt, Kontaktformular und STRATO-Dateien (`npm run sync:projects`).
+Alte `/v5/`-Links leitet die `.htaccess` per 301 auf `/` um.
 
 Die Ordner legt das Deploy-Skript beim ersten Hochladen selbst an.
 
@@ -84,10 +88,13 @@ per `npm run sync:projects` aus diesem Repo verteilt – nur hier bearbeiten:
 - `scripts/deploy.mjs` – SFTP-Upload; Zielordner = `/portfolio` + `base` aus astro.config.mjs
 - `.github/workflows/deploy.yml` – Action bei Push auf main/master
 - `public/.htaccess` – HTTPS, www-Umleitung, Sicherheits-Header (CSP), Caching
-- `public/kontakt.php` + `public/kontakt.js` – **nur im Haupt-Portfolio**; alle Varianten senden
-  dorthin. Spam-Schutz ohne Captcha, Versand per Mail an info@, danach zurück auf die Ursprungsseite.
+- `public/kontakt.php` + `public/kontakt.js` – hier gepflegt, per Sync nur nach **P0rtfolio5**
+  kopiert (liegt im Webroot → `/kontakt.php`); alle Versionen senden dorthin. Spam-Schutz ohne
+  Captcha, Versand per Mail an info@, danach zurück auf die Ursprungsseite.
   Der Schlüssel liegt in `/portfolio-private/` außerhalb des Webroots.
-- Projektbilder (`/projects/…`) sind in allen Varianten identisch und kommen aus dem Haupt-Portfolio.
+- Projektbilder (`/projects/…`, inkl. Handy-Screenshots `-m.webp`) und Projektvideos nutzen alle
+  Versionen über absolute Pfade – ausgeliefert von P0rtfolio5 im Webroot.
+- Favicons, `robots.txt`, `sitemap.xml`, `logo.png` liegen direkt in P0rtfolio5/public.
 
 ---
 Hilfe: [STRATO SFTP-FAQ](https://www.strato.de/faq/hosting/so-nutzen-sie-ihren-ssh-sftp-zugang/) ·

@@ -7,15 +7,17 @@
 import { projects } from "./projectData.js";
 import { SITE_URL, person, business, serviceArea, faq } from "./seo.js";
 
-// Alle Portfolio-Varianten: key = portfolioConfig-Wert
+// Alle Portfolio-Varianten: key = portfolioConfig-Wert, url ohne Schrägstrich am Ende
 export const SITES = {
-  v1: { url: SITE_URL, label: "Haupt-Portfolio (v1)" },
-  v2: { url: "https://www.cb-webdevelopment.de/v2/", label: "Portfolio v2" },
-  v3: { url: "https://www.cb-webdevelopment.de/v3/", label: "Portfolio v3" },
-  terminal: { url: "https://www.cb-webdevelopment.de/v4/", label: "Portfolio v4 (Terminal)" },
-  v5: { url: "https://www.cb-webdevelopment.de/v5/", label: "Portfolio v5 (Modernist)" },
-  b2b: { url: "https://www.cb-webdevelopment.de/b2b/", label: "B2B-Portfolio" },
+  v5: { url: SITE_URL, label: "Haupt-Portfolio (v5, Modernist)" },
+  v1: { url: `${SITE_URL}/v1`, label: "Portfolio v1 (Classic)" },
+  v2: { url: `${SITE_URL}/v2`, label: "Portfolio v2" },
+  v3: { url: `${SITE_URL}/v3`, label: "Portfolio v3" },
+  terminal: { url: `${SITE_URL}/v4`, label: "Portfolio v4 (Terminal)" },
+  b2b: { url: `${SITE_URL}/b2b`, label: "B2B-Portfolio" },
 };
+// Diese Version liegt im Webroot und ist die Seite, die in der Suche erscheinen soll
+export const MAIN_SITE = "v5";
 
 const clean = (t) => t.replace(/\s*\(Aktuell\)$/, "");
 const work = () => projects.filter((p) => p.category !== "Portfolio");
@@ -28,9 +30,9 @@ function header(siteKey) {
     `> ${business.description}`,
     "",
   ];
-  if (siteKey !== "v1") {
+  if (siteKey !== MAIN_SITE) {
     lines.push(
-      `Diese Seite (${site.url}) ist eine Design-Variante des Portfolios von ${person.name}. ` +
+      `Diese Seite (${site.url}/) ist eine Design-Variante des Portfolios von ${person.name}. ` +
         `Haupt-Website mit allen aktuellen Informationen: ${SITE_URL}/`,
       ""
     );

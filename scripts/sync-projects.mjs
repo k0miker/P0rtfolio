@@ -34,8 +34,11 @@ const DRY = process.argv.includes("--dry");
 const PUSH = !process.argv.includes("--no-push");
 const COMMIT_MSG = "chore(sync): Projektdaten aus Haupt-Portfolio aktualisiert";
 const STRATO_FILES = ["scripts/deploy.mjs", ".github/workflows/deploy.yml", "public/.htaccess"];
-// Das Kontaktformular liegt nur hier im Haupt-Portfolio (/kontakt.php) – die Varianten laufen
-// als Unterordner derselben Domain und senden dorthin. Alte Kopien werden entfernt.
+// Diese Version liegt im Webroot (/), alle anderen als Unterordner (/v1/ … /b2b/).
+// Sie liefert die Dateien aus, die alle Versionen über absolute Pfade nutzen:
+// Kontaktformular (/kontakt.php), Projektbilder und -videos.
+const ROOT_HOST = "../P0rtfolio5";
+// Kontaktformular: gepflegt hier, ausgeliefert vom ROOT_HOST. Kopien in anderen Repos werden entfernt.
 const MAIN_ONLY = ["public/kontakt.php", "public/kontakt.js"];
 const SYNC_PATHS = ["src/data/projectData.js", "public/projects", "public/llms.txt", "public/llms-full.txt", ...STRATO_FILES, ...MAIN_ONLY];
 const MAIN_PATHS = ["src/data/projectData.js", "src/data/llms.js", "src/data/seo.js", "public/projects", ...STRATO_FILES, ...MAIN_ONLY];
@@ -46,7 +49,12 @@ const COPY_NOTICE =
   "// ⚠ AUTOMATISCH KOPIERT aus dem Haupt-Portfolio (P0rtfolio) – hier NICHT bearbeiten!\n" +
   "// Änderungen dort in src/data/projectData.js machen und `npm run sync:projects` ausführen.\n";
 
-const images = [...new Set(projects.map((p) => p.image).filter(Boolean))];
+const mainImages = projects.map((p) => p.image).filter(Boolean);
+// Handy-Screenshots (z. B. /projects/p14-m.webp) gehören dazu, sofern vorhanden
+const mobileImages = mainImages
+  .map((url) => url.replace(/\.webp$/, "-m.webp"))
+  .filter((url) => !mainImages.includes(url) && existsSync(join(ROOT, "public", url)));
+const images = [...new Set([...mainImages, ...mobileImages])];
 const videos = [...new Set(projects.map((p) => p.videoSrc).filter(Boolean))];
 
 // Liest rekursiv alle Quelldateien (ohne projectData.js), um zu prüfen,
@@ -92,11 +100,13 @@ for (const rel of TARGETS) {
     continue;
   }
 
-  repos.push([target, rel, SYNC_PATHS]);
   const changed = [];
   if (syncFile(SOURCE_DATA, join(target, "src/data/projectData.js"), dataContent)) changed.push("src/data/projectData.js");
 
-  const media = usesVideos(join(target, "src")) ? [...images, ...videos] : images;
+  const isRootHost = rel === ROOT_HOST;
+  const withVideos = isRootHost || usesVideos(join(target, "src"));
+  const media = withVideos ? [...images, ...videos] : images;
+  repos.push([target, rel, withVideos ? [...SYNC_PATHS, ...videos.map((v) => `public${v}`)] : SYNC_PATHS]);
   for (const url of media) {
     const from = join(ROOT, "public", url);
     if (!existsSync(from)) {
@@ -108,7 +118,11 @@ for (const rel of TARGETS) {
   }
 
   for (const p of STRATO_FILES) if (syncFile(join(ROOT, p), join(target, p))) changed.push(p);
-  for (const p of MAIN_ONLY) if (removeFile(join(target, p))) changed.push(`${p} (entfernt)`);
+  for (const p of MAIN_ONLY) {
+    if (isRootHost ? syncFile(join(ROOT, p), join(target, p)) : removeFile(join(target, p))) {
+      changed.push(isRootHost ? p : `${p} (entfernt)`);
+    }
+  }
 
   // llms.txt / llms-full.txt mit der eigenen URL des Ziel-Portfolios
   const siteKey = readFileSync(join(target, "src/data/portfolioConfig.js"), "utf8").match(/export default "([^"]+)"/)?.[1];

@@ -10,8 +10,8 @@
 //   - lokal: gemeinsame Datei ../.strato-portfolios.env (gilt für alle Portfolios),
 //            optional überschrieben durch eine eigene .env im Repo
 //   - GitHub Actions: Repository-Secrets SFTP_HOST, SFTP_USER, SFTP_PASSWORD
-// Zielordner: Haupt-Portfolio → /portfolio, Varianten laufen als Unterordner davon
-// (`base` in astro.config.mjs, z. B. /v2/ → /portfolio/v2). Überschreibbar mit SFTP_REMOTE_DIR.
+// Zielordner: Haupt-Portfolio (P0rtfolio5, ohne base) → /portfolio, Varianten laufen als Unterordner davon
+// (`base` in astro.config.mjs, z. B. /v1/ → /portfolio/v1). Überschreibbar mit SFTP_REMOTE_DIR.
 // =============================================================================
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { join, posix, relative, sep } from 'node:path';
@@ -23,7 +23,7 @@ const dry = process.argv.includes('--dry');
 // Ordner, auf den www.cb-webdevelopment.de bei STRATO zeigt
 const WEBROOT = '/portfolio';
 // Unterordner der Varianten – gehören nicht zum Build des Haupt-Portfolios
-const VARIANT_DIRS = new Set(['v2', 'v3', 'v4', 'v5', 'b2b']);
+const VARIANT_DIRS = new Set(['v1', 'v2', 'v3', 'v4', 'b2b']);
 
 // Lokal: erst die gemeinsame Datei, dann die eigene .env (überschreibt). In GitHub Actions
 // kommen die Werte aus den Secrets – process.loadEnvFile überschreibt keine gesetzten Variablen.
