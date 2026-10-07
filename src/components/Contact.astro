@@ -59,11 +59,11 @@ import contactBg from "../assets/images/contact.webp";
             <input type="checkbox" required id="toggle" class="toggle-input checkbox" aria-describedby="privacy-error" />
             <label for="toggle" class="toggle-label"></label>
           </div>
-          <span class="privacy-text">I accept the <a
+          <span class="privacy-text">Ich akzeptiere die <a
             href="/datenschutz"
             target="_blank"
-            class="toggle-switch-label">privacy policy</a></span>
-          <span class="privacy-yn">[y/N]</span>
+            class="toggle-switch-label">Datenschutzerklärung</a></span>
+          <span class="privacy-yn">[j/N]</span>
           <p id="privacy-error" class="privacy-error" role="alert" aria-live="polite"></p>
         </div>
 
@@ -82,7 +82,7 @@ import contactBg from "../assets/images/contact.webp";
             <div class="flag-row">
               <span class="flag-name">--phone</span>
               <span class="flag-value phone-text" data-real="0173-609-8320">···········</span>
-              <button class="reveal-btn" aria-label="Telefonnummer anzeigen">[reveal]</button>
+              <button class="reveal-btn" aria-label="Telefonnummer anzeigen">[anzeigen]</button>
               <button class="copy-btn" data-copy="01736098320">
                 <i class="fas fa-copy"></i>
               </button>
@@ -434,12 +434,12 @@ import contactBg from "../assets/images/contact.webp";
         privacyError.textContent = "";
       }
       if (privacyYN) {
-        privacyYN.textContent = "[Y/n]";
+        privacyYN.textContent = "[J/n]";
         privacyYN.classList.add("accepted");
       }
     } else {
       if (privacyYN) {
-        privacyYN.textContent = "[y/N]";
+        privacyYN.textContent = "[j/N]";
         privacyYN.classList.remove("accepted");
       }
     }
@@ -469,7 +469,7 @@ import contactBg from "../assets/images/contact.webp";
       revealBtn.addEventListener("click", () => {
         const isHidden = phoneText.textContent === "···········";
         phoneText.textContent = isHidden ? phoneText.dataset.real : "···········";
-        revealBtn.textContent = isHidden ? "[hide]" : "[reveal]";
+        revealBtn.textContent = isHidden ? "[verbergen]" : "[anzeigen]";
       });
     }
 

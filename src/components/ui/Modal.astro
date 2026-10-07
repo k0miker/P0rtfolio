@@ -31,33 +31,33 @@ const hasMultiLanguage = englishDesc !== germanDesc;
         <h2 class="modal-title">{project.title}</h2>
         
         <div class="tech-stack">
-          <h3>Technologies</h3>
+          <h3>Technologien</h3>
           <div class="tech-tags">
             {project.technologies ? project.technologies.map((tech) => (
               <span class="tech-tag">{tech}</span>
-            )) : <span class="tech-tag">No technologies specified</span>}
+            )) : <span class="tech-tag">Keine Angaben</span>}
           </div>
         </div>
         
-        <div class="modal-description custom-scrollbar" data-active="en">
+        <div class="modal-description custom-scrollbar" data-active={hasMultiLanguage ? "de" : "en"}>
           <div class="description-header">
-            <h3>About this project</h3>
+            <h3>Über das Projekt</h3>
             {hasMultiLanguage && (
-              <div class="language-toggle" data-active="en">
-                <button class="lang-btn active" data-lang="en">EN</button>
+              <div class="language-toggle" data-active="de">
+                <button class="lang-btn" data-lang="en">EN</button>
                 <span class="toggle-slider"></span>
-                <button class="lang-btn" data-lang="de">DE</button>
+                <button class="lang-btn active" data-lang="de">DE</button>
               </div>
             )}
           </div>
           
           <div class="description-container custom-scrollbar">
-            <div class="description-text custom-scrollbar active" data-lang="en">
+            <div class:list={["description-text custom-scrollbar", !hasMultiLanguage && "active"]} data-lang="en">
               <p>{englishDesc}</p>
             </div>
             
             {hasMultiLanguage && (
-              <div class="description-text custom-scrollbar" data-lang="de">
+              <div class="description-text custom-scrollbar active" data-lang="de">
                 <p>{germanDesc}</p>
               </div>
             )}
@@ -67,13 +67,13 @@ const hasMultiLanguage = englishDesc !== germanDesc;
         <div class="modal-links">
           {project.website && (
             <a href={project.website} target="_blank" rel="noopener noreferrer" class="modal-link demo-link">
-              <i class="fa-solid fa-eye"></i> Live Demo
+              <i class="fa-solid fa-eye"></i> Live ansehen
             </a>
           )}
           
           {project.github && (
             <a href={project.github} target="_blank" rel="noopener noreferrer" class="modal-link github-link">
-              <i class="fa-brands fa-github"></i> Source Code
+              <i class="fa-brands fa-github"></i> Quellcode
             </a>
           )}
           
