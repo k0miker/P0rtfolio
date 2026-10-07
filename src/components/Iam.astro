@@ -17,6 +17,13 @@ import inkBg from "../assets/images/ink_2.webp";
     >
       &#95;
     </div>
+    <div class="hero-sub">
+      <p class="hero-claim">Websites für Handwerk &amp; Mittelstand – schnell, mobil, gut gefunden.</p>
+      <div class="hero-cta">
+        <a class="hero-btn hero-btn--primary" href="#contact">Projekt anfragen</a>
+        <a class="hero-btn" href="#projects">Projekte ansehen</a>
+      </div>
+    </div>
   </div>
 </div>
 <style>
@@ -27,50 +34,65 @@ import inkBg from "../assets/images/ink_2.webp";
     min-height: 40px;
   }
 
-  a {
-    color: var(--text-secondary);
-    background-color: var(--bg-primary);
-    bottom: 20px;
-    width: 75px;
-    font-family: inter;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 0.5em;
-    letter-spacing: 0.05em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+  /* Feste Zeile unter dem Tipp-Text: was angeboten wird + direkte Wege */
+  .hero-sub {
     position: absolute;
-    cursor: pointer;
-    transition: all 1s;
-    flex-direction: column;
-    div {
-      padding: 0 5px;
-    }
+    top: calc(50% + 110px);
+    left: 1rem;
+    right: 1rem;
+    z-index: 3;
+    display: grid;
+    justify-items: center;
+    gap: 1.25rem;
+    text-align: center;
   }
-
-  a:hover {
-    transform: translateY(5px);
-    background-color: var(--bg-primary);
+  .hero-claim {
+    margin: 0;
+    max-width: 34ch;
+    font-family: var(--font-mono);
+    font-size: clamp(0.95rem, 0.85rem + 0.45vw, 1.2rem);
+    font-weight: 400;
+    line-height: 1.5;
+    text-shadow: 0 0 12px rgba(0, 0, 0, 0.85);
   }
-  a:hover div {
-    color: tomato;
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
   }
-  a:hover div:nth-of-type(1) {
-    display: none;
-    div {
-      display: block;
-    }
+  .hero-btn {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 400;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    color: #fff;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      transform 0.25s ease;
   }
-  a div:nth-of-type(2) {
-    display: none;
+  .hero-btn:hover {
+    transform: translateY(-2px);
+    border-color: #fff;
+    background: rgba(0, 0, 0, 0.45);
   }
-  a:hover div:nth-of-type(2) {
-    display: block;
-    div {
-      display: block;
-    }
+  .hero-btn--primary {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .hero-btn--primary:hover {
+    background: color-mix(in srgb, var(--accent) 85%, black);
+    border-color: color-mix(in srgb, var(--accent) 85%, black);
+  }
+  .hero-btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
   }
 
   .bg-container {
@@ -175,12 +197,12 @@ import inkBg from "../assets/images/ink_2.webp";
   // function([string1, string2],target id,[color1,color2])
   consoleText(
     [
-      "Hey there.",
-      "I'm Colin.",
-      "Web Developer.",
-      "Gamer.",
-      "Bonsai Enthusiast.",
-      "Nerd.",
+      "Moin.",
+      "Ich bin Colin.",
+      "Webentwickler.",
+      "Aus Fürstenau.",
+      "Schnelle Websites.",
+      "Gut gefunden.",
     ],
     "text",
     ["tomato"],
