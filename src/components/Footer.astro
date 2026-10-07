@@ -61,7 +61,6 @@ import "../css/darkmode.css";
         <a href="/impressum" class="impressum-link">Impressum</a>
         <a href="/datenschutz" class="impressum-link">Datenschutz</a>
       </div>
-      <button type="button" id="cookie-settings" class="impressum-link cookie-settings-link">Cookie-Einstellungen</button>
     </div>
   </div>
 </footer>
@@ -299,46 +298,9 @@ import "../css/darkmode.css";
     color: var(--accent);
   }
 
-  .cookie-settings-link {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: max-content;
-    padding: 0.25rem 0.7rem;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    color: var(--text-secondary);
-    font-size: 0.75rem;
-    line-height: 1.2;
-    letter-spacing: 0.01em;
-    transition:
-      color 0.2s ease,
-      border-color 0.2s ease,
-      background-color 0.2s ease,
-      transform 0.2s ease;
-  }
-
-  .cookie-settings-link::before {
-    content: ">";
-    margin-right: 0.45rem;
-    color: var(--accent);
-    font-weight: 700;
-  }
-
-  .cookie-settings-link:hover {
-    color: var(--text-titel);
-    border-color: var(--accent);
-    background-color: var(--bg-secondary);
-    transform: translateY(-1px);
-  }
-
   .footer.expanded .impressum-container {
     width: 100%;
     max-width: 420px;
-  }
-
-  .footer.expanded .cookie-settings-link {
-    display: inline-flex;
   }
 
   /* Adaptiver Scroll-Button */
@@ -424,10 +386,6 @@ import "../css/darkmode.css";
       font-size: 0.7rem;
     }
 
-    .cookie-settings-link {
-      font-size: 0.68rem;
-    }
-
     .scroll-button a {
       width: 55px;
       font-size: 12px;
@@ -477,15 +435,24 @@ import "../css/darkmode.css";
 </style>
 
 <script>
-  import { revokeConsent } from "../utils/consent.js";
+  // Seit dem Aus für Google Analytics: Reste früherer Besuche aufräumen
+  // (gespeicherte Einwilligung und _ga-Cookies), damit wirklich nichts bleibt.
+  try {
+    localStorage.removeItem('cookie-consent');
+  } catch {}
+  const host = location.hostname;
+  const domains = ['', host, `.${host}`, `.${host.split('.').slice(-2).join('.')}`];
+  document.cookie
+    .split(';')
+    .map((c) => c.split('=')[0].trim())
+    .filter((name) => /^_ga($|_)|^_gid$|^_gat/.test(name))
+    .forEach((name) => {
+      domains.forEach((d) => {
+        document.cookie = `${name}=; Max-Age=0; path=/${d ? `; domain=${d}` : ''}`;
+      });
+    });
 
   document.addEventListener('DOMContentLoaded', () => {
-    const cookieSettings = document.getElementById('cookie-settings');
-    cookieSettings?.addEventListener('click', () => {
-      // Einwilligung zurücknehmen, GA-Cookies löschen, Banner auf der Startseite neu zeigen
-      revokeConsent();
-      window.location.href = '/';
-    });
 
     // Smooth Scroll für den Button
     const scrollButton = document.querySelector('#scroll-action');

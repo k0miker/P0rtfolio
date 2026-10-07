@@ -16,7 +16,6 @@ import Skills from "../components/Skills.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 import ScrollProgress from "../components/ui/ScrollProgress.astro";
-import CookieConsent from "../components/CookieConsent.astro";
 import Versiontoggle from "../components/Versiontoggle.astro";
 import Region from "../components/Region.astro";
 import { SITE_URL, homeGraph } from "../data/seo.js";
@@ -24,19 +23,10 @@ import { SITE_URL, homeGraph } from "../data/seo.js";
 const title = "Webdesign & Webentwicklung in Fürstenau | Colin Blome";
 const description =
   "Websites für Unternehmen in Fürstenau, Bersenbrück und Umgebung: schnell, mobil, gut bei Google auffindbar. Persönliche Beratung vor Ort – jetzt anfragen.";
-
-// Prüfen, ob Cookie-Consent bereits gesetzt wurde
-const hasCookieConsent = false; // Dies wird clientseitig überprüft
 ---
 
 <html class="w-full" lang="de">
   <head>
-    <!-- Sofort ausgeführtes Script für Scroll-Blockierung -->
-    <script is:inline>
-      // Cookie-Consent wird komplett von der CookieConsent-Komponente verwaltet
-      // Kein dupliziertes Scroll-Blocking hier
-    </script>
-
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -124,17 +114,6 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
       title="Performance-Modus wechseln"
     >
     </button>
-
-    <!-- Cookie-Consent-Banner mit Overlay -->
-    <CookieConsent />
-
-    <!-- Script zum Verhindern des Scrollens während das Cookie-Banner angezeigt wird -->
-    <script is:inline>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Cookie-Consent wird vollständig von der CookieConsent-Komponente verwaltet
-        // Kein redundanter Code hier
-      });
-    </script>
 
     <!-- Import Main Script -->
     <script src="../scripts/main.js"></script>
