@@ -132,8 +132,7 @@ const contact = byId.contact;
     background: var(--nav-bg);
     box-shadow: var(--nav-shadow);
     /* Dezenter Blur – Inhalt darunter bleibt erkennbar */
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(8px);
     transition:
       height 0.4s ease,
       background-color 0.4s ease,
@@ -145,7 +144,6 @@ const contact = byId.contact;
     color: var(--text-secondary);
     background: color-mix(in srgb, var(--bg-primary) 75%, transparent);
     backdrop-filter: blur(12px) saturate(1.2);
-    -webkit-backdrop-filter: blur(5px) saturate(1.2);
     /* Akzentlinie unten – gleiche Linie wie oben am Footer; dient mobil als Spur der Fortschrittslinie */
     box-shadow:
       inset 0 -1px 0 color-mix(in srgb, var(--accent) 65%, transparent),
