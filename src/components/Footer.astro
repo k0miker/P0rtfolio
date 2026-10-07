@@ -3,13 +3,13 @@ import "../css/fonts.css";
 import "../css/darkmode.css";
 ---
 
-<footer class="footer" id="page-footer">
+<footer class="footer expanded" id="page-footer">
   <div class="footer-content">
     <!-- Adaptiver Scroll-Button, der sich je nach Position ändert -->
     <div class="scroll-button">
-      <a href="#contact" id="scroll-action" class="scrollbutton">
-        <div id="scroll-text">/down</div>
-        <div id="scroll-icon"><i class="fa-solid fa-arrow-down"></i></div>
+      <a href="#home" id="scroll-action" class="scrollbutton" aria-label="Nach oben">
+        <div id="scroll-text">/up</div>
+        <div id="scroll-icon"><i class="fa-solid fa-arrow-up"></i></div>
       </a>
     </div>
 
@@ -53,7 +53,7 @@ import "../css/darkmode.css";
       
     <!-- Copyright -->
     <div class="copyright footer-item">
-      <p class="text-[mono]">© 2024 Colin Blome</p>
+      <p class="text-[mono]">© {new Date().getFullYear()} Colin Blome</p>
     </div>
       
     <div class="impressum-container footer-item" aria-label="Rechtliches">
@@ -74,23 +74,19 @@ import "../css/darkmode.css";
     color: var(--text-primary);
     padding: 0.75rem 1rem;
     width: 100%;
-    position: fixed;
-    height: 60px;
-    bottom: 0;
-    left: 0;
+    /* Normaler Seiten-Footer statt fester Leiste: nimmt beim Lesen keinen Platz weg */
+    position: relative;
     z-index: 2;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.18);    
   }
   
-  /* Expandierter Footer - bleibt jetzt fixed */
+  /* Footer immer im aufgeklappten Layout */
   .footer.expanded {
-    position: fixed; /* Wichtig: bleibt fixed statt relative */
+    position: relative;
     height: auto;
     padding: 0.75rem 1rem;
     box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.18);
-    /* Setzt den Footer ans Ende vom Viewport ohne den Inhalt zu überlagern */
-    bottom: 0;
     z-index: 10; /* Höherer z-index für bessere Sichtbarkeit */
   }
   
@@ -482,12 +478,6 @@ import "../css/darkmode.css";
 
 <script>
   import { revokeConsent } from "../utils/consent.js";
-  // Extend Window interface to include lastScrollY
-  declare global {
-    interface Window {
-      lastScrollY: number;
-    }
-  }
 
   document.addEventListener('DOMContentLoaded', () => {
     const cookieSettings = document.getElementById('cookie-settings');
@@ -496,125 +486,6 @@ import "../css/darkmode.css";
       revokeConsent();
       window.location.href = '/';
     });
-
-    const footer = document.getElementById('page-footer');
-    const scrollAction = document.getElementById('scroll-action');
-    const scrollText = document.getElementById('scroll-text');
-    const scrollIcon = document.querySelector('#scroll-icon i');
-    let isExpanded = false;
-
-    // Der Footer ist fixed und klappt am Seitenende auf. Damit er dann keinen
-    // Inhalt überdeckt, reserviert der body unten genau die aufgeklappte Höhe
-    // (--footer-expanded-h). Gemessen wird einmalig/bei Resize unsichtbar im
-    // selben Frame – nicht erst beim Aufklappen, sonst würde die wachsende
-    // Seitenhöhe den Footer sofort wieder zuklappen lassen.
-    function measureExpandedHeight() {
-      if (!footer) return;
-      const wasExpanded = footer.classList.contains('expanded');
-      const prevTransition = footer.style.transition;
-      footer.style.transition = 'none';
-      footer.classList.add('expanded');
-      const height = footer.offsetHeight;
-      if (!wasExpanded) footer.classList.remove('expanded');
-      void footer.offsetHeight; // Layout ohne Transition festschreiben
-      footer.style.transition = prevTransition;
-      document.documentElement.style.setProperty('--footer-expanded-h', `${height}px`);
-    }
-    measureExpandedHeight();
-    window.addEventListener('resize', measureExpandedHeight);
-
-    // Funktion zur Anpassung des Scroll-Buttons basierend auf der Scroll-Position
-    function updateScrollButton() {
-      const scrollY = window.scrollY || window.pageYOffset;
-      const windowHeight = window.innerHeight;
-      
-      // Wenn mehr als 30% der Viewport-Höhe gescrollt wurde, zeige "up" statt "down"
-      if (scrollY > windowHeight * 0.3) {
-        scrollAction.setAttribute('href', '#home');
-        scrollText.textContent = '/up';
-        scrollIcon.className = 'fa-solid fa-arrow-up';
-      } else {
-        scrollAction.setAttribute('href', '#contact');
-        scrollText.textContent = '/down';
-        scrollIcon.className = 'fa-solid fa-arrow-down';
-      }
-    }
-    
-    // Funktion zur Überprüfung, ob wir uns am Ende der Seite befinden
-    function checkBottom() {
-      const scrollY = window.scrollY || window.pageYOffset;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const bottomThreshold = 50; // Pixel vom unteren Rand
-      
-      // Berechne, wie viel vom Dokument noch zu scrollen ist
-      const remainingScroll = documentHeight - (scrollY + windowHeight);
-      
-      // Wenn der Benutzer nahe genug am Ende der Seite ist
-      if (remainingScroll <= bottomThreshold) {
-        if (!isExpanded) {
-          footer.classList.remove('collapsing');
-          footer.classList.add('expanded');
-          isExpanded = true;
-          
-          // Wenn der Footer expandiert wird, stelle sicher, dass er sichtbar ist
-          setTimeout(() => {
-            window.scrollTo({
-              top: document.documentElement.scrollHeight,
-              behavior: 'smooth'
-            });
-          }, 50);
-        }
-      } else {
-        // Wenn der Benutzer nicht mehr am Ende ist - schneller Übergang
-        if (isExpanded) {
-          footer.classList.add('collapsing');
-          footer.classList.remove('expanded');
-          setTimeout(() => {
-            footer.classList.remove('collapsing');
-          }, 200);
-          isExpanded = false;
-        }
-      }
-      
-      // Aktualisiere den Button-Status bei diesem Check
-      updateScrollButton();
-    }
-    
-    // Scroll-Event mit verkürztem Debounce für bessere Performance
-    let scrollTimeout: number | null = null;
-    window.addEventListener('scroll', () => {
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-      
-      // Sofortige Prüfung beim Hochscrollen
-      const isScrollingUp = window.lastScrollY > window.scrollY;
-      window.lastScrollY = window.scrollY;
-      
-      if (isScrollingUp && isExpanded) {
-        // Beim Hochscrollen sofort prüfen
-        checkBottom();
-      } else {
-        // Bei normalem Scrollen kleine Verzögerung
-        scrollTimeout = setTimeout(checkBottom, 50) as unknown as number;
-      }
-      
-      // Aktualisiere den Button-Status bei jedem Scroll
-      updateScrollButton();
-    }, { passive: true });
-    
-    // Speichern der letzten Scroll-Position für Richtungserkennung
-    window.lastScrollY = window.scrollY || 0;
-    
-    // Größenänderung überwachen
-    window.addEventListener('resize', checkBottom);
-    
-    // Initial prüfen
-    setTimeout(() => {
-      updateScrollButton();
-      checkBottom();
-    }, 500);
 
     // Smooth Scroll für den Button
     const scrollButton = document.querySelector('#scroll-action');

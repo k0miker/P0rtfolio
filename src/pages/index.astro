@@ -98,11 +98,13 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
       <Projects />
     </div>
     <OtherVersions />
+
+    <!-- Erst überzeugen (Leistungen, Region, FAQ), dann Kontakt -->
+    <Region />
+
     <div id="contact">
       <Contact />
     </div>
-
-    <Region />
 
     <Footer />
 
@@ -189,8 +191,6 @@ const hasCookieConsent = false; // Dies wird clientseitig überprüft
     transition:
       background-color 0.3s ease,
       color 0.3s ease;
-    /* Platz für den aufgeklappten Footer (misst Footer.astro), sonst 80px */
-    padding-bottom: max(80px, var(--footer-expanded-h, 80px));
   }
 
   #about {
