@@ -1,38 +1,22 @@
 ---
 import myself from "../assets/images/Cartoonify.svg";
 import myself3 from "../assets/images/myself.webp";
-// import { age } from "../scripts/age.js";
-
-let date_now = new Date();
-let date_birthday = new Date("1986-04-30");
-let age = date_now.getFullYear() - date_birthday.getFullYear();
-
-// Überprüfe, ob der Geburtstag in diesem Jahr bereits war
-const hasHadBirthdayThisYear =
-  date_now.getMonth() > date_birthday.getMonth() ||
-  (date_now.getMonth() === date_birthday.getMonth() &&
-    date_now.getDate() >= date_birthday.getDate());
-
-// Wenn der Geburtstag noch nicht war, ziehe 1 Jahr ab
-if (!hasHadBirthdayThisYear) {
-  age--;
-}
 ---
 
 <div class="wrap sm:flex-col rounded-lg offscreen relative">
   <h2
     class="py-5 font-[mono] text-4xl text-center offscreen hover:tracking-[.51vw] hover:text-[tomato] text-[var(--text-primary)]"
   >
-    About<span class="animate-ping">_</span>
+    Über mich<span class="animate-ping">_</span>
   </h2>
   <div class="flex flex-col items-center offscreen">
     <div class="foto-swich">
       <img
         src={myself.src}
         class="sm:w-[100%] opacity-100"
-        alt="foto of colin"
+        alt="Colin Blome"
       />
-      <img src={myself3.src} class="sm:w-[100%]" alt="foto of colin" />
+      <img src={myself3.src} class="sm:w-[100%]" alt="Colin Blome" />
     </div>
 
     <div class="content-section">
@@ -45,10 +29,8 @@ if (!hasHadBirthdayThisYear) {
           </div>
           <span class="terminal-title">about.md — colin@webdev</span>
           <div class="lang-buttons">
-            <button type="button" class="lang-btn active" data-lang="en"
-              >EN</button
-            >
-            <button type="button" class="lang-btn" data-lang="de">DE</button>
+            <button type="button" class="lang-btn active" data-lang="de">DE</button>
+            <button type="button" class="lang-btn" data-lang="en">EN</button>
           </div>
         </div>
 
@@ -59,39 +41,43 @@ if (!hasHadBirthdayThisYear) {
             ><span class="punct">$</span> cat about.md
           </p>
 
-          <div class="language-content active" id="content-en">
+          <div class="language-content active" id="content-de">
             <p>
-              Hello! <br />
-              I'm Colin, a {age}-year-old passionate web developer. Since my
-              youth, I've been a true PC nerd with a strong affinity for
-              technology. Besides my work as a web developer, I'm also an avid
-              gamer who loves spending my free time on challenging games.
-              Additionally, I have a special passion for bonsai art, which helps
-              me find calm and balance in my daily life. With my diverse
-              experience and wide-ranging interests, I bring creative and
-              functional solutions to my projects. Whether it's developing a
-              user-friendly website or tackling complex technical challenges –
-              I'm always motivated to achieve the best results and help my
-              clients reach their goals.
+              Moin! Ich bin Colin, Webentwickler aus Fürstenau. Ich baue
+              Websites für Handwerksbetriebe, Gastronomie und mittelständische
+              Unternehmen – schnell, auf dem Handy genauso gut wie am Rechner
+              und so aufgebaut, dass Ihre Kunden Sie bei Google finden.
+            </p>
+            <p>
+              Bei mir haben Sie einen festen Ansprechpartner, von der ersten
+              Idee bis zur laufenden Betreuung: kein Agentur-Overhead, kurze
+              Wege und auf Wunsch ein Termin bei Ihnen vor Ort. Technisch setze
+              ich auf schlanke, moderne Werkzeuge wie Astro – das macht Ihre
+              Seite schnell und wartungsarm.
+            </p>
+            <p>
+              Privat bin ich PC-Nerd, Gamer und pflege meine Bonsais. Geduld und
+              Liebe zum Detail bringe ich also mit.
             </p>
           </div>
 
-          <div class="language-content" id="content-de">
+          <div class="language-content" id="content-en">
             <p>
-              Hallo! <br />
-              Ich bin Colin, ein {age}-jähriger leidenschaftlicher
-              Webentwickler. Seit meiner Jugend bin ich ein echter PC-Nerd mit
-              einer starken Affinität für Technologie. Neben meiner Arbeit als
-              Webentwickler bin ich auch ein begeisterter Gamer und verbringe
-              gerne meine Freizeit mit anspruchsvollen Spielen. Zusätzlich habe
-              ich eine besondere Leidenschaft für die Bonsai-Kunst, die mir
-              hilft, Ruhe und Ausgleich in meinen Alltag zu bringen. Mit meiner
-              vielfältigen Erfahrung und meinen breitgefächerten Interessen
-              bringe ich kreative und funktionale Lösungen in meine Projekte
-              ein. Egal ob es darum geht, eine benutzerfreundliche Webseite zu
-              entwickeln oder komplexe technische Herausforderungen zu lösen –
-              ich bin immer motiviert, die besten Ergebnisse zu erzielen und
-              meinen Kunden zu helfen, ihre Ziele zu erreichen.
+              Hi! I'm Colin, a web developer from Fürstenau, Germany. I build
+              websites for trades, restaurants and small to mid-sized
+              businesses – fast, just as good on a phone as on a desktop, and
+              built so your customers find you on Google.
+            </p>
+            <p>
+              You get one personal point of contact, from the first idea to
+              ongoing support: no agency overhead, short lines of communication
+              and, if you like, a meeting on site. Technically I rely on lean,
+              modern tools like Astro, which keeps your site fast and easy to
+              maintain.
+            </p>
+            <p>
+              In my spare time I'm a PC nerd, a gamer and I look after my bonsai
+              trees – so patience and attention to detail come naturally.
             </p>
           </div>
 
@@ -124,17 +110,17 @@ if (!hasHadBirthdayThisYear) {
             <li>
               <span class="term-arrow">&gt;</span>
               <i class="fa-solid fa-keyboard"></i>
-              <span>Web Developer</span>
+              <span>Webentwicklung</span>
             </li>
             <li>
               <span class="term-arrow">&gt;</span>
               <i class="fa-solid fa-user"></i>
-              <span>UI/UX Enthusiast</span>
+              <span>UI/UX mit Liebe zum Detail</span>
             </li>
             <li>
               <span class="term-arrow">&gt;</span>
               <i class="fa-solid fa-leaf"></i>
-              <span>Bonsai Enthusiast</span>
+              <span>Bonsai-Fan</span>
             </li>
           </ul>
 
@@ -312,10 +298,12 @@ if (!hasHadBirthdayThisYear) {
 
   /* Bio-Output: lesbar, aber im Terminal-Kontext */
   .terminal-body .language-content p {
-    font-family: var(--font-mono);
+    /* Fließtext in Inter statt Mono: deutlich angenehmer zu lesen */
+    font-family: var(--font-body);
     color: var(--term-text);
     line-height: 1.7;
-    /* max-width: 70ch; */
+    max-width: 70ch;
+    margin: 0 0 0.9rem;
     text-align: left;
     padding: 0;
   }
