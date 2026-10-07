@@ -1,20 +1,32 @@
 ---
-import Card from "./ui/Card.astro";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import Modal from "./ui/Modal.astro";
 import { projects } from "../data/projectData.js";
 import "../css/keyframes.css";
 
-// Bilder sind Public-URL-Strings (project.image), keine Imports nötig.
+// Showcase-Bühne: links ein großes Projekt (Desktop im Browser-Rahmen + Handy
+// davor), rechts die Liste aller Projekte. Klick wechselt, sonst läuft die
+// Bühne alle 6 s weiter. Bilder behalten ihr Format – nichts wird beschnitten.
 // Nur Kundenprojekte – die Portfolio-Varianten stehen separat in OtherVersions.astro.
-const filteredProjects = projects.filter(
-  (project) => !!project.image && project.category !== "Portfolio",
-);
+const filteredProjects = projects
+  .filter((project) => !!project.image && project.category !== "Portfolio")
+  .map((project) => {
+    // Handy-Screenshot (z. B. /projects/p14-m.webp) nur, wenn die Datei existiert
+    const mobile = project.image.replace(/\.webp$/, "-m.webp");
+    return {
+      ...project,
+      category: project.category || "Other",
+      mobile: existsSync(join(process.cwd(), "public", mobile)) ? mobile : null,
+      host: project.website ? new URL(project.website).hostname.replace(/^www\./, "") : "",
+    };
+  });
 
 // Extrahiere alle einzigartigen Kategorien
-const categories = [
-  "All",
-  ...new Set(filteredProjects.map((project) => project.category || "Other")),
-];
+const categories = ["All", ...new Set(filteredProjects.map((project) => project.category))];
+
+const pad = (n: number) => String(n).padStart(2, "0");
+const total = pad(filteredProjects.length);
 ---
 
 <section class="projects-wrapper min-h-full mt-9 relative">
@@ -24,34 +36,125 @@ const categories = [
     Projects<span class="animate-ping">_</span>
   </h2>
 
-  <!-- Filter Navigation -->
-  <div class="filter-container">
-    <div class="filter-buttons">
-      {
-        categories.map((category) => (
-          <button class="filter-btn" data-category={category}>
-            {category}
-          </button>
-        ))
-      }
+  <div class="terminal-window projects-terminal offscreen">
+    <div class="terminal-titlebar">
+      <div class="terminal-dots" aria-hidden="true">
+        <span class="dot-red"></span>
+        <span class="dot-yellow"></span>
+        <span class="dot-green"></span>
+      </div>
+      <span class="terminal-title">projects — colin@webdev</span>
     </div>
-  </div>
 
-  {
-    filteredProjects.length === 0 && (
-      <p class="text-center text-red-500">
-        Keine Projekte gefunden. Bitte überprüfe die Bildnamen in
-        projectData.js!
+    <div class="terminal-body">
+      <p class="terminal-cmd">
+        <span class="usr">colin@webdev</span><span class="punct">:</span><span class="pth">~/portfolio</span><span
+          class="punct">$</span
+        > ls projects/ <span class="cmd-filter" data-filter-cmd></span>
       </p>
-    )
-  }
 
-  <div class="projects-container">
-    {
-      filteredProjects.map((project) => (
-        <Card project={project} image={project.image} />
-      ))
-    }
+      <!-- Filter Navigation -->
+      <div class="filter-container">
+        <div class="filter-buttons">
+          {
+            categories.map((category) => (
+              <button class="filter-btn" data-category={category}>
+                {category}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="showcase" data-showcase>
+        <div class="showcase-left">
+          <!-- Bühne: alle Projekte übereinander, nur das aktive ist sichtbar -->
+          <div class="showcase-stack">
+            {
+              filteredProjects.map((project, i) => (
+                <button
+                  type="button"
+                  class:list={["stage", !project.mobile && "stage--solo", i === 0 && "on"]}
+                  data-modal-target={`modal-${project.id}`}
+                  aria-label={`${project.title} – Details`}
+                  tabindex={i === 0 ? 0 : -1}
+                >
+                  <span class="browser">
+                    <span class="browser-bar" aria-hidden="true">
+                      <i /><i /><i />
+                      <span>{project.host}</span>
+                    </span>
+                    <span class="browser-shot">
+                      <img
+                        src={project.image}
+                        alt={`Screenshot ${project.title}`}
+                        width={1600}
+                        height={1000}
+                        loading={i === 0 ? "eager" : "lazy"}
+                        decoding="async"
+                      />
+                    </span>
+                  </span>
+                  {project.mobile && (
+                    <span class="phone">
+                      <img src={project.mobile} alt="" width={780} height={1688} loading="lazy" decoding="async" />
+                    </span>
+                  )}
+                </button>
+              ))
+            }
+          </div>
+
+          <div class="showcase-stack">
+            {
+              filteredProjects.map((project, i) => (
+                <div class:list={["info", i === 0 && "on"]}>
+                  <span class="info-meta">
+                    {pad(i + 1)} / {total} · {project.category}
+                  </span>
+                  <h3 class="info-title">{project.title}</h3>
+                  <p class="info-desc">{project.cardDescriptionEN || project.description}</p>
+                  <ul class="info-tags">
+                    {project.technologies?.map((tech: string) => <li>{tech}</li>)}
+                  </ul>
+                  <div class="info-actions">
+                    <button type="button" class="info-link" data-modal-target={`modal-${project.id}`} tabindex={i === 0 ? 0 : -1}>
+                      Details
+                    </button>
+                    {project.website && (
+                      <a class="info-link" href={project.website} target="_blank" rel="noopener noreferrer" tabindex={i === 0 ? 0 : -1}>
+                        Live Demo ↗
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <ul class="showcase-list" aria-label="Projekte" data-total={`total ${filteredProjects.length}`}>
+          {
+            filteredProjects.map((project, i) => (
+              <li data-category={project.category} class:list={[i === 0 && "on"]}>
+                <button type="button" data-index={i} aria-current={i === 0 ? "true" : undefined}>
+                  <span class="list-n">{pad(i + 1)}</span>
+                  <span class="list-t">{project.title}</span>
+                  <span class="list-c">{project.category}</span>
+                  <i class="list-bar" aria-hidden="true" />
+                </button>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <p class="terminal-cmd terminal-cmd--last">
+        <span class="usr">colin@webdev</span><span class="punct">:</span><span class="pth">~/portfolio</span><span
+          class="punct">$</span
+        > <span class="term-cursor" aria-hidden="true">▌</span>
+      </p>
+    </div>
   </div>
 
   {
@@ -76,22 +179,27 @@ const categories = [
     }
   }
 
+  /* Terminal-Fenster: Basis und Breite aus css/terminal.css (wie Versionen) */
+  .cmd-filter {
+    color: var(--term-path-color);
+  }
+
   /* Filter Styles */
   .filter-container {
     display: flex;
-    justify-content: center;
-    margin-bottom: 2.5rem;
+    justify-content: flex-start;
+    margin-bottom: 2rem;
     position: relative;
-    z-index: 10; /* Erhöhter z-index für bessere Klickbarkeit */
+    z-index: 10;
   }
 
   .filter-buttons {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 0.5rem;
     position: relative;
-    z-index: 11; /* Erhöhter z-index für die Buttons */
+    z-index: 11;
   }
 
   .filter-btn {
@@ -126,130 +234,343 @@ const categories = [
     font-weight: bold;
   }
 
-  .projects-container {
+  /* ===== Showcase ===== */
+  .showcase {
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+    --frame: color-mix(in srgb, var(--text-primary) 10%, var(--bg-primary));
+    --shot-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 14px 36px -14px rgba(0, 0, 0, 0.3);
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 260px;
-    grid-auto-flow: row dense;
-    gap: 1.5rem;
-    max-width: clamp(300px, 90%, 1100px);
-    margin: 0 auto;
+    grid-template-columns: 7fr 4fr;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  .showcase-left {
+    display: grid;
+    gap: 2rem;
+    min-width: 0;
+  }
+
+  /* Alle Einträge im selben Grid-Feld: Höhe = größter Eintrag, kein Springen */
+  .showcase-stack {
+    display: grid;
+  }
+  .showcase-stack > * {
+    grid-area: 1 / 1;
+    opacity: 0;
+    visibility: hidden;
+    translate: 0 12px;
+    transition:
+      opacity 0.5s,
+      visibility 0s 0.5s,
+      translate 0.6s var(--ease);
+  }
+  .showcase-stack > .on {
+    opacity: 1;
+    visibility: visible;
+    translate: 0 0;
+    transition:
+      opacity 0.5s,
+      visibility 0s,
+      translate 0.6s var(--ease);
+  }
+
+  /* Bühne: Desktop im Browser-Rahmen, Handy davor */
+  .stage {
+    all: unset;
+    box-sizing: border-box;
+    display: block;
     position: relative;
-    z-index: 1;
+    padding: 0 6% 8% 0;
+    cursor: pointer;
+  }
+  .stage--solo {
+    padding: 0;
+  }
+  .stage:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 6px;
+    border-radius: 12px;
   }
 
-  /* Bento: gemischte Kachelgrößen für lockeren Rhythmus */
-  .projects-container > :global(.card-wrapper.tile-large) {
-    grid-column: span 2;
-    grid-row: span 2;
+  .browser {
+    display: block;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--frame);
+    box-shadow: var(--shot-shadow);
+    transition: transform 0.5s var(--ease);
   }
-  .projects-container > :global(.card-wrapper.tile-wide) {
-    grid-column: span 2;
-    grid-row: span 1;
+  .browser-bar {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 10px;
   }
-  .projects-container > :global(.card-wrapper.tile-tall) {
-    grid-column: span 1;
-    grid-row: span 2;
+  .browser-bar i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--text-primary) 22%, transparent);
+  }
+  .browser-bar span {
+    margin-left: 8px;
+    font: 0.7rem var(--font-mono);
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .browser-shot {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--text-primary) 6%, var(--bg-primary));
+  }
+  .browser-shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.7s var(--ease);
   }
 
-  /* Gefilterter Zustand: sichtbare Kacheln füllen den Platz gleichmäßig
-     (1 → volle Breite, 2 → 1fr 1fr, usw.). Tile-Spans werden aufgehoben. */
-  .projects-container.is-filtered {
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
-    grid-auto-rows: 22rem;
+  .phone {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 21%;
+    aspect-ratio: 780 / 1688;
+    padding: 5px;
+    border-radius: 22px;
+    background: #1a1a1a;
+    box-shadow: var(--shot-shadow);
+    transition: transform 0.5s var(--ease);
   }
-  .projects-container.is-filtered > :global(.card-wrapper.tile-large),
-  .projects-container.is-filtered > :global(.card-wrapper.tile-wide),
-  .projects-container.is-filtered > :global(.card-wrapper.tile-tall) {
-    grid-column: span 1;
-    grid-row: span 1;
-  }
-
-  /* Genau eine sichtbare Kachel: volle Breite, mind. 2 Reihen hoch */
-  .projects-container.is-filtered.is-single > :global(.card-wrapper) {
-    grid-row: span 2;
-  }
-
-  /* Animiertes Bento: festes 5x5-Flächenraster (immer lückenlos gefüllt).
-     Die Karten werden per JS rotierend auf die benannten Slots verteilt. */
-  @media (min-width: 1024px) {
-    .projects-container.bento-fixed:not(.is-filtered) {
-      grid-template-columns: repeat(5, 1fr);
-      grid-template-rows: repeat(5, 15rem);
-      grid-auto-rows: 15rem;
-      /* grid-template-areas werden per JS dynamisch gesetzt (animiertes Bento) */
-    }
+  .phone img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 17px;
   }
 
-  /* Hover-Spotlight: alle anderen Kacheln abdunkeln, gehoverte leuchtet */
-  :global(.projects-container.has-hover .card-wrapper) {
-    filter: brightness(0.25) saturate(0.3);
+  .stage:hover .browser-shot img {
+    transform: scale(1.02);
   }
-  :global(.projects-container.has-hover .card-wrapper.is-hovered) {
-    filter: brightness(1) saturate(1);
-    z-index: 20;
+  .stage:hover .phone {
+    transform: translateY(-10px) rotate(-2deg);
   }
-  :global(.projects-container.has-hover .card-wrapper.is-hovered .box) {
+
+  /* Text zum aktiven Projekt */
+  .info-meta {
+    font: 0.75rem var(--font-mono);
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .info-title {
+    margin: 0.4rem 0 0.75rem;
+    font-size: clamp(1.5rem, 1.2rem + 1.3vw, 2.3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+  .info-desc {
+    margin: 0 0 1rem;
+    max-width: 58ch;
+    color: var(--text-secondary);
+  }
+  .info-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    list-style: none;
+  }
+  .info-tags li {
+    font: 0.72rem var(--font-mono);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
+  .info-actions {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .info-link {
+    all: unset;
+    cursor: pointer;
+    font: 0.85rem var(--font-mono);
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 1px;
+    transition: color 0.2s;
+  }
+  .info-link:hover {
+    color: var(--accent);
+  }
+  .info-link:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
-    box-shadow:
-      0 0 0 1px var(--accent),
-      0 0 30px color-mix(in srgb, var(--accent) 50%, transparent),
-      0 20px 60px rgba(0, 0, 0, 0.5);
   }
 
-  /* Bei nur ~2 Spalten Platz: große Kacheln auf 2x1 reduzieren */
-  @media (max-width: 1000px) {
-    .projects-container > :global(.card-wrapper.tile-large) {
-      grid-row: span 1;
-    }
+  /* Projektliste als ls-Ausgabe */
+  .showcase-list {
+    position: sticky;
+    top: 90px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
-
-  /* Einspaltig: alle Kacheln auf Standardgröße */
-  @media (max-width: 700px) {
-    .projects-container > :global(.card-wrapper.tile-large),
-    .projects-container > :global(.card-wrapper.tile-wide),
-    .projects-container > :global(.card-wrapper.tile-tall) {
-      grid-column: span 1;
-      grid-row: span 1;
-    }
+  .showcase-list::before {
+    content: attr(data-total);
+    display: block;
+    padding: 0 2px 6px;
+    font: 0.74rem var(--font-mono);
+    color: var(--text-muted);
+    border-bottom: 1px dashed var(--border);
   }
-
-  /* Animation für Karten beim Erscheinen */
-  .projects-container > :global(.card-wrapper) {
+  .showcase-list li[hidden] {
+    display: none;
+  }
+  .showcase-list button {
+    all: unset;
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 26px 1fr auto;
+    gap: 10px;
+    align-items: baseline;
+    padding: 11px 2px 11px 18px;
+    border-bottom: 1px dashed var(--border);
+    cursor: pointer;
+  }
+  /* Zeiger vor dem aktiven Eintrag */
+  .showcase-list button::before {
+    content: "▸";
+    position: absolute;
+    left: 2px;
+    color: var(--accent);
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.6s forwards;
-    animation-delay: calc(var(--order) * 0.1s);
-    /* filter hier mit aufnehmen: diese Regel hat höhere Spezifität als die
-       Basis-Transition in Card.astro und würde sie sonst komplett ersetzen,
-       wodurch das Spotlight-Dimmen instant springt. */
+    transition: opacity 0.2s;
+  }
+  .showcase-list .on button::before {
+    opacity: 1;
+  }
+  .showcase-list button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .list-n {
+    font: 0.74rem var(--font-mono);
+    color: var(--text-muted);
+  }
+  .list-t {
+    font-weight: 600;
+    color: var(--text-primary);
     transition:
-      opacity 0.3s ease,
-      transform 0.3s ease,
-      filter 0.3s ease,
-      box-shadow 0.4s ease;
+      color 0.2s,
+      translate 0.3s var(--ease);
+  }
+  .list-c {
+    font: 0.72rem var(--font-mono);
+    color: var(--text-muted);
+  }
+  .showcase-list button:hover .list-t {
+    translate: 6px 0;
+  }
+  .showcase-list .on .list-t,
+  .showcase-list .on .list-n {
+    color: var(--accent);
   }
 
-  /* Animation für das Einblenden */
-  @keyframes fadeInUp {
+  /* Fortschritt bis zum nächsten Projekt – das Ende der Animation schaltet weiter */
+  .list-bar {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+  }
+  .showcase-list .on .list-bar {
+    animation: showcase-fill 6s linear forwards;
+  }
+  .showcase:hover .list-bar,
+  .showcase:has(:focus-visible) .list-bar,
+  .showcase:not(.in-view) .list-bar {
+    animation-play-state: paused;
+  }
+  @keyframes showcase-fill {
     to {
-      opacity: 1;
-      transform: translateY(0);
+      width: 100%;
     }
   }
 
-  /* Klasse für animierte Karten */
-  :global(.fadeInUp) {
-    animation: fadeInUp 0.6s forwards;
+  /* Schmal: Bühne oben, Liste wird zur wischbaren Chip-Leiste darüber */
+  @media (max-width: 860px) {
+    .showcase {
+      grid-template-columns: 1fr;
+    }
+    .showcase-list::before,
+    .showcase-list button::before {
+      display: none;
+    }
+    .showcase-list {
+      order: -1;
+      position: static;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      border: 0;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .showcase-list::-webkit-scrollbar {
+      display: none;
+    }
+    .showcase-list li {
+      flex: none;
+    }
+    .showcase-list button {
+      grid-template-columns: auto;
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+    }
+    .list-n,
+    .list-c,
+    .list-bar {
+      display: none;
+    }
+    .list-t {
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+    .showcase-list .on button {
+      border-color: var(--accent);
+    }
+  }
+
+  /* Ohne Bewegung: kein Autoplay, keine Übergänge */
+  @media (prefers-reduced-motion: reduce) {
+    .showcase-list .on .list-bar {
+      animation: none;
+    }
+    .showcase-stack > *,
+    .browser-shot img,
+    .phone,
+    .list-t {
+      transition: none;
+    }
   }
 
   @media screen and (max-width: 768px) {
-    .projects-container {
-      grid-template-columns: 1fr;
-      padding: 1rem;
-    }
-
     .filter-container {
       margin-bottom: 1.5rem;
       position: relative;
@@ -266,20 +587,8 @@ const categories = [
       gap: 0.75rem;
       -webkit-overflow-scrolling: touch; /* Für besseres Scrollen auf iOS */
       scrollbar-width: none; /* Firefox */
-      mask-image: linear-gradient(
-        to right,
-        transparent,
-        black 10px,
-        black 90%,
-        transparent
-      );
-      -webkit-mask-image: linear-gradient(
-        to right,
-        transparent,
-        black 10px,
-        black 90%,
-        transparent
-      );
+      mask-image: linear-gradient(to right, transparent, black 10px, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10px, black 90%, transparent);
     }
 
     /* Verstecke Scrollbar bei Webkit-Browsern */
@@ -299,31 +608,6 @@ const categories = [
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
-
-    /* Visuelle Hinweise zum Scrollen */
-    .filter-container::after {
-      content: "";
-      position: absolute;
-      right: 0.5rem;
-      top: 0;
-      height: 100%;
-      width: 30px;
-      background: linear-gradient(to right, transparent, var(--bg-primary) 80%);
-      pointer-events: none;
-      z-index: 13;
-    }
-
-    .filter-container::before {
-      content: "";
-      position: absolute;
-      left: 0.5rem;
-      top: 0;
-      height: 100%;
-      width: 30px;
-      background: linear-gradient(to left, transparent, var(--bg-primary) 80%);
-      pointer-events: none;
-      z-index: 13;
-    }
   }
 
   /* Noch kleinere Bildschirme */
@@ -337,7 +621,6 @@ const categories = [
       padding: 60px 0 40px;
     }
 
-    /* Zentrierte Anordnung der Filter-Buttons bei sehr kleinen Bildschirmen */
     .filter-buttons {
       justify-content: flex-start;
       padding-left: 1rem;
@@ -349,7 +632,7 @@ const categories = [
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     // --- Modal Logic ---
-    let modalTriggers = document.querySelectorAll(".box[data-modal-target]");
+    let modalTriggers = document.querySelectorAll(".projects-wrapper [data-modal-target]");
     let openModal = null;
 
     modalTriggers.forEach(function (trigger) {
@@ -401,15 +684,66 @@ const categories = [
       }
     });
 
+    // --- Showcase ---
+    const showcase = document.querySelector("[data-showcase]") as HTMLElement | null;
+    if (!showcase) return;
+
+    const [stages, infos] = Array.from(showcase.querySelectorAll(".showcase-stack")).map(
+      (stack) => Array.from(stack.children) as HTMLElement[],
+    );
+    const items = Array.from(showcase.querySelectorAll(".showcase-list li")) as HTMLElement[];
+    const list = showcase.querySelector(".showcase-list") as HTMLElement;
+    let current = 0;
+
+    function show(index: number) {
+      current = index;
+      [stages, infos, items].forEach((set) =>
+        set.forEach((el, i) => el.classList.toggle("on", i === index)),
+      );
+      // Nur das sichtbare Projekt ist per Tastatur erreichbar
+      stages.forEach((el, i) => (el.tabIndex = i === index ? 0 : -1));
+      infos.forEach((el, i) =>
+        el.querySelectorAll<HTMLElement>("a, button").forEach((f) => (f.tabIndex = i === index ? 0 : -1)),
+      );
+      items.forEach((el, i) => {
+        const btn = el.querySelector("button")!;
+        if (i === index) btn.setAttribute("aria-current", "true");
+        else btn.removeAttribute("aria-current");
+      });
+      // Fortschrittsbalken neu starten
+      const bar = items[index].querySelector(".list-bar") as HTMLElement;
+      bar.style.animation = "none";
+      void bar.offsetWidth;
+      bar.style.animation = "";
+      // Chip-Leiste (mobil) zum aktiven Projekt scrollen, ohne die Seite zu bewegen
+      const btn = items[index].querySelector("button")!;
+      if (list.scrollWidth > list.clientWidth) {
+        list.scrollTo({ left: btn.offsetLeft - list.clientWidth / 2 + btn.offsetWidth / 2, behavior: "smooth" });
+      }
+    }
+
+    const visible = () => items.map((el, i) => (el.hidden ? -1 : i)).filter((i) => i >= 0);
+
+    list.addEventListener("click", (event) => {
+      const btn = (event.target as Element).closest("button");
+      if (btn) show(Number(btn.dataset.index));
+    });
+
+    // Ende des Fortschrittsbalkens = nächstes sichtbares Projekt
+    list.addEventListener("animationend", () => {
+      const vis = visible();
+      if (vis.length < 2) return;
+      show(vis[(vis.indexOf(current) + 1) % vis.length]);
+    });
+
+    // Autoplay nur, solange die Bühne im Blick ist
+    new IntersectionObserver(([entry]) => showcase.classList.toggle("in-view", entry.isIntersecting), {
+      threshold: 0.3,
+    }).observe(showcase);
+
     // --- Filter Logic ---
     const filterBtns = document.querySelectorAll(".filter-btn");
-    const cards = document.querySelectorAll(".card-wrapper");
-
-    // Setze Animation-Order für jede Karte (setProperty statt setAttribute,
-    // damit andere Inline-Styles wie grid-area nicht überschrieben werden)
-    cards.forEach((card, index) => {
-      (card as HTMLElement).style.setProperty("--order", String(index));
-    });
+    const filterCmd = document.querySelector("[data-filter-cmd]");
 
     function handleFilterClick(event) {
       const btn = event.currentTarget;
@@ -419,50 +753,15 @@ const categories = [
       btn.classList.add("active");
 
       const category = btn.getAttribute("data-category");
-
-      // Gefilterten Zustand am Container markieren (füllt den Platz gleichmäßig)
-      const projectsContainer = document.querySelector(".projects-container");
-      if (projectsContainer) {
-        const visibleCount =
-          category === "All"
-            ? cards.length
-            : Array.from(cards).filter(
-                (c) => c.getAttribute("data-category") === category,
-              ).length;
-        projectsContainer.classList.toggle("is-filtered", category !== "All");
-        // Einzelne Kachel: über volle Breite und mind. 2 Reihen hoch
-        projectsContainer.classList.toggle(
-          "is-single",
-          category !== "All" && visibleCount === 1,
-        );
+      items.forEach((el) => (el.hidden = category !== "All" && el.dataset.category !== category));
+      if (filterCmd) {
+        filterCmd.textContent =
+          category === "All" ? "" : `--category=${category.toLowerCase().replace(/\s+/g, "-")}`;
       }
+      if (list.dataset.total) list.dataset.total = `total ${visible().length}`;
 
-      // Filter-Animation für die Karten
-      cards.forEach((card) => {
-        // Entferne bestehende Animation
-        card.classList.remove("fadeInUp");
-
-        setTimeout(() => {
-          if (
-            category === "All" ||
-            card.getAttribute("data-category") === category
-          ) {
-            (card as HTMLElement).style.display = "block";
-            (card as HTMLElement).style.opacity = "0";
-
-            // Kurze Verzögerung für Animation
-            setTimeout(() => {
-              card.classList.add("fadeInUp");
-              (card as HTMLElement).style.opacity = "1";
-            }, 50);
-          } else {
-            (card as HTMLElement).style.opacity = "0";
-            setTimeout(() => {
-              (card as HTMLElement).style.display = "none";
-            }, 300);
-          }
-        }, 100);
-      });
+      const vis = visible();
+      if (vis.length && !vis.includes(current)) show(vis[0]);
 
       // Zum geklickten Filter scrollen
       setTimeout(scrollToActiveFilter, 200);
@@ -476,14 +775,10 @@ const categories = [
     function scrollToActiveFilter() {
       const activeFilter = document.querySelector(".filter-btn.active");
       if (activeFilter) {
-        const container = document.querySelector(
-          ".filter-buttons",
-        ) as HTMLElement;
+        const container = document.querySelector(".filter-buttons") as HTMLElement;
         if (container) {
           // Scroll zum aktiven Filter mit etwas Abstand links
-          const scrollPos =
-            (activeFilter as HTMLElement).offsetLeft -
-            container.offsetWidth / 4;
+          const scrollPos = (activeFilter as HTMLElement).offsetLeft - container.offsetWidth / 4;
           container.scrollTo({
             left: scrollPos,
             behavior: "smooth",
@@ -492,371 +787,13 @@ const categories = [
       }
     }
 
-    // --- Hover-Spotlight ---
-    const projectsContainer = document.querySelector(".projects-container");
-    document.querySelectorAll(".card-wrapper").forEach((card) => {
-      card.addEventListener("mouseenter", () => {
-        projectsContainer?.classList.add("has-hover");
-        card.classList.add("is-hovered");
-      });
-      card.addEventListener("mouseleave", () => {
-        projectsContainer?.classList.remove("has-hover");
-        card.classList.remove("is-hovered");
-      });
-    });
-
     // Initial den 'All' Button aktivieren
-    const allButton = document.querySelector(
-      '.filter-btn[data-category="All"]',
-    );
+    const allButton = document.querySelector('.filter-btn[data-category="All"]');
     if (allButton) {
       allButton.classList.add("active");
     }
 
     // Initial Scroll zum aktiven Filter
     setTimeout(scrollToActiveFilter, 800);
-  });
-</script>
-
-<script>
-  // ===== Animiertes Bento (Mutations-Engine) =====
-  // Jede Karte hat einen festen Flächen-Namen (p1..p12). Pro Tick wird EIN
-  // zufälliger kleiner Bereich neu aufgeteilt (Domino-Flip, Grenzverschiebung,
-  // 2x2 entsteht/verschwindet). So ändern sich nur wenige Kacheln gleichzeitig,
-  // aber über die Zeit kommt jede dran – und das 5x4-Raster bleibt immer voll.
-  document.addEventListener("DOMContentLoaded", () => {
-    const grid = document.querySelector(
-      ".projects-container",
-    ) as HTMLElement | null;
-    if (!grid) return;
-
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let timer: number | null = null;
-
-    // Anzahl der Karten bestimmt das Raster dynamisch – funktioniert für jede
-    // Projektanzahl. COLS bleibt 5 (Desktop-Look), ROWS wird so gewählt, dass das
-    // Raster die Karten lückenlos aufnimmt und etwas Spielraum für größere Kacheln
-    // bietet (C zwischen N und 2N).
-    const COUNT = grid.querySelectorAll(".card-wrapper").length;
-    const COLS = 5;
-    let ROWS = Math.max(5, Math.ceil((COUNT * 1.4) / COLS));
-    while (COLS * ROWS < COUNT) ROWS++;
-    while (COLS * ROWS > 2 * COUNT && COLS * (ROWS - 1) >= COUNT) ROWS--;
-
-    const adjacent = (a: number[], b: number[]) =>
-      (a[0] === b[0] && Math.abs(a[1] - b[1]) === 1) ||
-      (a[1] === b[1] && Math.abs(a[0] - b[0]) === 1);
-
-    // Erzeugt ein lückenloses Start-Layout aus genau n Regionen (max. 2x2):
-    // ein 2x2-„Hero" oben links (Highlight) + Dominosteine + 1x1-Felder.
-    // Trick: über die Zellen läuft eine Schlangen-Reihenfolge (Boustrophedon),
-    // in der aufeinanderfolgende freie Zellen immer benachbart sind – jede
-    // Paarung ist damit ein gültiger Domino. Gibt null zurück, wenn kein gültiges
-    // Layout möglich ist (dann fällt das Grid auf den statischen Fallback zurück).
-    function genLayout(n: number, cols: number, rows: number) {
-      const C = cols * rows;
-      if (n < 1 || n > C) return null;
-      const occ: boolean[][] = Array.from({ length: rows }, () =>
-        Array(cols).fill(false),
-      );
-      const regs: any[] = [];
-      const excess = C - n;
-      const useHero =
-        rows >= 2 && cols >= 2 && excess >= 3 && n >= 5 && 2 * n - C + 2 >= 0;
-      if (useHero) {
-        regs.push({ c: 0, r: 0, w: 2, h: 2 });
-        [[0, 0], [0, 1], [1, 0], [1, 1]].forEach(([r, c]) => (occ[r][c] = true));
-      }
-
-      const path: number[][] = [];
-      for (let r = 0; r < rows; r++) {
-        if (r % 2 === 0) for (let c = 0; c < cols; c++) path.push([r, c]);
-        else for (let c = cols - 1; c >= 0; c--) path.push([r, c]);
-      }
-
-      // Freie Zellen in zusammenhängende (benachbarte) Segmente aufteilen.
-      const segments: number[][][] = [];
-      let seg: number[][] = [];
-      let prev: number[] | null = null;
-      for (const cell of path) {
-        if (occ[cell[0]][cell[1]]) {
-          if (seg.length) segments.push(seg);
-          seg = [];
-          prev = null;
-          continue;
-        }
-        if (prev && !adjacent(prev, cell)) {
-          if (seg.length) segments.push(seg);
-          seg = [];
-        }
-        seg.push(cell);
-        prev = cell;
-      }
-      if (seg.length) segments.push(seg);
-
-      let dominoes = useHero ? excess - 3 : excess;
-      const capTotal = segments.reduce(
-        (s, sg) => s + Math.floor(sg.length / 2),
-        0,
-      );
-      if (dominoes > capTotal) return null;
-
-      for (const cells of segments) {
-        let d = Math.min(Math.floor(cells.length / 2), dominoes);
-        dominoes -= d;
-        let k = 0;
-        while (k < cells.length) {
-          if (d > 0 && k + 1 < cells.length) {
-            const a = cells[k];
-            const b = cells[k + 1];
-            if (a[0] === b[0])
-              regs.push({ c: Math.min(a[1], b[1]), r: a[0], w: 2, h: 1 });
-            else regs.push({ c: a[1], r: Math.min(a[0], b[0]), w: 1, h: 2 });
-            k += 2;
-            d--;
-          } else {
-            const a = cells[k];
-            regs.push({ c: a[1], r: a[0], w: 1, h: 1 });
-            k++;
-          }
-        }
-      }
-
-      if (regs.length !== n) return null;
-      // Verifikation: jede Zelle genau einmal belegt, ids = 0..n-1
-      const check = Array.from({ length: rows }, () => Array(cols).fill(0));
-      regs.forEach((g, i) => {
-        g.id = i;
-        for (let dr = 0; dr < g.h; dr++)
-          for (let dc = 0; dc < g.w; dc++) check[g.r + dr][g.c + dc]++;
-      });
-      for (let r = 0; r < rows; r++)
-        for (let c = 0; c < cols; c++) if (check[r][c] !== 1) return null;
-      return regs;
-    }
-
-    const INITIAL = genLayout(COUNT, COLS, ROWS);
-    const bentoOk = !!INITIAL;
-    let regions = (INITIAL || []).map((o) => ({ ...o }));
-
-    // Tiling-Vorlagen je Fenster `${w}x${h}:${Regionenzahl}` -> [ [dc,dr,w,h], ... ]
-    const TPL: Record<string, number[][][]> = {
-        "2x2:2": [
-          [[0, 0, 2, 1], [0, 1, 2, 1]],
-          [[0, 0, 1, 2], [1, 0, 1, 2]],
-        ],
-        "2x2:3": [
-          [[0, 0, 2, 1], [0, 1, 1, 1], [1, 1, 1, 1]],
-          [[0, 0, 1, 1], [1, 0, 1, 1], [0, 1, 2, 1]],
-          [[0, 0, 1, 2], [1, 0, 1, 1], [1, 1, 1, 1]],
-          [[0, 0, 1, 1], [0, 1, 1, 1], [1, 0, 1, 2]],
-        ],
-        "3x1:2": [
-          [[0, 0, 1, 1], [1, 0, 2, 1]],
-          [[0, 0, 2, 1], [2, 0, 1, 1]],
-        ],
-        "1x3:2": [
-          [[0, 0, 1, 1], [0, 1, 1, 2]],
-          [[0, 0, 1, 2], [0, 2, 1, 1]],
-        ],
-        "2x3:3": [
-          [[0, 0, 2, 2], [0, 2, 1, 1], [1, 2, 1, 1]],
-          [[0, 0, 1, 1], [1, 0, 1, 1], [0, 1, 2, 2]],
-          [[0, 0, 2, 1], [0, 1, 2, 1], [0, 2, 2, 1]],
-        ],
-        "3x2:3": [
-          [[0, 0, 2, 2], [2, 0, 1, 1], [2, 1, 1, 1]],
-          [[0, 0, 1, 1], [0, 1, 1, 1], [1, 0, 2, 2]],
-          [[0, 0, 1, 2], [1, 0, 1, 2], [2, 0, 1, 2]],
-        ],
-      };
-    const WINDOWS = [
-      [2, 2],
-      [3, 1],
-      [1, 3],
-      [2, 3],
-      [3, 2],
-    ];
-
-    const wrappers = () =>
-      Array.from(grid.querySelectorAll(".card-wrapper")) as HTMLElement[];
-    const isVisible = () => {
-      const r = grid.getBoundingClientRect();
-      return r.bottom > 0 && r.top < window.innerHeight;
-    };
-    const canRun = () =>
-      bentoOk &&
-      mq.matches &&
-      !grid.classList.contains("is-filtered") &&
-      wrappers().length === COUNT;
-
-    // Erlaubte Größen pro Karte aus data-allowed-sizes lesen
-    const allowedSizes: Set<string>[] = wrappers().map((w) => {
-      const raw = w.dataset.allowedSizes || "";
-      if (!raw) return new Set<string>(["1x1", "2x1", "1x2", "2x2"]);
-      return new Set<string>(raw.split("|"));
-    });
-    const isAllowed = (id: number, w: number, h: number) =>
-      !allowedSizes[id] || allowedSizes[id].has(`${w}x${h}`);
-
-    function buildOcc(rs) {
-      const occ = Array.from({ length: ROWS }, () => Array(COLS).fill(-1));
-      rs.forEach((reg) => {
-        for (let dr = 0; dr < reg.h; dr++)
-          for (let dc = 0; dc < reg.w; dc++) occ[reg.r + dr][reg.c + dc] = reg.id;
-      });
-      return occ;
-    }
-    function areasString(rs) {
-      return buildOcc(rs)
-        .map((row) => '"' + row.map((id) => `p${id + 1}`).join(" ") + '"')
-        .join(" ");
-    }
-    function shuffle(a) {
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-    const sig = (rects) => rects.map((t) => t.join(",")).sort().join("|");
-
-    // Fenster prüfen: enthält es nur vollständig innenliegende Regionen?
-    function windowIds(occ, r, c, w, h) {
-      const ids = new Set<number>();
-      for (let dr = 0; dr < h; dr++)
-        for (let dc = 0; dc < w; dc++) ids.add(occ[r + dr][c + dc]);
-      for (const id of ids) {
-        const g = regions[id];
-        if (g.c < c || g.r < r || g.c + g.w > c + w || g.r + g.h > r + h)
-          return null;
-      }
-      return [...ids];
-    }
-
-    function mutate() {
-      const occ = buildOcc(regions);
-      const wins: any[] = [];
-      for (const [w, h] of WINDOWS)
-        for (let r = 0; r + h <= ROWS; r++)
-          for (let c = 0; c + w <= COLS; c++) {
-            const ids = windowIds(occ, r, c, w, h);
-            if (ids) {
-              const key = `${w}x${h}:${ids.length}`;
-              if (TPL[key]) wins.push({ r, c, w, h, ids, key });
-            }
-          }
-      shuffle(wins);
-      for (const win of wins) {
-        const cur = sig(
-          win.ids.map((id) => {
-            const g = regions[id];
-            return [g.c - win.c, g.r - win.r, g.w, g.h];
-          }),
-        );
-        const idsSorted = win.ids
-          .slice()
-          .sort((a, b) => regions[a].r - regions[b].r || regions[a].c - regions[b].c);
-        const alts = TPL[win.key].filter((t) => {
-          if (sig(t) === cur) return false;
-          const tplS = t.slice().sort((a, b) => a[1] - b[1] || a[0] - b[0]);
-          return idsSorted.every((id, k) => isAllowed(id, tplS[k][2], tplS[k][3]));
-        });
-        if (!alts.length) continue;
-        const tpl = alts[Math.floor(Math.random() * alts.length)];
-        const tplSorted = tpl.slice().sort((a, b) => a[1] - b[1] || a[0] - b[0]);
-        idsSorted.forEach((id, k) => {
-          const [dc, dr, w, h] = tplSorted[k];
-          regions[id] = { id, c: win.c + dc, r: win.r + dr, w, h };
-        });
-        return true;
-      }
-      return false;
-    }
-
-    function setNames() {
-      wrappers().forEach((w, i) => {
-        w.style.gridArea = `p${i + 1}`;
-      });
-    }
-
-    function render(animate: boolean) {
-      const ws = wrappers();
-      const firsts = animate ? ws.map((w) => w.getBoundingClientRect()) : null;
-      grid.style.gridTemplateAreas = areasString(regions);
-      if (animate && firsts && !reduce.matches) {
-        ws.forEach((w, i) => {
-          const last = w.getBoundingClientRect();
-          const f = firsts[i];
-          const dx = f.left - last.left;
-          const dy = f.top - last.top;
-          const sx = last.width ? f.width / last.width : 1;
-          const sy = last.height ? f.height / last.height : 1;
-          if (
-            Math.abs(dx) < 1 &&
-            Math.abs(dy) < 1 &&
-            Math.abs(sx - 1) < 0.01 &&
-            Math.abs(sy - 1) < 0.01
-          )
-            return;
-          w.animate(
-            [
-              {
-                transformOrigin: "top left",
-                transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`,
-              },
-              { transformOrigin: "top left", transform: "none" },
-            ],
-            { duration: 700, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
-          );
-        });
-      }
-    }
-
-    function startTimer() {
-      stopTimer();
-      if (reduce.matches) return;
-      timer = window.setInterval(() => {
-        if (!canRun() || !isVisible()) return;
-        if (mutate()) render(true);
-      }, 4000);
-    }
-    function stopTimer() {
-      if (timer) {
-        clearInterval(timer);
-        timer = null;
-      }
-    }
-
-    function refresh() {
-      if (canRun()) {
-        grid.classList.add("bento-fixed");
-        grid.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
-        grid.style.gridTemplateRows = `repeat(${ROWS}, 15rem)`;
-        setNames();
-        render(false);
-        startTimer();
-      } else {
-        grid.classList.remove("bento-fixed");
-        grid.style.gridTemplateAreas = "";
-        grid.style.gridTemplateColumns = "";
-        grid.style.gridTemplateRows = "";
-        wrappers().forEach((w) => {
-          w.style.gridArea = "";
-        });
-        stopTimer();
-      }
-    }
-
-    mq.addEventListener("change", refresh);
-    window.addEventListener("resize", () => {
-      if (grid.classList.contains("bento-fixed")) render(false);
-    });
-    document.querySelectorAll(".filter-btn").forEach((btn) => {
-      btn.addEventListener("click", () => setTimeout(refresh, 400));
-    });
-
-    refresh();
   });
 </script>
