@@ -267,14 +267,6 @@
 /* Dark Mode-Anpassungen für spezifische Komponenten */
 
 
-.dark-mode .skill-name {
-  color: var(--text-secondary);
-}
-
-.dark-mode .skill-level {
-  box-shadow: 0 0 0px 0px #111;
-}
-
 .dark-mode .icon-wrapper i {
   color: var(--text-secondary);
 }

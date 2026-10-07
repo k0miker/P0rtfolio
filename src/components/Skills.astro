@@ -4,26 +4,14 @@ import "../css/fontawesome/css/all.min.css";
 import CV from "../assets/doc/ColinBlome-WebDev-CV.pdf";
 import skillsBg from "../assets/images/skills.webp";
 
-const skills = [
-  { name: "HTML", level: 85 },
-  { name: "CSS", level: 76 },
-  { name: "React", level: 74 },
-  { name: "JavaScript", level: 70 },
-  { name: "TypeScript", level: 40 },
-  { name: "Astro", level: 83 },
-  { name: "React Native", level: 65 },
-  { name: "Tailwind", level: 72 },
-  { name: "Node.js", level: 65 },
-  { name: "Express.js", level: 62 },
-  { name: "MongoDB", level: 68 },
-  { name: "Figma", level: 80 },
-  { name: "GitHub", level: 75 },
-  { name: "SCSS", level: 50 },
-  { name: "NoSQL", level: 68 },
-  { name: "SQL", level: 65 },
-  { name: "Server", level: 55 },
-  { name: "Windows", level: 80 },
-  { name: "Linux", level: 75 },
+// Nach Bereichen statt mit Prozentwerten – „React 74 %“ sagt Kunden nichts.
+const skillGroups = [
+  { area: "frontend", items: ["HTML", "CSS / SCSS", "JavaScript", "TypeScript", "Astro", "React", "Tailwind"] },
+  { area: "backend", items: ["Node.js", "Express.js", "PHP"] },
+  { area: "daten", items: ["SQL", "MongoDB"] },
+  { area: "mobile", items: ["React Native"] },
+  { area: "design", items: ["Figma", "Responsive Design", "UI/UX"] },
+  { area: "betrieb", items: ["SEO & Local SEO", "Linux-Server", "Git / GitHub", "Hosting & Deployment"] },
 ];
 
 const stack = [
@@ -33,10 +21,9 @@ const stack = [
   { icon: "fa-brands fa-js", label: "JavaScript" },
   { icon: "fa-brands fa-sass", label: "Sass" },
   { icon: "fa-brands fa-linux", label: "Linux" },
-  { icon: "fa-brands fa-windows", label: "Windows" },
-  { icon: "fa-brands fa-github", label: "Github" },
+  { icon: "fa-brands fa-github", label: "GitHub" },
   { icon: "fa-brands fa-node", label: "Node.js" },
-  { icon: "fa-solid fa-database", label: "Database" },
+  { icon: "fa-solid fa-database", label: "Datenbanken" },
   { icon: "fa-solid fa-server", label: "Server" },
   { icon: "fa-brands fa-figma", label: "Figma" },
   { icon: "fa-brands fa-android", label: "Android" },
@@ -67,26 +54,18 @@ const stack = [
         ><span class="punct">$</span> ./skills --list
       </p>
 
-      <div class="skill-list">
+      <dl class="skill-groups">
         {
-          skills.map((s) => (
-            <div class="skill">
-              <span class="skill-name">{s.name}</span>
-              <div
-                class="skill-level"
-                role="progressbar"
-                aria-valuenow={s.level}
-                aria-valuemin="0"
-                aria-valuemax="100"
-                aria-label={`${s.name}: ${s.level}%`}
-              >
-                <div style={`width: ${s.level}%`} class="skill-percent" />
-              </div>
-              {/* <span class="skill-val">{s.level}%</span> */}
+          skillGroups.map((group) => (
+            <div class="skill-group">
+              <dt class="skill-area">{group.area}/</dt>
+              <dd class="skill-items">
+                {group.items.map((item) => <span>{item}</span>)}
+              </dd>
             </div>
           ))
         }
-      </div>
+      </dl>
 
       <p class="terminal-cmd terminal-cmd--stack">
         <span class="usr">colin@webdev</span><span class="punct">:</span><span
@@ -143,82 +122,49 @@ const stack = [
   }
 
   /* ===== skills --list ===== */
-  .skill-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
+  /* Ausgabe wie ein Verzeichnis-Listing: Bereich links, Inhalte rechts */
+  .skill-groups {
+    display: grid;
+    gap: 0.35rem;
     margin: 0.4rem 0 0;
   }
 
-  .skill {
-    display: flex;
-    align-items: center;
+  .skill-group {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
     gap: 0.85rem;
-    /* padding: 0.3rem 0.5rem; */
+    align-items: baseline;
+    padding: 0.35rem 0.5rem;
     border-radius: 6px;
     transition: background-color 0.25s ease;
   }
-  .skill:hover {
+  .skill-group:hover {
     background: var(--term-hover-bg);
   }
 
-  .skill-name {
-    flex: 0 0 7.5rem;
+  .skill-area {
+    color: var(--term-path-color);
+    font-family: var(--font-mono);
+    font-size: clamp(0.8rem, 0.75rem + 0.15vw, 0.9rem);
+    transition: color 0.25s ease;
+  }
+  .skill-group:hover .skill-area {
+    color: var(--accent);
+  }
+
+  .skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0;
+    margin: 0;
     color: var(--term-text);
     font-family: var(--font-mono);
     font-size: clamp(0.8rem, 0.75rem + 0.15vw, 0.9rem);
-    white-space: nowrap;
-    transition: color 0.25s ease;
-    width: fit-content;
   }
-  .skill:hover .skill-name {
-    color: var(--accent);
-  }
-
-  .skill-level {
-    position: relative;
-    flex: 1;
-    min-width: 80px;
-    height: 14px;
-    background: var(--term-track-bg);
-    border: 1px solid var(--term-input-border);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-
-  .skill-percent {
-    position: absolute;
-    inset: 0 auto 0 0;
-    height: 100%;
-    border-radius: 3px;
-    background: linear-gradient(90deg, #ff7a5c, var(--accent));
-    opacity: 0;
-    transition:
-      opacity 0.5s ease,
-      width 0.8s ease;
-  }
-  .animate .skill-percent {
-    opacity: 1;
-  }
-
-  .skill-val {
-    flex: 0 0 auto;
-    min-width: 3.4ch;
-    text-align: right;
+  .skill-items span:not(:last-child)::after {
+    content: "·";
+    margin: 0 0.6rem;
     color: var(--term-path-color);
-    font-family: var(--font-mono);
-    font-size: 0.85em;
-    transition: color 0.25s ease;
-  }
-  .skill:hover .skill-val {
-    color: var(--accent);
-  }
-
-  /* Low-Performance-Modus: Balken sofort sichtbar, keine Animation */
-  [data-performance="low"] .skill-percent {
-    opacity: 1;
-    animation: none !important;
-    transition: none !important;
   }
 
   /* ===== skills --stack (Icon-Grid) ===== */
@@ -333,8 +279,12 @@ const stack = [
     .skills-terminal {
       width: 100%;
     }
-    .skill-name {
-      flex-basis: 5.75rem;
+    .skill-group {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+    .skill-area,
+    .skill-items {
       font-size: 0.75rem;
     }
     .icon-wrapper i {
@@ -354,35 +304,8 @@ const stack = [
 
   document.addEventListener("DOMContentLoaded", () => {
     const skillsSection = document.getElementById("skills");
-    const skillPercents = document.querySelectorAll(".skill-percent");
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Im Low-Performance-Modus keine "animate"-Klasse hinzufügen
-          const isLowPerformance = document.documentElement.getAttribute('data-performance') === 'low';
-
-          if (!isLowPerformance) {
-            entry.target.classList.add("animate");
-
-            skillPercents.forEach((skillBar, index) => {
-              (skillBar as HTMLElement).style.transitionDelay = `${index * 0.1}s`;
-            });
-          } else {
-            // Im Low-Performance-Modus nur Opacity setzen, keine Animationen
-            skillPercents.forEach((skillBar) => {
-              (skillBar as HTMLElement).style.opacity = '1';
-            });
-          }
-        } else {
-          entry.target.classList.remove("animate");
-        }
-      });
-    }, { threshold: 0.1 });
 
     if (skillsSection) {
-      observer.observe(skillsSection);
-
       // Original-Hintergrund speichern
       if (!skillsSection.hasAttribute('data-original-background')) {
         const computedStyle = window.getComputedStyle(skillsSection);
@@ -424,24 +347,12 @@ const stack = [
             // Animation deaktivieren, Hintergrund behalten
             skillsSection.style.backgroundAttachment = 'scroll';
             skillsSection.classList.add('static-background');
-            skillsSection.classList.remove('animate'); // Animate-Klasse entfernen
           } else {
             // Normale Darstellung wiederherstellen
             skillsSection.style.backgroundAttachment = '';
             skillsSection.classList.remove('static-background');
-            // animate-Klasse wieder hinzufügen wenn sichtbar
-            if (skillsSection.getBoundingClientRect().top < window.innerHeight) {
-              skillsSection.classList.add('animate');
-            }
           }
         });
-
-        // Initialen Performance-Modus beachten
-        if (performanceMonitor && performanceMonitor.lowPerformanceMode) {
-          skillPercents.forEach((skillBar) => {
-            (skillBar as HTMLElement).style.opacity = '1';
-          });
-        }
       }
     }
   });
