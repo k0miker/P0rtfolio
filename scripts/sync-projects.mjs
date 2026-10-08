@@ -38,10 +38,12 @@ const STRATO_FILES = ["scripts/deploy.mjs", ".github/workflows/deploy.yml", "pub
 // Sie liefert die Dateien aus, die alle Versionen über absolute Pfade nutzen:
 // Kontaktformular (/kontakt.php), Projektbilder und -videos.
 const ROOT_HOST = "../P0rtfolio5";
-// Kontaktformular: gepflegt hier, ausgeliefert vom ROOT_HOST. Kopien in anderen Repos werden entfernt.
+// Kontaktformular: gepflegt hier in webroot/ (nicht public/, sonst läge es zusätzlich unter /v1/),
+// ausgeliefert vom ROOT_HOST. Kopien in anderen Repos werden entfernt.
 const MAIN_ONLY = ["public/kontakt.php", "public/kontakt.js"];
+const mainOnlySource = (p) => join(ROOT, p.replace(/^public\//, "webroot/"));
 const SYNC_PATHS = ["src/data/projectData.js", "public/projects", "public/llms.txt", "public/llms-full.txt", ...STRATO_FILES, ...MAIN_ONLY];
-const MAIN_PATHS = ["src/data/projectData.js", "src/data/llms.js", "src/data/seo.js", "public/projects", ...STRATO_FILES, ...MAIN_ONLY];
+const MAIN_PATHS = ["src/data/projectData.js", "src/data/llms.js", "src/data/seo.js", "public/projects", "webroot", ...STRATO_FILES];
 const repos = [[ROOT, ".", MAIN_PATHS]]; // [Pfad, Anzeigename, zu committende Pfade]
 
 const SOURCE_DATA = join(ROOT, "src/data/projectData.js");
@@ -119,7 +121,7 @@ for (const rel of TARGETS) {
 
   for (const p of STRATO_FILES) if (syncFile(join(ROOT, p), join(target, p))) changed.push(p);
   for (const p of MAIN_ONLY) {
-    if (isRootHost ? syncFile(join(ROOT, p), join(target, p)) : removeFile(join(target, p))) {
+    if (isRootHost ? syncFile(mainOnlySource(p), join(target, p)) : removeFile(join(target, p))) {
       changed.push(isRootHost ? p : `${p} (entfernt)`);
     }
   }

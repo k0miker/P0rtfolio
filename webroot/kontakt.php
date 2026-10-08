@@ -2,7 +2,7 @@
 /**
  * Kontaktformular-Versand für alle Portfolios auf STRATO.
  * ⚠ Wird per `npm run sync:projects` aus dem Haupt-Portfolio in alle Portfolios
- * kopiert – nur dort (P0rtfolio/public/kontakt.php) bearbeiten!
+ * kopiert – nur dort (P0rtfolio/webroot/kontakt.php) bearbeiten!
  *
  * Datensparsam: Die Anfrage wird ausschließlich per E-Mail weitergeleitet und
  * NICHT auf dem Server gespeichert. Keine Cookies, keine Sessions, kein Captcha-Dienst.

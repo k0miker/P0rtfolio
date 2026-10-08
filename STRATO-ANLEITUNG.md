@@ -88,7 +88,7 @@ per `npm run sync:projects` aus diesem Repo verteilt – nur hier bearbeiten:
 - `scripts/deploy.mjs` – SFTP-Upload; Zielordner = `/portfolio` + `base` aus astro.config.mjs
 - `.github/workflows/deploy.yml` – Action bei Push auf main/master
 - `public/.htaccess` – HTTPS, www-Umleitung, Sicherheits-Header (CSP), Caching
-- `public/kontakt.php` + `public/kontakt.js` – hier gepflegt, per Sync nur nach **P0rtfolio5**
+- `webroot/kontakt.php` + `webroot/kontakt.js` – hier gepflegt (nicht in public/), per Sync nur nach **P0rtfolio5**
   kopiert (liegt im Webroot → `/kontakt.php`); alle Versionen senden dorthin. Spam-Schutz ohne
   Captcha, Versand per Mail an info@, danach zurück auf die Ursprungsseite.
   Der Schlüssel liegt in `/portfolio-private/` außerhalb des Webroots.

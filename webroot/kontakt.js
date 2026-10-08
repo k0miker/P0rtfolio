@@ -1,7 +1,7 @@
 // =============================================================================
 // Kontaktformular-Helfer für alle Portfolios (gehört zu /kontakt.php).
 // ⚠ Wird per `npm run sync:projects` aus dem Haupt-Portfolio in alle Portfolios
-// kopiert – nur dort (P0rtfolio/public/kontakt.js) bearbeiten!
+// kopiert – nur dort (P0rtfolio/webroot/kontakt.js) bearbeiten!
 //
 // Einbinden: <form data-kontakt action="/kontakt.php" method="POST"> … </form>
 //            <script is:inline src="/kontakt.js" defer></script>

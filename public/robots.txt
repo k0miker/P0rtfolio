@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.cb-webdevelopment.de/sitemap.xml
+# Design-Variante (/v1/): Seiten tragen "noindex" und dürfen gecrawlt werden,
+# damit Suchmaschinen das noindex überhaupt sehen. Sitemap liefert die Hauptseite.
