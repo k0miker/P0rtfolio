@@ -1,5 +1,6 @@
 ---
 import logo from "../assets/images/logo.webp";
+import { withBase } from "../utils/withBase.js";
 import { projects } from "../data/projectData.js";
 import { navSections } from "../data/navSections.js";
 
@@ -82,7 +83,7 @@ const contact = byId.contact;
                   clientProjects.map((p) => (
                     <li>
                       <a class="panel-item" href={p.website} target="_blank" rel="noopener noreferrer">
-                        <img src={p.image} alt="" width="64" height="40" loading="lazy" decoding="async" />
+                        <img src={withBase(p.image)} alt="" width="64" height="40" loading="lazy" decoding="async" />
                         <span class="panel-text">
                           <span class="panel-title">{p.title}</span>
                           {p.category && <span class="panel-cat">{p.category}</span>}

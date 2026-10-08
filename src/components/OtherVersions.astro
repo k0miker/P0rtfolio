@@ -4,13 +4,14 @@
 // Desktop: Ziehharmonika – die Version unter Maus/Fokus klappt auf.
 // Touch & schmal: kompakte Liste.
 import { projects } from "../data/projectData.js";
+import { withBase } from "../utils/withBase.js";
 
 // Kurzlabels wie im Versionstoggle
 const LABELS = { v1: "Classic", v2: "Story", v3: "Motion", terminal: "Codespace", v5: "Modernist", b2b: "Seriös" };
 
 const versions = projects
   .filter((p) => p.category === "Portfolio" && !p.isCurrent)
-  .map((p) => ({ ...p, label: LABELS[p.key] ?? "" }));
+  .map((p) => ({ ...p, image: withBase(p.image), label: LABELS[p.key] ?? "" }));
 ---
 
 {versions.length > 0 && (

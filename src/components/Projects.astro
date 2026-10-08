@@ -3,6 +3,7 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import Modal from "./ui/Modal.astro";
 import { projects } from "../data/projectData.js";
+import { withBase } from "../utils/withBase.js";
 import "../css/keyframes.css";
 
 // Showcase-Bühne: links ein großes Projekt (Desktop im Browser-Rahmen + Handy
@@ -16,8 +17,9 @@ const filteredProjects = projects
     const mobile = project.image.replace(/\.webp$/, "-m.webp");
     return {
       ...project,
+      image: withBase(project.image),
       category: project.category || "Other",
-      mobile: existsSync(join(process.cwd(), "public", mobile)) ? mobile : null,
+      mobile: existsSync(join(process.cwd(), "public", mobile)) ? withBase(mobile) : null,
       host: project.website ? new URL(project.website).hostname.replace(/^www\./, "") : "",
     };
   });
