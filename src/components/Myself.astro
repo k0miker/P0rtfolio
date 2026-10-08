@@ -1,5 +1,4 @@
 ---
-import myself from "../assets/images/Cartoonify.svg";
 import myself3 from "../assets/images/myself.webp";
 ---
 
@@ -10,13 +9,8 @@ import myself3 from "../assets/images/myself.webp";
     Über mich<span class="animate-ping">_</span>
   </h2>
   <div class="flex flex-col items-center offscreen">
-    <div class="foto-swich">
-      <img
-        src={myself.src}
-        class="sm:w-[100%] opacity-100"
-        alt="Colin Blome"
-      />
-      <img src={myself3.src} class="sm:w-[100%]" alt="Colin Blome" />
+    <div class="foto">
+      <img src={myself3.src} alt="Colin Blome" />
     </div>
 
     <div class="content-section">
@@ -189,7 +183,7 @@ import myself3 from "../assets/images/myself.webp";
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--text-titel);
+    color: var(--text-primary);
   }
 
   p {
@@ -395,34 +389,16 @@ import myself3 from "../assets/images/myself.webp";
     transform: scale(1.1);
   }
 
-  .foto-swich {
+  .foto {
     display: flex;
     justify-content: center;
-    width: 200px;
-    border-radius: 0px;
     margin-bottom: 2rem;
   }
 
-  .foto-swich img {
-    width: 200px;
-    transition: 0.5s;
-  }
-
-  .foto-swich:hover img:nth-of-type(2) {
+  .foto img {
+    width: min(280px, 70vw);
+    max-width: none;
     opacity: 1;
-  }
-
-  .foto-swich:hover img:nth-of-type(1) {
-    opacity: 0;
-  }
-
-  .foto-swich img:nth-of-type(2) {
-    transform: translateX(-50%);
-    opacity: 0;
-  }
-
-  .foto-swich img:nth-of-type(1) {
-    transform: translateX(50%);
   }
 
   @media (min-width: 1280px) {
