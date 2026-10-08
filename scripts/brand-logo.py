@@ -218,4 +218,108 @@ T = max(mw, mh) * 1.06
 body = (f'<rect width="{T:.2f}" height="{T:.2f}" rx="{T*0.22:.2f}" fill="{INK}"/>'
         f'<g transform="translate({(T-mw)/2 - b[0]:.2f} {(T-mh)/2 - b[1]:.2f})">{mark_group(parts, ORANGE)}</g>')
 (OUT / "favicon.svg").write_text(svg(T, T, body, "CB Webdevelopment"), encoding="utf-8")
-print("ok", list(OUT.iterdir()))
+
+
+# ================================================================ Einzeilige Wortmarke „cbwebdevelopment“
+def vbounds(ch, w, size):
+    f = F[w]; gs = f.getGlyphSet(); g = f.getBestCmap()[ord(ch)]
+    bp = BoundsPen(gs); gs[g].draw(bp)
+    return bp.bounds[1] * size / 1000, bp.bounds[3] * size / 1000  # unten, oben (über Grundlinie positiv)
+
+
+def wordmark(x, base, size, color, bold_color=None):
+    """„cb“ fett + „webdevelopment“ regular. Rückgabe: (svg, rechte Kante)."""
+    a, _ = ink_bounds("cb", 800, size)
+    d1, w1 = text_path("cb", 800, size, x - a, base)
+    d2, w2 = text_path("webdevelopment", 400, size, x - a + w1 + size * 0.005, base)
+    _, r = ink_bounds("webdevelopment", 400, size)
+    return (f'<path fill="{bold_color or color}" d="{d1}"/><path fill="{color}" d="{d2}"/>',
+            x - a + w1 + size * 0.005 + r)
+
+
+_uid = [0]
+
+
+def cb_mark(size, ox, oy, c_color, b_color):
+    """Monogramm „CB“ mit diagonalem Schnitt (greift den / aus </> auf). oy = Grundlinie."""
+    _uid[0] += 1
+    mid_id = f"cbcut{_uid[0]}"
+    capH = size * 0.686
+    dc, bc = glyph("C", 900, size, 0, oy)
+    dc, bc = glyph("C", 900, size, ox - bc[0], oy)
+    stem = size * 0.17
+    db, bb = glyph("B", 900, size, 0, oy)
+    shift = bc[2] - stem * 0.55 - bb[0]
+    db, bb = glyph("B", 900, size, shift, oy)
+    # Schnitt: Parallelogramm, unten links → oben rechts
+    xj = (bc[2] + bb[0]) / 2
+    g = stem * 0.6
+    sl = capH * 0.42
+    y0, y1 = oy + size * 0.05, oy - capH - size * 0.05
+    poly = (f"{xj - sl/2 - g/2:.2f},{y0:.2f} {xj - sl/2 + g/2:.2f},{y0:.2f} "
+            f"{xj + sl/2 + g/2:.2f},{y1:.2f} {xj + sl/2 - g/2:.2f},{y1:.2f}")
+    # Die Teile links/rechts der Schnittlinie getrennt einfärben: C-Seite und B-Seite
+    left = (f"{bc[0]-10:.2f},{y0+10:.2f} {xj - sl/2:.2f},{y0+10:.2f} {xj + sl/2:.2f},{y1-10:.2f} {bc[0]-10:.2f},{y1-10:.2f}")
+    right = (f"{xj - sl/2:.2f},{y0+10:.2f} {bb[2]+10:.2f},{y0+10:.2f} {bb[2]+10:.2f},{y1-10:.2f} {xj + sl/2:.2f},{y1-10:.2f}")
+    body = (f'<defs><mask id="{mid_id}" maskUnits="userSpaceOnUse" x="{bc[0]-20:.2f}" y="{y1-20:.2f}" '
+            f'width="{bb[2]-bc[0]+40:.2f}" height="{y0-y1+40:.2f}">'
+            f'<rect x="{bc[0]-20:.2f}" y="{y1-20:.2f}" width="{bb[2]-bc[0]+40:.2f}" height="{y0-y1+40:.2f}" fill="#fff"/>'
+            f'<polygon points="{poly}" fill="#000"/></mask>'
+            f'<clipPath id="{mid_id}l"><polygon points="{left}"/></clipPath>'
+            f'<clipPath id="{mid_id}r"><polygon points="{right}"/></clipPath></defs>'
+            f'<g mask="url(#{mid_id})">'
+            f'<g clip-path="url(#{mid_id}l)" fill="{c_color}"><path d="{dc}"/><path d="{db}"/></g>'
+            f'<g clip-path="url(#{mid_id}r)" fill="{b_color}"><path d="{dc}"/><path d="{db}"/></g></g>')
+    return body, (bc[0], oy - capH, bb[2], oy)
+
+
+def line_logo(kind, text_color, c_color):
+    """kind = 'tag' (<c/b>) oder 'cb' (Monogramm). Gibt (body, breite, höhe) zurück."""
+    s = 100.0
+    lo, hi = vbounds("p", 400, s)[0], vbounds("b", 800, s)[1]  # Unterlänge, Oberlänge
+    pad = s * 0.18
+    base = pad + hi
+    text_mid = base - (hi * 0.5)  # optische Mitte: zwischen Grundlinie und Oberlänge
+    if kind == "tag":
+        mparts, mb, _ = mark(size=s * 1.25)
+        mh = mb[3] - mb[1]
+        my = text_mid - (mb[1] + mh / 2)
+        mx = pad - mb[0]
+        body = f'<g transform="translate({mx:.2f} {my:.2f})">{mark_group(mparts, ORANGE)}</g>'
+        right = mx + mb[2]
+        top, bottom = my + mb[1], my + mb[3]
+    else:
+        size = s * 1.3
+        capH = size * 0.686
+        mbase = text_mid + capH / 2
+        body, bb = cb_mark(size, pad, mbase, c_color, ORANGE)
+        right = bb[2]
+        top, bottom = bb[1], bb[3]
+    wm, wr = wordmark(right + s * 0.38, base, s, text_color)
+    y_top = min(top, base - hi) - pad
+    y_bot = max(bottom, base - lo) + pad
+    body = f'<g transform="translate(0 {-y_top:.2f})">{body}{wm}</g>'
+    return body, wr + pad, y_bot - y_top
+
+
+for kind, nm in (("tag", "logo-line"), ("cb", "logo-cb-line")):
+    for suffix, tc, cc in (("", INK, INK), ("-dark", PAPER, PAPER)):
+        b, w, h = line_logo(kind, tc, cc)
+        (OUT / f"{nm}{suffix}.svg").write_text(svg(w, h, b, "cbwebdevelopment"), encoding="utf-8")
+
+# Monogramm allein (für Favicon/Profilbild)
+for suffix, cc, bg in (("", INK, None), ("-tile", PAPER, INK)):
+    body, bb = cb_mark(100, 0, 0, cc, ORANGE)
+    w, h = bb[2] - bb[0], bb[3] - bb[1]
+    if bg:
+        T = max(w, h) * 1.45
+        body = (f'<rect width="{T:.2f}" height="{T:.2f}" rx="{T*0.22:.2f}" fill="{bg}"/>'
+                f'<g transform="translate({(T-w)/2 - bb[0]:.2f} {(T-h)/2 - bb[1]:.2f})">{body}</g>')
+        w = h = T
+    else:
+        p = 6
+        body = f'<g transform="translate({p - bb[0]:.2f} {p - bb[1]:.2f})">{body}</g>'
+        w, h = w + 2 * p, h + 2 * p
+    (OUT / f"mark-cb{suffix}.svg").write_text(svg(w, h, body, "CB"), encoding="utf-8")
+
+print("ok", sorted(p.name for p in OUT.iterdir()))
