@@ -660,7 +660,7 @@ const contact = byId.contact;
     }
   }
 
-  /* ---------- Logo (Markenzeichen, aus der alten Nav übernommen) ---------- */
+  /* ---------- Logo (Markenzeichen, aus der alten Nav übernommen; bewusst Tomato statt --accent) ---------- */
   .logo {
     width: 45px;
     translate: 0 5px;
@@ -669,7 +669,7 @@ const contact = byId.contact;
 
   .name {
     letter-spacing: -1px;
-    color: var(--accent);
+    color: tomato;
     font-family: monospace;
     font-size: 24px;
     .logo {
@@ -682,7 +682,7 @@ const contact = byId.contact;
       filter: blur(0);
       font-family: monospace;
     }
-    > span { /* nur Logo-Buchstaben, nicht die Burger-Striche */
+    span:where(:not(.burger, .burger span)) { /* alle Logo-Spans wie früher, nur die Burger-Striche ausgenommen */
       transition: 1s;
       font-size: 0;
       filter: blur(1px);
@@ -697,9 +697,9 @@ const contact = byId.contact;
     }
   }
   .name:hover {
-    color: var(--accent);
+    color: tomato;
     font-size: 24px;
-    > span { /* nur Logo-Buchstaben, nicht die Burger-Striche */
+    span:where(:not(.burger, .burger span)) { /* alle Logo-Spans wie früher, nur die Burger-Striche ausgenommen */
       transition: 1s;
       color: #ffffff;
       font-size: 16px;
@@ -717,7 +717,7 @@ const contact = byId.contact;
     .dev {
       translate: 0px -3px;
       font-size: 24px;
-      color: var(--accent);
+      color: tomato;
     }
     i:nth-of-type(2) {
       translate: 0 0;
@@ -730,17 +730,17 @@ const contact = byId.contact;
   .colored {
     .name {
       letter-spacing: normal;
-      color: var(--accent);
+      color: tomato;
       i:nth-of-type(2) {
         translate: 0 0;
         scale: 1;
       }
       .dev {
         font-size: 24px;
-        color: var(--accent);
+        color: tomato;
         translate: 0 0;
       }
-      > span { /* nur Logo-Buchstaben, nicht die Burger-Striche */
+      span:where(:not(.burger, .burger span)) { /* alle Logo-Spans wie früher, nur die Burger-Striche ausgenommen */
         color: #ababab;
         font-size: 16px;
         translate: -1px 3px;
@@ -766,7 +766,7 @@ const contact = byId.contact;
       font-size: 24px;
       translate: 0px -2px !important; 
     }
-    span {
+    span:where(:not(.burger, .burger span)) {
       font-size: 0;
     }
     .dash {
