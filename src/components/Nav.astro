@@ -1,5 +1,6 @@
 ---
 import logo from "../assets/images/logo.webp";
+import logoDark from "../assets/images/logo-dark.webp";
 import { withBase } from "../utils/withBase.js";
 import { projects } from "../data/projectData.js";
 import { navSections } from "../data/navSections.js";
@@ -23,7 +24,7 @@ const contact = byId.contact;
         href={import.meta.env.BASE_URL}
         aria-label="CB-WebDev – Startseite"
         class="name lg:text-lg font-semibold duration-200 flex items-center justify-center font-[mono] hover:tracking-[5px] md:hover:tracking-[10px] uppercase rounded-lg focus:outline-hidden"
-        ><img class="logo" src={logo.src} alt="" /><i>C</i><span>olin</span>
+        ><img class="logo logo--light" src={logo.src} alt="" /><img class="logo logo--dark" src={logoDark.src} alt="" /><i>C</i><span>olin</span>
         <i>B</i><span>lome </span><span class="dev">
           Webdev<i class="dash animate-ping">_</i></span
         ><span>elopment</span><span class="animate-ping">_</span></a
@@ -660,6 +661,13 @@ const contact = byId.contact;
       transition: none !important;
     }
   }
+
+  /* Logo-Variante: über dem dunklen Hero und im Dark Mode hellgrauer Winkel, sonst dunkler */
+  .logo--light { display: none; }
+  .colored .logo--light { display: inline; }
+  .colored .logo--dark { display: none; }
+  :global(:root.dark-mode) .colored .logo--light { display: none; }
+  :global(:root.dark-mode) .colored .logo--dark { display: inline; }
 
   /* ---------- Logo (Markenzeichen, aus der alten Nav übernommen; bewusst Tomato statt --accent) ---------- */
   .logo {
