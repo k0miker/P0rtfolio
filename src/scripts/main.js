@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isLowMode) {
           icon.className = 'fa-solid fa-gauge';
           icon.setAttribute('title', 'Performance-Modus deaktivieren (Animationen an)');
-          icon.style.color = 'tomato';
+          icon.style.color = 'var(--accent)';
         } else {
           icon.className = 'fa-solid fa-gauge-high';
           icon.setAttribute('title', 'Performance-Modus aktivieren (Animationen aus)');

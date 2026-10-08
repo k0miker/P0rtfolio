@@ -1,7 +1,7 @@
 /*
  * Wiederverwendbares Terminal-Fenster
  * Genutzt von About (Myself), Skills u. a. — neutrales Graustufen-Theme,
- * Tomato nur als einziger Akzent (User-Prompt, Cursor).
+ * Orange (--accent) nur als einziger Akzent (User-Prompt, Cursor).
  */
 
 .terminal-window {

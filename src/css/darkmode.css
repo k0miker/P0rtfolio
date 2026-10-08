@@ -1,57 +1,57 @@
 :root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #5a5a5a;
-  --bg-tertiary: #c4c4c4;
-  --bg-transparent: rgba(255, 255, 255, 0.8);
-  --bg-transparent-dark: rgba(0, 0, 0, 0.8);
-  --bg-card: #ffffff;  
+  --bg-primary: #fffcf2;
+  --bg-secondary: #403d39;
+  --bg-tertiary: #ccc5b9;
+  --bg-transparent: rgba(255, 252, 242, 0.8);
+  --bg-transparent-dark: rgba(37, 36, 34, 0.8);
+  --bg-card: #fffefa;  
   --text-titel: #ffffff;
-  --text-primary: #212121;
-  --text-secondary: #424242;
-  --text-muted: #9e9e9e;
-  --accent: rgb(239, 91, 45);
-  --border: #e0e0e0;
+  --text-primary: #252422;
+  --text-secondary: #403d39;
+  --text-muted: #8a8378;
+  --accent: #eb5e28;
+  --border: #e4ddd0;
   --shadow: rgba(0, 0, 0, 0.1);
   --shadow-strong: #000000ba;
   --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.06);
   --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 
                        0 10px 10px -5px rgba(0, 0, 0, 0.1),
-                       0 0 0 1px rgba(255, 99, 71, 0.2);
+                       0 0 0 1px rgba(235, 94, 40, 0.2);
   --card-border: rgba(0, 0, 0, 0.1);
   --card-outline: 1px solid rgba(0, 0, 0, 0.05);
-  --card-outline-hover: 1px solid rgba(255, 99, 71, 0.7);
+  --card-outline-hover: 1px solid rgba(235, 94, 40, 0.7);
   --nav-bg: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.417) 0%,
     rgba(0, 0, 0, 0.342) 55%,
     rgba(0, 0, 0, 0.24) 100%
   );
-  --nav-bg-solid: #ffffff;
-  --nav-bg-inverted: #252525; /* Neuer Wert: Umgekehrte Farbe für Light Mode */
+  --nav-bg-solid: #fffcf2;
+  --nav-bg-inverted: #252422; /* Neuer Wert: Umgekehrte Farbe für Light Mode */
   --nav-shadow: 0 0 50px 10px #0000004b;
   --nav-shadow-solid: 0 0px 15px 2px #0000004d;
-  --nav-mobile-bg: rgba(255, 255, 255, 0.8); /* Halbtransparenter Hintergrund für mobiles Menü im Light Mode */
-  --footer-bg: #ededed; /* eigene Fläche, hebt sich von der letzten Sektion ab */
+  --nav-mobile-bg: rgba(255, 252, 242, 0.85); /* Halbtransparenter Hintergrund für mobiles Menü im Light Mode */
+  --footer-bg: #f3eee2; /* eigene Fläche, hebt sich von der letzten Sektion ab */
   --modal-overlay: rgba(0, 0, 0, 0.685);
-  --modal-bg: #fefefe;
-  --modal-border: #888;
-  --modal-text: #333;
-  --modal-close: #333;
+  --modal-bg: #fffcf2;
+  --modal-border: #ccc5b9;
+  --modal-text: #403d39;
+  --modal-close: #403d39;
   --form-bg: #ffffffe1;
   --form-text: #eeeeeef3;
-  --input-bg: #eeeeeef3;
-  --input-text: #333;
-  --input-border: #9e9e9e;
-  --input-focus: #a2a2a2c4;
-  --label-text: #3e3e3e;
+  --input-bg: #f6f1e6;
+  --input-text: #252422;
+  --input-border: #ccc5b9;
+  --input-focus: #a39c90;
+  --label-text: #403d39;
   --toggle-off-bg: rgb(147, 0, 0);
   --toggle-on-bg: #4caf50;
-  --pulse-shadow-start: rgba(255, 99, 71, 0.05);
+  --pulse-shadow-start: rgba(235, 94, 40, 0.05);
   --pulse-shadow-mid: rgb(0, 0, 0);
-  --link: #0056b3;
+  --link: #c24a17;
   
   /* Verbesserte Karten-Variablen für Light Mode */
-  --card-bg: #ffffff;
+  --card-bg: #fffefa;
   --card-highlight: linear-gradient(145deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%);
   --card-border-glow: none;
   --card-hover-transform: translateY(-10px);
@@ -64,20 +64,20 @@
     0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent);
 
   /* Terminal-Fenster – Light Mode (helles "Paper"-Terminal) */
-  --term-window-bg: #e4e4e4;
-  --term-window-border: rgba(0, 0, 0, 0.1);
-  --term-titlebar-bg: #dcdcdc;
-  --term-titlebar-border: rgba(0, 0, 0, 0.08);
-  --term-title-color: rgba(40, 40, 40, 0.55);
-  --term-body-bg: #fdfdfd;
-  --term-cmd-color: #4a4a4a;
-  --term-path-color: #777777;
-  --term-punct-color: rgba(40, 40, 40, 0.45);
-  --term-text: #2b2b2b;
-  --term-input-bg: rgba(0, 0, 0, 0.03);
-  --term-input-border: rgba(0, 0, 0, 0.14);
-  --term-hover-bg: rgba(0, 0, 0, 0.05);
-  --term-track-bg: rgba(0, 0, 0, 0.09);
+  --term-window-bg: #e9e3d6;
+  --term-window-border: rgba(37, 36, 34, 0.1);
+  --term-titlebar-bg: #ddd6c8;
+  --term-titlebar-border: rgba(37, 36, 34, 0.08);
+  --term-title-color: rgba(37, 36, 34, 0.55);
+  --term-body-bg: #fffefa;
+  --term-cmd-color: #403d39;
+  --term-path-color: #7a7368;
+  --term-punct-color: rgba(37, 36, 34, 0.45);
+  --term-text: #252422;
+  --term-input-bg: rgba(37, 36, 34, 0.03);
+  --term-input-border: rgba(37, 36, 34, 0.14);
+  --term-hover-bg: rgba(37, 36, 34, 0.05);
+  --term-track-bg: rgba(37, 36, 34, 0.09);
 }
 
 /* :root.dark-mode (Spezifität 0,2,0) statt nur .dark-mode (0,1,0):
@@ -85,61 +85,61 @@
    von der CSS-Ladereihenfolge. Sonst können die Light-Tokens die
    Dark-Tokens überschreiben. */
 :root.dark-mode {
-  --bg-primary: #2c2c2c;
-  --bg-secondary: #3b3b3b;
-  --bg-tertiary: #5d5d5d;
-  --bg-transparent: rgba(0, 0, 0, 0.8);
-  --bg-transparent-dark: rgba(255, 255, 255, 0.8);
-  --bg-card: #252525;
-  --text-titel: #ffffff;
-  --text-primary: #f5f5f5;
-  --text-secondary: #e0e0e0;
-  --text-muted: #808080;
-  --accent: rgb(255, 99, 71);
-  --border: #404040;
+  --bg-primary: #252422;
+  --bg-secondary: #403d39;
+  --bg-tertiary: #5e5952;
+  --bg-transparent: rgba(37, 36, 34, 0.8);
+  --bg-transparent-dark: rgba(255, 252, 242, 0.8);
+  --bg-card: #2e2c29;
+  --text-titel: #fffcf2;
+  --text-primary: #fffcf2;
+  --text-secondary: #ccc5b9;
+  --text-muted: #8f887d;
+  --accent: #eb5e28;
+  --border: #403d39;
   --shadow: rgba(0, 0, 0, 0.4);
   --shadow-strong: #000000;
   --card-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.3); /* Basis-Schatten für die Struktur */
   --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 
                        0 10px 10px -5px rgba(0, 0, 0, 0.3),
-                       0 0 0 1px rgba(255, 99, 71, 0.3);
-  --card-border: rgba(80, 80, 80, 0.2);
-  --card-outline: 2px solid rgba(80, 80, 80, 0.3);
-  --card-outline-hover: 2px solid rgba(255, 99, 71, 0.7);
+                       0 0 0 1px rgba(235, 94, 40, 0.3);
+  --card-border: rgba(204, 197, 185, 0.12);
+  --card-outline: 2px solid rgba(204, 197, 185, 0.14);
+  --card-outline-hover: 2px solid rgba(235, 94, 40, 0.7);
   --nav-bg: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.6) 0%,
     rgba(0, 0, 0, 0.4) 55%,
     rgba(0, 0, 0, 0.22) 100%
   );
-  --nav-bg-solid: #171717;
-  --nav-bg-inverted: #ffffff; /* Neuer Wert: Umgekehrte Farbe für Dark Mode */
+  --nav-bg-solid: #1c1b19;
+  --nav-bg-inverted: #fffcf2; /* Neuer Wert: Umgekehrte Farbe für Dark Mode */
   --nav-shadow: 0 0 50px 10px #00000028;
   --nav-shadow-solid: 0 0px 15px 2px #000000;
-  --nav-mobile-bg: rgba(25, 25, 25, 0.85); /* Halbtransparenter Hintergrund für mobiles Menü im Dark Mode */
-  --footer-bg: #1b1b1b;
+  --nav-mobile-bg: rgba(28, 27, 25, 0.85); /* Halbtransparenter Hintergrund für mobiles Menü im Dark Mode */
+  --footer-bg: #1c1b19;
   --modal-overlay: rgba(0, 0, 0, 0.8);
-  --modal-bg: #252525eb;
-  --modal-border: #404040;
-  --modal-text: #e0e0e0;
-  --modal-close: #b0b0b0;
-  --form-bg: rgba(39, 39, 39, 0.905);
-  --form-text: #e0e0e0;
-  --input-bg: #333333;
-  --input-text: #e0e0e0;
-  --input-border: #555555;
-  --input-focus: #777777;
-  --label-text: #b0b0b0;
+  --modal-bg: #2e2c29eb;
+  --modal-border: #403d39;
+  --modal-text: #ccc5b9;
+  --modal-close: #a39c90;
+  --form-bg: rgba(46, 44, 41, 0.905);
+  --form-text: #ccc5b9;
+  --input-bg: #34322e;
+  --input-text: #fffcf2;
+  --input-border: #5e5952;
+  --input-focus: #7a7368;
+  --label-text: #a39c90;
   --toggle-off-bg: rgb(100, 0, 0);
   --toggle-on-bg: #377a39;
-  --pulse-shadow-start: rgba(255, 99, 71, 0.1);
-  --pulse-shadow-mid: rgb(255, 99, 71);
-  --link: #90caf9;
+  --pulse-shadow-start: rgba(235, 94, 40, 0.1);
+  --pulse-shadow-mid: var(--accent);
+  --link: #f08a5d;
   
   /* Karten-Variablen für Dark Mode */
-  --card-bg: #252525;
-  --card-highlight: linear-gradient(145deg, rgba(45,45,45,1) 0%, rgba(32,32,32,1) 100%);
-  --card-border-glow: 0 0 2px 1px rgba(255, 99, 71, 0.2);
+  --card-bg: #2e2c29;
+  --card-highlight: linear-gradient(145deg, #34322e 0%, #282623 100%);
+  --card-border-glow: 0 0 2px 1px rgba(235, 94, 40, 0.2);
   --card-hover-transform: translateY(-10px) scale(1.02);
 
   /* Karten-Elevation (Dark): kräftigerer Schatten + feiner heller Kantenring,
@@ -151,20 +151,20 @@
     0 0 0 1px color-mix(in srgb, var(--accent) 60%, transparent);
 
   /* Terminal-Fenster – Dark Mode (bisheriger Look) */
-  --term-window-bg: #252525;
+  --term-window-bg: #2e2c29;
   --term-window-border: rgba(255, 255, 255, 0.08);
   --term-titlebar-bg: var(--bg-secondary);
   --term-titlebar-border: rgba(255, 255, 255, 0.06);
-  --term-title-color: rgba(235, 235, 235, 0.5);
-  --term-body-bg: #1f1f1f;
-  --term-cmd-color: #b5b5b5;
-  --term-path-color: #8a8a8a;
-  --term-punct-color: rgba(235, 235, 235, 0.45);
-  --term-text: #ececec;
+  --term-title-color: rgba(255, 252, 242, 0.5);
+  --term-body-bg: #1f1e1c;
+  --term-cmd-color: #ccc5b9;
+  --term-path-color: #8f887d;
+  --term-punct-color: rgba(255, 252, 242, 0.45);
+  --term-text: #f3efe4;
   --term-input-bg: rgba(255, 255, 255, 0.04);
   --term-input-border: rgba(255, 255, 255, 0.1);
   --term-hover-bg: rgba(255, 255, 255, 0.05);
-  --term-track-bg: #1a1a1a;
+  --term-track-bg: #1a1918;
 }
 
 /* Animierter Gradient für Cards im Dark Mode */

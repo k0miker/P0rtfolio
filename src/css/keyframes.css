@@ -68,7 +68,7 @@
       scale: 1;
     }
     10% {
-      color: tomato;
+      color: var(--accent);
       scale: 1.2;
     }
     20% {
@@ -116,17 +116,17 @@
 
 @keyframes pulseShadow {
     0% {
-        box-shadow: 0 0 1px rgba(255, 165, 0, 0.5);
-        outline: 1px solid rgba(255, 165, 0, 0.05);
+        box-shadow: 0 0 1px rgba(235, 94, 40, 0.5);
+        outline: 1px solid rgba(235, 94, 40, 0.05);
     }
     50% {
-        box-shadow: 0 0 35px tomato;
-        outline: 1px solid rgba(255, 99, 71, 0.241);
+        box-shadow: 0 0 35px var(--accent);
+        outline: 1px solid rgba(235, 94, 40, 0.241);
 
     }
     100% {
-        box-shadow: 0 0 1px rgba(255, 165, 0, 0.5);
-        outline: 1px solid rgba(255, 165, 0, 0.05);
+        box-shadow: 0 0 1px rgba(235, 94, 40, 0.5);
+        outline: 1px solid rgba(235, 94, 40, 0.05);
     }
     
 }

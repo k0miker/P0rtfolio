@@ -1,6 +1,6 @@
 /* Tailwind v4 – Einstieg (ersetzt die frühere @astrojs/tailwind-Integration).
    Utilities bewusst OHNE layer(): In v3 waren sie ungelayert und haben per
-   Spezifität gegen eigenes CSS gewonnen (z. B. .text-[tomato] gegen `a { color }`).
+   Spezifität gegen eigenes CSS gewonnen (z. B. .text-[var(--accent)] gegen `a { color }`).
    Gelayert würden sie jetzt immer verlieren und das Layout verändern. */
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/preflight.css" layer(base);

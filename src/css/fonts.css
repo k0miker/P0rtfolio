@@ -3,16 +3,16 @@
     --font-mono: "mono", "SF Mono", "JetBrains Mono", ui-monospace, monospace;
     --font-marker: "marker", cursive;
 
-    --gray1: #1c1c1c;
-    --gray2: #383838;
-    --gray3: #545454;
-    --gray4: #707070;
-    --gray5: #8c8c8c;
-    --gray6: #a8a8a8;
-    --gray7: #c4c4c4;
-    --gray8: #e0e0e0;
-    --gray9: #ebebeb;
-    --gray10: #efefef;
+    --gray1: #1c1b19;
+    --gray2: #33312d;
+    --gray3: #4d4a45;
+    --gray4: #6a655e;
+    --gray5: #8a8378;
+    --gray6: #a39c90;
+    --gray7: #ccc5b9;
+    --gray8: #e4ddd0;
+    --gray9: #ece6db;
+    --gray10: #f3eee2;
 }
 @font-face {
     font-family: "marker";

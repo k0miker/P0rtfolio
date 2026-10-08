@@ -62,70 +62,70 @@
   --z-highest: 9999;
 
   /* Graustufen */
-  --gray1: #1c1c1c;
-  --gray2: #383838;
-  --gray3: #545454;
-  --gray4: #707070;
-  --gray5: #8c8c8c;
-  --gray6: #a8a8a8;
-  --gray7: #c4c4c4;
-  --gray8: #e0e0e0;
-  --gray9: #ebebeb;
-  --gray10: #efefef;
+  --gray1: #1c1b19;
+  --gray2: #33312d;
+  --gray3: #4d4a45;
+  --gray4: #6a655e;
+  --gray5: #8a8378;
+  --gray6: #a39c90;
+  --gray7: #ccc5b9;
+  --gray8: #e4ddd0;
+  --gray9: #ece6db;
+  --gray10: #f3eee2;
 
   /* Theme-Variablen - Light Mode (Standard) */
-  --bg-primary: #ffffff;
-  --bg-secondary: #636363;
-  --bg-tertiary: #c4c4c4;
-  --bg-transparent: rgba(255, 255, 255, 0.8);
-  --bg-transparent-dark: rgba(0, 0, 0, 0.8);
-  --bg-card: #ffffff;  
+  --bg-primary: #fffcf2;
+  --bg-secondary: #403d39;
+  --bg-tertiary: #ccc5b9;
+  --bg-transparent: rgba(255, 252, 242, 0.8);
+  --bg-transparent-dark: rgba(37, 36, 34, 0.8);
+  --bg-card: #fffefa;  
   --text-titel: #ffffff;
-  --text-primary: #212121;
-  --text-secondary: #424242;
-  --text-muted: #9e9e9e;
-  --accent: rgb(239, 91, 45);
-  --border: #e0e0e0;
+  --text-primary: #252422;
+  --text-secondary: #403d39;
+  --text-muted: #8a8378;
+  --accent: #eb5e28;
+  --border: #e4ddd0;
   --shadow: rgba(0, 0, 0, 0.1);
   --shadow-strong: #000000ba;
   --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.06);
   --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 
                        0 10px 10px -5px rgba(0, 0, 0, 0.1),
-                       0 0 0 1px rgba(255, 99, 71, 0.2);
+                       0 0 0 1px rgba(235, 94, 40, 0.2);
   --card-border: rgba(0, 0, 0, 0.1);
   --card-outline: 1px solid rgba(0, 0, 0, 0.05);
-  --card-outline-hover: 1px solid rgba(255, 99, 71, 0.7);
+  --card-outline-hover: 1px solid rgba(235, 94, 40, 0.7);
   --nav-bg: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.417) 0%,
     rgba(0, 0, 0, 0.342) 55%,
     rgba(0, 0, 0, 0.24) 100%
   );
-  --nav-bg-solid: #ffffff;
-  --nav-bg-inverted: #252525;
+  --nav-bg-solid: #fffcf2;
+  --nav-bg-inverted: #252422;
   --nav-shadow: 0 0 50px 10px #0000004b;
   --nav-shadow-solid: 0 0px 15px 2px #0000004d;
-  --nav-mobile-bg: rgba(255, 255, 255, 0.8);
+  --nav-mobile-bg: rgba(255, 252, 242, 0.85);
   --modal-overlay: rgba(0, 0, 0, 0.685);
-  --modal-bg: #fefefe;
-  --modal-border: #888;
-  --modal-text: #333;
-  --modal-close: #333;
+  --modal-bg: #fffcf2;
+  --modal-border: #ccc5b9;
+  --modal-text: #403d39;
+  --modal-close: #403d39;
   --form-bg: #33333391;
   --form-text: #eeeeeef3;
-  --input-bg: #eeeeeef3;
-  --input-text: #333;
-  --input-border: #9e9e9e;
-  --input-focus: #a2a2a2c4;
-  --label-text: #3e3e3e;
+  --input-bg: #f6f1e6;
+  --input-text: #252422;
+  --input-border: #ccc5b9;
+  --input-focus: #a39c90;
+  --label-text: #403d39;
   --toggle-off-bg: rgb(147, 0, 0);
   --toggle-on-bg: #4caf50;
-  --pulse-shadow-start: rgba(255, 99, 71, 0.05);
+  --pulse-shadow-start: rgba(235, 94, 40, 0.05);
   --pulse-shadow-mid: rgb(0, 0, 0);
-  --link: #0056b3;
+  --link: #c24a17;
   
   /* Karten-Variablen für Light Mode */
-  --card-bg: #ffffff;
+  --card-bg: #fffefa;
   --card-highlight: linear-gradient(145deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%);
   --card-border-glow: none;
   --card-hover-transform: translateY(-10px);
@@ -217,7 +217,7 @@
       scale: 1;
     }
     10% {
-      color: tomato;
+      color: var(--accent);
       scale: 1.2;
     }
     20% {
@@ -367,7 +367,7 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible,
 [tabindex]:focus-visible {
-  outline: 2px solid tomato !important;
+  outline: 2px solid var(--accent) !important;
   outline-offset: 3px;
   border-radius: 4px;
 }

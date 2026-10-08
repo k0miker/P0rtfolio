@@ -669,7 +669,7 @@ const contact = byId.contact;
 
   .name {
     letter-spacing: -1px;
-    color: tomato;
+    color: var(--accent);
     font-family: monospace;
     font-size: 24px;
     .logo {
@@ -697,7 +697,7 @@ const contact = byId.contact;
     }
   }
   .name:hover {
-    color: tomato;
+    color: var(--accent);
     font-size: 24px;
     > span { /* nur Logo-Buchstaben, nicht die Burger-Striche */
       transition: 1s;
@@ -717,7 +717,7 @@ const contact = byId.contact;
     .dev {
       translate: 0px -3px;
       font-size: 24px;
-      color: tomato;
+      color: var(--accent);
     }
     i:nth-of-type(2) {
       translate: 0 0;
@@ -730,14 +730,14 @@ const contact = byId.contact;
   .colored {
     .name {
       letter-spacing: normal;
-      color: tomato;
+      color: var(--accent);
       i:nth-of-type(2) {
         translate: 0 0;
         scale: 1;
       }
       .dev {
         font-size: 24px;
-        color: tomato;
+        color: var(--accent);
         translate: 0 0;
       }
       > span { /* nur Logo-Buchstaben, nicht die Burger-Striche */

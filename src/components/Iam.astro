@@ -12,7 +12,7 @@ import inkBg from "../assets/images/ink_2.webp";
     <div class="text-backdrop" style={`background-image: url(${inkBg.src})`}>
     </div>
     <span id="text" class="offscreen"></span><div
-      class="console-underscore text-[tomato] animate-ping"
+      class="console-underscore text-[var(--accent)] animate-ping"
       id="console"
     >
       &#95;
@@ -163,7 +163,7 @@ import inkBg from "../assets/images/ink_2.webp";
     top: 0;
     left: 10px;
     z-index: 3;
-    text-shadow: 0 0 10px rgba(255, 99, 71, 0.7); /* Glow-Effekt für den Cursor */
+    text-shadow: 0 0 10px rgba(235, 94, 40, 0.7); /* Glow-Effekt für den Cursor */
   }
 
   /* Responsive Anpassungen für verschiedene Bildschirmgrößen */
@@ -204,7 +204,7 @@ import inkBg from "../assets/images/ink_2.webp";
       "Gut gefunden.",
     ],
     "text",
-    ["tomato"],
+    ["var(--accent)"],
   );
   function consoleText(words, id, colors) {
     if (colors === undefined) colors = ["#fff"];
