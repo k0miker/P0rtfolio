@@ -34,15 +34,15 @@ AddType video/quicktime .mov
 AddCharset utf-8 .txt .xml .webmanifest .css .js
 
 # --- Sicherheits-Header ---
-# frame-src https:          → Live-Vorschauen der Kundenprojekte (iframes)
-# googletagmanager/analytics → Google Analytics im Haupt-Portfolio (nur nach Einwilligung geladen)
-# frame-ancestors           → die Portfolios dürfen sich gegenseitig einbetten, sonst niemand
+# Alles kommt von der eigenen Domain: kein Tracking, keine CDNs, keine iframes.
+# font-src data:     → v2/v3 betten kleine Schrift-Teilmengen als data:-URL ins CSS ein
+# frame-ancestors    → nur die eigenen Seiten dürfen einbetten (alle Versionen liegen unter www)
 <IfModule mod_headers.c>
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
-  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; media-src 'self'; connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; frame-src https:; form-action 'self'; frame-ancestors 'self' https://*.cb-webdevelopment.de; base-uri 'self'; object-src 'none'"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; media-src 'self'; connect-src 'self'; frame-src 'none'; form-action 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
   Header unset X-Powered-By
 </IfModule>
 
