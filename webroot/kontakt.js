@@ -39,13 +39,17 @@
   const status = new URLSearchParams(location.search).get("kontakt");
   if (!status || !forms.length) return;
 
+  // Neutral formuliert: die Versionen duzen bzw. siezen unterschiedlich.
+  // Telefonnummer nur, wenn die Seite selbst einen tel:-Link zeigt.
   const ok = status === "danke";
+  const tel = document.querySelector('a[href^="tel:"]')?.textContent.match(/\+?[\d ()/-]{6,}\d/)?.[0].trim();
   const msg = document.createElement("p");
   msg.className = "kontakt-status";
   msg.setAttribute("role", "status");
   msg.textContent = ok
-    ? "Danke für deine Nachricht! Ich melde mich so schnell wie möglich."
-    : "Die Nachricht konnte leider nicht gesendet werden. Bitte schreib mir direkt an info@cb-webdevelopment.de.";
+    ? "Danke für die Nachricht! Ich melde mich so schnell wie möglich."
+    : "Die Nachricht konnte leider nicht gesendet werden. Bitte direkt an info@cb-webdevelopment.de schreiben" +
+      (tel ? ` oder ${tel} anrufen.` : ".");
   msg.style.cssText =
     "margin:1rem 0;padding:.9rem 1.1rem;border-radius:.6rem;font-weight:600;" +
     (ok ? "background:#dcfce7;color:#14532d;" : "background:#fee2e2;color:#7f1d1d;");

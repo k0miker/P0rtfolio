@@ -211,6 +211,7 @@ if ($age > TOKEN_MAX_AGE) {
 // ---------- Felder (die Portfolios benennen die Nachricht unterschiedlich) ----------
 $name    = line('name', 100);
 $email   = line('email', 120);
+$phone   = line('phone', 40);   // optional – Formulare ohne Telefonfeld senden es nicht
 $subject = line('subject', 120);
 $message = text('message', 3000);
 if ($message === '') {
@@ -218,14 +219,17 @@ if ($message === '') {
 }
 
 // ---------- 4. Inhalt ----------
-if (count_links($name . ' ' . $subject) > 0
+if (count_links($name . ' ' . $subject . ' ' . $phone) > 0
     || count_links($message) > MAX_LINKS
     || preg_match('~</?[a-z][^>]*>|\[/?(url|link|b|img)\b~i', $message)) {
     spam();
 }
 
-$valid = $name !== '' && $message !== ''
-    && filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+// Erreichbarkeit: gültige E-Mail ODER Telefonnummer (Ziffern, Leerzeichen, + ( ) / . -)
+$emailOk = filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+$phoneOk = preg_match('~^\+?[0-9(][0-9 ()/.-]{4,30}$~', $phone) === 1;
+
+$valid = $name !== '' && $message !== '' && ($emailOk || $phoneOk);
 
 if (!$valid) {
     respond(false);
@@ -242,7 +246,8 @@ $body = implode("\n", [
     "Neue Anfrage über das Kontaktformular von $host$page",
     str_repeat('-', 50),
     "Name:     $name",
-    "E-Mail:   $email",
+    "E-Mail:   " . ($email !== '' ? $email : '–'),
+    "Telefon:  " . ($phone !== '' ? $phone : '–'),
     "Betreff:  " . ($subject !== '' ? $subject : '–'),
     '',
     'Nachricht:',
@@ -254,11 +259,14 @@ $body = implode("\n", [
 
 $headers = [
     'From: =?UTF-8?B?' . base64_encode('CB-Webdevelopment Website') . '?= <' . MAIL_FROM . '>',
-    'Reply-To: ' . $email,
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
     'Content-Transfer-Encoding: 8bit',
 ];
+// Antworten nur an eine geprüfte Adresse (bei reiner Telefon-Anfrage ohne Reply-To)
+if ($emailOk) {
+    $headers[] = 'Reply-To: ' . $email;
+}
 
 $sent = mail(
     MAIL_TO,
