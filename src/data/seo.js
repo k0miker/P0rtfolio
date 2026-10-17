@@ -34,7 +34,7 @@ export const business = {
   region: contact.region,
   country: contact.country,
   geo: { latitude: 52.5167, longitude: 7.6667 },
-  googleProfile: "https://g.page/cb-webdev",
+  googleProfile: contact.googleProfile,
   services: [
     "Websites für Unternehmen",
     "Webanwendungen",

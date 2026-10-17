@@ -19,4 +19,6 @@ export const contact = {
   phoneIntl: "+49 162 3592592",
   phoneHref: "tel:+491623592592",
   url: "https://www.cb-webdevelopment.de",
+  // Google-Unternehmensprofil „CB-WebDevelopment" (feste CID, bleibt bei Umbenennung gültig)
+  googleProfile: "https://www.google.com/maps?cid=8209487088133533112",
 };
