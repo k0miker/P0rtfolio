@@ -16,18 +16,20 @@
 }
 @font-face {
     font-family: "marker";
-    src: url(/Fonts/PermanentMarker-Regular.ttf);
-
+    src: url(/Fonts/permanentmarker-latin.woff2) format("woff2");
+    font-display: swap;
 }
 @font-face {
     font-family: "mono";
-    src: url(/Fonts/SpaceMono-Regular.ttf);
-
+    src: url(/Fonts/spacemono-latin.woff2) format("woff2");
+    font-display: swap;
 }
+/* Variable Inter (Gewicht 100–900, Neigung) – als woff2 auf westeuropäische Zeichen reduziert */
 @font-face {
     font-family: "inter";
-    src: url(/Fonts/Inter-VariableFont_slnt,wght.ttf);
-
+    src: url(/Fonts/inter-latin.woff2) format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
 }
 
 /* für fadein animation */
