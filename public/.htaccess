@@ -7,6 +7,9 @@
 Options -Indexes
 AddDefaultCharset UTF-8
 
+# Eigene Fehlerseite der Hauptseite (v5) – gilt auch für die Unterordner /v1/ … /b2b/
+ErrorDocument 404 /404.html
+
 # --- HTTPS erzwingen; Hauptdomain einheitlich auf www (SEO: keine Duplikate) ---
 <IfModule mod_rewrite.c>
   RewriteEngine On
