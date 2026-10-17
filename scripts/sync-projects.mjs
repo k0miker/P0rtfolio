@@ -10,6 +10,8 @@
 //     – auch fürs B2B-Portfolio, das sonst seine eigene Projektliste pflegt
 //   - STRATO-Dateien (STRATO_FILES: Deploy-Skript, GitHub Action, .htaccess,
 //     Kontaktformular) – für alle Portfolios identisch, auch fürs B2B-Portfolio
+//   - gemeinsame Daten (SHARED_DATA: Kontaktdaten, Rechtstexte) – an alle, auch B2B;
+//     dazu ROOT_HOST_DATA (seo.js) nur an die Hauptseite im Webroot
 // portfolioConfig.js bleibt pro Repo unangetastet.
 //
 // Danach werden die geteilten Dateien in JEDEM Repo (auch diesem) committet
@@ -32,7 +34,7 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const TARGETS = ["../P0rtfolio2", "../portfolio3", "../Portfolio4", "../P0rtfolio5"];
 const DRY = process.argv.includes("--dry");
 const PUSH = !process.argv.includes("--no-push");
-const COMMIT_MSG = "chore(sync): Projektdaten aus Haupt-Portfolio aktualisiert";
+const COMMIT_MSG = "chore(sync): gemeinsame Daten aus Haupt-Portfolio aktualisiert";
 const STRATO_FILES = ["scripts/deploy.mjs", ".github/workflows/deploy.yml", "public/.htaccess"];
 // Diese Version liegt im Webroot (/), alle anderen als Unterordner (/v1/ … /b2b/).
 // Sie liefert die Dateien aus, die alle Versionen über absolute Pfade nutzen:
@@ -42,14 +44,21 @@ const ROOT_HOST = "../P0rtfolio5";
 // ausgeliefert vom ROOT_HOST. Kopien in anderen Repos werden entfernt.
 const MAIN_ONLY = ["public/kontakt.php", "public/kontakt.js"];
 const mainOnlySource = (p) => join(ROOT, p.replace(/^public\//, "webroot/"));
-const SYNC_PATHS = ["src/data/projectData.js", "public/projects", "public/llms.txt", "public/llms-full.txt", ...STRATO_FILES, ...MAIN_ONLY];
-const MAIN_PATHS = ["src/data/projectData.js", "src/data/llms.js", "src/data/seo.js", "public/projects", "webroot", ...STRATO_FILES];
+// Gemeinsame Daten für ALLE Portfolios (auch B2B): Kontaktdaten und Rechtstexte
+const SHARED_DATA = ["src/data/contact.js"];
+// Nur für die Hauptseite im Webroot: SEO-Graph (braucht projectData.js + contact.js)
+const ROOT_HOST_DATA = ["src/data/seo.js"];
+const SYNC_PATHS = ["src/data/projectData.js", ...SHARED_DATA, ...ROOT_HOST_DATA, "public/projects", "public/llms.txt", "public/llms-full.txt", ...STRATO_FILES, ...MAIN_ONLY];
+const MAIN_PATHS = ["src/data/projectData.js", "src/data/llms.js", "src/data/seo.js", ...SHARED_DATA, "public/projects", "webroot", ...STRATO_FILES];
 const repos = [[ROOT, ".", MAIN_PATHS]]; // [Pfad, Anzeigename, zu committende Pfade]
 
 const SOURCE_DATA = join(ROOT, "src/data/projectData.js");
-const COPY_NOTICE =
+const notice = (rel) =>
   "// ⚠ AUTOMATISCH KOPIERT aus dem Haupt-Portfolio (P0rtfolio) – hier NICHT bearbeiten!\n" +
-  "// Änderungen dort in src/data/projectData.js machen und `npm run sync:projects` ausführen.\n";
+  `// Änderungen dort in ${rel} machen und \`npm run sync:projects\` ausführen.\n`;
+const COPY_NOTICE = notice("src/data/projectData.js");
+// Kopiert eine Datendatei aus diesem Repo (mit Hinweis) – liefert true, wenn sich etwas geändert hat
+const syncData = (target, rel) => syncFile(null, join(target, rel), notice(rel) + readFileSync(join(ROOT, rel), "utf8"));
 
 const mainImages = projects.map((p) => p.image).filter(Boolean);
 // Handy-Screenshots (z. B. /projects/p14-m.webp) gehören dazu, sofern vorhanden
@@ -106,6 +115,7 @@ for (const rel of TARGETS) {
   if (syncFile(SOURCE_DATA, join(target, "src/data/projectData.js"), dataContent)) changed.push("src/data/projectData.js");
 
   const isRootHost = rel === ROOT_HOST;
+  for (const p of [...SHARED_DATA, ...(isRootHost ? ROOT_HOST_DATA : [])]) if (syncData(target, p)) changed.push(p);
   const withVideos = isRootHost || usesVideos(join(target, "src"));
   const media = withVideos ? [...images, ...videos] : images;
   repos.push([target, rel, withVideos ? [...SYNC_PATHS, ...videos.map((v) => `public${v}`)] : SYNC_PATHS]);
@@ -154,7 +164,7 @@ for (const rel of TARGETS) {
   );
 }
 
-// Portfolios mit eigener (kuratierter) Projektliste bekommen nur llms.txt
+// Portfolios mit eigener (kuratierter) Projektliste bekommen nur llms.txt + gemeinsame Daten
 const LLMS_ONLY = [["../Portfolio-B2B", "b2b"]];
 for (const [rel, siteKey] of LLMS_ONLY) {
   const target = resolve(ROOT, rel);
@@ -162,8 +172,9 @@ for (const [rel, siteKey] of LLMS_ONLY) {
     console.warn(`✗ ${rel}: nicht gefunden – übersprungen`);
     continue;
   }
-  repos.push([target, rel, ["public/llms.txt", "public/llms-full.txt", ...STRATO_FILES, ...MAIN_ONLY]]);
+  repos.push([target, rel, ["public/llms.txt", "public/llms-full.txt", ...SHARED_DATA, ...STRATO_FILES, ...MAIN_ONLY]]);
   const changed = [];
+  for (const p of SHARED_DATA) if (syncData(target, p)) changed.push(p);
   for (const p of STRATO_FILES) if (syncFile(join(ROOT, p), join(target, p))) changed.push(p);
   for (const p of MAIN_ONLY) if (removeFile(join(target, p))) changed.push(`${p} (entfernt)`);
   if (syncFile(null, join(target, "public/llms.txt"), buildLlmsTxt(siteKey))) changed.push("public/llms.txt");
