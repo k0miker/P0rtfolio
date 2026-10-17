@@ -45,7 +45,7 @@ const ROOT_HOST = "../P0rtfolio5";
 const MAIN_ONLY = ["public/kontakt.php", "public/kontakt.js"];
 const mainOnlySource = (p) => join(ROOT, p.replace(/^public\//, "webroot/"));
 // Gemeinsame Daten für ALLE Portfolios (auch B2B): Kontaktdaten und Rechtstexte
-const SHARED_DATA = ["src/data/contact.js"];
+const SHARED_DATA = ["src/data/contact.js", "src/data/legal.js"];
 // Nur für die Hauptseite im Webroot: SEO-Graph (braucht projectData.js + contact.js)
 const ROOT_HOST_DATA = ["src/data/seo.js"];
 const SYNC_PATHS = ["src/data/projectData.js", ...SHARED_DATA, ...ROOT_HOST_DATA, "public/projects", "public/llms.txt", "public/llms-full.txt", ...STRATO_FILES, ...MAIN_ONLY];
