@@ -1,6 +1,7 @@
 ---
 import "../css/fonts.css";
 import "../css/darkmode.css";
+import { contact } from "../data/contact.js";
 ---
 
 <footer class="footer expanded" id="page-footer">
@@ -38,13 +39,13 @@ import "../css/darkmode.css";
           </button>
         </div> -->
       </div>
-      <div class="contact-button phone-button">
+      <div class="contact-button phone-button" data-href={contact.phoneHref}>
         <i class="fas fa-phone"></i>
         <!-- <div class="contact-reveal phone-reveal">
           <span class="phone-number">
-            <span>0173</span>&ndash;<span>609</span>&ndash;<span>83</span><span>20</span>
+            <span>0162</span>&nbsp;<span>359</span><span>25</span><span>92</span>
           </span>
-          <button class="copy-btn" data-copy="01736098320">
+          <button class="copy-btn" data-copy="01623592592">
             <i class="fas fa-copy"></i>
           </button>
         </div> -->
@@ -481,7 +482,7 @@ import "../css/darkmode.css";
           window.location.href = 'mailto:info@cb-webdevelopment.de';
           return; // Früher zurückkehren, um das Popup nicht anzuzeigen
         } else if (this.classList.contains('phone-button')) {
-          window.location.href = 'tel:+491736098320';
+          window.location.href = this.dataset.href;
           return; // Früher zurückkehren, um das Popup nicht anzuzeigen
         }
         
@@ -540,10 +541,11 @@ import "../css/darkmode.css";
     }
     
     const phoneNumber = document.querySelector('.phone-number');
-    if (phoneNumber) {
+    const phoneHref = (document.querySelector('.phone-button') as HTMLElement | null)?.dataset.href;
+    if (phoneNumber && phoneHref) {
       phoneNumber.addEventListener('click', (e) => {
         e.stopPropagation();
-        window.location.href = 'tel:+491736098320';
+        window.location.href = phoneHref;
       });
     }
   });

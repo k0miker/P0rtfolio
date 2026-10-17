@@ -4,18 +4,19 @@
 // Regel: Was im JSON-LD steht, muss auch sichtbar auf der Seite stehen.
 // =============================================================================
 import { projects } from "./projectData.js";
+import { contact } from "./contact.js";
 
-export const SITE_URL = "https://www.cb-webdevelopment.de";
+export const SITE_URL = contact.url;
 
 // Feste IDs, damit alle Portfolios auf dieselbe Person/Firma verweisen
 export const PERSON_ID = `${SITE_URL}/#person`;
 export const BUSINESS_ID = `${SITE_URL}/#business`;
 
 export const person = {
-  name: "Colin Blome",
+  name: contact.name,
   jobTitle: "Webentwickler",
-  email: "info@cb-webdevelopment.de",
-  telephone: "+49 173 6098320",
+  email: contact.email,
+  telephone: contact.phoneIntl,
   sameAs: [
     "https://github.com/k0miker",
     "https://www.linkedin.com/in/k0miker",
@@ -23,14 +24,15 @@ export const person = {
 };
 
 export const business = {
-  name: "CB-Webdevelopment",
+  name: contact.company,
   alternateName: ["CB-WebDev", "CB-Webdevelopment – Webentwicklung Fürstenau"],
   description:
     "Freiberufliche Webentwicklung aus Fürstenau: moderne, schnelle Websites und Webanwendungen für kleine und mittlere Unternehmen in der Samtgemeinde Bersenbrück und im Landkreis Osnabrück.",
-  locality: "Fürstenau",
-  postalCode: "49584",
-  region: "Niedersachsen",
-  country: "DE",
+  street: contact.street,
+  locality: contact.city,
+  postalCode: contact.postalCode,
+  region: contact.region,
+  country: contact.country,
   geo: { latitude: 52.5167, longitude: 7.6667 },
   googleProfile: "https://g.page/cb-webdev",
   services: [
@@ -113,6 +115,7 @@ export function homeGraph() {
         founder: { "@id": PERSON_ID },
         address: {
           "@type": "PostalAddress",
+          streetAddress: business.street,
           addressLocality: business.locality,
           postalCode: business.postalCode,
           addressRegion: business.region,

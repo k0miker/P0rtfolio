@@ -1,7 +1,7 @@
 ---
 import Button from "./Button.astro";
 import contactBg from "../assets/images/contact.webp";
-
+import { contact } from "../data/contact.js";
 ---
 
 <section
@@ -81,9 +81,9 @@ import contactBg from "../assets/images/contact.webp";
             </div>
             <div class="flag-row">
               <span class="flag-name">--phone</span>
-              <span class="flag-value phone-text" data-real="0173-609-8320">···········</span>
+              <span class="flag-value phone-text" data-real={contact.phone} data-href={contact.phoneHref}>···········</span>
               <button class="reveal-btn" aria-label="Telefonnummer anzeigen">[anzeigen]</button>
-              <button class="copy-btn" data-copy="01736098320">
+              <button class="copy-btn" data-copy={contact.phone.replace(/\s/g, "")}>
                 <i class="fas fa-copy"></i>
               </button>
             </div>
@@ -484,8 +484,8 @@ import contactBg from "../assets/images/contact.webp";
     if (phoneText) {
       phoneText.addEventListener("click", (e) => {
         e.stopPropagation();
-        if (phoneText.dataset.real && phoneText.textContent !== "···········") {
-          window.location.href = "tel:+491736098320";
+        if (phoneText.dataset.href && phoneText.textContent !== "···········") {
+          window.location.href = phoneText.dataset.href;
         }
       });
     }

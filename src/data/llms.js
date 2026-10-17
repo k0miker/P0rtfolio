@@ -43,7 +43,7 @@ function header(siteKey) {
     `- Website: ${SITE_URL}/`,
     `- E-Mail: ${person.email}`,
     `- Telefon: ${person.telephone}`,
-    `- Standort: ${business.locality} (${business.postalCode}), ${business.region}, Deutschland`,
+    `- Adresse: ${business.street}, ${business.postalCode} ${business.locality} (${business.region}, Deutschland)`,
     ...person.sameAs.map((u) => `- ${u.includes("github") ? "GitHub" : "LinkedIn"}: ${u}`),
     `- Google-Unternehmensprofil: ${business.googleProfile}`,
     "",
