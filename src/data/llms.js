@@ -44,7 +44,7 @@ function header(siteKey) {
     `- E-Mail: ${person.email}`,
     `- Telefon: ${person.telephone}`,
     `- Adresse: ${business.street}, ${business.postalCode} ${business.locality} (${business.region}, Deutschland)`,
-    ...person.sameAs.map((u) => `- ${u.includes("github") ? "GitHub" : "LinkedIn"}: ${u}`),
+    ...person.sameAs.map((u) => `- ${u.includes("github") ? "GitHub" : u.includes("linkedin") ? "LinkedIn" : u.includes("/author/") ? "Autorenprofil im Blog" : u.includes("blog.") ? "Blog „Tech, KI & Klartext“" : "Profil"}: ${u}`),
     `- Google-Unternehmensprofil: ${business.googleProfile}`,
     "",
     "## Leistungen",
