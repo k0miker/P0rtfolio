@@ -20,6 +20,9 @@ export const person = {
   sameAs: [
     "https://github.com/k0miker",
     "https://www.linkedin.com/in/k0miker",
+    // Blog „Tech, KI & Klartext“ – sichtbar verlinkt in v5 (Abschnitt „Aus dem Blog“ + Footer)
+    "https://blog.cb-web.space/",
+    "https://blog.cb-web.space/author/colin/",
   ],
 };
 
